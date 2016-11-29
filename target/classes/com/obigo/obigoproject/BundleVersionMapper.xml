@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="obigoproject.BundleVersion">
+
+	<insert id="insertBundleVersion" parameterType="BundleVersion">
+	<![CDATA[
+		insert into BUNDLE_VERSION values(#{bundleVersion})
+	]]>
+	</insert>
+	
+	
+	<update id="updateBundleVersion" parameterType="BundleVersion">
+		<![CDATA[
+			update BUNDLE_VERSION set BUNDLE_VERSION=#{bundleVersion}
+		]]>
+	</update>
+
+	<delete id="deleteBundleVersion" parameterType="java.lang.String" >
+		<![CDATA[
+		delete from BUNDLE_VERSION where BUNDLE_VERSION=#{bundleVersion}
+		]]>
+	</delete>
+	
+	<select id="selectBundleVersion" resultType="java.lang.String">
+		
+		<![CDATA[
+			select * from BUNDLE_VERSION
+		]]>
+	
+	</select>
+
+</mapper>

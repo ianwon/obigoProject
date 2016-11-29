@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="obigoproject.Api">
+
+	<resultMap type="Api" id="ApiResultMap">
+		<result column="api_Name" property="apiName" />
+		<result column="response_to_send" property="responseToSend" />
+	</resultMap>
+
+	<insert id="insertApi" parameterType="Api">
+	<![CDATA[
+		insert into api values(#{apiName},#{responseToSend})
+	]]>
+	</insert>
+
+
+	<update id="updateApi" parameterType="Api">
+		<![CDATA[
+			update Api set response_to_send = #{responseToSend} where api_name=#{apiName}
+		]]>
+	</update>
+
+	<delete id="deleteApi" parameterType="java.lang.String">
+		<![CDATA[
+		delete from api where api_name=#{apiName}
+		]]>
+	</delete>
+
+	<select id="selectApiList" resultMap="ApiResultMap">
+		<![CDATA[
+			select * from Api
+		]]>
+	</select>
+	<select id="selectApi" parameterType="java.lang.String"
+		resultMap="ApiResultMap">
+		<![CDATA[
+			select * from Api where api_Name = #{apiName}
+		]]>
+	</select>
+
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="obigoproject.Vehicle">
+	<resultMap type="Vehicle" id="VehicleMap">
+		<result column="MODEL_NAME" property="modelName" />
+		<result column="MODEL_CODE" property="modelCode" />
+		<result column="MODEL_IMAGE" property="modelImage" />
+		<result column="DETAIL_IMAGE" property="detailImage" />
+		<result column="ENGINE" property="engine" />
+		<result column="MODEL_YEAR" property="modelYear" />
+		<result column="MILEAGE" property="milage" />
+	</resultMap>
+
+	<insert id="insertVehicle" parameterType="Vehicle">
+	<![CDATA[
+		insert into VEHICLE values(#{modelName},#{modelCode},#{modelImage},#{detailImage},#{engine},#{modelYear},#{milage})
+	]]>
+	</insert>
+
+
+	<update id="updateVehicle" parameterType="Vehicle">
+	 <![CDATA[ 
+	 update VEHICLE set 
+	 MODEL_IMAGE=#{modelImage},DETAIL_IMAGE=#{detailImage}
+	 where
+	 MODEL_CODE=#{modelCode}
+		 ]]>
+	</update>
+
+	<delete id="deleteVehicle" parameterType="java.lang.String">
+		<![CDATA[
+		delete from VEHICLE where MODEL_CODE=#{modelCode}
+		]]>
+	</delete>
+
+	<select id="selectVehicleList" resultMap="VehicleMap">
+		<![CDATA[
+			select * from VEHICLE
+		]]>
+	</select>
+
+	<select id="selectVehicle" parameterType="java.lang.String" resultMap="VehicleMap">
+		<![CDATA[
+		select * from VEHICLE
+		where MODEL_CODE=#{modelCode}
+		]]>
+	</select>
+</mapper>

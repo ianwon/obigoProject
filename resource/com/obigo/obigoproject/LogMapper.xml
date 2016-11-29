@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="obigoproject.Log">
+
+	<resultMap type="Log" id="LogResultMap">
+		<result column="date_time" property="dateTime" />
+		<result column="body" property="body" />
+		<result column="url" property="url" />
+		<result column="returned" property="returned" />
+	</resultMap>
+
+	<insert id="insertLog" parameterType="Log">
+	<![CDATA[
+		insert into Log values(sysdate,#{body},#{url},#{returned})
+	]]>
+	</insert>
+
+	<delete id="deleteAllLog">
+		<![CDATA[
+			delete from log
+		]]>
+	</delete>
+
+	<select id="selectLog" resultMap="LogResultMap">
+		<![CDATA[
+			select * from Log
+		]]>
+	</select>
+
+	<select id="selectLogByUrl" parameterType="java.lang.String"
+		resultMap="LogResultMap">
+		<![CDATA[
+			select * from Log where url=#{url}
+		]]>
+	</select>
+
+	<select id="selectLogCount" resultType="java.lang.Integer">
+		select count(*) from log
+	</select>
+
+</mapper>

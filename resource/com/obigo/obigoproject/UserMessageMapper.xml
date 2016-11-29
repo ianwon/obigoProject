@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="obigoproject.UserMessage">
+
+	<resultMap type="UserMessage" id="UserMessageResultMap">
+		<result column="user_message_number" property="userMessageNumber" />
+		<result column="user_id" property="userId" />
+		<result column="message_number" property="messageNumber" />
+		<result column="path" property="path" />
+	</resultMap>
+
+	<insert id="insertUserMessage" parameterType="UserMessage">
+	<![CDATA[
+		insert into user_message values(sq_user_message_number.nextval, #{userId}, #{messageNumber}, #{path})
+	]]>
+	</insert>
+
+	<update id="updateUserMessage" parameterType="UserMessage">
+		<![CDATA[
+		update user_message set 
+		path=#{path} where user_message_number=#{userMessageNumber}
+		]]>
+	</update>
+
+	<delete id="deleteUserMessage" parameterType="java.lang.Integer">
+		<![CDATA[
+			delete from user_message where user_message_number=#{userMessageNumber}
+		]]>
+	</delete>
+	<select id="selectUserMessageList" resultMap="UserMessageResultMap">
+		<![CDATA[
+			select * from user_message
+		]]>
+	</select>
+
+<!-- 아직메소드가 존재하지않음 -->
+	<select id="selectUserMessageByUserId" parameterType="java.lang.String" resultMap="UserMessageResultMap">
+		<![CDATA[
+			select * from user_message where user_id=#{userId}
+		]]>
+	</select>
+	
+</mapper>

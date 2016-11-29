@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="obigoproject.Bundle">
+
+	<resultMap type="Bundle" id="BundleResultMap">
+		<result column="bundle_name" property="bundleName" />
+		<result column="bundle_Version" property="bundleVersion" />
+		<result column="file_upload" property="fileUpload" />
+		<result column="developer" property="developer" />
+		<result column="bundle_Key" property="bundleKey" />
+	</resultMap>
+
+	<insert id="insertBundle" parameterType="Bundle">
+	<![CDATA[
+		insert into BUNDLE values(#{bundleName},#{bundleVersion},#{fileUpload},#{developer},#{bundleKey})
+	]]>
+	</insert>
+
+
+	<update id="updateBundle" parameterType="Bundle">
+		<![CDATA[
+			update BUNDLE set bundle_Name=#{bundleName} where BUNDLE_VERSION=#{bundleVersion}
+		]]>
+	</update>
+
+	<delete id="deleteBundle" parameterType="java.lang.String">
+		<![CDATA[
+		delete from BUNDLE where BUNDLE_VERSION=#{bundleVersion}
+		]]>
+	</delete>
+
+	<select id="selectBundleList" resultMap="BundleResultMap">
+		<![CDATA[
+			select * from BUNDLE
+		]]>
+	</select>
+	<select id="selectBundle" parameterType="java.lang.String"
+		resultMap="BundleResultMap">
+		<![CDATA[
+			select * from BUNDLE where bundle_version = #{bundleVersion}
+		]]>
+	</select>
+
+
+</mapper>

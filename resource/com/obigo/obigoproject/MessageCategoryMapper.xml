@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="obigoproject.MessageCategory">
+	<resultMap type="MessageCategory" id="MessageCategoryResultMap">
+		<result column="category_number" property="categoryNumber" />
+		<result column="category_name" property="categoryName" />
+	</resultMap>
+
+	<insert id="insertMessageCategory" parameterType="MessageCategory">
+	<![CDATA[
+		insert into message_category values(#{categoryNumber},#{categoryName})
+	]]>
+	</insert>
+
+	<update id="updateMessageCategory" parameterType="MessageCategory">
+		<![CDATA[
+		update message_category set 
+		category_name=#{categoryName} where category_number=#{categoryNumber}
+		]]>
+	</update>
+
+	<delete id="deleteMessageCategory" parameterType="java.lang.Integer">
+		<![CDATA[
+			delete from message_category where category_number=#{categoryNumber}
+		]]>
+	</delete>
+
+	<select id="selectMessageCategoryList" resultMap="MessageCategoryResultMap">
+		<![CDATA[
+			select * from Message_Category
+		]]>
+	</select>
+</mapper>

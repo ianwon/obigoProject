@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="obigoproject.PushMessage">
+
+	<resultMap type="PushMessage" id="PushMessageResultMap">
+		<result column="message_number" property="messageNumber" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="send_date" property="sendDate" />
+		<result column="upload_file" property="uploadFile" />
+		<result column="model_name" property="modelName" />
+		<result column="location" property="location" />
+		<result column="category_number" property="categoryNumber" />
+	</resultMap>
+
+	<insert id="insertPushMessage" parameterType="PushMessage">
+	<![CDATA[
+		insert into push_message values(sq_message_number.nextval, #{title}, #{content}, sysdate, #{uploadFile}, #{modelName}, #{location}, #{categoryNumber})
+	]]>
+	</insert>
+
+	<update id="updatePushMessage" parameterType="PushMessage">
+		<![CDATA[
+		update push_message set 
+		title=#{title}, content=#{content} where message_number=#{messageNumber}
+		]]>
+	</update>
+
+	<delete id="deletePushMessage" parameterType="java.lang.Integer">
+		<![CDATA[
+			delete from push_message where message_number=#{messageNumber}
+		]]>
+	</delete>
+
+	<select id="selectPushMessageList" resultMap="PushMessageResultMap">
+		<![CDATA[
+			select * from push_message
+		]]>
+	</select>
+
+	<select id="selectPushMessageByCategory" parameterType="java.lang.Integer" resultMap="PushMessageResultMap">
+		<![CDATA[
+			select pm.message_number, pm.title, pm.content, pm.send_date, pm.upload_file, pm.model_name, pm.location, pm.category_number from push_message pm, message_category mc where pm.category_number=mc.category_number and mc.category_number=#{categoryNumber}
+		]]>
+	</select>
+	
+
+</mapper>

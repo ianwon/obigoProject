@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="obigoproject.User">
+
+	<resultMap type="Users" id="UsersResultMap">
+		<result column="id" property="userId" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="eMail" property="eMail" />
+		<result column="phone" property="phone" />
+		<result column="registration_Id" property="registrationId" />
+		<result column="role_Name" property="roleName" />
+		<result column="cdate" property="date" />
+	</resultMap>
+
+	<insert id="insertUser" parameterType="Users">
+		insert into Users
+		values
+		(#{userId},#{password},#{name},#{eMail},#{phone},#{registrationId},#{roleName},sysdate)
+	</insert>
+
+	<update id="updateUser" parameterType="Users">
+		update users set
+		password=#{password}
+		,name=#{name},email=#{eMail},phone=#{phone}
+		where
+		id=#{userId}
+	</update>
+
+
+	<delete id="deleteUser" parameterType="java.lang.String">
+		delete
+		from Users
+		where id=#{userId}
+	</delete>
+
+	<delete id="deleteAllUser">
+		delete from Users
+	</delete>
+
+	<select id="selectAllUser" resultMap="UsersResultMap">
+		select * from Users
+	</select>
+
+	<select id="selectUser" parameterType="java.lang.String"
+		resultMap="UsersResultMap">
+		select * from Users where id = #{userId}
+	</select>
+
+	<select id="selectRegistrationIdByLocation" parameterType="java.lang.String"
+		resultType="java.lang.String">
+   <![CDATA[SELECT U.REGISTRATION_ID FROM USERS U JOIN USER_VEHICLE UV ON U.ID = UV.USER_ID WHERE UV.LOCATION =#{location}]]>
+	</select>
+
+	<select id="selectRegistrationIdByModelCode" parameterType="java.lang.String"
+		resultType="java.lang.String">
+   <![CDATA[SELECT U.REGISTRATION_ID FROM USERS U JOIN USER_VEHICLE UV ON U.ID = UV.USER_ID WHERE UV.MODEL_CODE = #{modelCode}]]>
+	</select>
+
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 
+   PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="callSettersOnNulls" value="true" />
+	</settings>
+	<typeAliases>
+
+		<typeAlias type="com.obigo.obigoproject.vo.UsersVO" alias="Users" />
+		<typeAlias type="com.obigo.obigoproject.vo.UserRequestVO"
+			alias="UserRequest" />
+		<typeAlias type="com.obigo.obigoproject.vo.UserVehicleVO"
+			alias="UserVehicle" />
+		<typeAlias type="com.obigo.obigoproject.vo.VehicleVO" alias="Vehicle" />
+		<typeAlias type="com.obigo.obigoproject.vo.BundleVO" alias="Bundle" />
+		<typeAlias type="com.obigo.obigoproject.vo.BundleVersionVO"
+			alias="BundleVersion" />
+		<typeAlias type="com.obigo.obigoproject.vo.ResourceVO"
+			alias="Resource" />
+		<typeAlias type="com.obigo.obigoproject.vo.PushMessageVO"
+			alias="PushMessage" />
+		<typeAlias type="com.obigo.obigoproject.vo.MessageCategoryVO"
+			alias="MessageCategory" />
+		<typeAlias type="com.obigo.obigoproject.vo.LogVO" alias="Log" />
+		<typeAlias type="com.obigo.obigoproject.vo.ApiVO" alias="Api" />
+		<typeAlias type="com.obigo.obigoproject.vo.UserMessageVO" alias="UserMessage" />
+
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="com/obigo/obigoproject/UsersMapper.xml" />
+		<mapper resource="com/obigo/obigoproject/UserRequestMapper.xml" />
+		<mapper resource="com/obigo/obigoproject/UserVehicleMapper.xml" />
+		<mapper resource="com/obigo/obigoproject/VehicleMapper.xml" />
+		<mapper resource="com/obigo/obigoproject/BundleMapper.xml" />
+		<mapper resource="com/obigo/obigoproject/BundleVersionMapper.xml" />
+		<mapper resource="com/obigo/obigoproject/ResourceMapper.xml" />
+		<mapper resource="com/obigo/obigoproject/PushMessageMapper.xml" />
+		<mapper resource="com/obigo/obigoproject/MessageCategoryMapper.xml" />
+		<mapper resource="com/obigo/obigoproject/LogMapper.xml" />
+		<mapper resource="com/obigo/obigoproject/ApiMapper.xml" />
+		<mapper resource="com/obigo/obigoproject/UserMessageMapper.xml" />
+	</mappers>
+
+
+
+</configuration>

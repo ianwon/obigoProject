@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="obigoproject.UserVehicle">
+
+	<resultMap type="UserVehicle" id="UserVehicleResultMap">
+		<result column="User_id" property="userId" />
+		<result column="model_code" property="modelCode" />
+		<result column="color" property="color" />
+		<result column="location" property="location" />
+		<result column="vin" property="vin" />
+		<result column="User_Vehicle_Number" property="userVehicleNumber" />
+		<result column="active_dtc_count" property="activeDtcCount" />
+	</resultMap>
+
+	<insert id="insertUserVehicle" parameterType="UserVehicle">
+		insert into
+		User_Vehicle
+		values
+		(#{userId},#{modelCode},#{color},#{location},#{vin},sq_user_vehicle_number.nextval,#{activeDtcCount})
+	</insert>
+
+	<update id="updateUserVehicle" parameterType="UserVehicle">
+		update user_vehicle
+		set
+		active_dtc_count=#{activeDtcCount}
+		where
+		user_vehicle_number=#{userVehicleNumber}
+	</update>
+
+	<delete id="deleteUserVehicle" parameterType="java.lang.Integer">
+		delete
+		from User_Vehicle
+		where user_vehicle_number=#{userVehicleNumber}
+	</delete>
+
+
+	<select id="selectUserVehicle" parameterType="java.lang.Integer"
+		resultMap="UserVehicleResultMap">
+		SELECT * FROM USER_VEHICLE WHERE
+		USER_VEHICLE_NUMBER=#{userVehicleNumber}
+	</select>
+
+	<select id="selectUserVehicleList" parameterType="java.lang.String"
+		resultMap="UserVehicleResultMap">
+		SELECT * FROM USER_VEHICLE WHERE USER_ID=#{userId}
+	</select>
+
+</mapper>
