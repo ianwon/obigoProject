@@ -4,14 +4,19 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.obigo.obigoproject.vo.UsersVO;
+
+import net.sf.json.JSONObject;
 
 @Controller
 public class UserController {
@@ -23,12 +28,32 @@ public class UserController {
 	UserRequestService userRequestService;
 
 	/**
+	 * 회원가입 등록폼을 통해 유저정보를 전달받으면 유저를 등록하고 로그인 페이지로 이동
+	 * 
+	 * @return 로그인 페이지
+	 */
+	@RequestMapping(value = "/signup", method = { RequestMethod.POST })
+	public String signup(@ModelAttribute UsersVO vo) {
+		vo.setRoleName("ADMIN");
+		vo.setRegistrationId(null);
+
+		System.out.println(vo);
+
+		userService.insertUser(vo);
+
+		return "redirect:/login";
+	}
+
+	/**
 	 * 유저등록폼을 통해 유저정보를 전달받으면 유저를 등록하고 유저관리페이지로 이동
 	 * 
 	 * @return 유저관리페이지
 	 */
 	@RequestMapping("/insertUser")
 	public String insertUser(@RequestParam UsersVO vo) {
+
+		userService.insertUser(vo);
+
 		return null;
 	}
 
@@ -83,8 +108,11 @@ public class UserController {
 	 * @return 회원가입 폼
 	 */
 	@RequestMapping("/idcheck")
-	public String idCheck(@RequestParam String id) {
-		return null;
+	@ResponseBody
+	public String idCheck(@RequestParam("userId") String userId) {
+		JSONObject jobj = new JSONObject();
+		jobj.put("flag", userService.idCheck(userId));
+		return jobj.toString();
 	}
 
 	/**
@@ -95,13 +123,12 @@ public class UserController {
 	@RequestMapping("/logincheck")
 	public String login(@RequestParam String userId, @RequestParam String password, HttpSession session) {
 		System.out.println("로그인체크 컨트롤러");
-		if(userService.passwordCheck(userId, password)){
+		if (userService.passwordCheck(userId, password)) {
 			session.setAttribute("userId", userId);
 			return "main";
-		}
-		else
+		} else
 			session.setAttribute("loginnotok", "ID나 PASSWORD 확인해주세요");
-			return "redirect:/login";
+		return "redirect:/login";
 	}
 
 	/**

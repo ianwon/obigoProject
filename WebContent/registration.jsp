@@ -36,21 +36,22 @@
 
     <div class="container">
 
-      <form class="form-signin" action="index.html">
+      <form class="form-signin" action="/obigoProject/signup" onsubmit="return check()" method="POST" >
         <h2 class="form-signin-heading">registration now</h2>
         <div class="login-wrap">
             <p>Enter your personal details below</p>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Full Name" onkeyup="idCheck()" autofocus>
-            <div id="idCheck"></div>
-            <input type="text" name="eMail" class="form-control" placeholder="Email" autofocus>
-            <input type="text" name="phone" class="form-control" placeholder="phone" autofocus>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Full Name"  autofocus required="required">
+            
+            <input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
+            <input type="number" name="phone" class="form-control" placeholder="phone" autofocus required="required">
 
             <p> Enter your account details below</p>
-            <input type="text" name="userId" class="form-control" placeholder="User Name" autofocus>
-            <input type="password" name="password" id="password" class="form-control" placeholder="Password">
-            <input type="password" name="password2" id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()">
+            <input type="text" name="userId" id="userId" class="form-control" placeholder="User Id"  onkeyup="idCheck()" autofocus required="required">
+            <div id="idCheck"></div>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
+            <input type="password"  id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
             <div id="passwordCheck"></div>
-            <button class="btn btn-lg btn-login btn-block" type="submit">Submit</button>
+            <input class="btn btn-lg btn-login btn-block" type="submit" value="SUBMIT">
 
             <div class="registration">
                 Already Registered.
@@ -71,13 +72,13 @@
 function idCheck() {
 	$.ajax({
 		type : "post",
-		url : "/project372/checkDuplicatedId.372",
+		url : "/obigoProject/idcheck",
 		dataType : "json",
 		data : {
-			"customer_id" : $("#customer_id").val()
+			"userId" : $("#userId").val()
 		},
 		success : function(data) {
-			if (data.flag == true) {
+			if (data.flag == false) {
 				$("#idCheck").html("이미 존재하는 아이디 입니다.");
 				$("#idCheck").css("color", "red");
 			} else {
@@ -101,8 +102,18 @@ function idCheck() {
 					$("#passwordCheck").css("color", "red");
 				}
 			}
+		}
+		
+		function check(){
+			if($("#idCheck").html()=="사용가능한 아이디 입니다." && $("#passwordCheck").html()=="비밀번호가 일치합니다."){
+				return true;
+			}else{
+				alert("아이디와 비밀번호를 확인해 주세요");
+				return false;
+			}
 			
 		}
+		
 </script>
 </body>
 </html>
