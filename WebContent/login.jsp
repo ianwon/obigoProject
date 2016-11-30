@@ -30,21 +30,20 @@
 
     <div class="container">
 
-      <form class="form-signin" action="index.html">
+      <form class="form-signin" action="logincheck">
         <h2 class="form-signin-heading">sign in now</h2>
         <div class="login-wrap">
-            <input type="text" class="form-control" placeholder="User ID" autofocus>
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="text" class="form-control" placeholder="User ID" autofocus name="userId">
+            <input type="password" class="form-control" placeholder="Password" name="password">
             <label class="checkbox">
                 <input type="checkbox" value="remember-me"> Remember me
                 <span class="pull-right">
                     <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
-
                 </span>
             </label>
             <button class="btn btn-lg btn-login btn-block" type="submit">Sign in</button>
             <p>or you can sign in via social network</p>
-            <div class="login-social-link">
+           <!--  <div class="login-social-link">
                 <a href="index.html" class="facebook">
                     <i class="fa fa-facebook"></i>
                     Facebook
@@ -53,7 +52,7 @@
                     <i class="fa fa-twitter"></i>
                     Twitter
                 </a>
-            </div>
+            </div> -->
             <div class="registration">
                 Don't have an account yet?
                 <a class="" href="registration.html">
