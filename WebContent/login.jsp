@@ -1,49 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Mosaddek">
-    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <link rel="shortcut icon" href="img/favicon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="Mosaddek">
+<meta name="keyword"
+	content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+<link rel="shortcut icon" href="img/favicon.png">
 
-    <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
+<title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/hahah/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/hahah/css/bootstrap-reset.css" rel="stylesheet">
-    <!--external css-->
-    <link href="/hahah/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <!-- Custom styles for this template -->
-    <link href="/hahah/css/style.css" rel="stylesheet">
-    <link href="/hahah/css/style-responsive.css" rel="stylesheet" />
+<!-- Bootstrap core CSS -->
+<link href="<c:url value='css/bootstrap.min.css'/>" rel="stylesheet">
+<link href="<c:url value='css/bootstrap-reset.css'/>" rel="stylesheet">
+<!--external css-->
+<link href="<c:url value='assets/font-awesome/css/font-awesome.css'/>"
+	rel="stylesheet" />
+<!-- Custom styles for this template -->
+<link href="<c:url value='css/style.css'/>" rel="stylesheet">
+<link href="<c:url value='css/style-responsive.css'/>" rel="stylesheet" />
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
-    <!--[if lt IE 9]>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+<!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+
 </head>
 
-  <body class="login-body">
+<body class="login-body">
+	
+	<div class="container">
 
-    <div class="container">
-
-      <form class="form-signin" action="logincheck">
-        <h2 class="form-signin-heading">sign in now</h2>
-        <div class="login-wrap">
-            <input type="text" class="form-control" placeholder="User ID" autofocus name="userId">
-            <input type="password" class="form-control" placeholder="Password" name="password">
-            <label class="checkbox">
-                <input type="checkbox" value="remember-me"> Remember me
-                <span class="pull-right">
-                    <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
-                </span>
-            </label>
-            <button class="btn btn-lg btn-login btn-block" type="submit">Sign in</button>
-            <p>or you can sign in via social network</p>
-           <!--  <div class="login-social-link">
+		<form class="form-signin" action="logincheck">
+			<h2 class="form-signin-heading">sign in now</h2>
+			<div class="login-wrap">
+				<input type="text" class="form-control" placeholder="User ID"
+					autofocus name="userId"> <input type="password"
+					class="form-control" placeholder="Password" name="password">
+				<label class="checkbox"> <input type="checkbox"
+					value="remember-me"> Remember me <span class="pull-right">
+						<a data-toggle="modal" href="#myModal"> Forgot Password?</a>
+				</span>
+				</label>
+				<button class="btn btn-lg btn-login btn-block" type="submit">Sign
+					in</button>
+				<!-- <p>or you can sign in via social network</p>
+				 <div class="login-social-link">
                 <a href="index.html" class="facebook">
                     <i class="fa fa-facebook"></i>
                     Facebook
@@ -53,47 +61,46 @@
                     Twitter
                 </a>
             </div> -->
-            <div class="registration">
-                Don't have an account yet?
-                <a class="" href="registration.html">
-                    Create an account
-                </a>
-            </div>
+				<div class="registration">
+					Don't have an account yet? <a class="" href="registration.html">
+						Create an account </a>
+				</div>
 
-        </div>
+			</div>
 
-          <!-- Modal -->
-          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4 class="modal-title">Forgot Password ?</h4>
-                      </div>
-                      <div class="modal-body">
-                          <p>Enter your e-mail address below to reset your password.</p>
-                          <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+			<!-- Modal -->
+			<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+				tabindex="-1" id="myModal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Forgot Password ?</h4>
+						</div>
+						<div class="modal-body">
+							<p>Enter your e-mail address below to reset your password.</p>
+							<input type="text" name="email" placeholder="Email"
+								autocomplete="off" class="form-control placeholder-no-fix">
 
-                      </div>
-                      <div class="modal-footer">
-                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-                          <button class="btn btn-success" type="button">Submit</button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- modal -->
+						</div>
+						<div class="modal-footer">
+							<button data-dismiss="modal" class="btn btn-default"
+								type="button">Cancel</button>
+							<button class="btn btn-success" type="button">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- modal -->
 
-      </form>
+		</form>
 
-    </div>
-
-
-
-    <!-- js placed at the end of the document so the pages load faster -->
-    <script src="/hahah/js/jquery.js"></script>
-    <script src="/hahah/js/bootstrap.min.js"></script>
+	</div>
+	<!-- js placed at the end of the document so the pages load faster -->
+	<script src="<c:url value='/js/jquery.js'/>"></script>
+	<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
 
 
-  </body>
+</body>
 </html>
