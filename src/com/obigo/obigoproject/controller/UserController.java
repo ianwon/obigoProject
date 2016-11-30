@@ -32,8 +32,8 @@ public class UserController {
 	 * 
 	 * @return 로그인 페이지
 	 */
-	@RequestMapping(value = "/signup", method = { RequestMethod.POST })
-	public String signup(@ModelAttribute UsersVO vo) {
+	@RequestMapping("/signup")
+	public String signup(UsersVO vo) {
 		vo.setRoleName("ADMIN");
 		userService.insertUser(vo);
 		return "redirect:/login";
