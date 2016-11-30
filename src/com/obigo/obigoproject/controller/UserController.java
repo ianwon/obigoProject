@@ -35,12 +35,7 @@ public class UserController {
 	@RequestMapping(value = "/signup", method = { RequestMethod.POST })
 	public String signup(@ModelAttribute UsersVO vo) {
 		vo.setRoleName("ADMIN");
-		vo.setRegistrationId(null);
-
-		System.out.println(vo);
-
 		userService.insertUser(vo);
-
 		return "redirect:/login";
 	}
 

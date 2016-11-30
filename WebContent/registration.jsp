@@ -43,7 +43,7 @@
             <input type="text" name="name" id="name" class="form-control" placeholder="Full Name"  autofocus required="required">
             
             <input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
-            <input type="number" name="phone" class="form-control" placeholder="phone" autofocus required="required">
+            <input type="text" name="phone" class="form-control" placeholder="phone" autofocus required="required">
 
             <p> Enter your account details below</p>
             <input type="text" name="userId" id="userId" class="form-control" placeholder="User Id"  onkeyup="idCheck()" autofocus required="required">
