@@ -20,7 +20,7 @@
 	<insert id="insertUser" parameterType="Users">
 		insert into Users
 		values
-		(#{userId},#{password},#{name},#{eMail},#{phone},#{registrationId},#{roleName},sysdate)
+		(#{userId},#{password},#{name},#{eMail},#{phone},null,#{roleName},sysdate)
 	</insert>
 
 	<update id="updateUser" parameterType="Users">

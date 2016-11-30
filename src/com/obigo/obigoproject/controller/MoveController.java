@@ -74,7 +74,7 @@ public class MoveController {
 	 * 
 	 * return 로그인 페이지
 	 */
-	@RequestMapping("login")
+	@RequestMapping("/login")
 	public String moveLogin(){
 		return "login";
 	}
