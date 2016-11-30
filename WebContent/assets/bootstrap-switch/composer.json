@@ -9,8 +9,8 @@
   "license": "Apache License, Version 2.0",
   "authors": [
     {
-      "name": "Mattia Larentis",
-      "name1": "Peter Stein",
+      "name1": "Mattia Larentis",
+      "name": "Peter Stein",
       "homepage": "http://www.larentis.eu/switch/"
     }
   ],
