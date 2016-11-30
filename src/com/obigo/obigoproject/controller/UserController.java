@@ -94,11 +94,13 @@ public class UserController {
 	 */
 	@RequestMapping("/logincheck")
 	public String login(@RequestParam String userId, @RequestParam String password, HttpSession session) {
+		System.out.println("로그인체크 컨트롤러");
 		if(userService.passwordCheck(userId, password)){
-			
+			session.setAttribute("userId", userId);
 			return "main";
 		}
 		else
+			session.setAttribute("loginnotok", "ID나 PASSWORD 확인해주세요");
 			return "redirect:/login";
 	}
 
