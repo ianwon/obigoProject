@@ -5,7 +5,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
@@ -92,12 +94,15 @@ public class UserController {
 	 * 
 	 * @return 메인페이지
 	 */
-	@RequestMapping("/logincheck")
-	public String login(@RequestParam String userId, @RequestParam String password, HttpSession session) {
+	
+	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
+	public @ResponseBody String login(@RequestParam String userId, @RequestParam String password, HttpSession session) {
 		System.out.println("로그인체크 컨트롤러");
+		System.out.println(userId);
+		System.out.println(password);
 		if(userService.passwordCheck(userId, password)){
 			session.setAttribute("userId", userId);
-			return "main";
+			return "redirect:/main";
 		}
 		else
 			session.setAttribute("loginnotok", "ID나 PASSWORD 확인해주세요");

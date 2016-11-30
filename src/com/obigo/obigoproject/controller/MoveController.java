@@ -61,6 +61,10 @@ public class MoveController {
 	 * 
 	 * @return 유저 관리 페이지
 	 */
+	@RequestMapping("/main")
+	public String moveMain(){
+		return "main";
+	}
 	@RequestMapping("/users")
 	public String moveUsers(Model model) {
 
