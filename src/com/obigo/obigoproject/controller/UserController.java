@@ -73,7 +73,7 @@ public class UserController {
 	 */
 	@RequestMapping("/rejectrequest")
 	public String rejectRequest(@RequestParam int userRequestNumber) {
-		//푸시메시지 알아서 날려//
+		// 푸시메시지 알아서 날려//
 		return null;
 	}
 
@@ -93,8 +93,13 @@ public class UserController {
 	 * @return 메인페이지
 	 */
 	@RequestMapping("/logincheck")
-	public String login(@RequestParam String id, @RequestParam String password, HttpSession session) {
-		return null;
+	public String login(@RequestParam String userId, @RequestParam String password, HttpSession session) {
+		if(userService.passwordCheck(userId, password)){
+			
+			return "main";
+		}
+		else
+			return "redirect:/login";
 	}
 
 	/**

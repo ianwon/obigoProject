@@ -25,5 +25,6 @@ public interface UserService {
 	public boolean idCheck(String userId);
 
 	public boolean passwordCheck(String userId, String password);
+	
 
 }

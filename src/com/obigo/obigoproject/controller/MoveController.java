@@ -68,6 +68,16 @@ public class MoveController {
 		model.addAttribute("userList", list);
 		return null;
 	}
+	
+	/**
+	 * 로그인 실패시 다시 로그인페이지를 띄어줌
+	 * 
+	 * return 로그인 페이지
+	 */
+	@RequestMapping("login")
+	public String moveLogin(){
+		return "login";
+	}
 
 	/**
 	 * 헤더 USER REQUEST클릭시 이동

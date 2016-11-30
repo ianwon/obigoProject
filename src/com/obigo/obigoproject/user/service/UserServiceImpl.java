@@ -2,6 +2,8 @@ package com.obigo.obigoproject.user.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,10 +82,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean passwordCheck(String userId, String password) {
-		if (password.equals(userDao.getUser(userId).getPassword()))
-			return true;
-		else
-			return false;
+		if (!idCheck(userId)) {
+			if (password.equals(userDao.getUser(userId).getPassword()))
+				return true; // 둘다맞음
+			else
+				return false; // 패스워드가 틀림
+		} else
+			return false; // 아이디가 틀림
 	}
-
 }
