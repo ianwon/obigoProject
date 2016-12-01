@@ -48,38 +48,43 @@
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
-										<h4 class="modal-title">Add Vehicle</h4>
+										<h4 class="modal-title">Default Modal Tittle</h4>
 									</div>
 									<div class="modal-body">
 
-										<form id="form-addvehicle" class="form-signin" action="/obigoProject/insertvehicle" onsubmit="return check()" method="POST">
-												<input type="text" name="modelName" id="name"
-													class="form-control" placeholder="Model Name" autofocus
-													required="required"> 
-												
-												<input type="text"
-													name="modelCode" class="form-control" placeholder="Model Code"
-													autofocus required="required"> 
-													
-													
-												<input type="text"
-													name="modelImage" class="form-control" placeholder="Model Image"
+										<form class="form-signin" action="/obigoProject/signup"
+											onsubmit="return check()" method="POST">
+											<h2 class="form-signin-heading">Add Vehicle</h2>
+											<div class="login-wrap">
+												<p>Enter your personal details below</p>
+												<input type="text" name="name" id="name"
+													class="form-control" placeholder="Full Name" autofocus
+													required="required"> <input type="email"
+													name="eMail" class="form-control" placeholder="Email"
+													autofocus required="required"> <input type="text"
+													name="phone" class="form-control" placeholder="phone"
 													autofocus required="required">
-												
-												<input type="text" name="detailImage" id="userId"
-													class="form-control" placeholder="Detail Image"
+												<p>Enter your account details below</p>
+												<input type="text" name="userId" id="userId"
+													class="form-control" placeholder="User Id"
 													onkeyup="idCheck()" autofocus required="required">
+												<div id="idCheck"></div>
+												<input type="password" name="password" id="password"
+													class="form-control" placeholder="Password"
+													required="required"> <input type="password"
+													id="password2" class="form-control"
+													placeholder="Re-type Password" onkeyup="passwordCheck()"
+													required="required">
+												<div id="passwordCheck"></div>
+												<input class="btn btn-lg btn-login btn-block" type="submit"
+													value="SUBMIT">
 
-												<input type="text" name="engine" 
-													class="form-control" placeholder="engine"
-													required="required"> 
-												
-												<label>Year</label>&nbsp;&nbsp;&nbsp; 
-												<input type="number" min="1900" max="2099" step="1" value="2016" />
-													
-												<input type="text" name="milage" 
-													class="form-control" placeholder="milage"
-													required="required"> 
+												<div class="registration">
+													Already Registered. <a class="" href="login.jsp"> Login
+													</a>
+												</div>
+
+											</div>
 
 										</form>
 
@@ -87,7 +92,8 @@
 									<div class="modal-footer">
 										<button data-dismiss="modal" class="btn btn-default"
 											type="button">Close</button>
-										<input  class="btn btn-success" type="submit" form="form-addvehicle" value="Add Vehicle" />
+										<button class="btn btn-success" type="button">Save
+											changes</button>
 									</div>
 								</div>
 							</div>
