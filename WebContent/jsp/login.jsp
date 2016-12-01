@@ -1,4 +1,4 @@
-j<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -16,21 +16,19 @@ j<%@ page language="java" contentType="text/html; charset=UTF-8"
 <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
 
 <!-- Bootstrap core CSS -->
-<link href="<c:url value='css/bootstrap.min.css'/>" rel="stylesheet">
-<link href="<c:url value='css/bootstrap-reset.css'/>" rel="stylesheet">
+<link href="/obigoProject/css/bootstrap.min.css" rel="stylesheet">
+<link href="/obigoProject/css/bootstrap-reset.css" rel="stylesheet">
 <!--external css-->
-<link href="<c:url value='assets/font-awesome/css/font-awesome.css'/>"
-	rel="stylesheet" />
+<link href="/obigoProject/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 <!-- Custom styles for this template -->
-<link href="<c:url value='css/style.css'/>" rel="stylesheet">
-<link href="<c:url value='css/style-responsive.css'/>" rel="stylesheet" />
+<link href="/obigoProject/css/style.css" rel="stylesheet">
+<link href="/obigoProject/css/style-responsive.css" rel="stylesheet" />
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
 <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <body class="login-body">
@@ -98,8 +96,8 @@ j<%@ page language="java" contentType="text/html; charset=UTF-8"
 
 	</div>
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="<c:url value='/js/jquery.js'/>"></script>
-	<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
+    <script src="/obigoProject/js/jquery.js"></script>
+    <script src="/obigoProject/js/bootstrap.min.js"></script>
 
 
 </body>
