@@ -48,21 +48,21 @@
 								id="editable-sample">
 								<thead>
 									<tr>
-										<th>Username</th>
 										<th>Model Name</th>
-										<th>Vin</th>
-										<th>Location</th>
-										<th>Accept</th>
-										<th>Reject</th>
+										<th>Model Code</th>
+										<th>Model Image</th>
+										<th>Detail Image</th>
+										<th>Engine</th>
+										<th>Mileage</th>
 									</tr>
 								</thead>
 								<tbody>
 
-									<c:forEach var="k" items="${userRequestList}" begin="0">
+									<c:forEach var="v" items="${vehicleList}" begin="0">
 										<tr class="">
-											<td>${k.userName}</td>
-											<td>Alfred Jondi Rose</td>
-											<td>1234</td>
+											<td>${v.modelName}</td>
+											<td>${v.modelCode}</td>
+											<td>${v.modelmage}</td>
 											<td class="center">super user</td>
 											<td><a class="Accept" href="javascript:;">Accept</a></td>
 											<td><a class="Reject" href="javascript:;">Reject</a></td>
