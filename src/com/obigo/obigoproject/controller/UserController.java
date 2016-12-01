@@ -34,6 +34,7 @@ public class UserController {
 	 */
 	@RequestMapping("/signup")
 	public String signup(UsersVO vo) {
+		System.out.println(vo);
 		vo.setRoleName("ADMIN");
 		userService.insertUser(vo);
 		return "redirect:/login";
