@@ -22,10 +22,6 @@
 				<div class="panel-body">
 					<div class="adv-table editable-table ">
 						<div class="clearfix">
-							<div class="btn-group">
-								<button id="editable-sample_new" class="btn green">
-									Add New <i class="fa fa-plus"></i>
-								</button>
 							</div>
 							<div class="btn-group pull-right">
 								<button class="btn dropdown-toggle" data-toggle="dropdown">
@@ -58,12 +54,12 @@
 
 									<c:forEach var="k" items="${userRequestList}" begin="0">
 										<tr class="">
-											<td>${k.userName}</td>
-											<td>Alfred Jondi Rose</td>
-											<td>1234</td>
-											<td class="center">super user</td>
-											<td><a class="Accept" href="javascript:;">Accept</a></td>
-											<td><a class="Reject" href="javascript:;">Reject</a></td>
+											<td>${k.userId}</td>
+											<td>${k.modelCode}</td>
+											<td>${k.vin}</td>
+											<td class="center">${k.location}</td>
+											<td><a class="Accept" href="accept(${k.userRequestNumber });">Accept</a></td>
+											<td><a class="Reject" href="reject(${k.userRequestNumber });">Reject</a></td>
 										</tr>
 									</c:forEach>
 
@@ -106,6 +102,39 @@
 		jQuery(document).ready(function() {
 			EditableTable.init();
 		});
+	</script>
+	
+	<script type="text/javascript">
+	
+	function accept(data){
+		$.ajax({
+			type : "post",
+			url : "/obigoProject/acceptrequest",
+			dataType : "json",
+			data : {
+				"userRequestNumber" : data
+			},
+			success : function(data) {
+				location.reload();
+			}
+		});
+		
+	}
+	function reject(data){
+		$.ajax({
+			type : "post",
+			url : "/obigoProject/rejectrequest",
+			dataType : "json",
+			data : {
+				"userRequestNumber" : data
+			},
+			success : function(data) {
+				location.reload();
+			}
+		});
+		
+	}
+	
 	</script>
 
 </body>

@@ -18,7 +18,7 @@ public class UserRequestServiceTest {
 	@Test
 	public void insertUserRequestTest() {
 		UserRequestVO vo = new UserRequestVO();
-		vo.setUserId("agaagaga12as");
+		vo.setUserId("superwyh");
 		vo.setModelCode("gggg");
 		vo.setColor("red");
 		vo.setLocation("korea");

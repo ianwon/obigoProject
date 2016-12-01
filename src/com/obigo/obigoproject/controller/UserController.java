@@ -79,11 +79,13 @@ public class UserController {
 	 * 
 	 * @return 유저요청페이지
 	 */
-	@RequestMapping("/acceptrequest")
-	public String acceptRequest(@RequestParam int userRequestNumber) {
+	@RequestMapping(value="/acceptrequest", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber) {
 		userRequestService.acceptUserRequest(userRequestNumber);
+		JSONObject jobj = new JSONObject();
 		/// 푸시메시지 알아서 날려////
-		return null;
+		return jobj.toString();
 	}
 
 	/**
@@ -91,10 +93,12 @@ public class UserController {
 	 * 
 	 * @return 유저요청페이지
 	 */
-	@RequestMapping("/rejectrequest")
-	public String rejectRequest(@RequestParam int userRequestNumber) {
-		// 푸시메시지 알아서 날려//
-		return null;
+	@RequestMapping(value="/rejectrequest", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String rejectRequest(@RequestParam("userRequestNumber") int userRequestNumber) {
+		userRequestService.deleteUserRequest(userRequestNumber);
+		JSONObject jobj = new JSONObject();
+		return jobj.toString();
 	}
 
 	/**

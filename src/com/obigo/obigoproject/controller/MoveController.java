@@ -89,7 +89,7 @@ public class MoveController {
 
 		List<UserRequestVO> list = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", list);
-		return null;
+		return "userrequest";
 	}
 
 	/**
