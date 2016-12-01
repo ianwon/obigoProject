@@ -132,71 +132,6 @@
 						</ul></li>
 					<!-- settings end -->
 
-					<!-- inbox dropdown start (사용자 메시지 알림 버튼)-->
-					<!-- <li id="header_inbox_bar" class="dropdown">
-                  <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                      <i class="fa fa-envelope-o"></i>
-                      <span class="badge bg-important">5</span>
-                  </a>
-                  <ul class="dropdown-menu extended inbox">
-                      <div class="notify-arrow notify-arrow-red"></div>
-                      <li>
-                          <p class="red">You have 5 new messages</p>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <span class="photo"><img alt="avatar" src="./img/avatar-mini.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Jonathan Smith</span>
-                                    <span class="time">Just now</span>
-                                    </span>
-                                    <span class="message">
-                                        Hello, this is an example msg.
-                                    </span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <span class="photo"><img alt="avatar" src="./img/avatar-mini2.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Jhon Doe</span>
-                                    <span class="time">10 mins</span>
-                                    </span>
-                                    <span class="message">
-                                     Hi, Jhon Doe Bhai how are you ?
-                                    </span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <span class="photo"><img alt="avatar" src="./img/avatar-mini3.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Jason Stathum</span>
-                                    <span class="time">3 hrs</span>
-                                    </span>
-                                    <span class="message">
-                                        This is awesome dashboard.
-                                    </span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">
-                              <span class="photo"><img alt="avatar" src="./img/avatar-mini4.jpg"></span>
-                                    <span class="subject">
-                                    <span class="from">Jondi Rose</span>
-                                    <span class="time">Just now</span>
-                                    </span>
-                                    <span class="message">
-                                        Hello, this is metrolab
-                                    </span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="#">See all messages</a>
-                      </li>
-                  </ul>
-              </li> -->
-					<!-- inbox dropdown end -->
 					<!-- notification dropdown start-->
 					<li id="header_notification_bar" class="dropdown"><a
 						data-toggle="dropdown" class="dropdown-toggle" href="#"> <i
@@ -262,7 +197,7 @@
 			<div id="sidebar" class="nav-collapse ">
 				<!-- sidebar menu start-->
 				<ul class="sidebar-menu" id="nav-accordion">
-					<li><a href="userrequest"> <i class="fa fa-dashboard"></i>
+					<li><a href="/obigoProject/userrequest"> <i class="fa fa-dashboard"></i>
 							<span>Dashboard</span>
 					</a></li>
 
@@ -298,7 +233,7 @@
 							class="fa fa-th"></i> <span>Api Management</span>
 					</a>
 						<ul class="sub">
-							<li><a href="/obigoProject/restfulapi">RestFUL Api</a></li>
+							<li><a href="/obigoProject/api">RestFUL Api</a></li>
 						</ul></li>
 					<li class="sub-menu"><a href="javascript:;"> <i
 							class=" fa fa-envelope"></i> <span>Push Message Management</span>
