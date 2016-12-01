@@ -37,11 +37,11 @@
 												<h4 class="modal-title">Add Api</h4>
 											</div>
 											<div class="modal-body">
-												<form class="form-insertapi" id="form-insertapi" action="/obigoProject/insertapi" onsubmit="return check()" method="POST">
+												<form class="form-insertapi" id="form-insertapi" action="/obigoProject/insertapi" onsubmit="return check();" method="POST">
 													<h2 class="form-signin-heading">Add API</h2>
 													<div class="login-wrap">
-														<input type="text" name="apiName" id="apiName" class="form-control" placeholder="API NAME" autofocus required="required">
-														<textarea name="responseToSend" id="responseToSend" class="form-control" placeholder="Response To Send" rows="15" cols="45" required="required"></textarea>
+														<input type="text" name="apiName" id="insertApiName" class="form-control" placeholder="API NAME" autofocus required="required">
+														<textarea name="responseToSend" class="form-control" placeholder="Response To Send" rows="15" cols="45" required="required"></textarea>
 													</div>
 												</form>
 
@@ -162,27 +162,33 @@
 	<script type="text/javascript">
 	
 		//apiName의 존재 여부를 확인
+		var secondCall = false;
 		function check() {
-			var flag = false;
+			if (secondCall) {
+				return;
+			}
 			$.ajax({
 				type : "post",
 				url : "/obigoProject/apinamecheck",
 				dataType : "json",
+				async : false,
 				data : {
-					"apiName" : $("#apiName").val()
+					"apiName" : $("#insertApiName").val()
 				},
 				success : function(data) {
-					if (data.flag == false) {
+					alert(data.flag);
+					if (data.flag === false) {
 						alert("존재하는 Api Name입니다.");
 					} else {
 						alert("Api 생성에 성공하였습니다.");
-						flag = true;
+						secondCall = true;
+						$("#form-insertapi").submit();
 					}
-	
 				}
 			});
-			return flag;
+			return false;
 		}
+	
 	
 		//editModal을 띄워주기 위함 함수
 		function editModal(apiName, responseToSend) {
