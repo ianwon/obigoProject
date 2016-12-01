@@ -32,7 +32,7 @@ public class UserController {
 	 * 
 	 * @return 로그인 페이지
 	 */
-	@RequestMapping("/signup")
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signup(UsersVO vo) {
 		vo.setRoleName("ADMIN");
 		userService.insertUser(vo);
@@ -44,7 +44,7 @@ public class UserController {
 	 * 
 	 * @return 유저관리페이지
 	 */
-	@RequestMapping("/insertUser")
+	@RequestMapping(value = "/insertUser", method = RequestMethod.POST)
 	public String insertUser(@RequestParam UsersVO vo) {
 
 		userService.insertUser(vo);
@@ -57,7 +57,7 @@ public class UserController {
 	 * 
 	 * @return 유저관리페이지
 	 */
-	@RequestMapping("/updateUser")
+	@RequestMapping(value= "/updateUser", method=RequestMethod.POST)
 	public String updateUser(@RequestParam UsersVO vo) {
 		return null;
 	}
@@ -67,7 +67,7 @@ public class UserController {
 	 * 
 	 * @return 유저관리페이지
 	 */
-	@RequestMapping("/deleteUser")
+	@RequestMapping(value="/deleteUser", method=RequestMethod.POST)
 	public String deleteUser(@RequestParam String id) {
 
 		return null;
@@ -79,7 +79,7 @@ public class UserController {
 	 * 
 	 * @return 유저요청페이지
 	 */
-	@RequestMapping(value="/acceptrequest", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/acceptrequest", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber) {
 		userRequestService.acceptUserRequest(userRequestNumber);
@@ -93,7 +93,7 @@ public class UserController {
 	 * 
 	 * @return 유저요청페이지
 	 */
-	@RequestMapping(value="/rejectrequest", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/rejectrequest", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String rejectRequest(@RequestParam("userRequestNumber") int userRequestNumber) {
 		userRequestService.deleteUserRequest(userRequestNumber);
@@ -106,9 +106,10 @@ public class UserController {
 	 * 
 	 * @return 회원가입 폼
 	 */
-	@RequestMapping("/idcheck")
+	@RequestMapping(value = "/idcheck", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String idCheck(@RequestParam("userId") String userId) {
+		System.out.println("여긴오니?");
 		JSONObject jobj = new JSONObject();
 		jobj.put("flag", userService.idCheck(userId));
 		return jobj.toString();
@@ -119,15 +120,14 @@ public class UserController {
 	 * 
 	 * @return 메인페이지
 	 */
-	@RequestMapping("/logincheck")
+	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
 	public String login(@RequestParam String userId, @RequestParam String password, HttpSession session) {
-		System.out.println("로그인체크 컨트롤러");
 		if (userService.passwordCheck(userId, password)) {
-			session.setAttribute("userId", userId);
-			return "main";
-		} else
-			session.setAttribute("loginnotok", "ID나 PASSWORD 확인해주세요");
-		return "redirect:/login";
+			session.setAttribute("LoginOK", userId);
+			return "redirect:/main";
+		} else {
+			return "redirect:/login";
+		}
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class UserController {
 	 * 
 	 * @return 로그인 페이지
 	 */
-	@RequestMapping("/logout")
+	@RequestMapping(value="/logout", method=RequestMethod.POST)
 	public String logout(HttpSession session) {
 		return null;
 	}
@@ -146,7 +146,7 @@ public class UserController {
 	 * 
 	 * @return 유저 차량 관리 페이지
 	 */
-	@RequestMapping("/insertuservehicle")
+	@RequestMapping(value="/insertuservehicle", method=RequestMethod.POST)
 	public String insertUserVehicle(@RequestParam UserVehicleVO vo) {
 		return null;
 	}
@@ -156,7 +156,7 @@ public class UserController {
 	 * 
 	 * @return 유저 차량 관리 페이지
 	 */
-	@RequestMapping("/updateuservehicle")
+	@RequestMapping(value="/updateuservehicle", method=RequestMethod.POST)
 	public String updateUserVehicle(@RequestParam UserVehicleVO vo) {
 		return null;
 	}
@@ -166,7 +166,7 @@ public class UserController {
 	 * 
 	 * @return 유저 차량 관리 페이지
 	 */
-	@RequestMapping("/deleteuservehicle")
+	@RequestMapping(value="/deleteuservehicle", method=RequestMethod.POST)
 	public String deleteUserVehicle(@RequestParam int userVehicleNumber) {
 		return null;
 	}

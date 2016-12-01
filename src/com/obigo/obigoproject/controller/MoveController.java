@@ -56,6 +56,29 @@ public class MoveController {
 	@Autowired
 	VehicleService vehicleService;
 
+	
+
+	/**
+	 * 메인 페이지로 이동
+	 * 
+	 * @return 메인 페이지
+	 */
+	@RequestMapping("/main")
+	public String moveMain() {
+		
+		return "jsp/header/main";
+	}
+	/**
+	 * 회원가입 페이지로 이동
+	 * 
+	 * @return 회원 가입 페이지
+	 */
+	@RequestMapping("/registration")
+	public String moveRegistration() {
+
+		return "jsp/registration";
+	}
+
 	/**
 	 * 헤더 USERS클릭시 이동
 	 * 
@@ -68,14 +91,14 @@ public class MoveController {
 		model.addAttribute("userList", list);
 		return "jsp/users";
 	}
-	
+
 	/**
 	 * 로그인 실패시 다시 로그인페이지를 띄어줌
 	 * 
 	 * return 로그인 페이지
 	 */
 	@RequestMapping("/login")
-	public String moveLogin(){
+	public String moveLogin() {
 		return "jsp/login";
 	}
 
@@ -123,13 +146,13 @@ public class MoveController {
 	 * 
 	 * @return 리소스 관리 페이지
 	 */
-//	@RequestMapping("/resource")
-//	public String moveResource(Model model) {
-//
-//		List<BundleVO> list = bundleService.getBundleList();
-//		model.addAttribute("bundleList", list);
-//		return "resource";
-//	}
+	// @RequestMapping("/resource")
+	// public String moveResource(Model model) {
+	//
+	// List<BundleVO> list = bundleService.getBundleList();
+	// model.addAttribute("bundleList", list);
+	// return "resource";
+	// }
 
 	/**
 	 * 헤더 RESTFUL API 클릭시 이동
