@@ -54,7 +54,7 @@
 
             <div class="registration">
                 Already Registered.
-                <a class="" href="login.jsp">
+                <a class="" href="/obigoProject/login">
                     Login
                 </a>
             </div>

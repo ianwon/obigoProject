@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -19,7 +19,8 @@
 <link href="/obigoProject/css/bootstrap.min.css" rel="stylesheet">
 <link href="/obigoProject/css/bootstrap-reset.css" rel="stylesheet">
 <!--external css-->
-<link href="/obigoProject/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href="/obigoProject/assets/font-awesome/css/font-awesome.css"
+	rel="stylesheet" />
 <!-- Custom styles for this template -->
 <link href="/obigoProject/css/style.css" rel="stylesheet">
 <link href="/obigoProject/css/style-responsive.css" rel="stylesheet" />
@@ -32,22 +33,20 @@
 </head>
 
 <body class="login-body">
-	
+
 	<div class="container">
 
-		<form class="form-signin" action="logincheck">
+		<form class="form-signin" action="logincheck"
+			onsubmit="return checkId()" method="POST">
 			<h2 class="form-signin-heading">sign in now</h2>
 			<div class="login-wrap">
 				<input type="text" class="form-control" placeholder="User ID"
-					autofocus name="userId"> <input type="password"
+					autofocus name="userId" id="userId"> <input type="password"
 					class="form-control" placeholder="Password" name="password">
 				<label class="checkbox"> <input type="checkbox"
-					value="remember-me"> Remember me <span class="pull-right">
-						<a data-toggle="modal" href="#myModal"> Forgot Password?</a>
-				</span>
+					value="remember-me"> Remember me
 				</label>
-				<button class="btn btn-lg btn-login btn-block" type="submit">Sign
-					in</button>
+				<input class="btn btn-lg btn-login btn-block" type="submit" value="Sign in">
 				<!-- <p>or you can sign in via social network</p>
 				 <div class="login-social-link">
                 <a href="index.html" class="facebook">
@@ -60,44 +59,43 @@
                 </a>
             </div> -->
 				<div class="registration">
-					Don't have an account yet? <a class="" href="registration.html">
-						Create an account </a>
+					Don't have an account yet? <a class=""
+						href="/obigoProject/registration"> Create an account </a>
 				</div>
 
 			</div>
 
-			<!-- Modal -->
-			<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
-				tabindex="-1" id="myModal" class="modal fade">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-							<h4 class="modal-title">Forgot Password ?</h4>
-						</div>
-						<div class="modal-body">
-							<p>Enter your e-mail address below to reset your password.</p>
-							<input type="text" name="email" placeholder="Email"
-								autocomplete="off" class="form-control placeholder-no-fix">
-
-						</div>
-						<div class="modal-footer">
-							<button data-dismiss="modal" class="btn btn-default"
-								type="button">Cancel</button>
-							<button class="btn btn-success" type="button">Submit</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- modal -->
 
 		</form>
 
 	</div>
 	<!-- js placed at the end of the document so the pages load faster -->
-    <script src="/obigoProject/js/jquery.js"></script>
-    <script src="/obigoProject/js/bootstrap.min.js"></script>
+	<script src="/obigoProject/js/jquery.js"></script>
+	<script src="/obigoProject/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    </script>
+
+
+	<script type="text/javascript">
+		function idCheck() {
+			$.ajax({
+				type : "post",
+				url : "/obigoProject/idcheck",
+				dataType : "json",
+				data : {
+					"userId" : $("#userId").val()
+				},
+				success : function(data) {
+					if (data.flag == false) {
+						return true;
+					} else {
+						alert("존재하지 않는 아이디 입니다.");
+						return false;
+					}
+				}
+			});
+		}
+	</script>
 
 
 </body>
