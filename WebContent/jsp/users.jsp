@@ -43,22 +43,18 @@
 												<h4 class="modal-title">Add User</h4>
 											</div>
 											<div class="modal-body">
-												<form class="form-signin" action="/obigoProject/signup"
-													onsubmit="return check()" method="POST">
-													<h2 class="form-signin-heading">registration now</h2>
+												<form id="form-registration" class="form-signin" action="/obigoProject/insertUser" method="POST">
 													<div class="login-wrap">
-														<p>Enter your personal details below</p>
 														<input type="text" name="name" id="name"
 															class="form-control" placeholder="Full Name" autofocus
 															required="required"> <input type="email"
 															name="eMail" class="form-control" placeholder="Email"
 															autofocus required="required"> <input type="text"
 															name="phone" class="form-control" placeholder="phone"
-															autofocus required="required">
-														<p>Enter your account details below</p>
-														<input type="text" name="userId" id="userId"
-															class="form-control" placeholder="User Id"
-															onkeyup="idCheck()" autofocus required="required">
+															autofocus required="required"> <input type="text"
+															name="userId" id="userId" class="form-control"
+															placeholder="User Id" onkeyup="idCheck()" autofocus
+															required="required">
 														<div id="idCheck"></div>
 														<input type="password" name="password" id="password"
 															class="form-control" placeholder="Password"
@@ -68,15 +64,14 @@
 															required="required">
 														<div id="passwordCheck"></div>
 													</div>
-
 												</form>
-
-
 											</div>
 											<div class="modal-footer">
 												<button data-dismiss="modal" class="btn btn-default"
 													type="button">Close</button>
-												<button class="btn btn-success" type="button">Registration</button>
+												<!-- <button class="btn btn-success" type="submit"
+													>Registration</button> -->
+												<input class="btn btn-success" type="submit" form="form-registration" value="Registration">
 											</div>
 										</div>
 									</div>
@@ -180,10 +175,12 @@
 	<script class="include" type="text/javascript"
 		src="/obigoProject/js/jquery.dcjqaccordion.2.7.js"></script>
 	<script src="/obigoProject/js/jquery.scrollTo.min.js"></script>
-	<script src="/obigoProject/js/jquery.nicescroll.js" type="text/javascript"></script>
+	<script src="/obigoProject/js/jquery.nicescroll.js"
+		type="text/javascript"></script>
 	<script type="text/javascript"
 		src="/obigoProject/assets/data-tables/jquery.dataTables.js"></script>
-	<script type="text/javascript" src="/obigoProject/assets/data-tables/DT_bootstrap.js"></script>
+	<script type="text/javascript"
+		src="/obigoProject/assets/data-tables/DT_bootstrap.js"></script>
 	<script src="/obigoProject/js/respond.min.js"></script>
 
 	<!--right slidebar-->
