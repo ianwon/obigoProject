@@ -89,7 +89,7 @@ public class MoveController {
 
 		List<UserRequestVO> list = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", list);
-		return null;
+		return "userrequest";
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class MoveController {
 
 		List<VehicleVO> list = vehicleService.getVehicleList();
 		model.addAttribute("vehicleList", list);
-		return null;
+		return "vehicle";
 	}
 
 	/**

@@ -238,7 +238,7 @@
 					<!-- user login dropdown start (상단 header 로그인 버튼)-->
 					<li class="dropdown"><a data-toggle="dropdown"
 						class="dropdown-toggle" href="#"> <img alt=""
-							src="img/obigo_logo_small.png"> <span class="username">SuperKKW</span>
+							src="img/obigo_logo_small.png"> <span class="username">SUPERWYH</span>
 							<b class="caret"></b>
 					</a>
 						<ul class="dropdown-menu extended logout">
@@ -262,7 +262,7 @@
 			<div id="sidebar" class="nav-collapse ">
 				<!-- sidebar menu start-->
 				<ul class="sidebar-menu" id="nav-accordion">
-					<li><a href="index.html"> <i class="fa fa-dashboard"></i>
+					<li><a href="userrequest"> <i class="fa fa-dashboard"></i>
 							<span>Dashboard</span>
 					</a></li>
 
