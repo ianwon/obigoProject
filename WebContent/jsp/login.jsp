@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -19,8 +18,7 @@
 <link href="/obigoProject/css/bootstrap.min.css" rel="stylesheet">
 <link href="/obigoProject/css/bootstrap-reset.css" rel="stylesheet">
 <!--external css-->
-<link href="/obigoProject/assets/font-awesome/css/font-awesome.css"
-	rel="stylesheet" />
+<link href="/obigoProject/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 <!-- Custom styles for this template -->
 <link href="/obigoProject/css/style.css" rel="stylesheet">
 <link href="/obigoProject/css/style-responsive.css" rel="stylesheet" />
@@ -36,15 +34,14 @@
 
 	<div class="container">
 
-		<form class="form-signin" action="logincheck"
-			onsubmit="return checkId()" method="POST">
+		<form class="form-signin" action="/obigoProject/logincheck" onsubmit="return idCheck()"
+			method="POST">
 			<h2 class="form-signin-heading">sign in now</h2>
 			<div class="login-wrap">
-				<input type="text" class="form-control" placeholder="User ID"
-					autofocus name="userId" id="userId"> <input type="password"
-					class="form-control" placeholder="Password" name="password">
-				<label class="checkbox"> <input type="checkbox"
-					value="remember-me"> Remember me
+				<input type="text" class="form-control" placeholder="User ID" autofocus name="userId"
+					id="userId">
+				<input type="password" class="form-control" placeholder="Password" name="password">
+				<label class="checkbox"> <input type="checkbox" value="remember-me"> Remember me
 				</label>
 				<input class="btn btn-lg btn-login btn-block" type="submit" value="Sign in">
 				<!-- <p>or you can sign in via social network</p>
@@ -59,8 +56,8 @@
                 </a>
             </div> -->
 				<div class="registration">
-					Don't have an account yet? <a class=""
-						href="/obigoProject/registration"> Create an account </a>
+					Don't have an account yet? <a class="" href="/obigoProject/registration"> Create an account
+					</a>
 				</div>
 
 			</div>
