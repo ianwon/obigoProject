@@ -66,7 +66,7 @@ public class MoveController {
 
 		List<UsersVO> list = userService.getUserList();
 		model.addAttribute("userList", list);
-		return "users";
+		return "jsp/users";
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class MoveController {
 	 */
 	@RequestMapping("/login")
 	public String moveLogin(){
-		return "login";
+		return "jsp/login";
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class MoveController {
 
 		List<UserRequestVO> list = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", list);
-		return "userrequest";
+		return "jsp/userrequest";
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class MoveController {
 
 		List<VehicleVO> list = vehicleService.getVehicleList();
 		model.addAttribute("vehicleList", list);
-		return "vehicle";
+		return "jsp/vehicle";
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class MoveController {
 
 		List<BundleVO> list = bundleService.getBundleList();
 		model.addAttribute("bundleList", list);
-		return "bundle";
+		return "jsp/bundle";
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class MoveController {
 
 		List<ApiVO> list = apiService.getApiList();
 		model.addAttribute("apiList", list);
-		return "api";
+		return "jsp/api";
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class MoveController {
 
 		List<PushMessageVO> list = pushMessageService.getPushMessageList();
 		model.addAttribute("pushMessageList", list);
-		return "pushmessage";
+		return "jsp/pushmessage";
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class MoveController {
 
 		List<LogVO> list = logService.getLogList();
 		model.addAttribute("logList", list);
-		return "log";
+		return "jsp/log";
 	}
 
 	/////////////////// 잠시 생각/////////////////////////////////
