@@ -58,8 +58,8 @@
 											<td>${k.modelCode}</td>
 											<td>${k.vin}</td>
 											<td class="center">${k.location}</td>
-											<td><a class="Accept" href="accept(${k.userRequestNumber });">Accept</a></td>
-											<td><a class="Reject" href="reject(${k.userRequestNumber });">Reject</a></td>
+											<td><a class="Accept" href="javascript:accept(${k.userRequestNumber });">Accept</a></td>
+											<td><a class="Reject" href="javascript:reject(${k.userRequestNumber });">Reject</a></td>
 										</tr>
 									</c:forEach>
 
