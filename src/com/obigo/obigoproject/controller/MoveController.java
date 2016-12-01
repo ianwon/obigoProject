@@ -102,7 +102,7 @@ public class MoveController {
 
 		List<VehicleVO> list = vehicleService.getVehicleList();
 		model.addAttribute("vehicleList", list);
-		return null;
+		return "vehicle";
 	}
 
 	/**
