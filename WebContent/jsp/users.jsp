@@ -13,7 +13,7 @@
 		
 	%>
 
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
 
 	<section id="container" class="">
 		<!--main content start-->
@@ -120,7 +120,7 @@
 		</section>
 		<!--main content end-->
 		<!--footer start-->
-		<jsp:include page="footer.jsp"></jsp:include>
+		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
 	</section>
 	<script type="text/javascript">
@@ -173,27 +173,27 @@
 	</script>
 
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="js/jquery.js"></script>
-	<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
-	<script src="js/jquery-migrate-1.2.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="/obigoProject/js/jquery.js"></script>
+	<script src="/obigoProject/js/jquery-ui-1.9.2.custom.min.js"></script>
+	<script src="/obigoProject/js/jquery-migrate-1.2.1.min.js"></script>
+	<script src="/obigoProject/js/bootstrap.min.js"></script>
 	<script class="include" type="text/javascript"
-		src="js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="js/jquery.scrollTo.min.js"></script>
-	<script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+		src="/obigoProject/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script src="/obigoProject/js/jquery.scrollTo.min.js"></script>
+	<script src="/obigoProject/js/jquery.nicescroll.js" type="text/javascript"></script>
 	<script type="text/javascript"
-		src="assets/data-tables/jquery.dataTables.js"></script>
-	<script type="text/javascript" src="assets/data-tables/DT_bootstrap.js"></script>
-	<script src="js/respond.min.js"></script>
+		src="/obigoProject/assets/data-tables/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="/obigoProject/assets/data-tables/DT_bootstrap.js"></script>
+	<script src="/obigoProject/js/respond.min.js"></script>
 
 	<!--right slidebar-->
-	<script src="js/slidebars.min.js"></script>
+	<script src="/obigoProject/js/slidebars.min.js"></script>
 
 	<!--common script for all pages-->
-	<script src="js/common-scripts.js"></script>
+	<script src="/obigoProject/js/common-scripts.js"></script>
 
 	<!--script for this page only-->
-	<script src="js/user-table.js"></script>
+	<script src="/obigoProject/js/user-table.js"></script>
 
 	<!-- END JAVASCRIPTS -->
 	<script>

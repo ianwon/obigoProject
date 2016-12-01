@@ -12,7 +12,7 @@
 <meta name="author" content="Mosaddek">
 <meta name="keyword"
 	content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-<link rel="shortcut icon" href="img/favicon.png">
+<link rel="shortcut icon" href="/obigoProject/img/favicon.png">
 
 <title>Header Color Change</title>
 
@@ -238,7 +238,7 @@
 					<!-- user login dropdown start (상단 header 로그인 버튼)-->
 					<li class="dropdown"><a data-toggle="dropdown"
 						class="dropdown-toggle" href="#"> <img alt=""
-							src="img/obigo_logo_small.png"> <span class="username">SUPERWYH</span>
+							src="/obigoProject/img/obigo_logo_small.png"> <span class="username">SUPERWYH</span>
 							<b class="caret"></b>
 					</a>
 						<ul class="dropdown-menu extended logout">
@@ -270,48 +270,48 @@
 							<i class="fa fa-laptop"></i> <span>Users Management</span>
 					</a>
 						<ul class="sub">
-							<li><a href="users">Admin</a></li>
-							<li><a href="users">User</a></li>
+							<li><a href="/obigoProject/users">Admin</a></li>
+							<li><a href="/obigoProject/users">User</a></li>
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> <i
 							class="fa fa-book"></i> <span>Request Management</span>
 					</a>
 						<ul class="sub">
-							<li><a href="userrequest">User Request</a></li>
+							<li><a href="/obigoProject/userrequest">User Request</a></li>
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> <i
 							class="fa fa-cogs"></i> <span>Vehicle Management</span>
 					</a>
 						<ul class="sub">
-							<li><a href="vehicle">Vehicle</a></li>
+							<li><a href="/obigoProject/vehicle">Vehicle</a></li>
 						</ul></li>
 					<li class="sub-menu"><a href="javascript:;"> <i
 							class="fa fa-tasks"></i> <span>Bundle Management</span>
 					</a>
 						<ul class="sub">
-							<li><a href="bundle">Bundle</a></li>
-							<li><a href="resource">Resource</a></li>
+							<li><a href="/obigoProject/bundle">Bundle</a></li>
+							<li><a href="/obigoProject/resource">Resource</a></li>
 						</ul></li>
 					<li class="sub-menu"><a href="javascript:;"> <i
 							class="fa fa-th"></i> <span>Api Management</span>
 					</a>
 						<ul class="sub">
-							<li><a href="restfulapi">RestFUL Api</a></li>
+							<li><a href="/obigoProject/restfulapi">RestFUL Api</a></li>
 						</ul></li>
 					<li class="sub-menu"><a href="javascript:;"> <i
 							class=" fa fa-envelope"></i> <span>Push Message Management</span>
 					</a>
 						<ul class="sub">
-							<li><a href="messagebox">Message Box</a></li>
-							<li><a href="sendmessage">Send Message</a></li>
+							<li><a href="/obigoProject/messagebox">Message Box</a></li>
+							<li><a href="/obigoProject/sendmessage">Send Message</a></li>
 						</ul></li>
 					<li class="sub-menu"><a href="javascript:;"> <i
 							class=" fa fa-bar-chart-o"></i> <span>Logs Management</span>
 					</a>
 						<ul class="sub">
-							<li><a href="log">Log</a></li>
+							<li><a href="/obigoProject/log">Log</a></li>
 						</ul></li>
 
 
