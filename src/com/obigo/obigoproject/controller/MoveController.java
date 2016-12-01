@@ -66,7 +66,7 @@ public class MoveController {
 
 		List<UsersVO> list = userService.getUserList();
 		model.addAttribute("userList", list);
-		return null;
+		return "users";
 	}
 	
 	/**
@@ -115,7 +115,7 @@ public class MoveController {
 
 		List<BundleVO> list = bundleService.getBundleList();
 		model.addAttribute("bundleList", list);
-		return null;
+		return "bundle";
 	}
 
 	/**
@@ -123,13 +123,13 @@ public class MoveController {
 	 * 
 	 * @return 리소스 관리 페이지
 	 */
-	@RequestMapping("/resource")
-	public String moveResource(Model model, @RequestParam("bundleKey") String bundleKey) {
-
-		List<ResourceVO> list = resourceService.getResourceList(bundleKey);
-		model.addAttribute("resourceList", list);
-		return null;
-	}
+//	@RequestMapping("/resource")
+//	public String moveResource(Model model) {
+//
+//		List<BundleVO> list = bundleService.getBundleList();
+//		model.addAttribute("bundleList", list);
+//		return "resource";
+//	}
 
 	/**
 	 * 헤더 RESTFUL API 클릭시 이동
@@ -141,7 +141,7 @@ public class MoveController {
 
 		List<ApiVO> list = apiService.getApiList();
 		model.addAttribute("apiList", list);
-		return null;
+		return "api";
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class MoveController {
 
 		List<PushMessageVO> list = pushMessageService.getPushMessageList();
 		model.addAttribute("pushMessageList", list);
-		return null;
+		return "pushmessage";
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class MoveController {
 
 		List<LogVO> list = logService.getLogList();
 		model.addAttribute("logList", list);
-		return null;
+		return "log";
 	}
 
 	/////////////////// 잠시 생각/////////////////////////////////
