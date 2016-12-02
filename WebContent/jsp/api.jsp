@@ -162,11 +162,8 @@
 	<script type="text/javascript">
 	
 		//apiName의 존재 여부를 확인
-		var secondCall = false;
 		function check() {
-			if (secondCall) {
-				return;
-			}
+			var apiNameCheck = false;
 			$.ajax({
 				type : "post",
 				url : "/obigoProject/apinamecheck",
@@ -176,17 +173,15 @@
 					"apiName" : $("#insertApiName").val()
 				},
 				success : function(data) {
-					alert(data.flag);
 					if (data.flag === false) {
 						alert("존재하는 Api Name입니다.");
 					} else {
 						alert("Api 생성에 성공하였습니다.");
-						secondCall = true;
-						$("#form-insertapi").submit();
+						apiNameCheck = true;
 					}
 				}
 			});
-			return false;
+			return apiNameCheck;
 		}
 	
 	
