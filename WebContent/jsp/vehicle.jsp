@@ -180,6 +180,8 @@
 	</script>
 
 	<script type="text/javascript">
+	
+		// Edit Modal 폼을 띄울때 해당 되는 데이터를 Modal에 넣어주는 함수
 		function callEditModal(modelCode) {
 
 			$("#editModelName").val(
@@ -201,6 +203,7 @@
 
 		}
 
+		// 삭제 여부를 묻고 AJAX를 통해서 차량을 삭제하는 함수
 		function deleteVehicleTr(modelCode) {
 			if (confirm("삭제 하시겠습니까?") == true) {
 				$.ajax({
@@ -211,47 +214,39 @@
 						"modelCode" : modelCode
 					},
 					success : function(data) {
-						if (data.flag == true) {
-							$("#vehicle" + modelCode).remove();
-						}
+						location.reload();
 					}
 				});
+			}else{
+				return;
 			}
-
 		}
-
+		
+		// 차량 등록 폼에서 AJAX로 Model Code 비교후 등록을 수행하는 함수
 		function addVehicleCheck() {
-
 			var checkModelCode = false;
-			
-			
 			$.ajax({
 				type : "post",
 				url : "/obigoProject/checkmodelcode",
 				dataType : "json",
+				async : false,
 				data : {
 					"modelCode" : $("#modelCode").val()
 				},
 				success : function(data) {
 					if (data.flag == true) {
 						// 동일한 Model Code가 DB에 존재하지 않으므로 자동차를 등록할 수 있다
-						return true;
+						checkModelCode=true;
 					} else {
 						// 동일한 Model Code가 이미 DB에 존재하므로 자동차를 등록할 수 없다
 						alert("동일한 Model Code가 이미 존재합니다!");
-						return false;
 						
-					} 
-// 			alert(data.flag);
+					}
 				}
 			});
-			
-		/* 	if(checkModelCode)
-				return true;
-			else
-				return false; */
-		
+			return checkModelCode;
 		}
+		
 	</script>
 
 
