@@ -42,9 +42,6 @@ public class VehicleController {
 		VehicleVO vo = null;
 			vo = vehicleService.getVehicle(modelCode);
 
-		// System.out.println(vo);
-		// VehicleVO vo=null;
-		// System.out.println(modelCode);
 			if (vo == null)
 				jobj.put("flag", true);
 			else
