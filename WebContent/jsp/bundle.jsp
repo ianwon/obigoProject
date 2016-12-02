@@ -68,7 +68,7 @@
 												<h4 class="modal-title">Update Bundle</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-update" class="form-signin" action="/obigoProject/updateuser" method="POST">
+												<form id="form-update" class="form-signin" action="/obigoProject/updatebundle" method="POST">
 													<div class="login-wrap">
 														<input type="text" name="bundleName" id="editbundlename" class="form-control" autofocus>
 														<input type="text" name="bundleVersion" id="editbundleversion" class="form-control" autofocus readonly="readonly" value="${bundleVersion}">

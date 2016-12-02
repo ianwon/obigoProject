@@ -53,8 +53,9 @@ public class BundleController {
 	 * @return 번들 관리 페이지
 	 */
 	@RequestMapping("/updatebundle")
-	public String updateBundle(@RequestParam BundleVO vo) {
-		return null;
+	public String updateBundle(BundleVO vo) {
+		bundleService.updateBundle(vo);
+		return "redirect:/bundle";
 	}
 
 	/**
