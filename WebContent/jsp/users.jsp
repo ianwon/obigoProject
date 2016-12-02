@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>User Management Page</title>
+<title>Insert title here</title>
 </head>
 <body>
 
@@ -25,36 +26,49 @@
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
-									<button id="Add" class="btn green" data-toggle="modal" href="#addModal">
+									<button id="Add" class="btn green" data-toggle="modal"
+										href="#myModal">
 										Add User <i class="fa fa-plus"></i>
 									</button>
 								</div>
 								<!--modal start-->
-								<!-- Add User 눌렀을때 모달창 -->
 								<!-- Modal -->
-								<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal fade " id="myModal" tabindex="-1"
+									role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-hidden="true">&times;</button>
 												<h4 class="modal-title">Add User</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-registration" class="form-signin" action="/obigoProject/insertuser" method="POST" onsubmit="return check();">
+												<form id="form-registration" class="form-signin" action="/obigoProject/insertUser" method="POST">
 													<div class="login-wrap">
-														<input type="text" name="name" id="name" class="form-control" placeholder="Full Name" autofocus required="required">
-														<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
-														<input type="text" name="phone" class="form-control" placeholder="phone" autofocus required="required">
-														<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
+														<input type="text" name="name" id="name"
+															class="form-control" placeholder="Full Name" autofocus
+															required="required"> <input type="email"
+															name="eMail" class="form-control" placeholder="Email"
+															autofocus required="required"> <input type="text"
+															name="phone" class="form-control" placeholder="phone"
+															autofocus required="required"> <input type="text"
+															name="userId" id="userId" class="form-control"
+															placeholder="User Id" onkeyup="idCheck()" autofocus
+															required="required">
 														<div id="idCheck"></div>
-														<input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
-														<input type="password" id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
+														<input type="password" name="password" id="password"
+															class="form-control" placeholder="Password"
+															required="required"> <input type="password"
+															id="password2" class="form-control"
+															placeholder="Re-type Password" onkeyup="passwordCheck()"
+															required="required">
 														<div id="passwordCheck"></div>
 													</div>
 												</form>
 											</div>
 											<div class="modal-footer">
-												<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+												<button data-dismiss="modal" class="btn btn-default"
+													type="button">Close</button>
 												<!-- <button class="btn btn-success" type="submit"
 													>Registration</button> -->
 												<input class="btn btn-success" type="submit" form="form-registration" value="Registration">
@@ -64,57 +78,29 @@
 								</div>
 								<!-- modal -->
 								<!-- Modal -->
-								<!--
-								edit눌렀을때 모달창
-								  -->
-								<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-												<h4 class="modal-title">Update User</h4>
-											</div>
-											<div class="modal-body">
-												<form id="form-update" class="form-signin" action="/obigoProject/updateuser" method="POST">
-													<div class="login-wrap">
-														<input type="text" name="name" id="editname" class="form-control" autofocus placeholder="Full Name" readonly="readonly" value="${userName}">
-														<input type="email" name="editeMail" class="form-control" placeholder="Email" autofocus required="required">
-														<input type="text" name="editphone" class="form-control" placeholder="phone" autofocus required="required">
-													</div>
-												</form>
-											</div>
-											<div class="modal-footer">
-												<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-												<input class="btn btn-success" type="submit" form="form-update" value="Update">
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- modal -->
-								<!-- Modal -->
 							</div>
 							<div class="space15"></div>
 							<div class="table-responsive">
-								<table class="table table-striped table-hover table-bordered" id="editable-sample">
+								<table class="table table-striped table-hover table-bordered"
+									id="editable-sample">
 									<thead>
 										<tr>
 											<th>USERNAME</th>
 											<th>EMAIL</th>
 											<th>PHONE</th>
 											<th>REGISTRATIONID</th>
-											<th>EDIT</th>
-											<th>DELETE</th>
+											<th>ACTION</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="u" items="${userList}" begin="0">
+
+										<c:forEach var="k" items="${userList}" begin="0">
 											<tr class="">
-												<td>${u.name}</td>
-												<td>${u.eMail}</td>
-												<td>${u.phone}</td>
-												<td>${u.registrationId}</td>
-												<td><a class="update" href="javascript:show(${u})">Edit</a></td>
-												<td><a class="del" href="javascript:del('${u.userId}')">Delete</a></td>
+												<td>${k.name}</td>
+												<td>${k.eMail}</td>
+												<td>${k.phone}</td>
+												<td class="center">${k.registrationId}</td>
+												<td><a class="Delete" href="deleteUser(${k.userId});">Delete</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -179,59 +165,22 @@
 			}
 	
 		}
-	//user삭제
-		function del(data) {
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/deleteuser",
-				dataType : "json",
-				data : {
-					"userId" : data
-				},
-				success : function(data) {
-					location.reload();
-				}
-			});
-	
-		}
-	//user수정
-		function update(data) {
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/updateuser",
-				dataType : "json",
-				data : {
-					"userId" : data.userId,
-					"password" : data.password,
-					"name" : data.name,
-					"eMail" : data.eMail,
-					"phone" : data.phone,
-					"registrationId" : data.registrationId,
-					"roleName" : data.roleName,
-					"date" : data.date
-				},
-				success : function(data) {
-					location.reload();
-				}
-			});
-		}
-	//수정모달창
-	function show(data){
-		var user = data;
-		alert(user);
-		$("#editModal").modal();
-	}
 	</script>
+
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="/obigoProject/js/jquery.js"></script>
 	<script src="/obigoProject/js/jquery-ui-1.9.2.custom.min.js"></script>
 	<script src="/obigoProject/js/jquery-migrate-1.2.1.min.js"></script>
 	<script src="/obigoProject/js/bootstrap.min.js"></script>
-	<script class="include" type="text/javascript" src="/obigoProject/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script class="include" type="text/javascript"
+		src="/obigoProject/js/jquery.dcjqaccordion.2.7.js"></script>
 	<script src="/obigoProject/js/jquery.scrollTo.min.js"></script>
-	<script src="/obigoProject/js/jquery.nicescroll.js" type="text/javascript"></script>
-	<script type="text/javascript" src="/obigoProject/assets/data-tables/jquery.dataTables.js"></script>
-	<script type="text/javascript" src="/obigoProject/assets/data-tables/DT_bootstrap.js"></script>
+	<script src="/obigoProject/js/jquery.nicescroll.js"
+		type="text/javascript"></script>
+	<script type="text/javascript"
+		src="/obigoProject/assets/data-tables/jquery.dataTables.js"></script>
+	<script type="text/javascript"
+		src="/obigoProject/assets/data-tables/DT_bootstrap.js"></script>
 	<script src="/obigoProject/js/respond.min.js"></script>
 
 	<!--right slidebar-->
@@ -249,8 +198,6 @@
 			EditableTable.init();
 		});
 	</script>
-
-
 
 
 </body>
