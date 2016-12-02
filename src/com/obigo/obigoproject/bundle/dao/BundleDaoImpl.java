@@ -35,8 +35,13 @@ public class BundleDaoImpl implements BundleDao {
 	}
 
 	@Override
-	public BundleVO getBundle(String bundleVersion) {
-		return sqlSession.selectOne("obigoproject.Bundle.selectBundle", bundleVersion);
+	public BundleVO getBundleBybundleVersion(String bundleVersion) {
+		return sqlSession.selectOne("obigoproject.Bundle.selectBundleBybundleVersion", bundleVersion);
+	}
+
+	@Override
+	public BundleVO getBundleBybundleKey(String bundleKey) {
+		return sqlSession.selectOne("obigoproject.Bundle.selectBundleBybundleKey", bundleKey);
 	}
 
 }

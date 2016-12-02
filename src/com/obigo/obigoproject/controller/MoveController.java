@@ -135,9 +135,10 @@ public class MoveController {
 	 */
 	@RequestMapping("/bundle")
 	public String moveBundle(Model model) {
-
+		String version = bundleVersionService.getBundleVersion();
 		List<BundleVO> list = bundleService.getBundleList();
 		model.addAttribute("bundleList", list);
+		model.addAttribute("bundleVersion", version);
 		return "jsp/bundle";
 	}
 
