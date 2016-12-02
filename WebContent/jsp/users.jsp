@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -26,52 +25,50 @@
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
-									<button id="Add" class="btn green" data-toggle="modal"
-										href="#myModal">
+									<button id="Add" class="btn green" data-toggle="modal" href="#myModal">
 										Add User <i class="fa fa-plus"></i>
 									</button>
 								</div>
 								<!--modal start-->
 								<!-- Modal -->
-								<div class="modal fade " id="myModal" tabindex="-1"
-									role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal fade " id="myModal" tabindex="-1" role="dialog"
+									aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal"
-													aria-hidden="true">&times;</button>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 												<h4 class="modal-title">Add User</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-registration" class="form-signin" action="/obigoProject/insertUser" method="POST">
+												<form class="form-signin" action="/obigoProject/signup" onsubmit="return check()"
+													method="POST">
+													<h2 class="form-signin-heading">registration now</h2>
 													<div class="login-wrap">
-														<input type="text" name="name" id="name"
-															class="form-control" placeholder="Full Name" autofocus
-															required="required"> <input type="email"
-															name="eMail" class="form-control" placeholder="Email"
-															autofocus required="required"> <input type="text"
-															name="phone" class="form-control" placeholder="phone"
-															autofocus required="required"> <input type="text"
-															name="userId" id="userId" class="form-control"
-															placeholder="User Id" onkeyup="idCheck()" autofocus
+														<p>Enter your personal details below</p>
+														<input type="text" name="name" id="name" class="form-control" placeholder="Full Name"
+															autofocus required="required">
+														<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus
 															required="required">
+														<input type="text" name="phone" class="form-control" placeholder="phone" autofocus
+															required="required">
+														<p>Enter your account details below</p>
+														<input type="text" name="userId" id="userId" class="form-control"
+															placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
 														<div id="idCheck"></div>
-														<input type="password" name="password" id="password"
-															class="form-control" placeholder="Password"
-															required="required"> <input type="password"
-															id="password2" class="form-control"
-															placeholder="Re-type Password" onkeyup="passwordCheck()"
-															required="required">
+														<input type="password" name="password" id="password" class="form-control"
+															placeholder="Password" required="required">
+														<input type="password" id="password2" class="form-control"
+															placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
 														<div id="passwordCheck"></div>
 													</div>
+
 												</form>
+
+
 											</div>
 											<div class="modal-footer">
-												<button data-dismiss="modal" class="btn btn-default"
-													type="button">Close</button>
-												<!-- <button class="btn btn-success" type="submit"
-													>Registration</button> -->
-												<input class="btn btn-success" type="submit" form="form-registration" value="Registration">
+												<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+												<button class="btn btn-success" type="button">Registration</button>
 											</div>
 										</div>
 									</div>
@@ -81,8 +78,7 @@
 							</div>
 							<div class="space15"></div>
 							<div class="table-responsive">
-								<table class="table table-striped table-hover table-bordered"
-									id="editable-sample">
+								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
 											<th>USERNAME</th>
@@ -172,15 +168,11 @@
 	<script src="/obigoProject/js/jquery-ui-1.9.2.custom.min.js"></script>
 	<script src="/obigoProject/js/jquery-migrate-1.2.1.min.js"></script>
 	<script src="/obigoProject/js/bootstrap.min.js"></script>
-	<script class="include" type="text/javascript"
-		src="/obigoProject/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script class="include" type="text/javascript" src="/obigoProject/js/jquery.dcjqaccordion.2.7.js"></script>
 	<script src="/obigoProject/js/jquery.scrollTo.min.js"></script>
-	<script src="/obigoProject/js/jquery.nicescroll.js"
-		type="text/javascript"></script>
-	<script type="text/javascript"
-		src="/obigoProject/assets/data-tables/jquery.dataTables.js"></script>
-	<script type="text/javascript"
-		src="/obigoProject/assets/data-tables/DT_bootstrap.js"></script>
+	<script src="/obigoProject/js/jquery.nicescroll.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/obigoProject/assets/data-tables/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="/obigoProject/assets/data-tables/DT_bootstrap.js"></script>
 	<script src="/obigoProject/js/respond.min.js"></script>
 
 	<!--right slidebar-->
