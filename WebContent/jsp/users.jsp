@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>User Management Page</title>
 </head>
 <body>
 
@@ -25,14 +25,14 @@
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
-									<button id="Add" class="btn green" data-toggle="modal" href="#myModal">
+									<button id="Add" class="btn green" data-toggle="modal" href="#addModal">
 										Add User <i class="fa fa-plus"></i>
 									</button>
 								</div>
 								<!--modal start-->
+								<!-- Add User 눌렀을때 모달창 -->
 								<!-- Modal -->
-								<div class="modal fade " id="myModal" tabindex="-1" role="dialog"
-									aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
@@ -40,25 +40,15 @@
 												<h4 class="modal-title">Add User</h4>
 											</div>
 											<div class="modal-body">
-												<form class="form-signin" action="/obigoProject/signup" onsubmit="return check()"
-													method="POST">
-													<h2 class="form-signin-heading">registration now</h2>
+												<form id="form-registration" class="form-signin" action="/obigoProject/insertuser" onsubmit="return check()" method="POST">
 													<div class="login-wrap">
-														<p>Enter your personal details below</p>
-														<input type="text" name="name" id="name" class="form-control" placeholder="Full Name"
-															autofocus required="required">
-														<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus
-															required="required">
-														<input type="text" name="phone" class="form-control" placeholder="phone" autofocus
-															required="required">
-														<p>Enter your account details below</p>
-														<input type="text" name="userId" id="userId" class="form-control"
-															placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
+														<input type="text" name="name" id="name" class="form-control" placeholder="Full Name" autofocus required="required">
+														<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
+														<input type="text" name="phone" class="form-control" placeholder="phone" autofocus required="required">
+														<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
 														<div id="idCheck"></div>
-														<input type="password" name="password" id="password" class="form-control"
-															placeholder="Password" required="required">
-														<input type="password" id="password2" class="form-control"
-															placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
+														<input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
+														<input type="password" id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
 														<div id="passwordCheck"></div>
 													</div>
 
@@ -68,7 +58,35 @@
 											</div>
 											<div class="modal-footer">
 												<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-												<button class="btn btn-success" type="button">Registration</button>
+												<input class="btn btn-success" type="submit" form="form-registration" value="Registration">
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- modal -->
+								<!--
+								edit눌렀을때 모달창
+								  -->
+								<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h4 class="modal-title">Update User</h4>
+											</div>
+											<div class="modal-body">
+												<form id="form-update" class="form-signin" action="/obigoProject/updateuser" method="POST">
+													<div class="login-wrap">
+														<input type="text" name="userId" id="edituserId" class="form-control" autofocus readonly="readonly" value="${userId}">
+														<input type="text" name="name" id="editname" class="form-control" autofocus placeholder="Full Name" readonly="readonly" value="${userName}">
+														<input type="email" name="eMail" id="editeMail" class="form-control" placeholder="Email" autofocus required="required">
+														<input type="text" name="phone" id="editphone" class="form-control" placeholder="phone" autofocus required="required">
+													</div>
+												</form>
+											</div>
+											<div class="modal-footer">
+												<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+												<input class="btn btn-success" type="submit" form="form-update" value="Update">
 											</div>
 										</div>
 									</div>
@@ -85,18 +103,19 @@
 											<th>EMAIL</th>
 											<th>PHONE</th>
 											<th>REGISTRATIONID</th>
-											<th>ACTION</th>
+											<th>EDIT</th>
+											<th>DELETE</th>
 										</tr>
 									</thead>
 									<tbody>
-
-										<c:forEach var="k" items="${userList}" begin="0">
+										<c:forEach var="u" items="${userList}" begin="0">
 											<tr class="">
-												<td>${k.name}</td>
-												<td>${k.eMail}</td>
-												<td>${k.phone}</td>
-												<td class="center">${k.registrationId}</td>
-												<td><a class="Delete" href="deleteUser(${k.userId});">Delete</a></td>
+												<td>${u.name}</td>
+												<td>${u.eMail}</td>
+												<td>${u.phone}</td>
+												<td>${u.registrationId}</td>
+												<td><a class="update" href="javascript:update('${u.phone}','${u.eMail}','${u.name}','${u.userId }')">Edit</a></td>
+												<td><a class="del" href="javascript:del('${u.userId}')">Delete</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -150,6 +169,32 @@
 					$("#passwordCheck").css("color", "red");
 				}
 			}
+		}
+		//user삭제
+		function del(data) {
+			if (confirm("삭제 하시겠습니까?") == true) {
+				$.ajax({
+					type : "post",
+					url : "/obigoProject/deleteuser",
+					dataType : "json",
+					data : {
+						"userId" : data
+					},
+					success : function(data) {
+						location.reload();
+					}
+				});
+	
+			}
+		}
+		//user수정
+		//수정모달창
+		function update(phone, eMail, name,userId) {
+			$("#editphone").val(phone);
+			$("#editeMail").val(eMail);
+			$("#editname").val(name);
+			$("#edituserId").val(userId);
+			$("#editModal").modal();
 		}
 	
 		function check() {
