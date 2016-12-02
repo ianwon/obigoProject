@@ -43,7 +43,7 @@
 
 										<c:forEach var="p" items="${pushMessageList}" begin="0">
 											<tr class="">
-												<td>${p.title}</td>
+												<td class="center">${p.title}</td>
 												<td class="center">${p.uploadFile}</td>
 												<td class="center">${p.content}</td>
 												<td class="center">${p.sendDate}</td>
@@ -90,7 +90,7 @@
 	<script src="/obigoProject/js/common-scripts.js"></script>
 
 	<!--script for this page only-->
-	<script src="/obigoProject/js/user-table.js"></script>
+	<script src="/obigoProject/js/editable-table.js"></script>
 
 	<!-- END JAVASCRIPTS -->
 	<script>
