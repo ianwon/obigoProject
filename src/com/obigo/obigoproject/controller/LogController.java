@@ -5,9 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.log.service.LogService;
 import com.obigo.obigoproject.vo.LogVO;
+
+import net.sf.json.JSONObject;
 
 @Controller
 public class LogController {
@@ -19,12 +23,15 @@ public class LogController {
 	 * 
 	 * @return 로그 조회 페이지
 	 */
-	@RequestMapping("/deletelog")
+	@RequestMapping(value = "/deletelog", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
 	public String deleteLog() {
-
-		logService.deleteAllLog();
-
-		return null;
+		JSONObject jobj = new JSONObject();
+		if (logService.deleteAllLog())
+			jobj.put("flag", true);
+		else
+			jobj.put("flag", false);
+		return jobj.toString();
 	}
 
 	/**
