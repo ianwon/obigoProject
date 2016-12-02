@@ -150,7 +150,7 @@
 	<script src="/obigoProject/js/common-scripts.js"></script>
 
 	<!--script for this page only-->
-	<script src="/obigoProject/js/user-table.js"></script>
+	<script src="/obigoProject/js/editable-table.js"></script>
 
 	<!-- END JAVASCRIPTS -->
 	<script>
