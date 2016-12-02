@@ -44,12 +44,11 @@ public class UserController {
 	 * 
 	 * @return 유저관리페이지
 	 */
-	@RequestMapping(value = "/insertUser", method = RequestMethod.POST)
-	public String insertUser(@RequestParam UsersVO vo) {
-
+	@RequestMapping(value = "/insertuser", method = RequestMethod.POST)
+	public String insertUser(UsersVO vo) {
+		vo.setRoleName("USER");
 		userService.insertUser(vo);
-
-		return null;
+		return "redirect:/users";
 	}
 
 	/**
@@ -57,9 +56,10 @@ public class UserController {
 	 * 
 	 * @return 유저관리페이지
 	 */
-	@RequestMapping(value= "/updateUser", method=RequestMethod.POST)
-	public String updateUser(@RequestParam UsersVO vo) {
-		return null;
+	@RequestMapping(value= "/updateuser", method=RequestMethod.POST)
+	public String updateUser(UsersVO vo) {
+		userService.updateUser(vo);
+		return "redirect:/users";
 	}
 
 	/**
@@ -67,9 +67,10 @@ public class UserController {
 	 * 
 	 * @return 유저관리페이지
 	 */
-	@RequestMapping(value="/deleteUser", method=RequestMethod.POST)
-	public String deleteUser(@RequestParam String id) {
-
+	@RequestMapping(value="/deleteuser", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteUser(String userId) {
+		userService.deleteUser(userId);
 		return null;
 	}
 
@@ -109,7 +110,6 @@ public class UserController {
 	@RequestMapping(value = "/idcheck", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String idCheck(@RequestParam("userId") String userId) {
-		System.out.println("여긴오니?");
 		JSONObject jobj = new JSONObject();
 		jobj.put("flag", userService.idCheck(userId));
 		return jobj.toString();

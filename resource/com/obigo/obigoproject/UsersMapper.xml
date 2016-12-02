@@ -25,8 +25,7 @@
 
 	<update id="updateUser" parameterType="Users">
 		update users set
-		password=#{password}
-		,name=#{name},email=#{eMail},phone=#{phone}
+		name=#{name},email=#{eMail},phone=#{phone}
 		where
 		id=#{userId}
 	</update>
