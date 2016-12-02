@@ -239,7 +239,7 @@
 							class=" fa fa-envelope"></i> <span>Push Message Management</span>
 					</a>
 						<ul class="sub">
-							<li><a href="/obigoProject/messagebox">Message Box</a></li>
+							<li><a href="/obigoProject/pushmessage">Message Box</a></li>
 							<li><a href="/obigoProject/sendmessage">Send Message</a></li>
 						</ul></li>
 					<li class="sub-menu"><a href="javascript:;"> <i
