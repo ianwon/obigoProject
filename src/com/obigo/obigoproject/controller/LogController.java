@@ -31,6 +31,7 @@ public class LogController {
 			jobj.put("flag", true);
 		else
 			jobj.put("flag", false);
+		
 		return jobj.toString();
 	}
 

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.obigo.obigoproject.api.service.ApiService;
 import com.obigo.obigoproject.bundle.service.BundleService;
@@ -24,7 +23,6 @@ import com.obigo.obigoproject.vo.ApiVO;
 import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.LogVO;
 import com.obigo.obigoproject.vo.PushMessageVO;
-import com.obigo.obigoproject.vo.ResourceVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
 import com.obigo.obigoproject.vo.UsersVO;
 import com.obigo.obigoproject.vo.VehicleVO;
@@ -57,7 +55,7 @@ public class MoveController {
 	VehicleService vehicleService;
 
 	
-
+	
 	/**
 	 * 메인 페이지로 이동
 	 * 
@@ -66,7 +64,7 @@ public class MoveController {
 	@RequestMapping("/main")
 	public String moveMain() {
 		
-		return "jsp/header/main";
+		return "/jsp/header/main";
 	}
 	/**
 	 * 회원가입 페이지로 이동
@@ -76,7 +74,7 @@ public class MoveController {
 	@RequestMapping("/registration")
 	public String moveRegistration() {
 
-		return "jsp/registration";
+		return "/jsp/registration";
 	}
 
 	/**
@@ -89,7 +87,7 @@ public class MoveController {
 
 		List<UsersVO> list = userService.getUserList();
 		model.addAttribute("userList", list);
-		return "jsp/users";
+		return "/jsp/users";
 	}
 
 	/**
@@ -99,7 +97,7 @@ public class MoveController {
 	 */
 	@RequestMapping("/login")
 	public String moveLogin() {
-		return "jsp/login";
+		return "/jsp/login";
 	}
 
 	/**
@@ -112,7 +110,7 @@ public class MoveController {
 
 		List<UserRequestVO> list = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", list);
-		return "jsp/userrequest";
+		return "/jsp/userrequest";
 	}
 
 	/**
@@ -125,7 +123,7 @@ public class MoveController {
 
 		List<VehicleVO> list = vehicleService.getVehicleList();
 		model.addAttribute("vehicleList", list);
-		return "jsp/vehicle";
+		return "/jsp/vehicle";
 	}
 
 	/**
@@ -139,7 +137,7 @@ public class MoveController {
 		List<BundleVO> list = bundleService.getBundleList();
 		model.addAttribute("bundleList", list);
 		model.addAttribute("bundleVersion", version);
-		return "jsp/bundle";
+		return "/jsp/bundle";
 	}
 
 	/**
@@ -165,7 +163,7 @@ public class MoveController {
 
 		List<ApiVO> list = apiService.getApiList();
 		model.addAttribute("apiList", list);
-		return "jsp/api";
+		return "/jsp/api";
 	}
 
 	/**
@@ -178,7 +176,7 @@ public class MoveController {
 
 		List<PushMessageVO> list = pushMessageService.getPushMessageList();
 		model.addAttribute("pushMessageList", list);
-		return "jsp/pushmessage";
+		return "/jsp/pushmessage";
 	}
 
 	/**
@@ -191,7 +189,7 @@ public class MoveController {
 
 		List<LogVO> list = logService.getLogList();
 		model.addAttribute("logList", list);
-		return "jsp/log";
+		return "/jsp/log";
 	}
 
 	/////////////////// 잠시 생각/////////////////////////////////
