@@ -38,12 +38,19 @@
 			select * from BUNDLE
 		]]>
 	</select>
-	<select id="selectBundle" parameterType="java.lang.String"
+	<select id="selectBundleBybundleVersion" parameterType="java.lang.String"
 		resultMap="BundleResultMap">
 		<![CDATA[
 			select * from BUNDLE where bundle_version = #{bundleVersion}
 		]]>
 	</select>
+	<select id="selectBundleBybundleKey" parameterType="java.lang.String"
+		resultMap="BundleResultMap">
+		<![CDATA[
+			select * from BUNDLE where bundle_key = #{bundleKey}
+		]]>
+	</select>
+	
 
 
 </mapper>
