@@ -102,12 +102,12 @@
 									</thead>
 									<tbody>
 										<c:forEach var="b" items="${bundleList}" begin="0">
-											<tr class="" >
-												<td onclick="openmodal()">${b.bundleName}</td>
-												<td onclick="openmodal()">${b.bundleVersion}</td>
-												<td onclick="openmodal()">${b.fileUpload}</td>
-												<td onclick="openmodal()">${b.developer}</td>
-												<td onclick="openmodal()">${b.bundleKey}</td>
+											<tr class="">
+												<td onclick="resource(${b.bundleKey})">${b.bundleName}</td>
+												<td onclick="resource(${b.bundleKey})">${b.bundleVersion}</td>
+												<td onclick="resource(${b.bundleKey})">${b.fileUpload}</td>
+												<td onclick="resource(${b.bundleKey})">${b.developer}</td>
+												<td onclick="resource(${b.bundleKey})">${b.bundleKey}</td>
 												<td><a class="update" href="javascript:update('${b.bundleName}','${b.bundleVersion}')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${b.bundleVersion}')">Delete</a></td>
 												<td><a class="accept" href="javascript:accept('${b.bundleVersion}')">Accept</a></td>
@@ -123,6 +123,45 @@
 				<!-- page end-->
 			</section>
 		</section>
+		<!-- modal -->
+		<!-- Resource 모달창  -->
+		<div class="modal fade " id="resourceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Resource</h4>
+					</div>
+					<div class="modal-body">
+						<div class="table-responsive">
+							<table class="table table-striped table-hover table-bordered" id="editable-sample">
+								<thead>
+									<tr>
+										<th>BUNDLEKEY</th>
+										<th>PATH</th>
+										<th>RESOURCENAME</th>
+										<th>RESOURCEVERSION</th>
+										<th>EDIT</th>
+										<th>DELETE</th>
+									</tr>
+								</thead>
+								<tbody id="resource_table">
+									<tr>
+									</tr>
+								</tbody>
+
+							</table>
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+						<input class="btn btn-success" type="submit" form="form-update" value="Update">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- modal -->
 		<!--main content end-->
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
@@ -180,7 +219,10 @@
 						"bundleVersion" : data
 					},
 					success : function(data) {
-						location.reload();
+						if (data.flag == true)
+							location.reload();
+						else
+							alert("삭제할 수 없습니다");
 					}
 				});
 	
@@ -219,9 +261,34 @@
 	
 			}
 		}
-		
-		function openmodal(){
-			$("#addModal").modal();
+	
+		function resource(data) {
+			var test;
+			$.ajax({
+				type : "post",
+				url : "/obigoProject/selectresource",
+				dataType : "json",
+				async : false,
+				data : {
+					"bundleKey" : data
+				},
+				success : function(resource) {
+					test = resource.resourceList;
+					$("#resourceModal").modal();
+					var text = "";
+					$.each(test, function(index, resource) {
+						text += "<tr class=''>";
+						text += "<td>" + resource.bundleKey + "</td>";
+						text += "<td>" + resource.path + "</td>";
+						text += "<td>" + resource.resourceName + "</td>";
+						text += "<td>" + resource.resourceVersion + "</td>";
+						text += "<td><a href=''>Edit</a></td>";
+						text += "<td><a href=''>Delete</a></td>";
+						text += "</tr>";
+					});
+					$("#resource_table").html(text);
+				}
+			});
 		}
 	</script>
 

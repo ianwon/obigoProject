@@ -26,16 +26,15 @@ public class BundleController {
 	 * 
 	 * @return 번들 관리 페이지
 	 */
-	@RequestMapping(value="/applybundle" ,method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/applybundle", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public String applyBundle(@RequestParam("bundleVersion")String bundleVersion) {
+	public String applyBundle(@RequestParam("bundleVersion") String bundleVersion) {
 		JSONObject jobj = new JSONObject();
 		BundleVersionVO vo = new BundleVersionVO();
 		vo.setBundleVersion(bundleVersion);
-		if(bundleVersionService.getBundleVersion()==null){
+		if (bundleVersionService.getBundleVersion() == null) {
 			bundleVersionService.insertBundleVersion(vo);
-		}
-		else
+		} else
 			bundleVersionService.updateBundleVersion(vo);
 		return jobj.toString();
 	}
@@ -67,15 +66,18 @@ public class BundleController {
 	 * 
 	 * @return 번들 관리 페이지
 	 */
-	@RequestMapping(value ="/deletebundle",  method=RequestMethod.POST)
+	@RequestMapping(value = "/deletebundle", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteUser(String bundleVersion) {
 		JSONObject jobj = new JSONObject();
-		if(bundleVersion.equals(bundleVersionService.getBundleVersion())){
-		bundleService.deleteBundle(bundleVersion);
-		return null;
+		if (bundleVersion.equals(bundleVersionService.getBundleVersion())) {
+			jobj.put("flag", false);
+			return jobj.toString();
+		} else {
+			bundleService.deleteBundle(bundleVersion);
+			jobj.put("flag", true);
+			return jobj.toString();
 		}
-		return null;
 	}
 
 	@RequestMapping(value = "/bundleversioncheck", method = RequestMethod.POST, produces = "application/json")
