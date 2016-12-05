@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.api.service.ApiService;
 import com.obigo.obigoproject.bundle.service.BundleService;
@@ -26,6 +29,8 @@ import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
 import com.obigo.obigoproject.vo.UsersVO;
 import com.obigo.obigoproject.vo.VehicleVO;
+
+import net.sf.json.JSONObject;
 
 @Controller
 public class MoveController {
@@ -54,18 +59,17 @@ public class MoveController {
 	@Autowired
 	VehicleService vehicleService;
 
-	
-	
 	/**
-	 * 메인 페이지로 이동
+	 * DashBoard로 이동
 	 * 
 	 * @return 메인 페이지
 	 */
 	@RequestMapping("/main")
-	public String moveMain() {
-		
+	public String moveDashBoard() {
+
 		return "/jsp/header/main";
 	}
+
 	/**
 	 * 회원가입 페이지로 이동
 	 * 
@@ -177,6 +181,17 @@ public class MoveController {
 		List<PushMessageVO> list = pushMessageService.getPushMessageList();
 		model.addAttribute("pushMessageList", list);
 		return "/jsp/pushmessage";
+	}
+
+	/**
+	 * 헤더 Send Message클릭시 이동
+	 * 
+	 * @return 푸시메시지 전송 페이지
+	 */
+	@RequestMapping("/sendmessage")
+	public String moveSendMessage() {
+
+		return "/jsp/sendmessage";
 	}
 
 	/**
