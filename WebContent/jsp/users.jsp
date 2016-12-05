@@ -99,6 +99,7 @@
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
+											<th>USERID</th>
 											<th>USERNAME</th>
 											<th>EMAIL</th>
 											<th>PHONE</th>
@@ -110,6 +111,7 @@
 									<tbody>
 										<c:forEach var="u" items="${userList}" begin="0">
 											<tr class="">
+												<td>${u.userId}</td>
 												<td>${u.name}</td>
 												<td>${u.eMail}</td>
 												<td>${u.phone}</td>
