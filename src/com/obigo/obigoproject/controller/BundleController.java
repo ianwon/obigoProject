@@ -32,7 +32,11 @@ public class BundleController {
 		JSONObject jobj = new JSONObject();
 		BundleVersionVO vo = new BundleVersionVO();
 		vo.setBundleVersion(bundleVersion);
-		bundleVersionService.updateBundleVersion(vo);
+		if(bundleVersionService.getBundleVersion()==null){
+			bundleVersionService.insertBundleVersion(vo);
+		}
+		else
+			bundleVersionService.updateBundleVersion(vo);
 		return jobj.toString();
 	}
 
@@ -66,7 +70,11 @@ public class BundleController {
 	@RequestMapping(value ="/deletebundle",  method=RequestMethod.POST)
 	@ResponseBody
 	public String deleteUser(String bundleVersion) {
+		JSONObject jobj = new JSONObject();
+		if(bundleVersion.equals(bundleVersionService.getBundleVersion())){
 		bundleService.deleteBundle(bundleVersion);
+		return null;
+		}
 		return null;
 	}
 
