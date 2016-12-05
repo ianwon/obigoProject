@@ -56,7 +56,7 @@ public class UserController {
 	 * 
 	 * @return 유저관리페이지
 	 */
-	@RequestMapping(value= "/updateuser", method=RequestMethod.POST)
+	@RequestMapping(value = "/updateuser", method = RequestMethod.POST)
 	public String updateUser(UsersVO vo) {
 		userService.updateUser(vo);
 		return "redirect:/users";
@@ -67,7 +67,7 @@ public class UserController {
 	 * 
 	 * @return 유저관리페이지
 	 */
-	@RequestMapping(value="/deleteuser", method=RequestMethod.POST)
+	@RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteUser(String userId) {
 		userService.deleteUser(userId);
@@ -116,6 +116,24 @@ public class UserController {
 	}
 
 	/**
+	 * 회원가입 폼에서 아이디 중복 확인 버튼 클릭시 수행
+	 * 
+	 * @return 회원가입 폼
+	 */
+	@RequestMapping(value = "/passwordcheck", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String passwordCheck(@RequestParam("userId") String userId, @RequestParam("password") String password) {
+		JSONObject jobj = new JSONObject();
+		if (userService.getUser(userId).getPassword().equals(password)) {
+			jobj.put("flag", true);
+		} else {
+			jobj.put("flag", false);
+		}
+
+		return jobj.toString();
+	}
+
+	/**
 	 * 로그인시 아이디와 비밀번호 체크 // 성공시 세션 생성해줘야함.
 	 * 
 	 * @return 메인페이지
@@ -135,7 +153,7 @@ public class UserController {
 	 * 
 	 * @return 로그인 페이지
 	 */
-	@RequestMapping(value="/logout", method=RequestMethod.POST)
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public String logout(HttpSession session) {
 		return null;
 	}
@@ -146,7 +164,7 @@ public class UserController {
 	 * 
 	 * @return 유저 차량 관리 페이지
 	 */
-	@RequestMapping(value="/insertuservehicle", method=RequestMethod.POST)
+	@RequestMapping(value = "/insertuservehicle", method = RequestMethod.POST)
 	public String insertUserVehicle(@RequestParam UserVehicleVO vo) {
 		return null;
 	}
@@ -156,7 +174,7 @@ public class UserController {
 	 * 
 	 * @return 유저 차량 관리 페이지
 	 */
-	@RequestMapping(value="/updateuservehicle", method=RequestMethod.POST)
+	@RequestMapping(value = "/updateuservehicle", method = RequestMethod.POST)
 	public String updateUserVehicle(@RequestParam UserVehicleVO vo) {
 		return null;
 	}
@@ -166,7 +184,7 @@ public class UserController {
 	 * 
 	 * @return 유저 차량 관리 페이지
 	 */
-	@RequestMapping(value="/deleteuservehicle", method=RequestMethod.POST)
+	@RequestMapping(value = "/deleteuservehicle", method = RequestMethod.POST)
 	public String deleteUserVehicle(@RequestParam int userVehicleNumber) {
 		return null;
 	}

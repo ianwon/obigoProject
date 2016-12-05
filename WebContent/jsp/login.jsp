@@ -62,13 +62,34 @@
 				url : "/obigoProject/idcheck",
 				dataType : "json",
 				data : {
-					"userId" : $("#userId").val()
+					"userId" : $("#userId").val(),
+					"password" : $("#password").val()
 				},
 				success : function(data) {
 					if (data.flag == false) {
 						return true;
 					} else {
 						alert("존재하지 않는 아이디 입니다.");
+						return false;
+					}
+				}
+			});
+		}
+	
+		function passwordCheck() {
+			$.ajax({
+				type : "post",
+				url : "/obigoProject/password",
+				dataType : "json",
+				data : {
+					"userId" : $("#userId").val(),
+					"password" : $("#password").val()
+				},
+				success : function(data) {
+					if (data.flag == false) {
+						return true;
+					} else {
+						alert("비밀번호가 틀렸습니다.");
 						return false;
 					}
 				}

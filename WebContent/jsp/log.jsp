@@ -22,7 +22,7 @@
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
-									<a class="btn btn-success" data-toggle="modal" href="javascript:deleteLog();"> Delete All Log <i class="fa fa-plus"></i>
+									<a class="btn btn-success" data-toggle="modal" href="javascript:deleteLog();"> Delete All Log <i class="fa fa-minus"></i>
 									</a>
 								</div>
 
@@ -51,6 +51,7 @@
 												<td class="center">${l.returned}</td>
 											</tr>
 										</c:forEach>
+										
 									</tbody>
 								</table>
 
@@ -105,7 +106,7 @@
 	
 		//api 삭제여부를 확인하고 true=삭제 false=취소
 		function deleteLog() {
-			if (confirm("로그 전체를 정말 삭제하시겠습니까??") == true) { //확인
+			if (confirm("전체 로그를 정말 삭제하시겠습니까?") == true) { //확인
 				$.ajax({
 					type : "post",
 					url : "/obigoProject/deletelog",
