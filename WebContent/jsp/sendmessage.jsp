@@ -60,7 +60,7 @@
 										<div class="form-group">
 											<div class="col-lg-offset-2 col-lg-10">
 												<button class="btn btn-danger" type="submit">Send</button>
-												<button class="btn btn-default" type="button">Cancel</button>
+<!-- 												<button class="btn btn-default" type="button">Cancel</button> -->
 											</div>
 										</div>
 
@@ -86,12 +86,12 @@
 
 
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="js/jquery.scrollTo.min.js"></script>
-	<script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-	<script src="js/respond.min.js"></script>
+	<script src="/obigoProject/js/jquery.js"></script>
+	<script src="/obigoProject/js/bootstrap.min.js"></script>
+	<script class="include" type="text/javascript" src="/obigoProject/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script src="/obigoProject/js/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="/obigoProject/js/jquery.nicescroll.js" ></script>
+	<script src="/obigoProject/js/respond.min.js"></script>
 
 	<!--this page plugins-->
 
@@ -109,9 +109,6 @@
 	<script type="text/javascript" src="/obigoProject/assets/jquery-multi-select/js/jquery.quicksearch.js"></script>
 
 
-	<!--summernote-->
-	<script src="/obigoProject/assets/summernote/dist/summernote.min.js"></script>
-
 	<!--right slidebar-->
 	<script src="/obigoProject/js/slidebars.min.js"></script>
 
@@ -120,22 +117,7 @@
 
 	<!--this page  script only-->
 	<script src="/obigoProject/js/advanced-form-components.js"></script>
-	<script src="js/form-validation-script.js"></script>
 
-	<script>
-		jQuery(document).ready(function() {
-
-			$('.summernote').summernote({
-				height : 200, // set editor height
-
-				minHeight : null, // set minimum height of editor
-				maxHeight : null, // set maximum height of editor
-
-				focus : true
-			// set focus to editable area after initializing summernote
-			});
-		});
-	</script>
 
 </body>
 </html>
