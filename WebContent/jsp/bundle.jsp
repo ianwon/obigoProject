@@ -102,12 +102,12 @@
 									</thead>
 									<tbody>
 										<c:forEach var="b" items="${bundleList}" begin="0">
-											<tr class="">
-												<td>${b.bundleName}</td>
-												<td>${b.bundleVersion}</td>
-												<td>${b.fileUpload}</td>
-												<td>${b.developer}</td>
-												<td>${b.bundleKey}</td>
+											<tr class="" >
+												<td onclick="openmodal()">${b.bundleName}</td>
+												<td onclick="openmodal()">${b.bundleVersion}</td>
+												<td onclick="openmodal()">${b.fileUpload}</td>
+												<td onclick="openmodal()">${b.developer}</td>
+												<td onclick="openmodal()">${b.bundleKey}</td>
 												<td><a class="update" href="javascript:update('${b.bundleName}','${b.bundleVersion}')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${b.bundleVersion}')">Delete</a></td>
 												<td><a class="accept" href="javascript:accept('${b.bundleVersion}')">Accept</a></td>
@@ -218,6 +218,10 @@
 				});
 	
 			}
+		}
+		
+		function openmodal(){
+			$("#addModal").modal();
 		}
 	</script>
 
