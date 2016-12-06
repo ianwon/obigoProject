@@ -149,13 +149,12 @@ public class MoveController {
 	 * 
 	 * @return 리소스 관리 페이지
 	 */
-	// @RequestMapping("/resource")
-	// public String moveResource(Model model) {
-	//
-	// List<BundleVO> list = bundleService.getBundleList();
-	// model.addAttribute("bundleList", list);
-	// return "resource";
-	// }
+	 @RequestMapping("/resource")
+	 public String moveResource(Model model) {
+	 List<BundleVO> list = bundleService.getBundleList();
+	 model.addAttribute("bundleList", list);
+	 return "/jsp/resource";
+	 }
 
 	/**
 	 * 헤더 RESTFUL API 클릭시 이동

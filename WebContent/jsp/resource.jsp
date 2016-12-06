@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Bundle Management Page</title>
+<title>Resource Management Page</title>
 </head>
 <body>
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
@@ -24,31 +24,27 @@
 									</button>
 								</div>
 								<!--modal start-->
-								<!-- Add Bundle 눌렀을때 모달창 -->
+								<!-- Add Resource 눌렀을때 모달창 -->
 								<!-- Modal -->
 								<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-												<h4 class="modal-title">Add Bundle</h4>
+												<h4 class="modal-title">Add Resource</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-addbundle" class="form-signin" action="/obigoProject/insertbundle" onsubmit="return check()" method="POST">
+												<form id="form-addresource" action="/obigoProject/insertresource" class="form-signin" onsubmit="addresource()" method="POST">
 													<div class="login-wrap">
-														<input type="text" name="bundleName" class="form-control" placeholder="BundleName" autofocus required="required">
-														<input type="text" name="bundleVersion" id="bundleversion" class="form-control" onkeyup="bundleversionCheck()" placeholder="BundleVersion" autofocus required="required">
-														<div id=bundleversioncheck></div>
-														<input type="file" name="fileUpload" class="form-control" autofocus required="required">
-														<input type="text" name="developer" class="form-control" placeholder="Developer" autofocus required="required">
-														<input type="text" name="bundleKey" id="bundlekey" class="form-control" onkeyup="bundlekeyCheck()" placeholder="BundleKey" required="required">
-														<div id=bundlekeycheck></div>
+														<input type="text" name="resourceName" class="form-control" placeholder="ResourceName" autofocus required="required">
+														<input type="text" name="path" id="bundleversion" class="form-control" placeholder="Path" autofocus required="required">
+														<input type="text" name="resourceVersion" class="form-control" placeholder="ResourceVersion" autofocus required="required">
 													</div>
 												</form>
 											</div>
 											<div class="modal-footer">
 												<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-												<input class="btn btn-success" type="submit" form="form-addbundle" value="Registration">
+												<input class="btn btn-success" type="submit" form="form-addresource" value="Registration">
 											</div>
 										</div>
 									</div>
@@ -82,34 +78,28 @@
 								<!-- modal -->
 								<!-- Modal -->
 							</div>
+							<br>
 							<div class="space15"></div>
+							<div class="bundleList">
+								<select id=selectbundle onchange="showresource()">
+									<option value="default">Select BundleVersion</option>
+									<c:forEach var="b" items="${bundleList}" begin="0">
+										<option value="${b.bundleKey}">Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option>
+									</c:forEach>
+								</select>
+							</div>
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
-											<th>BUNDLENAME</th>
-											<th>BUNDLEVERSION</th>
-											<th>FILEUPLOAD</th>
-											<th>DEVELOPER</th>
+											<th>RESOURCENAME</th>
+											<th>PATH</th>
+											<th>RESOURCEVERSION</th>
 											<th>BUNDLEKEY</th>
 											<th>EDIT</th>
-											<th>DELETE</th>
-											<th>ACCEPT</th>
 										</tr>
 									</thead>
-									<tbody>
-										<c:forEach var="b" items="${bundleList}" begin="0">
-											<tr class="">
-												<td>${b.bundleName}</td>
-												<td>${b.bundleVersion}</td>
-												<td>${b.fileUpload}</td>
-												<td>${b.developer}</td>
-												<td>${b.bundleKey}</td>
-												<td><a class="update" href="javascript:update('${b.bundleName}','${b.bundleVersion}')">Edit</a></td>
-												<td><a class="del" href="javascript:del('${b.bundleVersion}')">Delete</a></td>
-												<td><a class="accept" href="javascript:accept('${b.bundleVersion}')">Accept</a></td>
-											</tr>
-										</c:forEach>
+									<tbody id="resource_table">
 									</tbody>
 								</table>
 
@@ -127,67 +117,13 @@
 		<!--footer end-->
 	</section>
 	<script type="text/javascript">
-		//번들version 체크
-		function bundleversionCheck() {
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/bundleversioncheck",
-				dataType : "json",
-				data : {
-					"bundleVersion" : $("#bundleversion").val()
-				},
-				success : function(data) {
-					if (data.flag == false) {
-						$("#bundleversioncheck").html("이미 존재하는 버전 입니다.");
-						$("#bundleversioncheck").css("color", "red");
-					} else {
-						$("#bundleversioncheck").html("등록가능한 버전 입니다.");
-						$("#bundleversioncheck").css("color", "blue");
-					}
-				}
-			})
+		//추가모달창
+		function addresource() {
+			var select = $("#selectbundle").val();
+			var text = "";
+			text += "<input type='hidden' name='bundleKey' value=" + select + ">";
+			$("#form-addresource").append(text);
 		}
-		//번들key 체크
-		function bundlekeyCheck() {
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/bundlekeycheck",
-				dataType : "json",
-				data : {
-					"bundleKey" : $("#bundlekey").val()
-				},
-				success : function(data) {
-					if (data.flag == false) {
-						$("#bundlekeycheck").html("이미 존재하는 키 입니다.");
-						$("#bundlekeycheck").css("color", "red");
-					} else {
-						$("#bundlekeycheck").html("등록가능한 키 입니다.");
-						$("#bundlekeycheck").css("color", "blue");
-					}
-				}
-			})
-		}
-		//번들삭제
-		function del(data) {
-			if (confirm("삭제 하시겠습니까?") == true) {
-				$.ajax({
-					type : "post",
-					url : "/obigoProject/deletebundle",
-					dataType : "json",
-					data : {
-						"bundleVersion" : data
-					},
-					success : function(data) {
-						if (data.flag == true)
-							location.reload();
-						else
-							alert("삭제할 수 없습니다");
-					}
-				});
-	
-			}
-		}
-		//번들수정
 		//수정모달창
 		function update(bundleName, bundleVersion) {
 			$("#editbundlename").val(bundleName);
@@ -195,33 +131,7 @@
 			$("#editModal").modal();
 		}
 	
-		function check() {
-			if ($("#bundleversioncheck").html() == "등록가능한 버전 입니다." && $("#bundlekeycheck").html() == "등록가능한 키 입니다.") {
-				return true;
-			} else {
-				alert("버전과 키를 확인해 주세요;");
-				return false;
-			}
-		}
-	
-		function accept(data) {
-			if (confirm("선택한 버전을 적용하시겠습니까?") == true) {
-				$.ajax({
-					type : "post",
-					url : "/obigoProject/applybundle",
-					dataType : "json",
-					data : {
-						"bundleVersion" : data
-					},
-					success : function(data) {
-						location.reload();
-					}
-				});
-	
-			}
-		}
-	
-		/* function resdel(data) {
+		 function resdel(data) {
 			if (confirm("선택한 리소스를 삭제하시겠습니까?") == true) {
 				$.ajax({
 					type : "post",
@@ -241,37 +151,37 @@
 					}
 				})
 			}
-		} */
-	
-		/* 	function resource(data) {
-				var test;
-				$.ajax({
-					type : "post",
-					url : "/obigoProject/selectresource",
-					dataType : "json",
-					async : false,
-					data : {
-						"bundleKey" : data
-					},
-					success : function(resource) {
-						test = resource.resourceList;
-						$("#resourceModal").modal();
-						var text = "";
-						$.each(test, function(index, resource) {
-							text += "<tr class=''>";
-							text += "<td>" + resource.bundleKey + "</td>";
-							text += "<td>" + resource.path + "</td>";
-							text += "<td>" + resource.resourceName + "</td>";
-							text += "<td>" + resource.resourceVersion + "</td>";
-							text += "<td><a href=javascript:resupdate(" + resource + ")>Edit</a></td>";
-							text += "<td><a href=javascript:resdel(" + resource.resourceNumber + ")>Delete</a></td>";
-							text += "</tr>";
-						});
-						href = "javascript:accept('${b.bundleVersion}')"
-						$("#resource_table").html(text);
-					}
-				});
-			} */
+		}
+		/* 
+		번들을 선택했을 때 관련된 리소스 보여주기
+		*/
+		function showresource() {
+			var select = $("#selectbundle").val();
+			$.ajax({
+				type : "post",
+				url : "/obigoProject/selectresource",
+				dataType : "json",
+				async : false,
+				data : {
+					"bundleKey" : select
+				},
+				success : function(resource) {
+					test = resource.resourceList;
+					var text = "";
+					$.each(test, function(index, resource) {
+						text += "<tr class=''>";
+						text += "<td>" + resource.resourceName + "</td>";
+						text += "<td>" + resource.path + "</td>";
+						text += "<td>" + resource.resourceVersion + "</td>";
+						text += "<td>" + resource.bundleKey + "</td>";
+						text += "<td><a href=javascript:resupdate(" + resource + ")>Edit</a></td>";
+						text += "<td><a href=javascript:resdel(" + resource.resourceNumber + ")>Delete</a></td>";
+						text += "</tr>";
+					});
+					$("#resource_table").html(text);
+				}
+			});
+		}
 	</script>
 
 	<!-- js placed at the end of the document so the pages load faster -->
