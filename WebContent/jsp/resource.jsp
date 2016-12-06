@@ -14,16 +14,13 @@
 			<section class="wrapper site-min-height">
 				<!-- page start-->
 				<section class="panel">
-					<header class="panel-heading">
-						<h1>NOW VERSION : ${bundleVersion}</h1>
-						BUNDLES
-					</header>
+					<header class="panel-heading"> RESOURCE </header>
 					<div class="panel-body">
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
 									<button id="Add" class="btn green" data-toggle="modal" href="#addModal">
-										Add Bundle <i class="fa fa-plus"></i>
+										Add Resource <i class="fa fa-plus"></i>
 									</button>
 								</div>
 								<!--modal start-->
@@ -246,35 +243,35 @@
 			}
 		} */
 	
-	/* 	function resource(data) {
-			var test;
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/selectresource",
-				dataType : "json",
-				async : false,
-				data : {
-					"bundleKey" : data
-				},
-				success : function(resource) {
-					test = resource.resourceList;
-					$("#resourceModal").modal();
-					var text = "";
-					$.each(test, function(index, resource) {
-						text += "<tr class=''>";
-						text += "<td>" + resource.bundleKey + "</td>";
-						text += "<td>" + resource.path + "</td>";
-						text += "<td>" + resource.resourceName + "</td>";
-						text += "<td>" + resource.resourceVersion + "</td>";
-						text += "<td><a href=javascript:resupdate(" + resource + ")>Edit</a></td>";
-						text += "<td><a href=javascript:resdel(" + resource.resourceNumber + ")>Delete</a></td>";
-						text += "</tr>";
-					});
-					href = "javascript:accept('${b.bundleVersion}')"
-					$("#resource_table").html(text);
-				}
-			});
-		} */
+		/* 	function resource(data) {
+				var test;
+				$.ajax({
+					type : "post",
+					url : "/obigoProject/selectresource",
+					dataType : "json",
+					async : false,
+					data : {
+						"bundleKey" : data
+					},
+					success : function(resource) {
+						test = resource.resourceList;
+						$("#resourceModal").modal();
+						var text = "";
+						$.each(test, function(index, resource) {
+							text += "<tr class=''>";
+							text += "<td>" + resource.bundleKey + "</td>";
+							text += "<td>" + resource.path + "</td>";
+							text += "<td>" + resource.resourceName + "</td>";
+							text += "<td>" + resource.resourceVersion + "</td>";
+							text += "<td><a href=javascript:resupdate(" + resource + ")>Edit</a></td>";
+							text += "<td><a href=javascript:resdel(" + resource.resourceNumber + ")>Delete</a></td>";
+							text += "</tr>";
+						});
+						href = "javascript:accept('${b.bundleVersion}')"
+						$("#resource_table").html(text);
+					}
+				});
+			} */
 	</script>
 
 	<!-- js placed at the end of the document so the pages load faster -->

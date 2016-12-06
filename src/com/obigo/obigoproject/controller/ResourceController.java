@@ -42,8 +42,16 @@ public class ResourceController {
 	 * @return 리소스 관리 페이지
 	 */
 	@RequestMapping("/deleteresource")
+	@ResponseBody
 	public String deleteResource(@RequestParam int resourceNumber) {
-		return null;
+		JSONObject jobj = new JSONObject();
+		if (resourceService.deleteResource(resourceNumber) == true) {
+			jobj.put("flag", true);
+			return jobj.toString();
+		} else {
+			jobj.put("flag", false);
+			return jobj.toString();
+		}
 	}
 
 	/**
@@ -56,7 +64,6 @@ public class ResourceController {
 	public String selectResource(@RequestParam String bundleKey) {
 		JSONObject jobj = new JSONObject();
 		jobj.put("resourceList", resourceService.getResourceList(bundleKey));
-		System.out.println(resourceService.getResourceList(bundleKey));
 		return jobj.toString();
 	}
 

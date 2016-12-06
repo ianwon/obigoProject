@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.pushmessage.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class PushMessageDaoImpl implements PushMessageDao {
 	@Override
 	public List<PushMessageVO> getPushMessageListByCategory(int categoryNumber) {
 		return sqlSession.selectList("obigoproject.PushMessage.selectPushMessageByCategory", categoryNumber);
+	}
+
+	@Override
+	public List<PushMessageVO> getPushMessageList(Map map) {
+		return sqlSession.selectList("obigoproject.PushMessage.indexingPushMessageList",map);
 	}
 
 }
