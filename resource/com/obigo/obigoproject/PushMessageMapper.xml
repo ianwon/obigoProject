@@ -36,17 +36,25 @@
 		]]>
 	</delete>
 
+	<select id="indexingPushMessageList" parameterType="java.lang.String"
+		resultMap="PushMessageResultMap">
+		<![CDATA[
+			select * from (select rownum num, p.title, p.content, p.send_date, p.upload_file from push_message p, user_message u
+			where p.message_number=u.message_number and u.user_id=#{userId} order by p.send_date desc) where num between #{start} and #{end};
+		]]>
+	</select>
 	<select id="selectPushMessageList" resultMap="PushMessageResultMap">
 		<![CDATA[
 			select * from push_message order by send_date desc
 		]]>
 	</select>
 
-	<select id="selectPushMessageByCategory" parameterType="java.lang.Integer" resultMap="PushMessageResultMap">
+	<select id="selectPushMessageByCategory" parameterType="java.lang.Integer"
+		resultMap="PushMessageResultMap">
 		<![CDATA[
 			select pm.message_number, pm.title, pm.content, pm.send_date, pm.upload_file, pm.model_name, pm.location, pm.category_number from push_message pm, message_category mc where pm.category_number=mc.category_number and mc.category_number=#{categoryNumber}
 		]]>
 	</select>
-	
+
 
 </mapper>
