@@ -1,5 +1,7 @@
 package com.obigo.obigoproject.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,8 +47,9 @@ public class BundleController {
 	 * @return 번들 관리 페이지
 	 */
 	@RequestMapping("/insertbundle")
-	public String insertBundle(BundleVO vo) {
-		bundleService.insertBundle(vo);
+	public String insertBundle(BundleVO vo, HttpServletRequest request) {
+		
+		bundleService.insertBundle(vo,request);
 		return "redirect:/bundle";
 	}
 
