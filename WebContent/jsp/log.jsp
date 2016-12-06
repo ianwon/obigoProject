@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Push Message</title>
+<title>Log</title>
 </head>
 <body>
 
@@ -17,10 +17,14 @@
 
 				<!-- page start-->
 				<section class="panel">
-					<header class="panel-heading"> PushMessage </header>
+					<header class="panel-heading"> Log </header>
 					<div class="panel-body">
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
+								<div class="btn-group">
+									<a class="btn btn-success" data-toggle="modal" href="javascript:deleteLog();"> Delete All Log <i class="fa fa-minus"></i>
+									</a>
+								</div>
 
 
 
@@ -31,26 +35,23 @@
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
-											<th>Title</th>
-											<th>Upload File</th>
-											<th>Content</th>
-											<th>Send Date</th>
-											<th>Category Number</th>
-											<th>Delete</th>
+											<th>Url</th>
+											<th>Body</th>
+											<th>Date Time</th>
+											<th>Return</th>
 										</tr>
 									</thead>
 									<tbody>
 
-										<c:forEach var="p" items="${pushMessageList}" begin="0">
+										<c:forEach var="l" items="${logList}" begin="0">
 											<tr class="">
-												<td class="center">${p.title}</td>
-												<td class="center">${p.uploadFile}</td>
-												<td class="center">${p.content}</td>
-												<td class="center">${p.sendDate}</td>
-												<td class="center">${p.categoryNumber}</td>
-												<td><a class="Delete" href="javascript:deletePushmessage(${p.messageNumber});">Delete</a></td>
+												<td>${l.url}</td>
+												<td class="center">${l.body}</td>
+												<td class="center">${l.dateTime}</td>
+												<td class="center">${l.returned}</td>
 											</tr>
 										</c:forEach>
+										
 									</tbody>
 								</table>
 
@@ -104,14 +105,13 @@
 	
 	
 		//api 삭제여부를 확인하고 true=삭제 false=취소
-		function deletePushmessage(data) {
-			if (confirm("정말 삭제하시겠습니까??") == true) { //확인
+		function deleteLog() {
+			if (confirm("전체 로그를 정말 삭제하시겠습니까?") == true) { //확인
 				$.ajax({
 					type : "post",
-					url : "/obigoProject/deletepushmessage",
+					url : "/obigoProject/deletelog",
 					dataType : "json",
 					data : {
-						"messageNumber" : data
 					},
 					success : function(data) {
 						location.reload();

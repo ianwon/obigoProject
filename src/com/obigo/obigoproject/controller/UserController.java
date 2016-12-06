@@ -44,12 +44,11 @@ public class UserController {
 	 * 
 	 * @return 유저관리페이지
 	 */
-	@RequestMapping(value = "/insertUser", method = RequestMethod.POST)
-	public String insertUser(@RequestParam UsersVO vo) {
-
+	@RequestMapping(value = "/insertuser", method = RequestMethod.POST)
+	public String insertUser(UsersVO vo) {
+		vo.setRoleName("USER");
 		userService.insertUser(vo);
-
-		return null;
+		return "redirect:/users";
 	}
 
 	/**
@@ -57,9 +56,10 @@ public class UserController {
 	 * 
 	 * @return 유저관리페이지
 	 */
-	@RequestMapping(value= "/updateUser", method=RequestMethod.POST)
-	public String updateUser(@RequestParam UsersVO vo) {
-		return null;
+	@RequestMapping(value = "/updateuser", method = RequestMethod.POST)
+	public String updateUser(UsersVO vo) {
+		userService.updateUser(vo);
+		return "redirect:/users";
 	}
 
 	/**
@@ -67,9 +67,10 @@ public class UserController {
 	 * 
 	 * @return 유저관리페이지
 	 */
-	@RequestMapping(value="/deleteUser", method=RequestMethod.POST)
-	public String deleteUser(@RequestParam String id) {
-
+	@RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteUser(String userId) {
+		userService.deleteUser(userId);
 		return null;
 	}
 
@@ -109,9 +110,26 @@ public class UserController {
 	@RequestMapping(value = "/idcheck", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String idCheck(@RequestParam("userId") String userId) {
-		System.out.println("여긴오니?");
 		JSONObject jobj = new JSONObject();
 		jobj.put("flag", userService.idCheck(userId));
+		return jobj.toString();
+	}
+
+	/**
+	 * 회원가입 폼에서 아이디 중복 확인 버튼 클릭시 수행
+	 * 
+	 * @return 회원가입 폼
+	 */
+	@RequestMapping(value = "/passwordcheck", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String passwordCheck(@RequestParam("userId") String userId, @RequestParam("password") String password) {
+		JSONObject jobj = new JSONObject();
+		if (userService.getUser(userId).getPassword().equals(password)) {
+			jobj.put("flag", true);
+		} else {
+			jobj.put("flag", false);
+		}
+
 		return jobj.toString();
 	}
 
@@ -135,7 +153,7 @@ public class UserController {
 	 * 
 	 * @return 로그인 페이지
 	 */
-	@RequestMapping(value="/logout", method=RequestMethod.POST)
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public String logout(HttpSession session) {
 		return null;
 	}
@@ -146,7 +164,7 @@ public class UserController {
 	 * 
 	 * @return 유저 차량 관리 페이지
 	 */
-	@RequestMapping(value="/insertuservehicle", method=RequestMethod.POST)
+	@RequestMapping(value = "/insertuservehicle", method = RequestMethod.POST)
 	public String insertUserVehicle(@RequestParam UserVehicleVO vo) {
 		return null;
 	}
@@ -156,7 +174,7 @@ public class UserController {
 	 * 
 	 * @return 유저 차량 관리 페이지
 	 */
-	@RequestMapping(value="/updateuservehicle", method=RequestMethod.POST)
+	@RequestMapping(value = "/updateuservehicle", method = RequestMethod.POST)
 	public String updateUserVehicle(@RequestParam UserVehicleVO vo) {
 		return null;
 	}
@@ -166,7 +184,7 @@ public class UserController {
 	 * 
 	 * @return 유저 차량 관리 페이지
 	 */
-	@RequestMapping(value="/deleteuservehicle", method=RequestMethod.POST)
+	@RequestMapping(value = "/deleteuservehicle", method = RequestMethod.POST)
 	public String deleteUserVehicle(@RequestParam int userVehicleNumber) {
 		return null;
 	}

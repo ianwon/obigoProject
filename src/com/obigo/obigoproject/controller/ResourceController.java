@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.resource.service.ResourceService;
 import com.obigo.obigoproject.vo.ResourceVO;
+
+import net.sf.json.JSONObject;
 
 @Controller
 public class ResourceController {
@@ -49,8 +52,12 @@ public class ResourceController {
 	 * @return 리소스 관리 페이지
 	 */
 	@RequestMapping("/selectresource")
+	@ResponseBody
 	public String selectResource(@RequestParam String bundleKey) {
-		return null;
+		JSONObject jobj = new JSONObject();
+		jobj.put("resourceList", resourceService.getResourceList(bundleKey));
+		System.out.println(resourceService.getResourceList(bundleKey));
+		return jobj.toString();
 	}
 
 }

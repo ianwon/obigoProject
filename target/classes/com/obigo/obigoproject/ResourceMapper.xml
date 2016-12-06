@@ -10,7 +10,7 @@
 		<result column="RESOURCE_NUMBER" property="resourceNumber" />
 		<result column="RESOURCE_NAME" property="resourceName" />
 		<result column="PATH" property="path" />
-		<result column="RESOUCE_VERSION" property="resourceVersion" />
+		<result column="RESOURCE_VERSION" property="resourceVersion" />
 		<result column="BUNDLE_KEY" property="bundleKey" />
 	</resultMap>
 

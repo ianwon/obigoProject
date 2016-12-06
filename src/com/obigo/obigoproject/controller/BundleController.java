@@ -3,11 +3,16 @@ package com.obigo.obigoproject.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.bundle.service.BundleService;
 import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
 import com.obigo.obigoproject.vo.BundleVO;
+import com.obigo.obigoproject.vo.BundleVersionVO;
+
+import net.sf.json.JSONObject;
 
 @Controller
 public class BundleController {
@@ -21,9 +26,17 @@ public class BundleController {
 	 * 
 	 * @return 번들 관리 페이지
 	 */
-	@RequestMapping("/applybundle")
-	public String applyBundle(@RequestParam String bundleVersion) {
-		return null;
+	@RequestMapping(value = "/applybundle", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String applyBundle(@RequestParam("bundleVersion") String bundleVersion) {
+		JSONObject jobj = new JSONObject();
+		BundleVersionVO vo = new BundleVersionVO();
+		vo.setBundleVersion(bundleVersion);
+		if (bundleVersionService.getBundleVersion() == null) {
+			bundleVersionService.insertBundleVersion(vo);
+		} else
+			bundleVersionService.updateBundleVersion(vo);
+		return jobj.toString();
 	}
 
 	/**
@@ -32,8 +45,9 @@ public class BundleController {
 	 * @return 번들 관리 페이지
 	 */
 	@RequestMapping("/insertbundle")
-	public String insertBundle(@RequestParam BundleVO vo) {
-		return null;
+	public String insertBundle(BundleVO vo) {
+		bundleService.insertBundle(vo);
+		return "redirect:/bundle";
 	}
 
 	/**
@@ -42,8 +56,9 @@ public class BundleController {
 	 * @return 번들 관리 페이지
 	 */
 	@RequestMapping("/updatebundle")
-	public String updateBundle(@RequestParam BundleVO vo) {
-		return null;
+	public String updateBundle(BundleVO vo) {
+		bundleService.updateBundle(vo);
+		return "redirect:/bundle";
 	}
 
 	/**
@@ -51,10 +66,45 @@ public class BundleController {
 	 * 
 	 * @return 번들 관리 페이지
 	 */
-	@RequestMapping("/deletebundle")
-	public String deleteBundle(@RequestParam String bundleVersion) {
-		return null;
+	@RequestMapping(value = "/deletebundle", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteUser(String bundleVersion) {
+		JSONObject jobj = new JSONObject();
+		if (bundleVersion.equals(bundleVersionService.getBundleVersion())) {
+			jobj.put("flag", false);
+			return jobj.toString();
+		} else {
+			bundleService.deleteBundle(bundleVersion);
+			jobj.put("flag", true);
+			return jobj.toString();
+		}
 	}
 
+	@RequestMapping(value = "/bundleversioncheck", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String bundleversionCheck(@RequestParam("bundleVersion") String bundleVersion) {
+		JSONObject jobj = new JSONObject();
+		BundleVO vo = bundleService.getBundleBybundleVersion(bundleVersion);
+		if (vo != null) {
+			jobj.put("flag", false);
+			return jobj.toString();
+		} else {
+			jobj.put("flag", true);
+			return jobj.toString();
+		}
+	}
 
+	@RequestMapping(value = "/bundlekeycheck", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String bundlekeyCheck(@RequestParam("bundleKey") String bundleKey) {
+		JSONObject jobj = new JSONObject();
+		BundleVO vo = bundleService.getBundleBybundleKey(bundleKey);
+		if (vo != null) {
+			jobj.put("flag", false);
+			return jobj.toString();
+		} else {
+			jobj.put("flag", true);
+			return jobj.toString();
+		}
+	}
 }

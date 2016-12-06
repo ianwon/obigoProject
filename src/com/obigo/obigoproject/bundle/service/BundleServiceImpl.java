@@ -50,8 +50,13 @@ public class BundleServiceImpl implements BundleService {
 	}
 
 	@Override
-	public BundleVO getBundle(String bundleVersion) {
-		return bundleDao.getBundle(bundleVersion);
+	public BundleVO getBundleBybundleVersion(String bundleVersion) {
+		return bundleDao.getBundleBybundleVersion((bundleVersion));
+	}
+
+	@Override
+	public BundleVO getBundleBybundleKey(String bundleKey) {
+		return bundleDao.getBundleBybundleKey(bundleKey);
 	}
 
 }
