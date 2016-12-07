@@ -1,9 +1,15 @@
 package com.obigo.obigoproject.bundle.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.obigo.obigoproject.bundle.dao.BundleDao;
 import com.obigo.obigoproject.vo.BundleVO;
@@ -15,7 +21,19 @@ public class BundleServiceImpl implements BundleService {
 	BundleDao bundleDao;
 
 	@Override
-	public boolean insertBundle(BundleVO vo) {
+	public boolean insertBundle(BundleVO vo, HttpServletRequest request) {
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+		MultipartFile file = multiRequest.getFile("bundleFile");
+		System.out.println(file.getOriginalFilename());
+		String path = "c:\\obigo\\bundle\\" + file.getOriginalFilename();
+		File f = new File("c:\\obigo\\bundle\\" + file.getOriginalFilename());
+		try {
+			file.transferTo(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		vo.setFileUpload(path);
+		System.out.println(path);
 		int result = bundleDao.insertBundle(vo);
 
 		if (result == 1)

@@ -37,12 +37,12 @@
 												<h4 class="modal-title">Add Bundle</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-addbundle" class="form-signin" action="/obigoProject/insertbundle" onsubmit="return check()" method="POST">
+												<form id="form-addbundle" enctype="multipart/form-data" class="form-signin"  action="/obigoProject/insertbundle" onsubmit="return check()" method="POST">
 													<div class="login-wrap">
 														<input type="text" name="bundleName" class="form-control" placeholder="BundleName" autofocus required="required">
 														<input type="text" name="bundleVersion" id="bundleversion" class="form-control" onkeyup="bundleversionCheck()" placeholder="BundleVersion" autofocus required="required">
 														<div id=bundleversioncheck></div>
-														<input type="file" name="fileUpload" class="form-control" autofocus required="required">
+														<input type="file" name="bundleFile" class="form-control" autofocus required="required">
 														<input type="text" name="developer" class="form-control" placeholder="Developer" autofocus required="required">
 														<input type="text" name="bundleKey" id="bundlekey" class="form-control" onkeyup="bundlekeyCheck()" placeholder="BundleKey" required="required">
 														<div id=bundlekeycheck></div>
@@ -246,35 +246,35 @@
 			}
 		} */
 	
-	/* 	function resource(data) {
-			var test;
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/selectresource",
-				dataType : "json",
-				async : false,
-				data : {
-					"bundleKey" : data
-				},
-				success : function(resource) {
-					test = resource.resourceList;
-					$("#resourceModal").modal();
-					var text = "";
-					$.each(test, function(index, resource) {
-						text += "<tr class=''>";
-						text += "<td>" + resource.bundleKey + "</td>";
-						text += "<td>" + resource.path + "</td>";
-						text += "<td>" + resource.resourceName + "</td>";
-						text += "<td>" + resource.resourceVersion + "</td>";
-						text += "<td><a href=javascript:resupdate(" + resource + ")>Edit</a></td>";
-						text += "<td><a href=javascript:resdel(" + resource.resourceNumber + ")>Delete</a></td>";
-						text += "</tr>";
-					});
-					href = "javascript:accept('${b.bundleVersion}')"
-					$("#resource_table").html(text);
-				}
-			});
-		} */
+		/* 	function resource(data) {
+				var test;
+				$.ajax({
+					type : "post",
+					url : "/obigoProject/selectresource",
+					dataType : "json",
+					async : false,
+					data : {
+						"bundleKey" : data
+					},
+					success : function(resource) {
+						test = resource.resourceList;
+						$("#resourceModal").modal();
+						var text = "";
+						$.each(test, function(index, resource) {
+							text += "<tr class=''>";
+							text += "<td>" + resource.bundleKey + "</td>";
+							text += "<td>" + resource.path + "</td>";
+							text += "<td>" + resource.resourceName + "</td>";
+							text += "<td>" + resource.resourceVersion + "</td>";
+							text += "<td><a href=javascript:resupdate(" + resource + ")>Edit</a></td>";
+							text += "<td><a href=javascript:resdel(" + resource.resourceNumber + ")>Delete</a></td>";
+							text += "</tr>";
+						});
+						href = "javascript:accept('${b.bundleVersion}')"
+						$("#resource_table").html(text);
+					}
+				});
+			} */
 	</script>
 
 	<!-- js placed at the end of the document so the pages load faster -->
