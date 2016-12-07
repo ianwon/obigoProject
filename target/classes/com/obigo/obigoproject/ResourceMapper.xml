@@ -28,17 +28,25 @@
 
 	<update id="updateResource" parameterType="Resource">
 		<![CDATA[
-		update RESOURCES set RESOURCE_NAME=#{resourceName}, PATH=#{path}, RESOUCE_VERSION=#{resourceVersion} where RESOURCE_NUMBER=#{resourceNumber}
+		update RESOURCES set RESOURCE_NAME=#{resourceName}, PATH=#{path}, RESOURCE_VERSION=#{resourceVersion} where RESOURCE_NUMBER=#{resourceNumber}
 		]]>
 	</update>
 
-	<select id="selectResourceList" parameterType="java.lang.String" resultMap="ResourceResultMap"> 
+	<select id="selectResourceListBybundleKey" parameterType="java.lang.String"
+		resultMap="ResourceResultMap"> 
 		<![CDATA[ 
 		select * from RESOURCES where BUNDLE_KEY=#{bundleKey}
 		]]>
 	</select>
-	
-	<select id="selectResource" parameterType="java.lang.Integer" resultMap="ResourceResultMap"> 
+
+	<select id="selectResourceList" resultMap="ResourceResultMap"> 
+		<![CDATA[ 
+		select * from RESOURCES
+		]]>
+	</select>
+
+	<select id="selectResource" parameterType="java.lang.Integer"
+		resultMap="ResourceResultMap"> 
 		<![CDATA[ 
 		select * from RESOURCES where RESOURCE_NUMBER=#{resourceNumber}
 		]]>
