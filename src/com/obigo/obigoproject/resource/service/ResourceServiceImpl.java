@@ -58,14 +58,19 @@ public class ResourceServiceImpl implements ResourceService {
 
 	// 선택된 BUNDLE의 RESOURCE 목록을 얻어온다
 	@Override
-	public List<ResourceVO> getResourceList(String bundleKey) {
-		return resourceDao.getResourceList(bundleKey);
+	public List<ResourceVO> getResourceListBybundleKey(String bundleKey) {
+		return resourceDao.getResourceListBybundleKey(bundleKey);
 	}
 
 	// 선택된 BUNDLE 중 선태한 한개의 RESOURCE를 얻어온다 
 	@Override
 	public ResourceVO getResource(int resourceNumber) {
 		return resourceDao.getResource(resourceNumber);
+	}
+
+	@Override
+	public List<ResourceVO> getResourceList() {
+		return resourceDao.getResourceList();
 	}
 
 }
