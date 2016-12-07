@@ -22,8 +22,9 @@ public class ResourceController {
 	 * @return 리소스 관리 페이지
 	 */
 	@RequestMapping("/insertresource")
-	public String insertResource(@RequestParam ResourceVO vo) {
-		return null;
+	public String insertResource(ResourceVO vo) {
+		resourceService.insertResource(vo);
+		return "redirect:/resource";
 	}
 
 	/**
