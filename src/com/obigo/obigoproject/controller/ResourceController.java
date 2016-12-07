@@ -1,19 +1,12 @@
 package com.obigo.obigoproject.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.obigo.obigoproject.bundle.service.BundleService;
 import com.obigo.obigoproject.resource.service.ResourceService;
-import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.ResourceVO;
 
 import net.sf.json.JSONObject;
@@ -22,8 +15,6 @@ import net.sf.json.JSONObject;
 public class ResourceController {
 	@Autowired
 	ResourceService resourceService;
-	@Autowired
-	BundleService bundleService;
 
 	/**
 	 * 리소스 등록 폼에서 등록 요청이 들어오면 등록해주는 기능
@@ -42,9 +33,8 @@ public class ResourceController {
 	 * @return 리소스 관리 페이지
 	 */
 	@RequestMapping("/updateresource")
-	public String updateResource(ResourceVO vo) {
-		resourceService.updateResource(vo);
-		return "redirect:/resource";
+	public String updateResource(@RequestParam ResourceVO vo) {
+		return null;
 	}
 
 	/**
@@ -71,10 +61,11 @@ public class ResourceController {
 	 * @return 리소스 관리 페이지
 	 */
 	@RequestMapping("/selectresource")
-	public String selectResource(String bundleKey, HttpSession session) {
-		List<ResourceVO> resourcelist = resourceService.getResourceListBybundleKey(bundleKey);
-		session.setAttribute("resourceList", resourcelist);
-		return "redirect:/resource";
+	@ResponseBody
+	public String selectResource(@RequestParam String bundleKey) {
+		JSONObject jobj = new JSONObject();
+		jobj.put("resourceList", resourceService.getResourceList(bundleKey));
+		return jobj.toString();
 	}
 
 }

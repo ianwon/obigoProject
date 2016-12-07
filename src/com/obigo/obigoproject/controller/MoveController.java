@@ -2,11 +2,7 @@ package com.obigo.obigoproject.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +26,6 @@ import com.obigo.obigoproject.vo.ApiVO;
 import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.LogVO;
 import com.obigo.obigoproject.vo.PushMessageVO;
-import com.obigo.obigoproject.vo.ResourceVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
 import com.obigo.obigoproject.vo.UsersVO;
 import com.obigo.obigoproject.vo.VehicleVO;
@@ -154,21 +149,12 @@ public class MoveController {
 	 * 
 	 * @return 리소스 관리 페이지
 	 */
-	@RequestMapping("/resource")
-	public String moveResource(Model model, String bundleKey) {
-		List<BundleVO> bundlelist = bundleService.getBundleList();
-		model.addAttribute("bundleList", bundlelist);
-		if (bundleKey == null) {
-			List<ResourceVO> resourcelist = resourceService.getResourceList();
-			model.addAttribute("resourceList", resourcelist);
-		} else {
-			List<ResourceVO> resourcelist = resourceService.getResourceListBybundleKey(bundleKey);
-			model.addAttribute("resourceList", resourcelist);
-		}
-
-		return "/jsp/resource";
-
-	}
+	 @RequestMapping("/resource")
+	 public String moveResource(Model model) {
+	 List<BundleVO> list = bundleService.getBundleList();
+	 model.addAttribute("bundleList", list);
+	 return "/jsp/resource";
+	 }
 
 	/**
 	 * 헤더 RESTFUL API 클릭시 이동

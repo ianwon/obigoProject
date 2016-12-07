@@ -30,20 +30,13 @@ public class ResourceDaoImpl implements ResourceDao {
 	}
 
 	@Override
-	public List<ResourceVO> getResourceListBybundleKey(String bundleKey) {
-		return sqlsession.selectList("obigoproject.Resource.selectResourceListBybundleKey", bundleKey);
+	public List<ResourceVO> getResourceList(String bundleKey) {
+		return sqlsession.selectList("obigoproject.Resource.selectResourceList", bundleKey);
 	}
-	
-	
 
 	@Override
 	public ResourceVO getResource(int resourceNumber) {
 		return sqlsession.selectOne("obigoproject.Resource.selectResource", resourceNumber);
-	}
-
-	@Override
-	public List<ResourceVO> getResourceList() {
-		return sqlsession.selectList("obigoproject.Resource.selectResourceList");
 	}
 
 }
