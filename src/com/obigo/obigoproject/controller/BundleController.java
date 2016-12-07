@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.obigo.obigoproject.bundle.service.BundleService;
 import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
@@ -46,10 +47,9 @@ public class BundleController {
 	 * 
 	 * @return 번들 관리 페이지
 	 */
-	@RequestMapping("/insertbundle")
+	@RequestMapping(value="/insertbundle", method = RequestMethod.POST)
 	public String insertBundle(BundleVO vo, HttpServletRequest request) {
-		
-		bundleService.insertBundle(vo,request);
+		bundleService.insertBundle(vo, request);
 		return "redirect:/bundle";
 	}
 
