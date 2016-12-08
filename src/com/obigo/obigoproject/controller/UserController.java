@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.itextpdf.text.log.SysoCounter;
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
@@ -189,15 +188,6 @@ public class UserController {
 	public String deleteUserVehicle(@RequestParam int userVehicleNumber) {
 		return null;
 	}
-
 	/////////////////////////////////////////////////////////////////////
 
-	/*
-	 * registration ID 생성
-	 */
-	@RequestMapping(value = "/gettoken", method = RequestMethod.POST)
-	public String getToekn(@RequestParam String token) {
-		System.out.println(token);
-		return null;
-	}
 }
