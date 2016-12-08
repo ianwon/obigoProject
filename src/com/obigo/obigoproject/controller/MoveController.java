@@ -154,7 +154,7 @@ public class MoveController {
 	public String moveResource(Model model, String bundleKey) {
 		List<BundleVO> bundlelist = bundleService.getBundleList();
 		model.addAttribute("bundleList", bundlelist);
-		if (bundleKey == null) {
+		if (bundleKey == null || bundleKey =="") {
 			List<ResourceVO> resourcelist = resourceService.getResourceList();
 			model.addAttribute("resourceList", resourcelist);
 		} else {
