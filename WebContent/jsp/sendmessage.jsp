@@ -35,7 +35,13 @@
 							<header class="panel-heading"> Send Pushmessage </header>
 							<div class="panel-body">
 								<div class=" form">
-									<form class="cmxform form-horizontal tasi-form" id="commentForm" method="get" action="">
+									<select id=selectcategory name="messageCategory">
+										<option value="">Select BundleVersion</option>
+										<c:forEach var="m" items="${messagecategoryList}" begin="0">
+											<option value="${m.categoryNumber}">Bundle Name : ${m.bundleName}, Bundle Version : ${b.bundleVersion}</option>
+										</c:forEach>
+									</select>
+									<form class="cmxform form-horizontal tasi-form" id="commentForm" method="get" action="/obigoProjcet/sendtextmessage">
 										<div class="form-group ">
 											<label for="cname" class="control-label col-lg-2">Message Subject (required)</label>
 											<div class="col-lg-10">
@@ -48,19 +54,19 @@
 												<textarea class="form-control " id="ccomment" name="comment" required></textarea>
 											</div>
 										</div>
-										
-										<div class="form-group">
-                                          <label class="control-label col-md-2">File Upload</label>
-                                          <div class="col-md-4">
-                                              <input type="file" class="default" />
-                                          </div>
-                                      </div>
 
-										
+										<div class="form-group">
+											<label class="control-label col-md-2">File Upload</label>
+											<div class="col-md-4">
+												<input type="file" class="default" />
+											</div>
+										</div>
+
+
 										<div class="form-group">
 											<div class="col-lg-offset-2 col-lg-10">
 												<button class="btn btn-danger" type="submit">Send</button>
-<!-- 												<button class="btn btn-default" type="button">Cancel</button> -->
+												<!-- 												<button class="btn btn-default" type="button">Cancel</button> -->
 											</div>
 										</div>
 
@@ -90,7 +96,7 @@
 	<script src="/obigoProject/js/bootstrap.min.js"></script>
 	<script class="include" type="text/javascript" src="/obigoProject/js/jquery.dcjqaccordion.2.7.js"></script>
 	<script src="/obigoProject/js/jquery.scrollTo.min.js"></script>
-	<script type="text/javascript" src="/obigoProject/js/jquery.nicescroll.js" ></script>
+	<script type="text/javascript" src="/obigoProject/js/jquery.nicescroll.js"></script>
 	<script src="/obigoProject/js/respond.min.js"></script>
 
 	<!--this page plugins-->
