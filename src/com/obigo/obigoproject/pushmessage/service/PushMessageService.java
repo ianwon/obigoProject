@@ -6,7 +6,7 @@ import java.util.Map;
 import com.obigo.obigoproject.vo.PushMessageVO;
 
 public interface PushMessageService {
-	
+
 	// PUSHMESSAGE 등록
 	public boolean insertPushMessage(PushMessageVO vo);
 
@@ -18,7 +18,7 @@ public interface PushMessageService {
 
 	// 전체 PUSHMESSAGE를 가지고오는 메소드
 	public List<PushMessageVO> getPushMessageList();
-	
+
 	// 특정 아이디의 pushmessage를 인덱싱하여 가지고오는 메소드
 	public List<PushMessageVO> getPushMessageList(String userId, int index);
 

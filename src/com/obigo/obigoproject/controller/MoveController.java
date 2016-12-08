@@ -24,6 +24,7 @@ import com.obigo.obigoproject.vehicle.service.VehicleService;
 import com.obigo.obigoproject.vo.ApiVO;
 import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.LogVO;
+import com.obigo.obigoproject.vo.MessageCategoryVO;
 import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.ResourceVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
@@ -196,8 +197,11 @@ public class MoveController {
 	 * @return 푸시메시지 전송 페이지
 	 */
 	@RequestMapping("/sendmessage")
-	public String moveSendMessage() {
-
+	public String moveSendMessage(Model model) {
+		List<VehicleVO> vehicleList = vehicleService.getVehicleList();
+		List<MessageCategoryVO> messagecategoryList = messageCategoryService.getMessageCategoryList();
+		model.addAttribute("messagecategoryList", messagecategoryList);
+		model.addAttribute("vehicleList", vehicleList);
 		return "/jsp/sendmessage";
 	}
 

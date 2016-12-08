@@ -78,7 +78,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 	// GCM 서버로 푸시 메시지 전송
 	@Override
 	public boolean sendPushMessageToGcm(PushMessageVO vo, List<String> listRegistrationId) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
