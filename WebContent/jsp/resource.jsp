@@ -37,7 +37,7 @@
 												<form id="form-addresource" action="/obigoProject/insertresource" class="form-signin" onsubmit="addresource()" method="POST">
 													<div class="login-wrap">
 														<input type="text" name="resourceName" class="form-control" placeholder="ResourceName" autofocus required="required">
-														<input type="text" name="path" id="bundleversion" class="form-control" placeholder="Path" autofocus required="required">
+														<input type="text" name="path" class="form-control" placeholder="Path" autofocus required="required">
 														<input type="text" name="resourceVersion" class="form-control" placeholder="ResourceVersion" autofocus required="required">
 													</div>
 												</form>
@@ -85,7 +85,7 @@
 							<div class="bundleList">
 								<form action="/obigoProject/resource">
 									<select id=selectbundle name="bundleKey">
-										<option value="default">Select BundleVersion</option>
+										<option value="">Select BundleVersion</option>
 										<c:forEach var="b" items="${bundleList}" begin="0">
 											<option value="${b.bundleKey}">Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option>
 										</c:forEach>
