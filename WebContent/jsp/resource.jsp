@@ -34,10 +34,10 @@
 												<h4 class="modal-title">Add Resource</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-addresource" action="/obigoProject/insertresource" class="form-signin" onsubmit="return addresource()" method="POST">
+												<form id="form-addresource" enctype="multipart/form-data" action="/obigoProject/insertresource" class="form-signin" onsubmit="return addresource()" method="POST">
 													<div class="login-wrap">
 														<input type="text" name="resourceName" class="form-control" placeholder="ResourceName" autofocus required="required">
-														<input type="text" name="path" class="form-control" placeholder="Path" autofocus required="required">
+														<input type="file" name="resourcePath" class="form-control" autofocus required="required">
 														<input type="text" name="resourceVersion" class="form-control" placeholder="ResourceVersion" autofocus required="required">
 													</div>
 												</form>
@@ -135,11 +135,10 @@
 		//추가모달창
 		function addresource() {
 			var select = $("#selectbundle").val();
-			if (select == ""){
+			if (select == "") {
 				alert("번들을 선택해주세요");
 				return false;
-			}
-			else {
+			} else {
 				var text = "";
 				text += "<input type='hidden' name='bundleKey' value=" + select + ">";
 				$("#form-addresource").append(text);

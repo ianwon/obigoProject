@@ -2,12 +2,14 @@ package com.obigo.obigoproject.resource.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.obigo.obigoproject.vo.ResourceVO;
 
 public interface ResourceService {
 
 	// RESOURCE 등록
-	public boolean insertResource(ResourceVO vo);
+	public boolean insertResource(ResourceVO vo, HttpServletRequest request);
 
 	// RESOURCE 수정
 	public boolean updateResource(ResourceVO vo);
