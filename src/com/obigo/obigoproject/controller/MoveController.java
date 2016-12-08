@@ -1,7 +1,14 @@
 package com.obigo.obigoproject.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.itextpdf.text.pdf.codec.Base64.InputStream;
 import com.obigo.obigoproject.api.service.ApiService;
 import com.obigo.obigoproject.bundle.service.BundleService;
 import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
@@ -220,15 +228,19 @@ public class MoveController {
 	 * @return 유저 차량 관리 페이지
 	 */
 	@RequestMapping(value = "/userVehicle")
-	public String moveUserVehicle(@RequestParam("userId") String userId, Model model) {
+	public String moveUserVehicle(@RequestParam("userId") String userId, Model model, HttpServletResponse response) {
+		////////////// userVehicleList, vehicleList 초기화///////////////////////////
 		List<UserVehicleVO> userVehicleList = userVehicleService.getUserVehicleList(userId);
 		model.addAttribute("userVehicleList", userVehicleList);
 		List<VehicleVO> vehicleList = new ArrayList<>();
-		for (int i = 0; i < userVehicleList.size(); i++)
+		for (int i = 0; i < userVehicleList.size(); i++) {
 			vehicleList.add(vehicleService.getVehicle(userVehicleList.get(i).getModelCode()));
+		}
+
 		model.addAttribute("vehicleList", vehicleList);
 
 		return "/jsp/uservehicle";
+
 	}
 
 	/////////////////// 잠시 생각/////////////////////////////////
