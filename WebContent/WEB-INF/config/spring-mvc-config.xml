@@ -12,7 +12,6 @@
 	<context:component-scan base-package="com.obigo.obigoproject.controller" />
 
 
-
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass"
@@ -25,4 +24,5 @@
 		<property name="maxUploadSize" value="100000000" />
 		<property name="maxInMemorySize" value="100000000" />
 	</bean>
+
 </beans>

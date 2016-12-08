@@ -12,9 +12,7 @@
 
 	<section id="container" class="">
 		<!--main content start-->
-
 		<section id="main-content">
-
 			<section class="wrapper site-min-height">
 
 				<!-- page start-->
@@ -27,7 +25,7 @@
 									<a class="btn btn-success" data-toggle="modal" href="javascript:deleteLog();"> Delete All Log <i class="fa fa-minus"></i>
 									</a>
 								</div>
-								<a href='/obigoProject/pdfmail'>원유짱</a>
+
 
 
 								<!-- api table start -->
@@ -53,7 +51,7 @@
 												<td class="center">${l.returned}</td>
 											</tr>
 										</c:forEach>
-
+										
 									</tbody>
 								</table>
 

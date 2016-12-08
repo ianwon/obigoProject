@@ -24,14 +24,16 @@ public class BundleServiceImpl implements BundleService {
 	public boolean insertBundle(BundleVO vo, HttpServletRequest request) {
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		MultipartFile file = multiRequest.getFile("bundleFile");
+		System.out.println(file.getOriginalFilename());
 		String path = "c:\\obigo\\bundle\\" + file.getOriginalFilename();
-		File f = new File(path);
+		File f = new File("c:\\obigo\\bundle\\" + file.getOriginalFilename());
 		try {
 			file.transferTo(f);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		vo.setFileUpload(path);
+		System.out.println(path);
 		int result = bundleDao.insertBundle(vo);
 
 		if (result == 1)

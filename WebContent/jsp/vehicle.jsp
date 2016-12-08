@@ -51,11 +51,11 @@
 									</div>
 									<div class="modal-body">
 
-										<form id="form-addvehicle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/insertvehicle" onsubmit="return addVehicleCheck();" method="POST">
+										<form id="form-addvehicle" class="form-signin" action="/obigoProject/insertvehicle" onsubmit="return addVehicleCheck();" method="POST">
 											<input type="text" id="modelName" name="modelName" class="form-control" placeholder="Model Name" autofocus required="required">
 											<input type="text" id="modelCode" name="modelCode" class="form-control" placeholder="Model Code" autofocus required="required">
-											<input type="file" id="model_Image" name="model_Image" class="form-control" placeholder="Model Image" autofocus required="required">
-											<input type="file" id="detail_Image" name="detail_Image" class="form-control" placeholder="Detail Image" autofocus required="required">
+											<input type="text" id="modelImage" name="modelImage" class="form-control" placeholder="Model Image" autofocus required="required">
+											<input type="text" id="detailImage" name="detailImage" class="form-control" placeholder="Detail Image" autofocus required="required">
 											<input type="text" id="engine" name="engine" class="form-control" placeholder="Engine" required="required">
 											<input type="number" id="modelYear" name="modelYear" min="1900" max="2099" step="1" value="2016" />
 											<input type="text" id="milage" name="milage" class="form-control" placeholder="Milage" required="required">
@@ -85,8 +85,8 @@
 										<form id="form-editvehicle" class="form-signin" action="/obigoProject/updatevehicle" method="POST">
 											<input type="text" id="editModelName" name="modelName" class="form-control" placeholder="Model Name" readonly="readonly">
 											<input type="text" id="editModelCode" name="modelCode" class="form-control" placeholder="Model Code" readonly="readonly">
-											<input type="file" id="editModelImage" name="model_Image" class="form-control" placeholder="Model Image">
-											<input type="file" id="editDetailImage" name="detail_Image" class="form-control" placeholder="Detail Image">
+											<input type="text" id="editModelImage" name="modelImage" class="form-control" placeholder="Model Image" required="required">
+											<input type="text" id="editDetailImage" name="detailImage" class="form-control" placeholder="Detail Image" required="required">
 											<input type="text" id="editEngine" name="engine" class="form-control" placeholder="Engine" required="required" readonly="readonly">
 											<input type="number" id="editModelYear" name="modelYear" min="1900" max="2099" step="1" value="2016" readonly="readonly">
 											<input type="text" id="editMilage" name="milage" class="form-control" placeholder="Milage" readonly="readonly" readonly="readonly">
@@ -183,21 +183,26 @@
 	
 		// Edit Modal 폼을 띄울때 해당 되는 데이터를 Modal에 넣어주는 함수
 		function callEditModal(modelCode) {
+
 			$("#editModelName").val(
-				$("#vehicle" + modelCode).children().eq(0).text());
+					$("#vehicle" + modelCode).children().eq(0).text());
 			$("#editModelCode").val(
-				$("#vehicle" + modelCode).children().eq(1).text());
+					$("#vehicle" + modelCode).children().eq(1).text());
+			$("#editModelImage").val(
+					$("#vehicle" + modelCode).children().eq(2).text());
+			$("#editDetailImage").val(
+					$("#vehicle" + modelCode).children().eq(3).text());
 			$("#editEngine").val(
-				$("#vehicle" + modelCode).children().eq(4).text());
+					$("#vehicle" + modelCode).children().eq(4).text());
 			$("#editModelYear").val(
-				$("#vehicle" + modelCode).children().eq(5).text());
+					$("#vehicle" + modelCode).children().eq(5).text());
 			$("#editMilage").val(
-				$("#vehicle" + modelCode).children().eq(6).text());
-	
+					$("#vehicle" + modelCode).children().eq(6).text());
+
 			$("#modalEdit").modal("toggle");
-	
+
 		}
-	
+
 		// 삭제 여부를 묻고 AJAX를 통해서 차량을 삭제하는 함수
 		function deleteVehicleTr(modelCode) {
 			if (confirm("삭제 하시겠습니까?") == true) {
@@ -212,11 +217,11 @@
 						location.reload();
 					}
 				});
-			} else {
+			}else{
 				return;
 			}
 		}
-	
+		
 		// 차량 등록 폼에서 AJAX로 Model Code 비교후 등록을 수행하는 함수
 		function addVehicleCheck() {
 			var checkModelCode = false;
@@ -231,16 +236,17 @@
 				success : function(data) {
 					if (data.flag == true) {
 						// 동일한 Model Code가 DB에 존재하지 않으므로 자동차를 등록할 수 있다
-						checkModelCode = true;
+						checkModelCode=true;
 					} else {
 						// 동일한 Model Code가 이미 DB에 존재하므로 자동차를 등록할 수 없다
 						alert("동일한 Model Code가 이미 존재합니다!");
-	
+						
 					}
 				}
 			});
 			return checkModelCode;
 		}
+		
 	</script>
 
 

@@ -2,14 +2,12 @@ package com.obigo.obigoproject.vehicle.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.obigo.obigoproject.vo.VehicleVO;
 
 public interface VehicleService {
 
 	// 차량정보 등록
-	public boolean insertVehicle(VehicleVO vo, HttpServletRequest request);
+	public boolean insertVehicle(VehicleVO vo);
 
 	// 차량정보 수정
 	public boolean updateVehicle(VehicleVO vo);

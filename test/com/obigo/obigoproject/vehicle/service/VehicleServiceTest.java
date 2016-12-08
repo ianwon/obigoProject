@@ -27,7 +27,7 @@ public class VehicleServiceTest {
 		vo.setModelYear(1111);
 		vo.setMilage("gggg");
 		
-//		Assert.assertTrue(vehicleService.insertVehicle(vo));
+		Assert.assertTrue(vehicleService.insertVehicle(vo));
 	}
 	
 	@Test
