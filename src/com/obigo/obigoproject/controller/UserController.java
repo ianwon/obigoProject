@@ -188,14 +188,6 @@ public class UserController {
 	public String deleteUserVehicle(@RequestParam int userVehicleNumber) {
 		return null;
 	}
-
 	/////////////////////////////////////////////////////////////////////
-	/*
-	 * RegistrationId 받아오기
-	*/
-	@RequestMapping(value = "gettoken", method = RequestMethod.POST)
-	public String getToken(@RequestParam String Token) {
-		System.out.println(Token);
-		return null;
-	}
+
 }
