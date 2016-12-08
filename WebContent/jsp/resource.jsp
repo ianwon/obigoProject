@@ -34,10 +34,10 @@
 												<h4 class="modal-title">Add Resource</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-addresource" action="/obigoProject/insertresource" class="form-signin" onsubmit="addresource()" method="POST">
+												<form id="form-addresource" action="/obigoProject/insertresource" class="form-signin" onsubmit="return addresource()" method="POST">
 													<div class="login-wrap">
 														<input type="text" name="resourceName" class="form-control" placeholder="ResourceName" autofocus required="required">
-														<input type="text" name="path" id="bundleversion" class="form-control" placeholder="Path" autofocus required="required">
+														<input type="text" name="path" class="form-control" placeholder="Path" autofocus required="required">
 														<input type="text" name="resourceVersion" class="form-control" placeholder="ResourceVersion" autofocus required="required">
 													</div>
 												</form>
@@ -85,7 +85,7 @@
 							<div class="bundleList">
 								<form action="/obigoProject/resource">
 									<select id=selectbundle name="bundleKey">
-										<option value="default">Select BundleVersion</option>
+										<option value="">Select BundleVersion</option>
 										<c:forEach var="b" items="${bundleList}" begin="0">
 											<option value="${b.bundleKey}">Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option>
 										</c:forEach>
@@ -135,9 +135,15 @@
 		//추가모달창
 		function addresource() {
 			var select = $("#selectbundle").val();
-			var text = "";
-			text += "<input type='hidden' name='bundleKey' value=" + select + ">";
-			$("#form-addresource").append(text);
+			if (select == ""){
+				alert("번들을 선택해주세요");
+				return false;
+			}
+			else {
+				var text = "";
+				text += "<input type='hidden' name='bundleKey' value=" + select + ">";
+				$("#form-addresource").append(text);
+			}
 		}
 		//수정모달창
 		function update(resourceNumber, resourceName, path, resourceVersion) {
@@ -157,6 +163,7 @@
 					data : {
 						"resourceNumber" : data
 					},
+	
 					success : function(resource) {
 						if (resource.flag == true) {
 							alert("삭제되었습니다.");

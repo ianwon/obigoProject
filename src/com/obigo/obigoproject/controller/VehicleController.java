@@ -1,5 +1,7 @@
 package com.obigo.obigoproject.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +25,9 @@ public class VehicleController {
 	 * @return 자동차 관리 페이지
 	 */
 	@RequestMapping(value = "/insertvehicle", method = RequestMethod.POST)
-	public String insertVehicle(VehicleVO vo) {
+	public String insertVehicle(VehicleVO vo, HttpServletRequest request) {
 
-		vehicleService.insertVehicle(vo);
+		vehicleService.insertVehicle(vo, request);
 
 		return "redirect:/vehicle";
 	}
