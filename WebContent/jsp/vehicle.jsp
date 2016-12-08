@@ -58,7 +58,7 @@
 											<input type="file" id="detail_Image" name="detail_Image" class="form-control" placeholder="Detail Image" autofocus required="required">
 											<input type="text" id="engine" name="engine" class="form-control" placeholder="Engine" required="required">
 											<input type="number" id="modelYear" name="modelYear" min="1900" max="2099" step="1" value="2016" />
-											<input type="text" id="milage" name="milage" class="form-control" placeholder="Milage" required="required">
+											<input type="text" id="mileage" name="mileage" class="form-control" placeholder="mileage" required="required">
 										</form>
 
 									</div>
@@ -89,7 +89,7 @@
 											<input type="file" id="editDetailImage" name="detail_Image" class="form-control" placeholder="Detail Image">
 											<input type="text" id="editEngine" name="engine" class="form-control" placeholder="Engine" required="required" readonly="readonly">
 											<input type="number" id="editModelYear" name="modelYear" min="1900" max="2099" step="1" value="2016" readonly="readonly">
-											<input type="text" id="editMilage" name="milage" class="form-control" placeholder="Milage" readonly="readonly" readonly="readonly">
+											<input type="text" id="editMileage" name="mileage" class="form-control" placeholder="mileage" readonly="readonly" readonly="readonly">
 										</form>
 
 									</div>
@@ -132,7 +132,7 @@
 											<td>${vehicle.detailImage}</td>
 											<td>${vehicle.engine}</td>
 											<td>${vehicle.modelYear}</td>
-											<td>${vehicle.milage}</td>
+											<td>${vehicle.mileage}</td>
 											<td><a data-toggle="modal" href="javascript:callEditModal('${vehicle.modelCode}');">Edit</a></td>
 											<td><a href="javascript:deleteVehicleTr('${vehicle.modelCode}');">Delete</a></td>
 										</tr>

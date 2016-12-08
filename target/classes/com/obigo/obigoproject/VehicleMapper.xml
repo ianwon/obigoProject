@@ -12,12 +12,12 @@
 		<result column="DETAIL_IMAGE" property="detailImage" />
 		<result column="ENGINE" property="engine" />
 		<result column="MODEL_YEAR" property="modelYear" />
-		<result column="MILEAGE" property="milage" />
+		<result column="MILEAGE" property="mileage" />
 	</resultMap>
 
 	<insert id="insertVehicle" parameterType="Vehicle">
 	<![CDATA[
-		insert into VEHICLE values(#{modelName},#{modelCode},#{modelImage},#{detailImage},#{engine},#{modelYear},#{milage})
+		insert into VEHICLE values(#{modelName},#{modelCode},#{modelImage},#{detailImage},#{engine},#{modelYear},#{mileage})
 	]]>
 	</insert>
 
