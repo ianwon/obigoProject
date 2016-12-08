@@ -92,6 +92,7 @@
 									</div>
 								</div>
 								<!-- modal -->
+
 								<!-- Modal -->
 							</div>
 							<div class="space15"></div>
@@ -111,11 +112,11 @@
 									<tbody>
 										<c:forEach var="u" items="${userList}" begin="0">
 											<tr class="">
-												<td>${u.userId}</td>
-												<td>${u.name}</td>
-												<td>${u.eMail}</td>
-												<td>${u.phone}</td>
-												<td>${u.registrationId}</td>
+												<td onclick="userVehicle('${u.userId}')">${u.userId}</td>
+												<td onclick="userVehicle('${u.userId}')">${u.name}</td>
+												<td onclick="userVehicle('${u.userId}')">${u.eMail}</td>
+												<td onclick="userVehicle('${u.userId}')">${u.phone}</td>
+												<td onclick="userVehicle('${u.userId}')">${u.registrationId}</td>
 												<td><a class="update" href="javascript:update('${u.phone}','${u.eMail}','${u.name}','${u.userId }')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${u.userId}')">Delete</a></td>
 											</tr>
@@ -137,6 +138,9 @@
 	</section>
 	<script type="text/javascript">
 	
+		function userVehicle(userId) {
+			document.location.href = "/obigoProject/userVehicle?userId=" + userId
+		}
 		//id체크
 		function idCheck() {
 			$.ajax({
@@ -191,7 +195,7 @@
 		}
 		//user수정
 		//수정모달창
-		function update(phone, eMail, name,userId) {
+		function update(phone, eMail, name, userId) {
 			$("#editphone").val(phone);
 			$("#editeMail").val(eMail);
 			$("#editname").val(name);
