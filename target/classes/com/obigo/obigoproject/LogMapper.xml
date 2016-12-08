@@ -10,7 +10,7 @@
 		<result column="date_time" property="dateTime" />
 		<result column="body" property="body" />
 		<result column="url" property="url" />
-		<result column="returned" property="returned" />
+		<result column="return" property="returned" />
 	</resultMap>
 
 	<insert id="insertLog" parameterType="Log">

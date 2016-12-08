@@ -7,7 +7,7 @@ public class VehicleVO {
 	private String detailImage;
 	private String engine;
 	private int modelYear;
-	private String milage;
+	private String mileage;
 
 	public String getModelName() {
 		return modelName;
@@ -57,18 +57,18 @@ public class VehicleVO {
 		this.modelYear = modelYear;
 	}
 
-	public String getMilage() {
-		return milage;
+	public String getMileage() {
+		return mileage;
 	}
 
-	public void setMilage(String milage) {
-		this.milage = milage;
+	public void setMileage(String mileage) {
+		this.mileage = mileage;
 	}
 
 	@Override
 	public String toString() {
-		return "VehicleVO [modelName=" + modelName + ", modelCode=" + modelCode + ", modelImage=" + modelImage + ", detailImage=" + detailImage +  ", engine=" + engine + ", modelYear=" + modelYear + ", milage="
-				+ milage + "]";
+		return "VehicleVO [modelName=" + modelName + ", modelCode=" + modelCode + ", modelImage=" + modelImage + ", detailImage=" + detailImage +  ", engine=" + engine + ", modelYear=" + modelYear + ", mileage="
+				+ mileage + "]";
 	}
 
 }
