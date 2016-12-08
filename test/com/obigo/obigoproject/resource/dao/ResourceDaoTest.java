@@ -58,7 +58,7 @@ public class ResourceDaoTest {
 	@Test
 	public void selectListTest(){
 				
-		List<ResourceVO>list=resourceDao.getResourceList("key");
+		List<ResourceVO>list=resourceDao.getResourceListBybundleKey("key");
 		Assert.assertEquals(1, list.size());
 		
 	}
