@@ -38,7 +38,7 @@ public class ApiController {
 	@RequestMapping("/updateapi")
 	public String updateApi(ApiVO vo) {
 		apiService.updateApi(vo);
-		
+
 		return "redirect:/api";
 	}
 
@@ -53,7 +53,7 @@ public class ApiController {
 		System.out.println(apiName);
 		apiService.deleteApi(apiName);
 		JSONObject jobj = new JSONObject();
-		
+
 		return jobj.toString();
 	}
 

@@ -1,14 +1,13 @@
 package com.obigo.obigoproject.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.obigo.obigoproject.api.service.ApiService;
 import com.obigo.obigoproject.bundle.service.BundleService;
@@ -28,10 +27,9 @@ import com.obigo.obigoproject.vo.LogVO;
 import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.ResourceVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
+import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.obigo.obigoproject.vo.UsersVO;
 import com.obigo.obigoproject.vo.VehicleVO;
-
-import net.sf.json.JSONObject;
 
 @Controller
 public class MoveController {
@@ -154,7 +152,7 @@ public class MoveController {
 	public String moveResource(Model model, String bundleKey) {
 		List<BundleVO> bundlelist = bundleService.getBundleList();
 		model.addAttribute("bundleList", bundlelist);
-		if (bundleKey == null || bundleKey =="") {
+		if (bundleKey == null || bundleKey == "") {
 			List<ResourceVO> resourcelist = resourceService.getResourceList();
 			model.addAttribute("resourceList", resourcelist);
 		} else {
@@ -214,6 +212,23 @@ public class MoveController {
 		List<LogVO> list = logService.getLogList();
 		model.addAttribute("logList", list);
 		return "/jsp/log";
+	}
+
+	/**
+	 * User 선택시 userVehicle 이동
+	 * 
+	 * @return 유저 차량 관리 페이지
+	 */
+	@RequestMapping(value = "/userVehicle")
+	public String moveUserVehicle(@RequestParam("userId") String userId, Model model) {
+		List<UserVehicleVO> userVehicleList = userVehicleService.getUserVehicleList(userId);
+		model.addAttribute("userVehicleList", userVehicleList);
+		List<VehicleVO> vehicleList = new ArrayList<>();
+		for (int i = 0; i < userVehicleList.size(); i++)
+			vehicleList.add(vehicleService.getVehicle(userVehicleList.get(i).getModelCode()));
+		model.addAttribute("vehicleList", vehicleList);
+
+		return "/jsp/uservehicle";
 	}
 
 	/////////////////// 잠시 생각/////////////////////////////////
