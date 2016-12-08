@@ -1,3 +1,7 @@
+<%@page import="java.io.FileInputStream"%>
+<%@page import="java.io.File"%>
+<%@page import="java.io.BufferedOutputStream"%>
+<%@page import="java.io.BufferedInputStream"%>
 <%@page import="com.obigo.obigoproject.vo.UserVehicleVO"%>
 <%@page import="com.obigo.obigoproject.vo.VehicleVO"%>
 <%@page import="java.util.List"%>
@@ -21,7 +25,7 @@
 				<aside class="profile-nav alt green-border">
 					<section class="panel">
 						<div class="user-heading alt green-bg">
-							<a href="#"> <img alt="" src="c:/obigo/vehicle/image/2011-Hyundai-Avante-3.jpg">
+							<a href="#"> <img alt="" src="/obigoProject/vehicleImage?modelCode=${v.modelCode}">
 							</a>
 							<h1>${v.modelName}</h1>
 						</div>
@@ -32,7 +36,7 @@
 							<li><a href="javascript:;">Model Year<span class="label label-warning pull-right r-activity">${v.modelYear}</span></a></li>
 							<li><a href="javascript:;">Location<span class="label label-success pull-right r-activity">${userVehicleList[status.index].location}</span></a></li>
 							<li><a href="javascript:;">Vin<span class="label label-success pull-right r-activity">${userVehicleList[status.index].vin}</span></a></li>
-						<li><a href="javascript:;">Mileage<span class="label label-success pull-right r-activity">${v.mileage}</span></a></li> 
+							<li><a href="javascript:;">Mileage<span class="label label-success pull-right r-activity">${v.mileage}</span></a></li>
 						</ul>
 
 					</section>
