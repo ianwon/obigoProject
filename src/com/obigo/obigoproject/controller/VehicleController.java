@@ -1,6 +1,9 @@
 package com.obigo.obigoproject.controller;
 
+import java.io.FileInputStream;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,14 +45,14 @@ public class VehicleController {
 	public String checkModelCode(String modelCode) {
 		JSONObject jobj = new JSONObject();
 		VehicleVO vo = null;
-			vo = vehicleService.getVehicle(modelCode);
+		vo = vehicleService.getVehicle(modelCode);
 
-			if (vo == null)
-				jobj.put("flag", true);
-			else
-				jobj.put("flag", false);
+		if (vo == null)
+			jobj.put("flag", true);
+		else
+			jobj.put("flag", false);
 
-			return jobj.toString();
+		return jobj.toString();
 	}
 
 	/**
@@ -78,6 +81,29 @@ public class VehicleController {
 		jobj.put("flag", vehicleService.deleteVehicle(modelCode));
 
 		return jobj.toString();
+	}
+
+	// 차량 이미지를 보여주기위한 메소드
+	@RequestMapping("/vehicleImage")
+	public void vehicleImage(@RequestParam("modelCode") String modelCode, HttpServletResponse response) {
+		String filename = vehicleService.getVehicle(modelCode).getModelImage();
+		FileInputStream fs = null;
+		try {
+			filename = filename.trim();
+			fs = new FileInputStream(filename);
+			byte[] iconImage = new byte[fs.available()];
+			fs.read(iconImage);
+			response.setContentType("image/jpg");
+			response.getOutputStream().write(iconImage);
+		} catch (Exception e1) {
+			// e1.printStackTrace();
+		} finally {
+			try {
+				response.getOutputStream().close();
+			} catch (Exception e) {
+				// e.printStackTrace();
+			}
+		}
 	}
 
 }
