@@ -1,9 +1,15 @@
 package com.obigo.obigoproject.resource.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.obigo.obigoproject.resource.dao.ResourceDao;
 import com.obigo.obigoproject.vo.ResourceVO;
@@ -16,9 +22,18 @@ public class ResourceServiceImpl implements ResourceService {
 
 	// RESOURCE 등록
 	@Override
-	public boolean insertResource(ResourceVO vo) {
+	public boolean insertResource(ResourceVO vo, HttpServletRequest request) {
 		int resultCount = 0;
-
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+		MultipartFile file = multiRequest.getFile("resourcePath");
+		String path = "c:\\obigo\\resource\\" + file.getOriginalFilename();
+		File f = new File(path);
+		try {
+			file.transferTo(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		vo.setPath(path);
 		resultCount = resourceDao.insertResource(vo);
 
 		if (resultCount == 1)
