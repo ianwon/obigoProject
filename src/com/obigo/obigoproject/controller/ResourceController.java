@@ -33,8 +33,9 @@ public class ResourceController {
 	 * @return 리소스 관리 페이지
 	 */
 	@RequestMapping("/updateresource")
-	public String updateResource(@RequestParam ResourceVO vo) {
-		return null;
+	public String updateResource(ResourceVO vo) {
+		resourceService.updateResource(vo);
+		return "redirect:/resource";
 	}
 
 	/**
@@ -60,12 +61,5 @@ public class ResourceController {
 	 * 
 	 * @return 리소스 관리 페이지
 	 */
-	@RequestMapping("/selectresource")
-	@ResponseBody
-	public String selectResource(@RequestParam String bundleKey) {
-		JSONObject jobj = new JSONObject();
-		jobj.put("resourceList", resourceService.getResourceList(bundleKey));
-		return jobj.toString();
-	}
 
 }

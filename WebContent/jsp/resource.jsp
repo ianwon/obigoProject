@@ -61,10 +61,12 @@
 												<h4 class="modal-title">Update Bundle</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-update" class="form-signin" action="/obigoProject/updatebundle" method="POST">
+												<form id="form-update" class="form-signin" action="/obigoProject/updateresource" method="POST">
 													<div class="login-wrap">
-														<input type="text" name="bundleName" id="editbundlename" class="form-control" autofocus>
-														<input type="text" name="bundleVersion" id="editbundleversion" class="form-control" autofocus readonly="readonly" value="${bundleVersion}">
+														<input type="hidden" name="resourceNumber" id="editresourcenumber" class="form-control" autofocus>
+														<input type="text" name="resourceName" id="editresourcename" class="form-control" autofocus required>
+														<input type="file" name="path" id="editpath" class="form-control" autofocus required>
+														<input type="text" name="resourceVersion" id="editresourceversion" class="form-control" autofocus required>
 													</div>
 												</form>
 											</div>
@@ -81,12 +83,15 @@
 							<br>
 							<div class="space15"></div>
 							<div class="bundleList">
-								<select id=selectbundle onchange="showresource()">
-									<option value="default">Select BundleVersion</option>
-									<c:forEach var="b" items="${bundleList}" begin="0">
-										<option value="${b.bundleKey}">Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option>
-									</c:forEach>
-								</select>
+								<form action="/obigoProject/resource">
+									<select id=selectbundle name="bundleKey">
+										<option value="default">Select BundleVersion</option>
+										<c:forEach var="b" items="${bundleList}" begin="0">
+											<option value="${b.bundleKey}">Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option>
+										</c:forEach>
+									</select>
+									<input type="submit" value="검색">
+								</form>
 							</div>
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
@@ -97,12 +102,22 @@
 											<th>RESOURCEVERSION</th>
 											<th>BUNDLEKEY</th>
 											<th>EDIT</th>
+											<th>DELETE</th>
 										</tr>
 									</thead>
-									<tbody id="resource_table">
+									<tbody id=rewource>
+										<c:forEach var="r" items="${resourceList}" begin="0">
+											<tr class="">
+												<td>${r.resourceName}</td>
+												<td>${r.path}</td>
+												<td>${r.resourceVersion}</td>
+												<td>${r.bundleKey}</td>
+												<td><a class="update" href="javascript:update('${r.resourceNumber}','${r.resourceName}','${r.path}','${r.resourceVersion}')">Edit</a></td>
+												<td><a class="del" href="javascript:resdel('${r.resourceNumber}')">Delete</a></td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
-
 							</div>
 						</div>
 					</div>
@@ -125,13 +140,14 @@
 			$("#form-addresource").append(text);
 		}
 		//수정모달창
-		function update(bundleName, bundleVersion) {
-			$("#editbundlename").val(bundleName);
-			$("#editbundleversion").val(bundleVersion);
+		function update(resourceNumber, resourceName, path, resourceVersion) {
+			$("#editresourcenumber").val(resourceNumber);
+			$("#editresourcename").val(resourceName);
+			$("#editresourceversion").val(resourceVersion);
 			$("#editModal").modal();
 		}
 	
-		 function resdel(data) {
+		function resdel(data) {
 			if (confirm("선택한 리소스를 삭제하시겠습니까?") == true) {
 				$.ajax({
 					type : "post",
@@ -151,36 +167,6 @@
 					}
 				})
 			}
-		}
-		/* 
-		번들을 선택했을 때 관련된 리소스 보여주기
-		*/
-		function showresource() {
-			var select = $("#selectbundle").val();
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/selectresource",
-				dataType : "json",
-				async : false,
-				data : {
-					"bundleKey" : select
-				},
-				success : function(resource) {
-					test = resource.resourceList;
-					var text = "";
-					$.each(test, function(index, resource) {
-						text += "<tr class=''>";
-						text += "<td>" + resource.resourceName + "</td>";
-						text += "<td>" + resource.path + "</td>";
-						text += "<td>" + resource.resourceVersion + "</td>";
-						text += "<td>" + resource.bundleKey + "</td>";
-						text += "<td><a href=javascript:resupdate(" + resource + ")>Edit</a></td>";
-						text += "<td><a href=javascript:resdel(" + resource.resourceNumber + ")>Delete</a></td>";
-						text += "</tr>";
-					});
-					$("#resource_table").html(text);
-				}
-			});
 		}
 	</script>
 
