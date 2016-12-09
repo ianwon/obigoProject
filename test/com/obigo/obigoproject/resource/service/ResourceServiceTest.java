@@ -2,6 +2,8 @@ package com.obigo.obigoproject.resource.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +22,7 @@ public class ResourceServiceTest {
 
 	@Test
 	public void insertTest() {
+		HttpServletRequest request = null;
 		ResourceVO vo = new ResourceVO();
 
 		vo.setResourceName("name");
@@ -27,7 +30,7 @@ public class ResourceServiceTest {
 		vo.setPath("path");
 		vo.setResourceVersion("2.2.2");
 
-		Assert.assertTrue(resourceService.insertResource(vo));
+		Assert.assertTrue(resourceService.insertResource(vo, request));
 
 	}
 

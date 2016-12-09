@@ -25,7 +25,7 @@ public class VehicleDaoTest {
 		vo.setDetailImage("gggg");
 		vo.setEngine("gggg");
 		vo.setModelYear(1111);
-		vo.setMilage("gggg");
+		vo.setMileage("gggg");
 		
 		Assert.assertEquals(1, vehicledao.insertVehicle(vo));
 	}

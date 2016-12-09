@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -49,5 +50,9 @@ public class UserVehicleDaoTest {
 	@Test
 	public void getUserVehicleListTest(){
 		System.out.println(uservehicledao.getUserVehicleList("asdf"));
+	}
+	@Test
+	public void getLocationTest(){
+		System.out.println(uservehicledao.getLocation().size());
 	}
 }
