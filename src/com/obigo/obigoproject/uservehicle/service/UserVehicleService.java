@@ -16,4 +16,6 @@ public interface UserVehicleService {
 
 	// 안드로이드에서 상세보기를 할때 차량의 정보를 가져오기 위함
 	public UserVehicleVO getUserVehicle(int userVehicleNumber);
+	
+	public List<String> getLocation();
 }

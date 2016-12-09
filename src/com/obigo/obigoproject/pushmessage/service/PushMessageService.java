@@ -29,6 +29,6 @@ public interface PushMessageService {
 	public boolean sendEmail(List<PushMessageVO> list);
 
 	// GCM 서버로 푸시 메시지 전송
-	public boolean sendPushMessageToGcm(PushMessageVO vo, List<String> listRegistrationId);
+	public boolean sendPushMessageToGcm(PushMessageVO vo);
 
 }

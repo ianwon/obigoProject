@@ -16,5 +16,8 @@ public interface UserVehicleDao {
 
 	// 안드로이드에서 상세보기를 할때 차량의 정보를 가져오기 위함
 	public UserVehicleVO getUserVehicle(int userVehicleNumber);
+	
+	// location 리스트를 가지고와야함
+	public List<String> getLocation();
 
 }
