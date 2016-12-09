@@ -30,8 +30,10 @@ public class PushMessageController {
 	 * @return 푸시 메시지 관리 페이지
 	 */
 	@RequestMapping("/sendtextmessage")
-	public String sendTextMessage(@RequestParam PushMessageVO vo) {
-		return null;
+	public String sendTextMessage(PushMessageVO vo) {
+		pushMessageService.insertPushMessage(vo);
+		pushMessageService.sendPushMessageToGcm(vo);
+		return "redirect:/pushmessage";
 	}
 
 	/**
