@@ -154,9 +154,10 @@ public class UserController {
 	 * 
 	 * @return 로그인 페이지
 	 */
-	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
-		return null;
+		session.invalidate();
+		return "redirect:/login";
 	}
 
 	////////////// 관리자가 유저 차량 관리하는 기능///////////////////////////

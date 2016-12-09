@@ -155,7 +155,7 @@
                           <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
                           <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li> 
                           -->
-							<li><a href=""><i class="fa fa-key"></i> Log Out</a></li>
+							<li><a href="/obigoProject/logout"><i class="fa fa-key"></i> Log Out</a></li>
 						</ul></li>
 
 					<!-- user login dropdown end -->

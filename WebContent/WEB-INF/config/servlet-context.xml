@@ -11,8 +11,8 @@
 		infrastructure -->
 
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven/>
-	<resources mapping="/c:/obigo/**" location="/c:/obigo/"/>
+	<annotation-driven />
+	<resources mapping="/c:/obigo/**" location="/c:/obigo/" />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
@@ -21,6 +21,6 @@
 	<resources mapping="/js/**" location="/js/" />
 	<resources mapping="/assets/**" location="/assets/" />
 	<resources mapping="/fonts/**" location="/fonts/" />
-	
-	
+
+
 </beans:beans>
