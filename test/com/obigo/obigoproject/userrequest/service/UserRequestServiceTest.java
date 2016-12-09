@@ -22,7 +22,7 @@ public class UserRequestServiceTest {
 		vo.setModelCode("gggg");
 		vo.setColor("red");
 		vo.setLocation("korea");
-		vo.setVin("vin123123123");
+		vo.setVin("vin");
 		Assert.assertTrue(userrequestservice.insertUserRequest(vo));
 	}
 

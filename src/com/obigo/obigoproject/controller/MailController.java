@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,9 +38,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.obigo.obigoproject.log.service.LogService;
-import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.vo.LogVO;
-import com.obigo.obigoproject.vo.UsersVO;
 
 import net.sf.json.JSONObject;
 
@@ -50,8 +47,6 @@ public class MailController {
 
 	@Autowired
 	LogService logService;
-	@Autowired
-	UserService userService;
 
 	@Autowired
 	JavaMailSender mailSender;
@@ -59,56 +54,11 @@ public class MailController {
 	private String from = "alldevotion@gmail.com";
 	private String subject = "Log Data PDF 파일 보내드립니다.";
 
-	
-	
-	//매월 1일 15일 오전 9시 자동으로 Log기록 pdf파일 이메일 발송
-	// @Scheduled(cron = "*/5 * * * * *")
-	@Scheduled(cron = "00 00 09 1,15 * ?")
-	public void autoEmail() {
-		// Calendar calendar1 = Calendar.getInstance();
-		// SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		// System.out.println("스케줄 실행 : " + dateFormat.format(calendar1.getTime()));
-		try {
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setTo("inthelord@hanmail.net");
-			messageHelper.setFrom(from);
-			messageHelper.setSubject(subject); // 메일제목은 생략이 가능하다
-
-			MimeBodyPart bodypart = new MimeBodyPart();
-			bodypart.setContent("PDF 파일 첨부되었습니다.", "text/html;charset=euc-kr");
-
-			Multipart multipart = new MimeMultipart();
-			multipart.addBodyPart(bodypart);
-
-			// PDF 파일명에 로그 날짜 포함
-			Calendar calendar = Calendar.getInstance();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-			String fileName = formatter.format(calendar.getTime()) + "_log.pdf"; // for
-																					// log-time
-			String path = "c:\\obigo\\pdf\\" + fileName;
-
-			// PDF 만들어주는 메서드 호출 및 PDF 파일 첨부
-			if (pdfpage(path)) {
-				MimeBodyPart attachPart = new MimeBodyPart();
-				attachPart.setDataHandler(new DataHandler(new FileDataSource(new File(path))));
-				attachPart.setFileName(fileName); // 파일명
-				multipart.addBodyPart(attachPart);
-				message.setContent(multipart);
-				mailSender.send(message);
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
 	@RequestMapping(value = "/pdfmail")
 	@ResponseBody
 	public String sendMail() {
-		Calendar calendar1 = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		System.out.println("스케줄 실행 : " + dateFormat.format(calendar1.getTime()));
-		JSONObject jobj = new JSONObject();
+		
+		JSONObject jobj=new JSONObject();
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
@@ -142,12 +92,12 @@ public class MailController {
 				message.setContent(multipart);
 				mailSender.send(message);
 				jobj.put("flag", true);
-			} else {
-				// message.setContent(multipart);
-				// mailSender.send(message);
+			}else{
+//				message.setContent(multipart);
+//				mailSender.send(message);
 				jobj.put("flag", false);
 			}
-
+			
 		} catch (Exception e) {
 			jobj.put("flag", false);
 			System.out.println(e);
@@ -244,8 +194,8 @@ public class MailController {
 	public String viewOnPDF(HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {
 		// Document 생성
 		Document document = new Document(PageSize.A4, 50, 50, 50, 50); // 용지 및 여백 설정
-		JSONObject jobj = new JSONObject();
-
+		JSONObject jobj=new JSONObject();
+		
 		// 한글 폰트 설정
 		BaseFont bfKorean = BaseFont.createFont("HYGoThic-Medium", "UniKS-UCS2-H", BaseFont.NOT_EMBEDDED);
 		Font fontKorean = new Font(bfKorean, 10, Font.NORMAL);
@@ -264,11 +214,11 @@ public class MailController {
 		writer.setInitialLeading(12.5f);
 
 		//////// 바로 PDF 페이지 Open시, 파일명이 한글일 땐 인코딩 설정///////
-		response.setContentType("application/pdf");
-		// String fileName = URLEncoder.encode("테이블", "UTF-8");
-		String fileName = "log";
-		response.setHeader("Content-Transper-Encoding", "binary");
-		response.setHeader("Content-Disposition", "inline; filename=" + fileName + ".pdf");
+		 response.setContentType("application/pdf");
+//		 String fileName = URLEncoder.encode("테이블", "UTF-8");
+		 String fileName = "log";
+		 response.setHeader("Content-Transper-Encoding", "binary");
+		 response.setHeader("Content-Disposition", "inline; filename=" +fileName + ".pdf");
 		///////////////////////////////////////////////////////////////////
 
 		// Document 오픈
@@ -318,7 +268,7 @@ public class MailController {
 		boolean flag = document.add(table);
 
 		jobj.put("flag", flag);
-
+	
 		document.close();
 		writer.close();
 
