@@ -204,8 +204,10 @@ public class MoveController {
 	 * @return 푸시메시지 전송 페이지
 	 */
 	@RequestMapping("/sendmessage")
-	public String moveSendMessage() {
-
+	public String moveSendMessage(Model model) {
+		model.addAttribute("modelList",vehicleService.getVehicleList());
+		model.addAttribute("locationList",userVehicleService.getLocation());
+		model.addAttribute("messagecategory",messageCategoryService.getMessageCategoryList());
 		return "/jsp/sendmessage";
 	}
 

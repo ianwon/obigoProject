@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
@@ -189,5 +190,13 @@ public class UserController {
 		return null;
 	}
 	/////////////////////////////////////////////////////////////////////
-
+	/*
+	 * 로그인시 Registration ID 가져오기(받은 아이디랑 비밀번호로 db에서 정보를 찾고 registrationid에 token 값으로 업데이트)
+	 * 
+	*/
+	@RequestMapping(value= "/gettoken", method = RequestMethod.POST)
+	public String getToken(@RequestParam String token){
+		System.out.println(token);
+		return null; 
+	}
 }
