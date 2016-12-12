@@ -12,7 +12,7 @@ public interface VehicleService {
 	public boolean insertVehicle(VehicleVO vo, HttpServletRequest request);
 
 	// 차량정보 수정
-	public boolean updateVehicle(VehicleVO vo);
+	public boolean updateVehicle(VehicleVO vo, HttpServletRequest request);
 
 	// 차량정보 삭제
 	public boolean deleteVehicle(String modelCode);
