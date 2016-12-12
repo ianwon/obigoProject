@@ -17,33 +17,53 @@
 
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
 	<!--main content start-->
-	<section id="main-content">
+	<section style="position: absolute;" id="main-content">
+
 		<!--widget start-->
 		<!-- page start-->
-		<c:forEach var="v" items="${vehicleList}" varStatus="status">
-			<div class="col-lg-4" style="width: 400px; margin-top: 120px;">
-				<aside class="profile-nav alt green-border">
-					<section class="panel">
-						<div class="user-heading alt green-bg">
-							<a href="#"> <img alt="" src="/obigoProject/vehicleImage?modelCode=${v.modelCode}">
-							</a>
-							<h1>${v.modelName}</h1>
-						</div>
-
-						<ul class="nav nav-pills nav-stacked">
-							<li><a href="javascript:;">Color<span class="label label-primary pull-right r-activity">${userVehicleList[status.index].color}</span></a></li>
-							<li><a href="javascript:;">Model Code<span class="label label-info pull-right r-activity">${v.modelCode}</span></a></li>
-							<li><a href="javascript:;">Model Year<span class="label label-warning pull-right r-activity">${v.modelYear}</span></a></li>
-							<li><a href="javascript:;">Location<span class="label label-success pull-right r-activity">${userVehicleList[status.index].location}</span></a></li>
-							<li><a href="javascript:;">Vin<span class="label label-success pull-right r-activity">${userVehicleList[status.index].vin}</span></a></li>
-							<li><a href="javascript:;">Mileage<span class="label label-success pull-right r-activity">${v.mileage}</span></a></li>
-						</ul>
-
-					</section>
-				</aside>
+		<div class="row state-overview" style="margin-left: 20px; margin-top: 70px">
+			<div class="col-lg-5 col-sm-6">
+				<section class="panel">
+					<div class="symbol terques">
+						<i class="fa fa-user"></i>
+					</div>
+					<div class="value">
+						<h2>${param.userId}</h2>
+					</div>
+				</section>
 			</div>
-		</c:forEach>
-		<!--widget end-->
+		</div>
+		<section class="wrapper">
+
+			<br>
+			<div class="row">
+				<c:forEach var="v" items="${vehicleList}" varStatus="status">
+					<div class="col-lg-4" style="width: 400px; margin-top: -70px; margin-bottom: 70px;">
+						<aside class="profile-nav alt green-border">
+							<section class="panel">
+								<div class="user-heading alt green-bg">
+									<a href="#"> <img alt="" src="/obigoProject/vehicleImage?modelCode=${v.modelCode}">
+									</a>
+									<h1>${v.modelName}</h1>
+								</div>
+
+								<ul class="nav nav-pills nav-stacked">
+									<li><a href="javascript:;">Color<span class="label label-primary pull-right r-activity">${userVehicleList[status.index].color}</span></a></li>
+									<li><a href="javascript:;">Model Code<span class="label label-info pull-right r-activity">${v.modelCode}</span></a></li>
+									<li><a href="javascript:;">Model Year<span class="label label-warning pull-right r-activity">${v.modelYear}</span></a></li>
+									<li><a href="javascript:;">Location<span class="label label-success pull-right r-activity">${userVehicleList[status.index].location}</span></a></li>
+									<li><a href="javascript:;">Vin<span class="label label-success pull-right r-activity">${userVehicleList[status.index].vin}</span></a></li>
+									<li><a href="javascript:;">Mileage<span class="label label-success pull-right r-activity">${v.mileage}</span></a></li>
+								</ul>
+
+							</section>
+						</aside>
+					</div>
+					<c:if test="${status.index mod 3 eq 2}"><br></c:if>
+				</c:forEach>
+				<!--widget end-->
+			</div>
+		</section>
 	</section>
 	<!--main content end-->
 	<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
