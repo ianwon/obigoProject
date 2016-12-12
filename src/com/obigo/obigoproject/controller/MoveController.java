@@ -93,12 +93,25 @@ public class MoveController {
 	 * 
 	 * @return 유저 관리 페이지
 	 */
-	@RequestMapping("/users")
-	public String moveUsers(Model model) {
+	@RequestMapping("/usermanagement")
+	public String moveUser(Model model) {
 
 		List<UsersVO> list = userService.getUserList();
 		model.addAttribute("userList", list);
-		return "/jsp/users";
+		return "/jsp/user";
+	}
+
+	/**
+	 * 헤더 ADMIN클릭시 이동
+	 * 
+	 * @return 관리자 관리 페이지
+	 */
+	@RequestMapping("/adminmanagement")
+	public String moveAdmin(Model model) {
+
+		List<UsersVO> list = userService.getAdminList();
+		model.addAttribute("adminList", list);
+		return "/jsp/admin";
 	}
 
 	/**
@@ -205,9 +218,9 @@ public class MoveController {
 	 */
 	@RequestMapping("/sendmessage")
 	public String moveSendMessage(Model model) {
-		model.addAttribute("modelList",vehicleService.getVehicleList());
-		model.addAttribute("locationList",userVehicleService.getLocation());
-		model.addAttribute("messagecategory",messageCategoryService.getMessageCategoryList());
+		model.addAttribute("modelList", vehicleService.getVehicleList());
+		model.addAttribute("locationList", userVehicleService.getLocation());
+		model.addAttribute("messagecategory", messageCategoryService.getMessageCategoryList());
 		return "/jsp/sendmessage";
 	}
 

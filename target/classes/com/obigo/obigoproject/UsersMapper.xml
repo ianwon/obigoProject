@@ -20,7 +20,8 @@
 	<insert id="insertUser" parameterType="Users">
 		insert into Users
 		values
-		(#{userId},#{password},#{name},#{eMail},#{phone},#{registrationId, jdbcType=VARCHAR},#{roleName},sysdate)
+		(#{userId},#{password},#{name},#{eMail},#{phone},#{registrationId,
+		jdbcType=VARCHAR},#{roleName},sysdate)
 	</insert>
 
 	<update id="updateUser" parameterType="Users">
@@ -34,7 +35,8 @@
 	<delete id="deleteUser" parameterType="java.lang.String">
 		delete
 		from Users
-		where id=#{userId}
+		where
+		id=#{userId}
 	</delete>
 
 	<delete id="deleteAllUser">
@@ -42,7 +44,16 @@
 	</delete>
 
 	<select id="selectAllUser" resultMap="UsersResultMap">
-		select * from Users ORDER BY NAME ASC
+		select * from Users ORDER
+		BY NAME ASC
+	</select>
+	<select id="selectUserList" resultMap="UsersResultMap">
+		select * from Users where role_name = 'USER' ORDER
+		BY NAME ASC
+	</select>
+	<select id="selectAdminList" resultMap="UsersResultMap">
+		select * from Users where role_name = 'ADMIN' ORDER
+		BY NAME ASC
 	</select>
 
 	<select id="selectUser" parameterType="java.lang.String"
