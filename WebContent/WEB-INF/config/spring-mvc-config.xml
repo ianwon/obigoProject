@@ -12,6 +12,7 @@
 	<context:component-scan base-package="com.obigo.obigoproject.controller" />
 
 
+
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass"
@@ -19,6 +20,28 @@
 		<property name="prefix" value="" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="100000000" />
+		<property name="maxInMemorySize" value="100000000" />
+	</bean>
+
+
+	<mvc:interceptors>
+		<!-- 회원 체크 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/login"/>
+			<mvc:exclude-mapping path="/logincheck"/>
+			<mvc:exclude-mapping path="/registration"/>
+			<mvc:exclude-mapping path="/css/**"/>
+			<mvc:exclude-mapping path="/assets/**"/>
+			<mvc:exclude-mapping path="/img/**"/>
+			<mvc:exclude-mapping path="/js/**"/>
+			<mvc:exclude-mapping path="/api/**"/>
+			<bean class="com.obigo.obigoproject.interceptor.LoginCheckInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 
 </beans>

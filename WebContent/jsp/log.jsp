@@ -12,7 +12,9 @@
 
 	<section id="container" class="">
 		<!--main content start-->
+
 		<section id="main-content">
+
 			<section class="wrapper site-min-height">
 
 				<!-- page start-->
@@ -26,10 +28,21 @@
 									</a>
 								</div>
 
-
+							<div class="btn-group pull-right">
+								<button class="btn dropdown-toggle" data-toggle="dropdown">
+									PDF flie <i class="fa fa-angle-down"></i>
+								</button>
+								<ul class="dropdown-menu pull-right">
+									<li><a href="/obigoProject/viewpdf" target="_blank" >View on PDF</a></li>
+<!-- 									<li><a href="/obigoProject/pdfmail">Send an Email to Admin</a></li> -->
+									<li><a a href='javascript:void(0);' onclick="mailToAdmin();" >Send an Email to Admin</a></li>
+								</ul>
+							</div>
 
 								<!-- api table start -->
 							</div>
+
+
 							<div class="space15"></div>
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
@@ -51,7 +64,7 @@
 												<td class="center">${l.returned}</td>
 											</tr>
 										</c:forEach>
-										
+
 									</tbody>
 								</table>
 
@@ -101,9 +114,6 @@
 	</script>
 
 	<script type="text/javascript">
-	
-	
-	
 		//api 삭제여부를 확인하고 true=삭제 false=취소
 		function deleteLog() {
 			if (confirm("전체 로그를 정말 삭제하시겠습니까?") == true) { //확인
@@ -111,8 +121,7 @@
 					type : "post",
 					url : "/obigoProject/deletelog",
 					dataType : "json",
-					data : {
-					},
+					data : {},
 					success : function(data) {
 						location.reload();
 					}
@@ -120,6 +129,25 @@
 			} else { //취소
 				return;
 			}
+		}
+		
+		function mailToAdmin(){
+			
+			$.ajax({
+				type : "post",
+				url : "/obigoProject/pdfmail",
+				dataType : "json",
+				async : true,
+				data : {},
+				success : function(data) {
+					if(data.flag==true)
+						alert("Send email success");
+					else
+						alert("Send email fail");
+				}
+			});
+			
+			
 		}
 	</script>
 

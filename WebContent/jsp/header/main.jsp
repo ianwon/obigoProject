@@ -31,7 +31,7 @@
 	<script src="/obigoProject/js/jquery.nicescroll.js" type="text/javascript"></script>
 	<script src="/obigoProject/js/jquery.sparkline.js" type="text/javascript"></script>
 	<script src="/obigoProject/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
-	<script src="/obigoProject/js/owl.carousel.js"></script>
+	<script src="	/obigoProject/js/owl.carousel.js"></script>
 	<script src="/obigoProject/js/jquery.customSelect.min.js"></script>
 	<script src="/obigoProject/js/respond.min.js"></script>
 

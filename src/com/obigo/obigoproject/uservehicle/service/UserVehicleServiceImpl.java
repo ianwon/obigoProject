@@ -50,4 +50,9 @@ public class UserVehicleServiceImpl implements UserVehicleService {
 		return userVehicleDao.getUserVehicle(userVehicleNumber);
 	}
 
+	@Override
+	public List<String> getLocation() {
+		return userVehicleDao.getLocation();
+	}
+
 }

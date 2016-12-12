@@ -30,8 +30,10 @@ public class PushMessageController {
 	 * @return 푸시 메시지 관리 페이지
 	 */
 	@RequestMapping("/sendtextmessage")
-	public String sendTextMessage(@RequestParam PushMessageVO vo) {
-		return null;
+	public String sendTextMessage(PushMessageVO vo) {
+		pushMessageService.insertPushMessage(vo);
+		pushMessageService.sendPushMessageToGcm(vo);
+		return "redirect:/pushmessage";
 	}
 
 	/**
@@ -51,7 +53,7 @@ public class PushMessageController {
 	 */
 	@RequestMapping(value = "/deletepushmessage", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public String sendMarketingMessage(@RequestParam("messageNumber") int messageNumber) {
+	public String deleteMessage(@RequestParam("messageNumber") int messageNumber) {
 		JSONObject jobj = new JSONObject();
 		if (pushMessageService.deletePushMessage(messageNumber))
 			jobj.put("flag", true);

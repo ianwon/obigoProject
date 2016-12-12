@@ -24,7 +24,7 @@ public class BundleServiceTest {
 		vo.setBundleVersion("0.001");
 		vo.setDeveloper("wyhZzang");
 		vo.setFileUpload("C://hi//");
-		Assert.assertTrue(bundleService.insertBundle(vo));
+//		Assert.assertTrue(bundleService.insertBundle(vo));
 	}
 
 	@Test

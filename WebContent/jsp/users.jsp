@@ -42,12 +42,18 @@
 											<div class="modal-body">
 												<form id="form-registration" class="form-signin" action="/obigoProject/insertuser" onsubmit="return check()" method="POST">
 													<div class="login-wrap">
+														<span class="label label-primary">NAME</span>
 														<input type="text" name="name" id="name" class="form-control" placeholder="Full Name" autofocus required="required">
+														<span class="label label-primary">E-MAIL</span>
 														<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
+														<span class="label label-primary">PHONE</span>
 														<input type="text" name="phone" class="form-control" placeholder="phone" autofocus required="required">
+														<span class="label label-primary">USER ID</span>
 														<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
 														<div id="idCheck"></div>
+														<span class="label label-primary">PASSWORD</span>
 														<input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
+														<span class="label label-primary">PASSWORD</span>
 														<input type="password" id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
 														<div id="passwordCheck"></div>
 													</div>
@@ -77,9 +83,13 @@
 											<div class="modal-body">
 												<form id="form-update" class="form-signin" action="/obigoProject/updateuser" method="POST">
 													<div class="login-wrap">
+													<span class="label label-primary">USER ID</span>
 														<input type="text" name="userId" id="edituserId" class="form-control" autofocus readonly="readonly" value="${userId}">
+														<span class="label label-primary">NAME</span>
 														<input type="text" name="name" id="editname" class="form-control" autofocus placeholder="Full Name" readonly="readonly" value="${userName}">
+														<span class="label label-primary">EMAIL</span>
 														<input type="email" name="eMail" id="editeMail" class="form-control" placeholder="Email" autofocus required="required">
+														<span class="label label-primary">PHONE</span>
 														<input type="text" name="phone" id="editphone" class="form-control" placeholder="phone" autofocus required="required">
 													</div>
 												</form>
@@ -92,6 +102,7 @@
 									</div>
 								</div>
 								<!-- modal -->
+
 								<!-- Modal -->
 							</div>
 							<div class="space15"></div>
@@ -111,11 +122,11 @@
 									<tbody>
 										<c:forEach var="u" items="${userList}" begin="0">
 											<tr class="">
-												<td>${u.userId}</td>
-												<td>${u.name}</td>
-												<td>${u.eMail}</td>
-												<td>${u.phone}</td>
-												<td>${u.registrationId}</td>
+												<td onclick="userVehicle('${u.userId}')">${u.userId}</td>
+												<td onclick="userVehicle('${u.userId}')">${u.name}</td>
+												<td onclick="userVehicle('${u.userId}')">${u.eMail}</td>
+												<td onclick="userVehicle('${u.userId}')">${u.phone}</td>
+												<td onclick="userVehicle('${u.userId}')">${u.registrationId}</td>
 												<td><a class="update" href="javascript:update('${u.phone}','${u.eMail}','${u.name}','${u.userId }')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${u.userId}')">Delete</a></td>
 											</tr>
@@ -137,6 +148,9 @@
 	</section>
 	<script type="text/javascript">
 	
+		function userVehicle(userId) {
+			document.location.href = "/obigoProject/userVehicle?userId=" + userId
+		}
 		//id체크
 		function idCheck() {
 			$.ajax({
@@ -191,7 +205,7 @@
 		}
 		//user수정
 		//수정모달창
-		function update(phone, eMail, name,userId) {
+		function update(phone, eMail, name, userId) {
 			$("#editphone").val(phone);
 			$("#editeMail").val(eMail);
 			$("#editname").val(name);

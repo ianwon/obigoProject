@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
@@ -35,6 +36,7 @@ public class UserController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signup(UsersVO vo) {
 		vo.setRoleName("ADMIN");
+		vo.setUserId(vo.getUserId().toLowerCase());
 		userService.insertUser(vo);
 		return "redirect:/login";
 	}
@@ -46,6 +48,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/insertuser", method = RequestMethod.POST)
 	public String insertUser(UsersVO vo) {
+		vo.setUserId(vo.getUserId().toLowerCase());
 		vo.setRoleName("USER");
 		userService.insertUser(vo);
 		return "redirect:/users";
@@ -75,8 +78,7 @@ public class UserController {
 	}
 
 	/**
-	 * 유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저 요청을 DB에서 제거 결과를 해당 유저 에게
-	 * Pushmessage로 발송해야함
+	 * 유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저 요청을 DB에서 제거 결과를 해당 유저 에게 Pushmessage로 발송해야함
 	 * 
 	 * @return 유저요청페이지
 	 */
@@ -110,6 +112,7 @@ public class UserController {
 	@RequestMapping(value = "/idcheck", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String idCheck(@RequestParam("userId") String userId) {
+		userId = userId.toLowerCase();
 		JSONObject jobj = new JSONObject();
 		jobj.put("flag", userService.idCheck(userId));
 		return jobj.toString();
@@ -124,6 +127,8 @@ public class UserController {
 	@ResponseBody
 	public String passwordCheck(@RequestParam("userId") String userId, @RequestParam("password") String password) {
 		JSONObject jobj = new JSONObject();
+		userId = userId.toLowerCase();
+		System.out.println("passwordcheck" + " " + userId);
 		if (userService.getUser(userId).getPassword().equals(password)) {
 			jobj.put("flag", true);
 		} else {
@@ -140,6 +145,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
 	public String login(@RequestParam String userId, @RequestParam String password, HttpSession session) {
+		userId = userId.toLowerCase();
 		if (userService.passwordCheck(userId, password)) {
 			session.setAttribute("LoginOK", userId);
 			return "redirect:/main";
@@ -153,9 +159,10 @@ public class UserController {
 	 * 
 	 * @return 로그인 페이지
 	 */
-	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
-		return null;
+		session.invalidate();
+		return "redirect:/login";
 	}
 
 	////////////// 관리자가 유저 차량 관리하는 기능///////////////////////////
@@ -188,6 +195,15 @@ public class UserController {
 	public String deleteUserVehicle(@RequestParam int userVehicleNumber) {
 		return null;
 	}
-	/////////////////////////////////////////////////////////////////////
 
+	/////////////////////////////////////////////////////////////////////
+	/*
+	 * 로그인시 Registration ID 가져오기(받은 아이디랑 비밀번호로 db에서 정보를 찾고 registrationid에 token 값으로 업데이트)
+	 * 
+	 */
+	@RequestMapping(value = "/gettoken", method = RequestMethod.POST)
+	public String getToken(@RequestParam String token) {
+		System.out.println(token);
+		return null;
+	}
 }

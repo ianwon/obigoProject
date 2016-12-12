@@ -12,7 +12,9 @@ public interface ResourceDao {
 
 	public int deleteResource(int resourceNumber);
 
-	public List<ResourceVO> getResourceList(String bundleKey);
+	public List<ResourceVO> getResourceListBybundleKey(String bundleKey);
+
+	public List<ResourceVO> getResourceList();
 
 	public ResourceVO getResource(int resourceNumber);
 

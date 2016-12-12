@@ -38,4 +38,9 @@ public class UserVehicleDaoImpl implements UserVehicleDao {
 		return sqlSession.selectOne("obigoproject.UserVehicle.selectUserVehicle", userVehicleNumber);
 	}
 
+	@Override
+	public List<String> getLocation() {
+		return sqlSession.selectList("obigoproject.UserVehicle.selectLocation");
+	}
+
 }

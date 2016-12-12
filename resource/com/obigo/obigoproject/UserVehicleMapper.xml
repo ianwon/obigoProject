@@ -15,7 +15,7 @@
 		<result column="User_Vehicle_Number" property="userVehicleNumber" />
 		<result column="active_dtc_count" property="activeDtcCount" />
 	</resultMap>
-
+	
 	<insert id="insertUserVehicle" parameterType="UserVehicle">
 		insert into
 		User_Vehicle
@@ -46,7 +46,11 @@
 
 	<select id="selectUserVehicleList" parameterType="java.lang.String"
 		resultMap="UserVehicleResultMap">
-		SELECT * FROM USER_VEHICLE WHERE USER_ID=#{userId}
+		SELECT * FROM USER_VEHICLE WHERE USER_ID=#{userId} ORDER BY USER_VEHICLE_NUMBER ASC
+	</select>
+	
+	<select id="selectLocation" resultMap="UserVehicleResultMap">
+	SELECT LOCATION FROM USER_VEHICLE
 	</select>
 
 </mapper>
