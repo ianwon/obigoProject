@@ -53,7 +53,7 @@ public class PushMessageController {
 	 */
 	@RequestMapping(value = "/deletepushmessage", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public String sendMarketingMessage(@RequestParam("messageNumber") int messageNumber) {
+	public String deleteMessage(@RequestParam("messageNumber") int messageNumber) {
 		JSONObject jobj = new JSONObject();
 		if (pushMessageService.deletePushMessage(messageNumber))
 			jobj.put("flag", true);
