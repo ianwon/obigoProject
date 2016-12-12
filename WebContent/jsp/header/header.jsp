@@ -175,8 +175,8 @@
 					<li class="sub-menu"><a href="javascript:;"> <i class="fa fa-laptop"></i> <span>Users Management</span>
 					</a>
 						<ul class="sub">
-							<li><a href="/obigoProject/users">Admin</a></li>
-							<li><a href="/obigoProject/users">User</a></li>
+							<li><a href="/obigoProject/adminmanagement">Admin</a></li>
+							<li><a href="/obigoProject/usermanagement">User</a></li>
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> <i class="fa fa-book"></i> <span>Request Management</span>

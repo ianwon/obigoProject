@@ -14,6 +14,8 @@ public interface UserDao {
 
 	public List<UsersVO> getUserList();
 
+	public List<UsersVO> getAdminList();
+
 	// 해당 유저의 USERVEHICLE 찾기위함
 	public UsersVO getUser(String userId);
 
