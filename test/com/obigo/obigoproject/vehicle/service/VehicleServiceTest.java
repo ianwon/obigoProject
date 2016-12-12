@@ -1,5 +1,7 @@
 package com.obigo.obigoproject.vehicle.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,8 +38,9 @@ public class VehicleServiceTest {
 		vo.setModelCode("jesus");
 		vo.setModelImage("c:\\path\\model.jpg");
 		vo.setDetailImage("c:\\path\\detail.jpg");
+		HttpServletRequest request = null;
 		
-		Assert.assertTrue(vehicleService.updateVehicle(vo));
+		Assert.assertTrue(vehicleService.updateVehicle(vo, request));
 	}
 	
 	@Test
