@@ -36,8 +36,11 @@
 											<div class="modal-body">
 												<form id="form-addresource" enctype="multipart/form-data" action="/obigoProject/insertresource" class="form-signin" onsubmit="return addresource()" method="POST">
 													<div class="login-wrap">
+														<span class="label label-primary">Resource Name</span>
 														<input type="text" name="resourceName" class="form-control" placeholder="ResourceName" autofocus required="required">
+														<span class="label label-primary">Resource File</span>
 														<input type="file" name="resourcePath" class="form-control" autofocus required="required">
+														<span class="label label-primary">Resource Version</span>
 														<input type="text" name="resourceVersion" class="form-control" placeholder="ResourceVersion" autofocus required="required">
 													</div>
 												</form>
@@ -58,14 +61,17 @@
 										<div class="modal-content">
 											<div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-												<h4 class="modal-title">Update Bundle</h4>
+												<h4 class="modal-title">Update Resource</h4>
 											</div>
 											<div class="modal-body">
 												<form id="form-update" class="form-signin" action="/obigoProject/updateresource" method="POST">
 													<div class="login-wrap">
 														<input type="hidden" name="resourceNumber" id="editresourcenumber" class="form-control" autofocus>
+														<span class="label label-primary">Resource Name</span>
 														<input type="text" name="resourceName" id="editresourcename" class="form-control" autofocus required>
+														<span class="label label-primary">Resource File</span>
 														<input type="file" name="path" id="editpath" class="form-control" autofocus required>
+														<span class="label label-primary">Resource Version</span>
 														<input type="text" name="resourceVersion" id="editresourceversion" class="form-control" autofocus required>
 													</div>
 												</form>
