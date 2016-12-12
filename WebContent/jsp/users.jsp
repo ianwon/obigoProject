@@ -42,12 +42,18 @@
 											<div class="modal-body">
 												<form id="form-registration" class="form-signin" action="/obigoProject/insertuser" onsubmit="return check()" method="POST">
 													<div class="login-wrap">
+														<span class="label label-primary">NAME</span>
 														<input type="text" name="name" id="name" class="form-control" placeholder="Full Name" autofocus required="required">
+														<span class="label label-primary">E-MAIL</span>
 														<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
+														<span class="label label-primary">PHONE</span>
 														<input type="text" name="phone" class="form-control" placeholder="phone" autofocus required="required">
+														<span class="label label-primary">USER ID</span>
 														<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
 														<div id="idCheck"></div>
+														<span class="label label-primary">PASSWORD</span>
 														<input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
+														<span class="label label-primary">PASSWORD</span>
 														<input type="password" id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
 														<div id="passwordCheck"></div>
 													</div>
@@ -77,9 +83,13 @@
 											<div class="modal-body">
 												<form id="form-update" class="form-signin" action="/obigoProject/updateuser" method="POST">
 													<div class="login-wrap">
+													<span class="label label-primary">USER ID</span>
 														<input type="text" name="userId" id="edituserId" class="form-control" autofocus readonly="readonly" value="${userId}">
+														<span class="label label-primary">NAME</span>
 														<input type="text" name="name" id="editname" class="form-control" autofocus placeholder="Full Name" readonly="readonly" value="${userName}">
+														<span class="label label-primary">EMAIL</span>
 														<input type="email" name="eMail" id="editeMail" class="form-control" placeholder="Email" autofocus required="required">
+														<span class="label label-primary">PHONE</span>
 														<input type="text" name="phone" id="editphone" class="form-control" placeholder="phone" autofocus required="required">
 													</div>
 												</form>
