@@ -48,7 +48,7 @@
 												<option value="${l.location}">Location : ${l.location}</option>
 											</c:forEach>
 										</select>
-										<label>Location : </label>&nbsp;&nbsp;&nbsp;<select id=selectmodel name="modelName">
+										<label>Model : </label>&nbsp;&nbsp;&nbsp;<select id=selectmodel name="modelName">
 											<option value="">Select Model</option>
 											<c:forEach var="m" items="${modelList}" begin="0">
 												<option value="${m.modelName}">ModelName : ${m.modelName}</option>
