@@ -26,10 +26,8 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		boolean result = false;
 
 		HttpSession session = request.getSession(false);
-		System.out.println("test");
 
 		if (session.getAttribute("LoginOK") == null) {
-			System.out.println("2");
 			response.sendRedirect("/obigoProject/login");
 			return false;
 		}
