@@ -24,16 +24,9 @@ public class ResourceServiceImpl implements ResourceService {
 	@Override
 	public boolean insertResource(ResourceVO vo, HttpServletRequest request) {
 		int resultCount = 0;
-		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-		MultipartFile file = multiRequest.getFile("resourcePath");
-		String path = "c:\\obigo\\resource\\" + file.getOriginalFilename();
-		File f = new File(path);
-		try {
-			file.transferTo(f);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		vo.setPath(path);
+
+		vo = createFile(vo, request);
+
 		resultCount = resourceDao.insertResource(vo);
 
 		if (resultCount == 1)
@@ -41,6 +34,35 @@ public class ResourceServiceImpl implements ResourceService {
 		else
 			return false;
 
+	}
+
+	
+	// Resource 파일 저장하는 경로에 필요한 폴더 생성 및 업로드 하는 메서드
+	ResourceVO createFile(ResourceVO vo, HttpServletRequest request) {
+
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+		MultipartFile resourceFile = multiRequest.getFile("resourcePath");
+		String saveDir = "c:\\obigo\\resource";
+		File saveDirFile = new File(saveDir);
+
+		if (!saveDirFile.exists()) {
+			saveDirFile.mkdirs();
+		}
+		String saveRealPath = "";
+
+		if (resourceFile.getOriginalFilename() != null && !"".equals(resourceFile.getOriginalFilename())) {
+			saveRealPath = saveDir + File.separator + resourceFile.getOriginalFilename();
+
+			try {
+				resourceFile.transferTo(new File(saveRealPath));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			vo.setPath(saveRealPath);
+
+		}
+
+			return vo;
 	}
 
 	// RESOURCE 수정
