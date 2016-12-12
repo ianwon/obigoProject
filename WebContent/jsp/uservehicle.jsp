@@ -33,6 +33,7 @@
 				</section>
 			</div>
 		</div>
+		<div style="width:800px;"></div>
 		<section class="wrapper">
 
 			<br>
@@ -48,6 +49,7 @@
 								</div>
 
 								<ul class="nav nav-pills nav-stacked">
+								<span class="label label-primary">PASSWORD</span>
 									<li><a href="javascript:;">Color<span class="label label-primary pull-right r-activity">${userVehicleList[status.index].color}</span></a></li>
 									<li><a href="javascript:;">Model Code<span class="label label-info pull-right r-activity">${v.modelCode}</span></a></li>
 									<li><a href="javascript:;">Model Year<span class="label label-warning pull-right r-activity">${v.modelYear}</span></a></li>

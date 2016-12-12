@@ -40,7 +40,9 @@
 												<form class="form-insertapi" id="form-insertapi" action="/obigoProject/insertapi" onsubmit="return check();" method="POST">
 													<h2 class="form-signin-heading">Add API</h2>
 													<div class="login-wrap">
+														<span class="label label-primary">API NAME</span>
 														<input type="text" name="apiName" id="insertApiName" class="form-control" placeholder="API NAME" autofocus required="required">
+														<span class="label label-primary">RESPONSE TO SEND</span>
 														<textarea name="responseToSend" class="form-control" placeholder="Response To Send" rows="15" cols="45" required="required"></textarea>
 													</div>
 												</form>
@@ -73,7 +75,9 @@
 												<form class="form-editapi" id="form-editapi" action="/obigoProject/updateapi" method="POST">
 													<h2 class="form-signin-heading">Add API</h2>
 													<div class="login-wrap">
+														<span class="label label-primary">API NAME</span>
 														<input type="text" name="ApiName" id="editApiName" class="form-control" placeholder="API NAME" autofocus required="required" readonly="readonly">
+														<span class="label label-primary">RESPONSE TO SEND</span>
 														<textarea name="ResponseToSend" id="editResponseToSend" class="form-control" placeholder="Response To Send" rows="15" cols="45" required="required"></textarea>
 													</div>
 												</form>
