@@ -34,7 +34,7 @@
 
 	<select id="selectUserRequestList" resultMap="UserRequestMap">
 		<![CDATA[
-			select * from USER_REQUEST
+			select * from USER_REQUEST ORDER BY USER_REQUEST_NUMBER ASC
 		]]>
 	</select>
 
