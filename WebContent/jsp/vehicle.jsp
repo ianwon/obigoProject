@@ -42,12 +42,19 @@
 									<div class="modal-body">
 
 										<form id="form-addvehicle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/insertvehicle" onsubmit="return addVehicleCheck();" method="POST">
+											<span class="label label-primary">MODEL NAME</span>
 											<input type="text" id="modelName" name="modelName" class="form-control" placeholder="Model Name" autofocus required="required">
+											<span class="label label-primary">MODEL CODE</span>
 											<input type="text" id="modelCode" name="modelCode" class="form-control" placeholder="Model Code" autofocus required="required">
+											<span class="label label-primary">MODEL IMAGE</span>
 											<input type="file" id="model_Image" name="model_Image" class="form-control" placeholder="Model Image" autofocus required="required">
+											<span class="label label-primary">DETAIL IMAGE</span>
 											<input type="file" id="detail_Image" name="detail_Image" class="form-control" placeholder="Detail Image" autofocus required="required">
+											<span class="label label-primary">ENGINE</span>
 											<input type="text" id="engine" name="engine" class="form-control" placeholder="Engine" required="required">
+											<span class="label label-primary">MODEL YEAR</span>
 											<input type="number" id="modelYear" name="modelYear" min="1900" max="2099" step="1" value="2016" />
+											<span class="label label-primary">MILEAGE</span>
 											<input type="text" id="mileage" name="mileage" class="form-control" placeholder="mileage" required="required">
 										</form>
 
@@ -73,12 +80,19 @@
 									<div class="modal-body">
 
 										<form id="form-editvehicle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/updatevehicle" method="POST">
+										<span class="label label-primary">MODEL NAME</span>
 											<input type="text" id="editModelName" name="modelName" class="form-control" placeholder="Model Name" readonly="readonly">
+											<span class="label label-primary">MODEL CODE</span>
 											<input type="text" id="editModelCode" name="modelCode" class="form-control" placeholder="Model Code" readonly="readonly">
+											<span class="label label-primary">MODEL IMAGE</span>
 											<input type="file" id="editModelImage" name="model_Image" class="form-control" placeholder="Model Image">
+											<span class="label label-primary">DETAIL IMAGE</span>
 											<input type="file" id="editDetailImage" name="detail_Image" class="form-control" placeholder="Detail Image">
+											<span class="label label-primary">ENGINE</span>
 											<input type="text" id="editEngine" name="engine" class="form-control" placeholder="Engine" required="required" readonly="readonly">
+											<span class="label label-primary">MODEL YEAR</span>
 											<input type="number" id="editModelYear" name="modelYear" min="1900" max="2099" step="1" value="2016" readonly="readonly">
+											<span class="label label-primary">MILEAGE</span>
 											<input type="text" id="editMileage" name="mileage" class="form-control" placeholder="mileage" readonly="readonly" readonly="readonly">
 										</form>
 
