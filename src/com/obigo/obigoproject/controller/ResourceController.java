@@ -26,7 +26,6 @@ public class ResourceController {
 	 */
 	@RequestMapping(value="/insertresource", method=RequestMethod.POST)
 	public String insertResource(ResourceVO vo, HttpServletRequest request) {
-		System.out.println(vo);
 		resourceService.insertResource(vo,request);
 		return "redirect:/resource";
 	}
