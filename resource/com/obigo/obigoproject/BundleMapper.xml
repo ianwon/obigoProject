@@ -35,7 +35,7 @@
 
 	<select id="selectBundleList" resultMap="BundleResultMap">
 		<![CDATA[
-			select * from BUNDLE
+			select * from BUNDLE ORDER BY BUNDLE_VERSION DESC
 		]]>
 	</select>
 	<select id="selectBundleBybundleVersion" parameterType="java.lang.String"

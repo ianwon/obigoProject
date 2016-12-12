@@ -32,7 +32,7 @@
 
 	<select id="selectApiList" resultMap="ApiResultMap">
 		<![CDATA[
-			select * from Api
+			select * from Api ORDER BY API_NAME ASC
 		]]>
 	</select>
 	<select id="selectApi" parameterType="java.lang.String"
