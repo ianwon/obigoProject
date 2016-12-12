@@ -128,6 +128,7 @@ public class UserController {
 	public String passwordCheck(@RequestParam("userId") String userId, @RequestParam("password") String password) {
 		JSONObject jobj = new JSONObject();
 		userId = userId.toLowerCase();
+		System.out.println("passwordcheck" + " " + userId);
 		if (userService.getUser(userId).getPassword().equals(password)) {
 			jobj.put("flag", true);
 		} else {
@@ -144,6 +145,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
 	public String login(@RequestParam String userId, @RequestParam String password, HttpSession session) {
+		userId = userId.toLowerCase();
 		if (userService.passwordCheck(userId, password)) {
 			session.setAttribute("LoginOK", userId);
 			return "redirect:/main";
