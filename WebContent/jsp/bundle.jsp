@@ -39,11 +39,17 @@
 											<div class="modal-body">
 												<form id="form-addbundle" enctype="multipart/form-data" class="form-signin"  action="/obigoProject/insertbundle" onsubmit="return check()" method="POST">
 													<div class="login-wrap">
+														<span class="label label-primary">Bundle Name</span>
 														<input type="text" name="bundleName" class="form-control" placeholder="BundleName" autofocus required="required">
+														<span class="label label-primary">Bundle Version</span>
 														<input type="text" name="bundleVersion" id="bundleversion" class="form-control" onkeyup="bundleversionCheck()" placeholder="BundleVersion" autofocus required="required">
 														<div id=bundleversioncheck></div>
+														
+														<span class="label label-primary">Bundle File</span>
 														<input type="file" name="bundleFile" class="form-control" autofocus required="required">
+														<span class="label label-primary">Developer</span>
 														<input type="text" name="developer" class="form-control" placeholder="Developer" autofocus required="required">
+														<span class="label label-primary">Bundle Key</span>
 														<input type="text" name="bundleKey" id="bundlekey" class="form-control" onkeyup="bundlekeyCheck()" placeholder="BundleKey" required="required">
 														<div id=bundlekeycheck></div>
 													</div>
@@ -70,7 +76,9 @@
 											<div class="modal-body">
 												<form id="form-update" class="form-signin" action="/obigoProject/updatebundle" method="POST">
 													<div class="login-wrap">
+														<span class="label label-primary">Bundle Name</span>
 														<input type="text" name="bundleName" id="editbundlename" class="form-control" autofocus>
+														<span class="label label-primary">Bundle Version</span>
 														<input type="text" name="bundleVersion" id="editbundleversion" class="form-control" autofocus readonly="readonly" value="${bundleVersion}">
 													</div>
 												</form>
