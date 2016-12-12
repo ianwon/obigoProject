@@ -13,6 +13,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Autowired
 	SqlSession sqlsession;
+
 	@Override
 	public int insertUser(UsersVO vo) {
 		return sqlsession.insert("obigoproject.User.insertUser", vo);
@@ -30,7 +31,12 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<UsersVO> getUserList() {
-		return sqlsession.selectList("obigoproject.User.selectAllUser");
+		return sqlsession.selectList("obigoproject.User.selectUserList");
+	}
+
+	@Override
+	public List<UsersVO> getAdminList() {
+		return sqlsession.selectList("obigoproject.User.selectAdminList");
 	}
 
 	@Override

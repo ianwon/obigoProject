@@ -18,6 +18,7 @@
 		<section class="wrapper site-min-height">
 			<!-- page start-->
 			<section class="panel">
+				<header class="panel-heading"> VEHICLE </header>
 				<div class="panel-body">
 					<div class="adv-table editable-table ">
 						<div class="clearfix">
