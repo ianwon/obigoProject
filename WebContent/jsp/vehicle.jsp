@@ -72,7 +72,7 @@
 									</div>
 									<div class="modal-body">
 
-										<form id="form-editvehicle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/updatevehicle" method="POST">
+										<form id="form-editvehicle" class="form-signin" action="/obigoProject/updatevehicle" method="POST">
 											<input type="text" id="editModelName" name="modelName" class="form-control" placeholder="Model Name" readonly="readonly">
 											<input type="text" id="editModelCode" name="modelCode" class="form-control" placeholder="Model Code" readonly="readonly">
 											<input type="file" id="editModelImage" name="model_Image" class="form-control" placeholder="Model Image">

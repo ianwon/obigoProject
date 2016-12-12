@@ -60,10 +60,10 @@ public class VehicleController {
 	 * 
 	 * @return 자동차 관리 페이지
 	 */
-	@RequestMapping(value="/updatevehicle", method = RequestMethod.POST)
-	public String updateVehicle(VehicleVO vo, HttpServletRequest request) {
+	@RequestMapping("/updatevehicle")
+	public String updateVehicle(VehicleVO vo) {
 
-		vehicleService.updateVehicle(vo,request);
+		vehicleService.updateVehicle(vo);
 
 		return "redirect:/vehicle";
 	}
