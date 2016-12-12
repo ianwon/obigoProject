@@ -24,21 +24,7 @@ public class VehicleServiceImpl implements VehicleService {
 	@Override
 	public boolean insertVehicle(VehicleVO vo, HttpServletRequest request) {
 		int resultCount = 0;
-		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-		MultipartFile imageFile = multiRequest.getFile("model_Image");
-		MultipartFile detailFile = multiRequest.getFile("detail_Image");
-		String imagePath = "c:\\obigo\\vehicle\\image\\" + imageFile.getOriginalFilename();
-		String detailPath = "c:\\obigo\\vehicle\\detail\\" + detailFile.getOriginalFilename();
-		File imageF = new File(imagePath);
-		File detailF = new File(detailPath);
-		try {
-			imageFile.transferTo(imageF);
-			detailFile.transferTo(detailF);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		vo.setModelImage(imagePath);
-		vo.setDetailImage(detailPath);
+		vo = createFile(vo, request);
 		resultCount = vehicleDao.insertVehicle(vo);
 
 		if (resultCount == 1)
@@ -51,21 +37,7 @@ public class VehicleServiceImpl implements VehicleService {
 	@Override
 	public boolean updateVehicle(VehicleVO vo, HttpServletRequest request) {
 		int resultCount = 0;
-		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-		MultipartFile imageFile = multiRequest.getFile("model_Image");
-		MultipartFile detailFile = multiRequest.getFile("detail_Image");
-		String imagePath = "c:\\obigo\\vehicle\\image\\" + imageFile.getOriginalFilename();
-		String detailPath = "c:\\obigo\\vehicle\\detail\\" + detailFile.getOriginalFilename();
-		File imageF = new File(imagePath);
-		File detailF = new File(detailPath);
-		try {
-			imageFile.transferTo(imageF);
-			detailFile.transferTo(detailF);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		vo.setModelImage(imagePath);
-		vo.setDetailImage(detailPath);
+		vo = createFile(vo, request);
 		resultCount = vehicleDao.updateVehicle(vo);
 
 		if (resultCount == 1)
@@ -102,6 +74,32 @@ public class VehicleServiceImpl implements VehicleService {
 
 		return vehicleDao.getVehicle(modelCode);
 
+	}
+
+	public VehicleVO createFile(VehicleVO vo, HttpServletRequest request) {
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+		MultipartFile imageFile = multiRequest.getFile("model_Image");
+		MultipartFile detailFile = multiRequest.getFile("detail_Image");
+		String imagePath = "c:\\obigo\\vehicle\\image\\";
+		String detailPath = "c:\\obigo\\vehicle\\detail\\";
+		File imageDir = new File(imagePath);
+		File detailDir = new File(detailPath);
+		if (!imageDir.exists())
+			imageDir.mkdirs();
+		if (!detailDir.exists())
+			detailDir.mkdirs();
+		File imageF = new File(imagePath + imageFile.getOriginalFilename());
+		File detailF = new File(detailPath + detailFile.getOriginalFilename());
+		try {
+			imageFile.transferTo(imageF);
+			detailFile.transferTo(detailF);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		vo.setModelImage(imagePath);
+		vo.setDetailImage(detailPath);
+
+		return vo;
 	}
 
 }
