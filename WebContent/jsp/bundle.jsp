@@ -97,7 +97,7 @@
 											<th>BUNDLEKEY</th>
 											<th>EDIT</th>
 											<th>DELETE</th>
-											<th>ACCEPT</th>
+											<th>APPLY</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -110,7 +110,7 @@
 												<td>${b.bundleKey}</td>
 												<td><a class="update" href="javascript:update('${b.bundleName}','${b.bundleVersion}')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${b.bundleVersion}')">Delete</a></td>
-												<td><a class="accept" href="javascript:accept('${b.bundleVersion}')">Accept</a></td>
+												<td><a class="accept" href="javascript:apply('${b.bundleVersion}')">Apply</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -207,7 +207,7 @@
 			}
 		}
 	
-		function accept(data) {
+		function apply(data) {
 			if (confirm("선택한 버전을 적용하시겠습니까?") == true) {
 				$.ajax({
 					type : "post",

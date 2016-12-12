@@ -27,7 +27,7 @@
 
 	<select id="selectLog" resultMap="LogResultMap">
 		<![CDATA[
-			select * from Log
+			select * from Log ORDER BY DATE_TIME DESC
 		]]>
 	</select>
 

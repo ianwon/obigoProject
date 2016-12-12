@@ -42,7 +42,7 @@
 	</delete>
 
 	<select id="selectAllUser" resultMap="UsersResultMap">
-		select * from Users
+		select * from Users ORDER BY NAME ASC
 	</select>
 
 	<select id="selectUser" parameterType="java.lang.String"
