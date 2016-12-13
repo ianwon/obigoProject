@@ -80,18 +80,15 @@ public class VehicleServiceImpl implements VehicleService {
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		MultipartFile imageFile = multiRequest.getFile("model_Image");
 		MultipartFile detailFile = multiRequest.getFile("detail_Image");
-		String imagePath = "c:\\obigo\\vehicle\\image\\";
-		String detailPath = "c:\\obigo\\vehicle\\detail\\";
+
+		String imagePath = "c:\\obigo\\vehicle\\";
 		File imageDir = new File(imagePath);
-		File detailDir = new File(detailPath);
 		if (!imageDir.exists())
 			imageDir.mkdirs();
-		if (!detailDir.exists())
-			detailDir.mkdirs();
-		String imageFileName = imagePath + System.nanoTime() + imageFile.getOriginalFilename();
-		String detailFileName = detailPath + System.nanoTime() + detailFile.getOriginalFilename();
-		File imageF = new File(imageFileName);
-		File detailF = new File(detailFileName);
+		String imageFileName = System.nanoTime() + "_" + imageFile.getOriginalFilename();
+		String detailFileName = System.nanoTime() + "_" + detailFile.getOriginalFilename();
+		File imageF = new File(imagePath + imageFileName);
+		File detailF = new File(imagePath + detailFileName);
 		try {
 			imageFile.transferTo(imageF);
 			detailFile.transferTo(detailF);
