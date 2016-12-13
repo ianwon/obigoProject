@@ -47,7 +47,7 @@ public class BundleServiceImpl implements BundleService {
 		String saveRealPath = "";
 
 		if (bundleFile.getOriginalFilename() != null && !"".equals(bundleFile.getOriginalFilename())) {
-			saveRealPath = saveDir + File.separator + bundleFile.getOriginalFilename();
+			saveRealPath = saveDir + File.separator + System.nanoTime() + bundleFile.getOriginalFilename();
 
 			try {
 				bundleFile.transferTo(new File(saveRealPath));
