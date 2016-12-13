@@ -1,8 +1,10 @@
 package com.obigo.obigoproject.controller;
 
+import java.io.FileInputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,6 +56,32 @@ public class RestFulApiController {
 	UserVehicleService userVehicleService;
 	@Autowired
 	VehicleService vehicleService;
+
+	/**
+	 * 로그인 체크 Api parameter = "id":유저아이디 "password":비밀번호
+	 * 
+	 * @return "flag" : 결과
+	 */
+	@RequestMapping(value = "/api/image/{imagepath}", method = { RequestMethod.GET })
+	@ResponseBody
+	public void image(@PathVariable String imagepath, HttpServletResponse response) {
+		FileInputStream fs = null;
+		try {
+			fs = new FileInputStream("c:/obigo/vehicle/image/94587474604170img_visual_car.png");
+			byte[] iconImage = new byte[fs.available()];
+			fs.read(iconImage);
+			response.setContentType("image/jpg");
+			response.getOutputStream().write(iconImage);
+		} catch (Exception e1) {
+			// e1.printStackTrace();
+		} finally {
+			try {
+				response.getOutputStream().close();
+			} catch (Exception e) {
+				// e.printStackTrace();
+			}
+		}
+	}
 
 	/**
 	 * 로그인 체크 Api parameter = "id":유저아이디 "password":비밀번호
@@ -133,8 +161,7 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * 유저 차량 등록 요청 Api parameter = "userId":유저아이디, "modelCode":차량코드, "color":색상,
-	 * "location":지역, "vin":고유번호
+	 * 유저 차량 등록 요청 Api parameter = "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역, "vin":고유번호
 	 * 
 	 * @return "flag" : 등록 여부
 	 */
