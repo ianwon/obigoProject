@@ -90,7 +90,7 @@ public class VehicleController {
 		FileInputStream fs = null;
 		try {
 			filename = filename.trim();
-			fs = new FileInputStream(filename);
+			fs = new FileInputStream("c:/obigo/vehicle/image/94587474604170img_visual_car.png");
 			byte[] iconImage = new byte[fs.available()];
 			fs.read(iconImage);
 			response.setContentType("image/jpg");

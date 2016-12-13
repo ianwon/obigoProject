@@ -22,7 +22,7 @@
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
-									<button id="Add" class="btn green" data-toggle="modal" href="#addModal">
+									<button id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
 										Add Bundle <i class="fa fa-plus"></i>
 									</button>
 								</div>
