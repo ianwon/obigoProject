@@ -51,7 +51,7 @@ public class ResourceServiceImpl implements ResourceService {
 		String saveRealPath = "";
 
 		if (resourceFile.getOriginalFilename() != null && !"".equals(resourceFile.getOriginalFilename())) {
-			saveRealPath = saveDir + File.separator + resourceFile.getOriginalFilename();
+			saveRealPath = saveDir + File.separator + System.nanoTime() +resourceFile.getOriginalFilename();
 
 			try {
 				resourceFile.transferTo(new File(saveRealPath));

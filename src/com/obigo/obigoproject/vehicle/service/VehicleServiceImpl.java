@@ -88,16 +88,18 @@ public class VehicleServiceImpl implements VehicleService {
 			imageDir.mkdirs();
 		if (!detailDir.exists())
 			detailDir.mkdirs();
-		File imageF = new File(imagePath + imageFile.getOriginalFilename());
-		File detailF = new File(detailPath + detailFile.getOriginalFilename());
+		String imageFileName = imagePath + System.nanoTime() + imageFile.getOriginalFilename();
+		String detailFileName = detailPath + System.nanoTime() + detailFile.getOriginalFilename();
+		File imageF = new File(imageFileName);
+		File detailF = new File(detailFileName);
 		try {
 			imageFile.transferTo(imageF);
 			detailFile.transferTo(detailF);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		vo.setModelImage(imagePath);
-		vo.setDetailImage(detailPath);
+		vo.setModelImage(imageFileName);
+		vo.setDetailImage(detailFileName);
 
 		return vo;
 	}
