@@ -19,6 +19,7 @@
 <link href="/obigoProject/css/bootstrap-reset.css" rel="stylesheet">
 <!--external css-->
 <link href="/obigoProject/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/obigoProject/assets/data-tables/DT_bootstrap.css" />
 
 <!--right slidebar-->
 <link href="/obigoProject/css/slidebars.css" rel="stylesheet">
