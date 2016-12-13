@@ -39,7 +39,7 @@
 
 	<select id="selectVehicleList" resultMap="VehicleMap">
 		<![CDATA[
-			select * from VEHICLE
+			select * from VEHICLE order by model_name
 		]]>
 	</select>
 
