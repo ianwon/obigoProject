@@ -43,13 +43,12 @@
 						<aside class="profile-nav alt green-border">
 							<section class="panel">
 								<div class="user-heading alt green-bg">
-									<a href="#"> <img alt="" src="/obigoProject/vehicleImage?modelCode=${v.modelCode}">
+									<a href="#"> <img alt="" src="/obigoProject/api/image/vehicle/${v.modelImage}">
 									</a>
 									<h1>${v.modelName}</h1>
 								</div>
 
 								<ul class="nav nav-pills nav-stacked">
-								<span class="label label-primary">PASSWORD</span>
 									<li><a href="javascript:;">Color<span class="label label-primary pull-right r-activity">${userVehicleList[status.index].color}</span></a></li>
 									<li><a href="javascript:;">Model Code<span class="label label-info pull-right r-activity">${v.modelCode}</span></a></li>
 									<li><a href="javascript:;">Model Year<span class="label label-warning pull-right r-activity">${v.modelYear}</span></a></li>

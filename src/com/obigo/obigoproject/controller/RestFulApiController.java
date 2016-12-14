@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itextpdf.text.log.SysoCounter;
+import com.obigo.obigoproject.androiduservehicle.service.AndroidUserVehicleService;
 import com.obigo.obigoproject.api.service.ApiService;
 import com.obigo.obigoproject.bundle.service.BundleService;
 import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
@@ -57,18 +58,15 @@ public class RestFulApiController {
 	UserVehicleService userVehicleService;
 	@Autowired
 	VehicleService vehicleService;
+	@Autowired
+	AndroidUserVehicleService androiduservehicleService;
 
-	
-	@RequestMapping(value = "api/uservehicle/{userid}", method={RequestMethod.GET})
-	public void getUsermessage(@PathVariable("userid") String userId){
-		System.out.println(userId);
-	}
 	/**
 	 * Image 받아가시오 ~
 	 * 
 	 * @return 이미지~
 	 */
-	@RequestMapping(value = "/api/image/{select}/{imagename}", method = { RequestMethod.GET })
+	@RequestMapping(value = "/api/image/{select}/{imagename:.+}", method = { RequestMethod.GET })
 	@ResponseBody
 	public void image(@PathVariable String select, @PathVariable String imagename, HttpServletResponse response) {
 		String path = "";
@@ -165,7 +163,8 @@ public class RestFulApiController {
 	@ResponseBody
 	public String bundleUpdate() {
 		JSONObject jobj = new JSONObject();
-		jobj.put("path", bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
+		jobj.put("path",
+				bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
 		return jobj.toString();
 	}
 
@@ -174,17 +173,14 @@ public class RestFulApiController {
 	 * 
 	 * @return "userVehicleList" : 유저 차량 리스트
 	 */
-	/*@RequestMapping(value = "/api/uservehiclelist/{userId}", method = { RequestMethod.GET })
+	@RequestMapping(value = "/api/uservehicle/{userId}", method = { RequestMethod.GET })
 	@ResponseBody
 	public String userVehicle(@PathVariable String userId) {
 		System.out.println(userId);
 		JSONArray jsonArray = new JSONArray();
-		
-		List
-		JSONObject jobj = new JSONObject();
-		jobj.put("userVehicleList", userVehicleService.getUserVehicleList(userId));
-		return jobj.toString();
-	}*/
+		jsonArray.addAll(androiduservehicleService.getAndroidUserVehicleListByUserid(userId));
+		return jsonArray.toString();
+	}
 
 	/**
 	 * 유저 차량 정보 Api parameter = "modelCode":차량코드
@@ -200,13 +196,16 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * 유저 차량 등록 요청 Api parameter = "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역, "vin":고유번호
+	 * 유저 차량 등록 요청 Api parameter = "userId":유저아이디, "modelCode":차량코드, "color":색상,
+	 * "location":지역, "vin":고유번호
 	 * 
 	 * @return "flag" : 등록 여부
 	 */
-	@RequestMapping(value = "/api/userrequest/{userId}/{modelCode}/{color}/{location}/{vin}", method = { RequestMethod.GET })
+	@RequestMapping(value = "/api/userrequest/{userId}/{modelCode}/{color}/{location}/{vin}", method = {
+			RequestMethod.GET })
 	@ResponseBody
-	public String userRequest(@PathVariable String userId, @PathVariable String modelCode, @PathVariable String color, @PathVariable String location, @PathVariable String vin) {
+	public String userRequest(@PathVariable String userId, @PathVariable String modelCode, @PathVariable String color,
+			@PathVariable String location, @PathVariable String vin) {
 		JSONObject jobj = new JSONObject();
 		UserRequestVO vo = new UserRequestVO();
 		vo.setColor(color);
