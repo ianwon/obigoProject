@@ -20,8 +20,9 @@ public class ApiVO {
 		this.responseToSend = responseToSend;
 	}
 
+	@Override
 	public String toString() {
-		return "API [apiName=" + apiName + ", responseToSend=" + responseToSend + "]";
+		return "ApiVO [apiName=" + apiName + ", responseToSend=" + responseToSend + "]";
 	}
 
 	/**
