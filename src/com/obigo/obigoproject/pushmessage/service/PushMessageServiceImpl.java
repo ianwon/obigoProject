@@ -112,16 +112,8 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 	// 특정 아이디의 pushmessage를 인덱싱하여 가지고오는 메소드
 	@Override
-	public List<PushMessageVO> getPushMessageList(String userId, int index) {
-		int page = 10;
-		int end = index * page;
-		int start = end - page + 1;
-		Map map = new HashMap();
-
-		map.put("userId", userId);
-		map.put("start", start);
-		map.put("end", end);
-		return pushMessageDao.getPushMessageList(map);
+	public List<PushMessageVO> getPushMessageList(String userId) {
+		return pushMessageDao.getPushMessageList(userId);
 	}
 
 }

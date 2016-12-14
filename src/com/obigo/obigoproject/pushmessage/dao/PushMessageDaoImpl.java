@@ -40,8 +40,8 @@ public class PushMessageDaoImpl implements PushMessageDao {
 	}
 
 	@Override
-	public List<PushMessageVO> getPushMessageList(Map map) {
-		return sqlSession.selectList("obigoproject.PushMessage.indexingPushMessageList",map);
+	public List<PushMessageVO> getPushMessageList(String userId) {
+		return sqlSession.selectList("obigoproject.PushMessage.selectPushMessageByUserid",userId);
 	}
 
 }
