@@ -87,6 +87,8 @@
 								<!-- Modal -->
 							</div>
 							<br>
+							
+							<input type="hidden" id="hidden-resource">
 							<div class="space15"></div>
 							<div class="bundleList">
 								<form action="/obigoProject/resource">

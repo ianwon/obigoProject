@@ -24,7 +24,7 @@ public class BundleServiceImpl implements BundleService {
 	@Override
 	public boolean insertBundle(BundleVO vo, HttpServletRequest request) {
 
-		createFile(vo, request);
+		vo = createFile(vo, request);
 		int result = bundleDao.insertBundle(vo);
 
 		if (result == 1)
@@ -44,18 +44,15 @@ public class BundleServiceImpl implements BundleService {
 		if (!saveDirFile.exists()) {
 			saveDirFile.mkdirs();
 		}
-		String saveRealPath = "";
-
+		String fileName = null;
 		if (bundleFile.getOriginalFilename() != null && !"".equals(bundleFile.getOriginalFilename())) {
-			saveRealPath = saveDir + File.separator + System.nanoTime() + bundleFile.getOriginalFilename();
-
+			fileName = System.nanoTime() + bundleFile.getOriginalFilename();
 			try {
-				bundleFile.transferTo(new File(saveRealPath));
+				bundleFile.transferTo(new File(saveDir + File.separator + fileName));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			vo.setFileUpload(saveRealPath);
-
+			vo.setFileUpload(fileName);
 		}
 
 		return vo;

@@ -1,6 +1,8 @@
 package com.obigo.obigoproject.controller;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,10 +62,10 @@ public class VehicleController {
 	 * 
 	 * @return 자동차 관리 페이지
 	 */
-	@RequestMapping(value="/updatevehicle", method = RequestMethod.POST)
+	@RequestMapping(value = "/updatevehicle", method = RequestMethod.POST)
 	public String updateVehicle(VehicleVO vo, HttpServletRequest request) {
 
-		vehicleService.updateVehicle(vo,request);
+		vehicleService.updateVehicle(vo, request);
 
 		return "redirect:/vehicle";
 	}
@@ -85,18 +87,56 @@ public class VehicleController {
 
 	// 차량 이미지를 보여주기위한 메소드
 	@RequestMapping("/vehicleImage")
-	public void vehicleImage(@RequestParam("modelCode") String modelCode, HttpServletResponse response) {
-		String filename = vehicleService.getVehicle(modelCode).getModelImage();
+	public void vehicleImage(@RequestParam("modelImage") String modelImage, HttpServletResponse response) {
+		// String filename = vehicleService.getVehicle(modelCode).getModelImage();
+		// FileInputStream fs = null;
+		// try {
+		// filename = filename.trim();
+		// fs = new FileInputStream("c:/obigo/vehicle/image/94587474604170img_visual_car.png");
+		// byte[] iconImage = new byte[fs.available()];
+		// fs.read(iconImage);
+		// response.setContentType("image/jpg");
+		// response.getOutputStream().write(iconImage);
+		// } catch (Exception e1) {
+		// // e1.printStackTrace();
+		// } finally {
+		// try {
+		// response.getOutputStream().close();
+		// } catch (Exception e) {
+		// // e.printStackTrace();
+		// }
+		// }
+		String path = "c:/obigo/vehicle/";
+
+		path += modelImage;
 		FileInputStream fs = null;
 		try {
-			filename = filename.trim();
-			fs = new FileInputStream("c:/obigo/vehicle/image/94587474604170img_visual_car.png");
+			fs = new FileInputStream(path);
 			byte[] iconImage = new byte[fs.available()];
 			fs.read(iconImage);
 			response.setContentType("image/jpg");
 			response.getOutputStream().write(iconImage);
 		} catch (Exception e1) {
-			// e1.printStackTrace();
+			try {
+				fs = new FileInputStream("C:/obigo/no_img.gif");
+				byte[] iconImage = new byte[fs.available()];
+				fs.read(iconImage);
+				response.setContentType("image/jpg");
+				response.getOutputStream().write(iconImage);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				try {
+					response.getOutputStream().close();
+				} catch (Exception e) {
+					// e.printStackTrace();
+				}
+			}
+
 		} finally {
 			try {
 				response.getOutputStream().close();
@@ -104,6 +144,7 @@ public class VehicleController {
 				// e.printStackTrace();
 			}
 		}
+
 	}
 
 }
