@@ -1,9 +1,9 @@
 package com.obigo.obigoproject.controller;
 
 import java.io.FileInputStream;
-import java.util.List;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.obigo.obigoproject.api.service.ApiService;
 import com.obigo.obigoproject.bundle.service.BundleService;
 import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
@@ -25,9 +24,7 @@ import com.obigo.obigoproject.usermessage.service.UserMessageService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.vehicle.service.VehicleService;
-import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
-
 import net.sf.json.JSONObject;
 
 @Controller
@@ -58,22 +55,51 @@ public class RestFulApiController {
 	VehicleService vehicleService;
 
 	/**
-	 * 로그인 체크 Api parameter = "id":유저아이디 "password":비밀번호
+	 * Image 받아가시오 ~
 	 * 
-	 * @return "flag" : 결과
+	 * @return 이미지~
 	 */
-	@RequestMapping(value = "/api/image/{imagepath}", method = { RequestMethod.GET })
+	@RequestMapping(value = "/api/image/{select}/{imagename}", method = { RequestMethod.GET })
 	@ResponseBody
-	public void image(@PathVariable String imagepath, HttpServletResponse response) {
+	public void image(@PathVariable String select, @PathVariable String imagename, HttpServletResponse response) {
+		String path = "";
+		if (select.equals("vehicle")) {
+			path = "c:/obigo/vehicle/";
+		} else if (select.equals("pushmessage")) {
+			path = "c:/obigo/pushmessage";
+		} else {
+			path = "C:/obigo/no_img.gif";
+		}
+
+		path += imagename;
 		FileInputStream fs = null;
 		try {
-			fs = new FileInputStream("c:/obigo/vehicle/image/94587474604170img_visual_car.png");
+			fs = new FileInputStream(path);
 			byte[] iconImage = new byte[fs.available()];
 			fs.read(iconImage);
 			response.setContentType("image/jpg");
 			response.getOutputStream().write(iconImage);
 		} catch (Exception e1) {
-			// e1.printStackTrace();
+			try {
+				fs = new FileInputStream("C:/obigo/no_img.gif");
+				byte[] iconImage = new byte[fs.available()];
+				fs.read(iconImage);
+				response.setContentType("image/jpg");
+				response.getOutputStream().write(iconImage);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				try {
+					response.getOutputStream().close();
+				} catch (Exception e) {
+					// e.printStackTrace();
+				}
+			}
+
 		} finally {
 			try {
 				response.getOutputStream().close();
