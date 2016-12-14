@@ -13,7 +13,7 @@ public class BundleVersionVO {
 
 	@Override
 	public String toString() {
-		return "BundleVersion [bundleVersion=" + bundleVersion + "]";
+		return "BundleVersionVO [bundleVersion=" + bundleVersion + "]";
 	}
 
 }
