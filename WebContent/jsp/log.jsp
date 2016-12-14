@@ -42,10 +42,11 @@
                         <!-- api table start -->
                      </div>
 
-
-                     <div class="space15"></div>
+					<input type="hidden" id="hidden-log">
+					
+					<div class="space15"></div>
                      <div class="table-responsive">
-                        <table class="table table-striped table-hover table-bordered" id="editable-sample-log">
+                        <table class="table table-striped table-hover table-bordered" id="editable-sample">
                            <thead>
                               <tr>
                                  <th>Url</th>
