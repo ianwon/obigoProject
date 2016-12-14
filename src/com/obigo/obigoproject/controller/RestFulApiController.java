@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.itextpdf.text.log.SysoCounter;
 import com.obigo.obigoproject.api.service.ApiService;
 import com.obigo.obigoproject.bundle.service.BundleService;
 import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
@@ -25,6 +27,8 @@ import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.vehicle.service.VehicleService;
 import com.obigo.obigoproject.vo.UserRequestVO;
+
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -54,6 +58,11 @@ public class RestFulApiController {
 	@Autowired
 	VehicleService vehicleService;
 
+	
+	@RequestMapping(value = "api/uservehicle/{userid}", method={RequestMethod.GET})
+	public void getUsermessage(@PathVariable("userid") String userId){
+		System.out.println(userId);
+	}
 	/**
 	 * Image 받아가시오 ~
 	 * 
@@ -165,13 +174,17 @@ public class RestFulApiController {
 	 * 
 	 * @return "userVehicleList" : 유저 차량 리스트
 	 */
-	@RequestMapping(value = "/api/uservehiclelist/{userId}", method = { RequestMethod.GET })
+	/*@RequestMapping(value = "/api/uservehiclelist/{userId}", method = { RequestMethod.GET })
 	@ResponseBody
 	public String userVehicle(@PathVariable String userId) {
+		System.out.println(userId);
+		JSONArray jsonArray = new JSONArray();
+		
+		List
 		JSONObject jobj = new JSONObject();
 		jobj.put("userVehicleList", userVehicleService.getUserVehicleList(userId));
 		return jobj.toString();
-	}
+	}*/
 
 	/**
 	 * 유저 차량 정보 Api parameter = "modelCode":차량코드

@@ -40,7 +40,8 @@ public class UserMessageVO {
 
 	@Override
 	public String toString() {
-		return "UserMessage [userMessageNumber=" + userMessageNumber + ", userId=" + userId + ", messageNumber=" + messageNumber + ", path=" + path + "]";
+		return "UserMessageVO [userMessageNumber=" + userMessageNumber + ", userId=" + userId + ", messageNumber="
+				+ messageNumber + ", path=" + path + "]";
 	}
 
 }

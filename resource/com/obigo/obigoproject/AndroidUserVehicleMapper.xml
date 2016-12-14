@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="obigoproject.AndroidUserVehicle">
+   <resultMap type="AndroidUserVehicle" id="AndroidUserVehicleResultMap">
+      <result column="user_id" property="userId" />
+      <result column="model_code" property="modelCode" />
+      <result column="color" property="color" />
+      <result column="location" property="location" />
+      <result column="vin" property="vin" />
+      <result column="active_dtc_count" property="activeDtcCount" />
+      <result column="model_name" property="modelName" />
+      <result column="model_image" property="modelImage" />
+      <result column="detail_image" property="detailImage" />
+      <result column="model_year" property="modelYear" />
+      <result column="engine" property="engine" />
+      <result column="mileage" property="mileage" />
+   </resultMap>
+
+   <select id="selectAndroidUserVehicle" resultMap="AndroidUserVehicleResultMap">
+        select *
+      from
+      user_vehicle NATURAL join vehicle
+      where user_id =#{userId}
+   </select>
+
+
+</mapper>
