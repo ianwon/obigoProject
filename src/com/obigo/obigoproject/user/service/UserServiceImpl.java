@@ -52,6 +52,12 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUserList();
 	}
 
+	// adminList 가져오기
+	@Override
+	public List<UsersVO> getAdminList() {
+		return userDao.getAdminList();
+	}
+
 	// userId 로 usersvo 가져오기
 	@Override
 	public UsersVO getUser(String userId) {

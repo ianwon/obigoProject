@@ -18,6 +18,7 @@
 		<section class="wrapper site-min-height">
 			<!-- page start-->
 			<section class="panel">
+				<header class="panel-heading"> VEHICLE </header>
 				<div class="panel-body">
 					<div class="adv-table editable-table ">
 						<div class="clearfix">
@@ -53,7 +54,7 @@
 											<span class="label label-primary">ENGINE</span>
 											<input type="text" id="engine" name="engine" class="form-control" placeholder="Engine" required="required">
 											<span class="label label-primary">MODEL YEAR</span>
-											<input type="number" id="modelYear" name="modelYear" min="1900" max="2099" step="1" value="2016" />
+											<input type="number" id="modelYear" name="modelYear" class="form-control" min="1900" max="2099" step="1" value="2016" />
 											<span class="label label-primary">MILEAGE</span>
 											<input type="text" id="mileage" name="mileage" class="form-control" placeholder="mileage" required="required">
 										</form>
@@ -91,7 +92,7 @@
 											<span class="label label-primary">ENGINE</span>
 											<input type="text" id="editEngine" name="engine" class="form-control" placeholder="Engine" required="required" readonly="readonly">
 											<span class="label label-primary">MODEL YEAR</span>
-											<input type="number" id="editModelYear" name="modelYear" min="1900" max="2099" step="1" value="2016" readonly="readonly">
+											<input type="number" id="editModelYear" name="modelYear" class="form-control" min="1900" max="2099" step="1" value="2016" readonly="readonly">
 											<span class="label label-primary">MILEAGE</span>
 											<input type="text" id="editMileage" name="mileage" class="form-control" placeholder="mileage" readonly="readonly" readonly="readonly">
 										</form>

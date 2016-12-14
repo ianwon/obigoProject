@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 
@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="Mosaddek">
 <meta name="keyword"
-	content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+   content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 <link rel="shortcut icon" href="/obigoProject/img/favicon.png">
 
 <title>Header Color Change</title>
@@ -36,15 +36,15 @@
 </head>
 
 <body>
-	<!--footer start-->
-	<footer class="site-footer">
-		<div class="text-center">
-			2016 &copy; 오비희락 by superwyh. <a href="#" class="go-top"> <i
-				class="fa fa-angle-up"></i>
-			</a>
-		</div>
-	</footer>
-	<!--footer end-->
+   <!--footer start-->
+   <footer class="site-footer">
+      <div class="text-center">
+         2016 &copy; 오비희락 by superwyh. <a href="#" class="go-top"> <i
+            class="fa fa-angle-up"></i>
+         </a>
+      </div>
+   </footer>
+   <!--footer end-->
 
 
 
