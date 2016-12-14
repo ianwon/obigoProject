@@ -47,27 +47,10 @@ var EditableTable = function () {
                 oTable.fnDraw();
             }
 
-            var oTable = $('#editable-sample').dataTable({
-                "aLengthMenu": [
-                    [15, 20, -1],
-                    [15, 20, "All"] // change per page values here
-                ],
-                // set the initial value
-                "iDisplayLength": 15,
-                "sDom": "<'row'<'col-lg-6'l><'col-lg-6'f>r>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
-                "sPaginationType": "bootstrap",
-                "oLanguage": {
-                    "sLengthMenu": "_MENU_ records per page",
-                    "oPaginate": {
-                        "sPrevious": "Prev",
-                        "sNext": "Next"
-                    }
-                },
-                "aaSorting":[[0,'asc']]
-            });
+            var oTable = null;
             
-            if($('#editable-sample-log').length>0){
-            	 oTable = $('#editable-sample-log').dataTable({
+            if($('#hidden-log').length>0){
+            	 oTable = $('#editable-sample').dataTable({
                      "aLengthMenu": [
                          [15, 20, -1],
                          [15, 20, "All"] // change per page values here
@@ -85,69 +68,90 @@ var EditableTable = function () {
                      },
                      "aaSorting":[[2,'desc']]
                  });
-            } else if($('#editable-sample-bundle').length>0){
-           	 oTable = $('#editable-sample-bundle').dataTable({
-                 "aLengthMenu": [
-                     [15, 20, -1],
-                     [15, 20, "All"] // change per page values here
-                 ],
-                 // set the initial value
-                 "iDisplayLength": 15,
-                 "sDom": "<'row'<'col-lg-6'l><'col-lg-6'f>r>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
-                 "sPaginationType": "bootstrap",
-                 "oLanguage": {
-                     "sLengthMenu": "_MENU_ records per page",
-                     "oPaginate": {
-                         "sPrevious": "Prev",
-                         "sNext": "Next"
-                     }
-                 },
-                 "aaSorting":[[1,'asc']]
-             });
-        }  else if($('#editable-sample-resource').length>0){
-           	 oTable = $('#editable-sample-resource').dataTable({
-                 "aLengthMenu": [
-                     [15, 20, -1],
-                     [15, 20, "All"] // change per page values here
-                 ],
-                 // set the initial value
-                 "iDisplayLength": 15,
-                 "sDom": "<'row'<'col-lg-6'l><'col-lg-6'f>r>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
-                 "sPaginationType": "bootstrap",
-                 "oLanguage": {
-                     "sLengthMenu": "_MENU_ records per page",
-                     "oPaginate": {
-                         "sPrevious": "Prev",
-                         "sNext": "Next"
-                     }
-                 },
-                 
-                 "aaSorting":[[3,'asc']]
-                 
-             });
-        } else if($('#editable-sample-pushmessage').length>0){
-           	 oTable = $('#editable-sample-pushmessage').dataTable({
-                 "aLengthMenu": [
-                     [15, 20, -1],
-                     [15, 20, "All"] // change per page values here
-                 ],
-                 // set the initial value
-                 "iDisplayLength": 15,
-                 "sDom": "<'row'<'col-lg-6'l><'col-lg-6'f>r>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
-                 "sPaginationType": "bootstrap",
-                 "oLanguage": {
-                     "sLengthMenu": "_MENU_ records per page",
-                     "oPaginate": {
-                         "sPrevious": "Prev",
-                         "sNext": "Next"
-                     }
-                 },
-                 
-                 "aaSorting":[[3,'desc']]
-                 
-             });
-        }
-
+            }else if($('#hidden-pushmessage').length>0 ){
+            	oTable = $('#editable-sample').dataTable({
+                    "aLengthMenu": [
+                        [15, 20, -1],
+                        [15, 20, "All"] // change per page values here
+                    ],
+                    // set the initial value
+                    "iDisplayLength": 15,
+                    "sDom": "<'row'<'col-lg-6'l><'col-lg-6'f>r>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
+                    "sPaginationType": "bootstrap",
+                    "oLanguage": {
+                        "sLengthMenu": "_MENU_ records per page",
+                        "oPaginate": {
+                            "sPrevious": "Prev",
+                            "sNext": "Next"
+                        }
+                    },
+                    
+                    "aaSorting":[[3,'desc']]
+                    
+                });
+            } else if($('#hidden-bundle').length>0 ){
+            	oTable = $('#editable-sample').dataTable({
+                    "aLengthMenu": [
+                        [15, 20, -1],
+                        [15, 20, "All"] // change per page values here
+                    ],
+                    // set the initial value
+                    "iDisplayLength": 15,
+                    "sDom": "<'row'<'col-lg-6'l><'col-lg-6'f>r>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
+                    "sPaginationType": "bootstrap",
+                    "oLanguage": {
+                        "sLengthMenu": "_MENU_ records per page",
+                        "oPaginate": {
+                            "sPrevious": "Prev",
+                            "sNext": "Next"
+                        }
+                    },
+                    "aaSorting":[[1,'asc']]
+                });
+            } else if($('#hidden-resource').length>0){
+            	oTable = $('#editable-sample').dataTable({
+                    "aLengthMenu": [
+                        [15, 20, -1],
+                        [15, 20, "All"] // change per page values here
+                    ],
+                    // set the initial value
+                    "iDisplayLength": 15,
+                    "sDom": "<'row'<'col-lg-6'l><'col-lg-6'f>r>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
+                    "sPaginationType": "bootstrap",
+                    "oLanguage": {
+                        "sLengthMenu": "_MENU_ records per page",
+                        "oPaginate": {
+                            "sPrevious": "Prev",
+                            "sNext": "Next"
+                        }
+                    },
+                    
+                    "aaSorting":[[3,'asc']]
+                    
+                });
+            }   
+            else{
+            
+            	 oTable =	$('#editable-sample').dataTable({
+                    "aLengthMenu": [
+                        [15, 20, -1],
+                        [15, 20, "All"] // change per page values here
+                    ],
+                    // set the initial value
+                    "iDisplayLength": 15,
+                    "sDom": "<'row'<'col-lg-6'l><'col-lg-6'f>r>t<'row'<'col-lg-6'i><'col-lg-6'p>>",
+                    "sPaginationType": "bootstrap",
+                    "oLanguage": {
+                        "sLengthMenu": "_MENU_ records per page",
+                        "oPaginate": {
+                            "sPrevious": "Prev",
+                            "sNext": "Next"
+                        }
+                    },
+                    "aaSorting":[[0,'asc']]
+                });
+            }
+            
             jQuery('#editable-sample_wrapper .dataTables_filter input').addClass("form-control medium"); // modify table search input
             jQuery('#editable-sample_wrapper .dataTables_length select').addClass("form-control xsmall"); // modify table per page dropdown
 
