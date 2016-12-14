@@ -87,6 +87,8 @@
 								<!-- Modal -->
 							</div>
 							<br>
+							
+							<input type="hidden" id="hidden-resource">
 							<div class="space15"></div>
 							<div class="bundleList">
 								<form action="/obigoProject/resource">
@@ -100,7 +102,7 @@
 								</form>
 							</div>
 							<div class="table-responsive">
-								<table class="table table-striped table-hover table-bordered" id="editable-sample-resource">
+								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
 											<th>RESOURCENAME</th>
