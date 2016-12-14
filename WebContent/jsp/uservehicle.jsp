@@ -43,7 +43,7 @@
 						<aside class="profile-nav alt green-border">
 							<section class="panel">
 								<div class="user-heading alt green-bg">
-									<a href="#"> <img alt="" src="/obigoProject/api/image/vehicle/${v.modelImage}">
+									<a href="#"> <img alt="" src="/obigoProject/vehicleImage?modelImage=${v.modelImage}">
 									</a>
 									<h1>${v.modelName}</h1>
 								</div>

@@ -229,5 +229,8 @@ public class RestFulApiController {
 		jobj.put("messageList", pushMessageService.getPushMessageList(userId, index));
 		return jobj.toString();
 	}
+	public void sdlkjfdslkjsfd(){
+		
+	}
 
 }
