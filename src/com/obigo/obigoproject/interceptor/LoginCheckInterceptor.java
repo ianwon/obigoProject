@@ -30,11 +30,11 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		boolean result = false;
-		LogVO vo = new LogVO();
-		vo.setBody("null");
-		vo.setReturned("null");
-		vo.setUrl(request.getRequestURI());
-		logService.insertLog(vo);
+//		LogVO vo = new LogVO();
+//		vo.setBody("null");
+//		vo.setReturned("null");
+//		vo.setUrl(request.getRequestURI());
+//		logService.insertLog(vo);
 
 		HttpSession session = request.getSession(false);
 		
