@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.itextpdf.text.log.SysoCounter;
 import com.obigo.obigoproject.androiduservehicle.service.AndroidUserVehicleService;
 import com.obigo.obigoproject.api.service.ApiService;
 import com.obigo.obigoproject.bundle.service.BundleService;
@@ -222,12 +221,13 @@ public class RestFulApiController {
 	 * 
 	 * @return "messageList" : 메시지 리스트
 	 */
-	@RequestMapping(value = "/api/messagelist/{userId}/{index}", method = { RequestMethod.GET })
+	@RequestMapping(value = "/api/message/{userId}", method = { RequestMethod.GET })
 	@ResponseBody
-	public String messageList(@PathVariable String userId, @PathVariable int index) {
-		JSONObject jobj = new JSONObject();
-		jobj.put("messageList", pushMessageService.getPushMessageList(userId, index));
-		return jobj.toString();
+	public String messageList(@PathVariable String userId) {
+		System.out.println(userId);
+		JSONArray jsonArray = new JSONArray();
+		jsonArray.addAll(pushMessageService.getPushMessageList(userId));
+		System.out.println(jsonArray.toString());
+		return jsonArray.toString();
 	}
-
 }

@@ -36,7 +36,7 @@
 		]]>
 	</delete>
 
-	<select id="indexingPushMessageList" parameterType="java.lang.String"
+	<select id="PushMessageList" parameterType="java.lang.String"
 		resultMap="PushMessageResultMap">
 		<![CDATA[
 			select * from (select rownum num, p.title, p.content, p.send_date, p.upload_file from push_message p, user_message u
@@ -56,5 +56,11 @@
 		]]>
 	</select>
 
+	<select id="selectPushMessageByUserid" parameterType="java.lang.String"
+		resultMap="PushMessageResultMap">
+		<![CDATA[
+	select pm.* from push_message pm, user_message um where pm.message_number = um.message_number and um.user_id=#{userId}
+	]]>
+	</select>
 
 </mapper>
