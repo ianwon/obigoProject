@@ -19,7 +19,6 @@
 <!-- Custom styles for this template -->
 <link href="/obigoProject/css/style.css" rel="stylesheet">
 <link href="/obigoProject/css/style-responsive.css" rel="stylesheet" />
-
 </head>
 
 <body class="login-body">
@@ -35,17 +34,17 @@
 				<span class="label label-primary">E-MAIL</span>
 				<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
 				<span class="label label-primary">PHONE</span>
-				<input type="text" id="phone" name="phone" class="form-control" placeholder="phone ex) 010-1234-5678" onblur="phoneCheck()" autofocus required="required">
-				<div id="phoneCheck"></div>
+				<input type="text" id="phone" name="phone" class="form-control" placeholder="phone ex) 010-1234-5678" onkeyup="phoneCheck()" autofocus required="required">
+				<div class="check-message" id="phoneCheck"></div>
 				<p>Enter your account details below</p>
 				<span class="label label-primary">USER ID</span>
 				<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
-				<div id="idCheck"></div>
+				<div class="check-message" id="idCheck"></div>
 				<span class="label label-primary">PASSWORD</span>
 				<input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
 				<span class="label label-primary">PASSWORD</span>
-				<input type="password" id="password2" class="form-control" placeholder="Re-type Password" onblur="passwordCheck()" required="required">
-				<div id="passwordCheck"></div>
+				<input type="password" id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
+				<div class="check-message" id="passwordCheck"></div>
 				<input class="btn btn-lg btn-login btn-block" type="submit" value="SUBMIT">
 
 				<div class="registration">
@@ -77,38 +76,23 @@
 	
 		//id체크
 		function idCheck() {
-	
-			// 4 ~ 20 자리 영(대, 소), 숫자
-			// 첫글자는 숫자 사용 불가
-			var pattern = /^[A-Za-z]{1}[A-Za-z0-9]{5,19}$/;
-	
-			if (!pattern.test($("#userId").val())) {
-	
-				$("#idCheck").html("영어 대소문자로 시작하는 6~20자리(숫자 포함 가능)");
-				$("#idCheck").css("color", "red");
-	
-			} else {
-	
-				$.ajax({
-					type : "post",
-					url : "/obigoProject/idcheck",
-					dataType : "json",
-					data : {
-						"userId" : $("#userId").val()
-					},
-					success : function(data) {
-						if (data.flag == false) {
-							$("#idCheck").html("이미 존재하는 아이디 입니다.");
-							$("#idCheck").css("color", "red");
-						} else {
-							$("#idCheck").html("사용가능한 아이디 입니다.");
-							$("#idCheck").css("color", "blue");
-						}
+			$.ajax({
+				type : "post",
+				url : "/obigoProject/idcheck",
+				dataType : "json",
+				data : {
+					"userId" : $("#userId").val()
+				},
+				success : function(data) {
+					if (data.flag == false) {
+						$("#idCheck").html("이미 존재하는 아이디 입니다.");
+						$("#idCheck").css("color", "red");
+					} else {
+						$("#idCheck").html("사용가능한 아이디 입니다.");
+						$("#idCheck").css("color", "blue");
 					}
-				});
-	
-			}
-	
+				}
+			});
 		}
 		//패스워드 일치 확인
 		function passwordCheck() {

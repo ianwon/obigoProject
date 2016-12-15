@@ -28,7 +28,7 @@
 
 	<div class="container">
 
-		<form class="form-signin" action="/obigoProject/logincheck" onsubmit="return idCheck()" method="POST">
+		<form class="form-signin" action="/obigoProject/logincheck" onsubmit="return passwordCheck()" method="POST">
 			<h2 class="form-signin-heading">sign in now</h2>
 			<div class="login-wrap">
 				<input type="text" class="form-control" placeholder="User ID" autofocus name="userId" id="userId">
@@ -77,6 +77,7 @@
 		}
 	
 		function passwordCheck() {
+			alert("gd")
 			$.ajax({
 				type : "post",
 				url : "/obigoProject/password",
