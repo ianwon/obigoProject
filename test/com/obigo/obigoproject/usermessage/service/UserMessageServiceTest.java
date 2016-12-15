@@ -19,7 +19,6 @@ public class UserMessageServiceTest {
 	public void insertUserMessageTest() {
 		UserMessageVO vo = new UserMessageVO();
 		vo.setUserId("agaagaga12as");
-		vo.setPath("ggggg");
 		vo.setMessageNumber(2);
 
 		Assert.assertTrue( usermessageservice.insertUserMessage(vo));
@@ -28,7 +27,6 @@ public class UserMessageServiceTest {
 	@Test
 	public void updateUserMessageTest(){
 		UserMessageVO vo = new UserMessageVO();
-		vo.setPath("hahaha");
 		vo.setUserMessageNumber(8);
 		
 		Assert.assertTrue(usermessageservice.updateUserMessage(vo));
