@@ -36,24 +36,29 @@
 							<div class="panel-body">
 								<div class=" form">
 									<form class="cmxform form-horizontal tasi-form" id="commentForm" method="post" action="/obigoProject/sendtextmessage">
-										<label>Category : </label>&nbsp;&nbsp;&nbsp;<select id=selectcategory name="categoryNumber">
-											<option value="">Select Category</option>
-											<c:forEach var="c" items="${messagecategory}" begin="0">
-												<option value="${c.categoryNumber}">Category Name : ${c.categoryName}</option>
-											</c:forEach>
-										</select> 
-										<label>Location : </label>&nbsp;&nbsp;&nbsp;<select id=selectlocation name="location">
-											<option value="">Select Location</option>
-											<c:forEach var="l" items="${locationList}" begin="0">
-												<option value="${l.location}">Location : ${l.location}</option>
-											</c:forEach>
-										</select>
-										<label>Model : </label>&nbsp;&nbsp;&nbsp;<select id=selectmodel name="modelName">
-											<option value="">Select Model</option>
-											<c:forEach var="m" items="${modelList}" begin="0">
-												<option value="${m.modelName}">ModelName : ${m.modelName}</option>
-											</c:forEach>
-										</select>
+										<div class="form-group ">
+												&nbsp;&nbsp;&nbsp; <label>Category : </label>
+												<select id=selectcategory name="categoryNumber">
+													<option value="">Select Category</option>
+													<c:forEach var="c" items="${messagecategory}" begin="0">
+														<option value="${c.categoryNumber}">Category Name : ${c.categoryName}</option>
+													</c:forEach>
+												</select>
+												&nbsp;&nbsp;&nbsp; <label>Location : </label>
+												<select id=selectlocation name="location">
+													<option value="">Select Location</option>
+													<c:forEach var="l" items="${locationList}" begin="0">
+														<option value="${l.location}">Location : ${l.location}</option>
+													</c:forEach>
+												</select>
+												&nbsp;&nbsp;&nbsp; <label>Model : </label>
+												<select id=selectmodel name="modelName">
+													<option value="">Select Model</option>
+													<c:forEach var="m" items="${modelList}" begin="0">
+														<option value="${m.modelName}">ModelName : ${m.modelName}</option>
+													</c:forEach>
+												</select>
+										</div>
 										<div class="form-group ">
 											<label for="cname" class="control-label col-lg-2">Message Subject (required)</label>
 											<div class="col-lg-10">
@@ -70,7 +75,7 @@
 										<div class="form-group">
 											<label class="control-label col-md-2">File Upload</label>
 											<div class="col-md-4">
-												<input type="file" class="default" name="uploadFile"/>
+												<input type="file" class="default" name="uploadFile" />
 											</div>
 										</div>
 
