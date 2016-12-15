@@ -36,12 +36,18 @@
 											<div class="modal-body">
 												<form id="form-addresource" enctype="multipart/form-data" action="/obigoProject/insertresource" class="form-signin" onsubmit="return addresource()" method="POST">
 													<div class="login-wrap">
-														<span class="label label-primary">Resource Name</span>
-														<input type="text" name="resourceName" class="form-control" placeholder="ResourceName" autofocus required="required">
-														<span class="label label-primary">Resource File</span>
-														<input type="file" name="resourcePath" class="form-control" autofocus required="required">
-														<span class="label label-primary">Resource Version</span>
-														<input type="text" name="resourceVersion" class="form-control" placeholder="ResourceVersion" autofocus required="required">
+														<div class="form-group">
+															<span class="label label-primary">Resource Name</span>
+															<input type="text" name="resourceName" class="form-control" placeholder="ResourceName" autofocus required="required">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">Resource File</span>
+															<input type="file" name="resourcePath" class="form-control" autofocus required="required">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">Resource Version</span>
+															<input type="text" name="resourceVersion" class="form-control" placeholder="ResourceVersion" autofocus required="required">
+														</div>
 													</div>
 												</form>
 											</div>
@@ -66,13 +72,21 @@
 											<div class="modal-body">
 												<form id="form-update" class="form-signin" action="/obigoProject/updateresource" method="POST">
 													<div class="login-wrap">
-														<input type="hidden" name="resourceNumber" id="editresourcenumber" class="form-control" autofocus>
-														<span class="label label-primary">Resource Name</span>
-														<input type="text" name="resourceName" id="editresourcename" class="form-control" autofocus required>
-														<span class="label label-primary">Resource File</span>
-														<input type="file" name="path" id="editpath" class="form-control" autofocus required>
-														<span class="label label-primary">Resource Version</span>
-														<input type="text" name="resourceVersion" id="editresourceversion" class="form-control" autofocus required>
+														<div class="form-group">
+															<input type="hidden" name="resourceNumber" id="editresourcenumber" class="form-control" autofocus>
+															<span class="label label-primary">Resource Name</span>
+														</div>
+														<div class="form-group">
+															<input type="text" name="resourceName" id="editresourcename" class="form-control" autofocus required>
+															<span class="label label-primary">Resource File</span>
+														</div>
+														<div class="form-group">
+															<input type="file" name="path" id="editpath" class="form-control" autofocus required>
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">Resource Version</span>
+															<input type="text" name="resourceVersion" id="editresourceversion" class="form-control" autofocus required>
+														</div>
 													</div>
 												</form>
 											</div>
@@ -83,11 +97,9 @@
 										</div>
 									</div>
 								</div>
-								<!-- modal -->
-								<!-- Modal -->
+								<!-- Modal End -->
 							</div>
-							<br>
-							
+
 							<input type="hidden" id="hidden-resource">
 							<div class="space15"></div>
 							<div class="bundleList">
@@ -102,6 +114,8 @@
 								</form>
 							</div>
 							<div class="table-responsive">
+							
+								<!-- Resource Table Start  -->
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
@@ -126,6 +140,7 @@
 										</c:forEach>
 									</tbody>
 								</table>
+								<!-- Resource Table End -->
 							</div>
 						</div>
 					</div>
@@ -133,7 +148,6 @@
 				<!-- page end-->
 			</section>
 		</section>
-		<!-- modal -->
 		<!--main content end-->
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
@@ -159,7 +173,7 @@
 			$("#editresourceversion").val(resourceVersion);
 			$("#editModal").modal();
 		}
-	
+
 		function resdel(data) {
 			if (confirm("선택한 리소스를 삭제하시겠습니까?") == true) {
 				$.ajax({
@@ -170,13 +184,12 @@
 					data : {
 						"resourceNumber" : data
 					},
-	
+
 					success : function(resource) {
 						if (resource.flag == true) {
 							alert("삭제되었습니다.");
 							location.reload();
-						}
-						else
+						} else
 							alert("삭제를 실패하였습니다.");
 					}
 				})
