@@ -4,7 +4,6 @@ public class UserMessageVO {
 	private int userMessageNumber;
 	private String userId;
 	private int messageNumber;
-	private String path;
 
 	public int getUserMessageNumber() {
 		return userMessageNumber;
@@ -30,18 +29,9 @@ public class UserMessageVO {
 		this.messageNumber = messageNumber;
 	}
 
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
 	@Override
 	public String toString() {
-		return "UserMessageVO [userMessageNumber=" + userMessageNumber + ", userId=" + userId + ", messageNumber="
-				+ messageNumber + ", path=" + path + "]";
+		return "UserMessageVO [userMessageNumber=" + userMessageNumber + ", userId=" + userId + ", messageNumber=" + messageNumber + "]";
 	}
 
 }
