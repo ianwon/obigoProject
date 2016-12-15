@@ -37,21 +37,31 @@
 												<h4 class="modal-title">Add Bundle</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-addbundle" enctype="multipart/form-data" class="form-signin"  action="/obigoProject/insertbundle" onsubmit="return check()" method="POST">
+												<form id="form-addbundle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/insertbundle" onsubmit="return check()" method="POST">
 													<div class="login-wrap">
-														<span class="label label-primary">Bundle Name</span>
-														<input type="text" name="bundleName" class="form-control" placeholder="BundleName" autofocus required="required">
-														<span class="label label-primary">Bundle Version</span>
-														<input type="text" name="bundleVersion" id="bundleversion" class="form-control" onkeyup="bundleversionCheck()" placeholder="BundleVersion" autofocus required="required">
-														<div id=bundleversioncheck></div>
-														
-														<span class="label label-primary">Bundle File</span>
-														<input type="file" name="bundleFile" class="form-control" autofocus required="required">
-														<span class="label label-primary">Developer</span>
-														<input type="text" name="developer" class="form-control" placeholder="Developer" autofocus required="required">
-														<span class="label label-primary">Bundle Key</span>
-														<input type="text" name="bundleKey" id="bundlekey" class="form-control" onkeyup="bundlekeyCheck()" placeholder="BundleKey" required="required">
-														<div id=bundlekeycheck></div>
+														<div class="form-group">
+															<span class="label label-primary">Bundle Name</span>
+															<input type="text" name="bundleName" class="form-control" placeholder="BundleName" autofocus required="required">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">Bundle Version</span>
+															<input type="text" name="bundleVersion" id="bundleversion" class="form-control" onkeyup="bundleversionCheck()" placeholder="BundleVersion" autofocus
+																required="required">
+															<div id=bundleversioncheck></div>
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">Bundle File</span>
+															<input type="file" name="bundleFile" class="form-control" autofocus required="required">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">Developer</span>
+															<input type="text" name="developer" class="form-control" placeholder="Developer" autofocus required="required">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">Bundle Key</span>
+															<input type="text" name="bundleKey" id="bundlekey" class="form-control" onkeyup="bundlekeyCheck()" placeholder="BundleKey" required="required">
+															<div id=bundlekeycheck></div>
+														</div>
 													</div>
 												</form>
 											</div>
@@ -76,10 +86,14 @@
 											<div class="modal-body">
 												<form id="form-update" class="form-signin" action="/obigoProject/updatebundle" method="POST">
 													<div class="login-wrap">
-														<span class="label label-primary">Bundle Name</span>
-														<input type="text" name="bundleName" id="editbundlename" class="form-control" autofocus>
-														<span class="label label-primary">Bundle Version</span>
-														<input type="text" name="bundleVersion" id="editbundleversion" class="form-control" autofocus readonly="readonly" value="${bundleVersion}">
+														<div class="form-group">
+															<span class="label label-primary">Bundle Name</span>
+															<input type="text" name="bundleName" id="editbundlename" class="form-control" autofocus>
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">Bundle Version</span>
+															<input type="text" name="bundleVersion" id="editbundleversion" class="form-control" autofocus readonly="readonly" value="${bundleVersion}">
+														</div>
 													</div>
 												</form>
 											</div>
@@ -90,11 +104,12 @@
 										</div>
 									</div>
 								</div>
-								<!-- modal -->
-								<!-- Modal -->
+								<!-- Modal End -->
 							</div>
 							<input type="hidden" id="hidden-bundle">
 							<div class="space15"></div>
+							
+							<!-- Bundle Table start -->
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
@@ -196,7 +211,7 @@
 							alert("삭제할 수 없습니다");
 					}
 				});
-	
+
 			}
 		}
 		//번들수정
@@ -206,16 +221,17 @@
 			$("#editbundleversion").val(bundleVersion);
 			$("#editModal").modal();
 		}
-	
+
 		function check() {
-			if ($("#bundleversioncheck").html() == "등록가능한 버전 입니다." && $("#bundlekeycheck").html() == "등록가능한 키 입니다.") {
+			if ($("#bundleversioncheck").html() == "등록가능한 버전 입니다."
+					&& $("#bundlekeycheck").html() == "등록가능한 키 입니다.") {
 				return true;
 			} else {
 				alert("버전과 키를 확인해 주세요;");
 				return false;
 			}
 		}
-	
+
 		function apply(data) {
 			if (confirm("선택한 버전을 적용하시겠습니까?") == true) {
 				$.ajax({
@@ -229,10 +245,10 @@
 						location.reload();
 					}
 				});
-	
+
 			}
 		}
-	
+
 		/* function resdel(data) {
 			if (confirm("선택한 리소스를 삭제하시겠습니까?") == true) {
 				$.ajax({
@@ -254,7 +270,7 @@
 				})
 			}
 		} */
-	
+
 		/* 	function resource(data) {
 				var test;
 				$.ajax({

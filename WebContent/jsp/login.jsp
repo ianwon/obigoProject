@@ -77,7 +77,6 @@
 		}
 	
 		function passwordCheck() {
-			alert("gd")
 			$.ajax({
 				type : "post",
 				url : "/obigoProject/password",

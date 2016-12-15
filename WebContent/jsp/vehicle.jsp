@@ -25,7 +25,7 @@
 							<div class="btn-group">
 
 								<!-- Vehicle Add 버튼 -->
-								<a class="btn btn-success" data-toggle="modal" href="#modalAdd"> Add New <i class="fa fa-plus"></i>
+								<a class="btn btn-success" data-toggle="modal" href="#modalAdd"> Add Vehicle <i class="fa fa-plus"></i>
 								</a>
 
 							</div>
@@ -43,20 +43,34 @@
 									<div class="modal-body">
 
 										<form id="form-addvehicle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/insertvehicle" onsubmit="return addVehicleCheck();" method="POST">
-											<span class="label label-primary">MODEL NAME</span>
-											<input type="text" id="modelName" name="modelName" class="form-control" placeholder="Model Name" autofocus required="required">
-											<span class="label label-primary">MODEL CODE</span>
-											<input type="text" id="modelCode" name="modelCode" class="form-control" placeholder="Model Code" autofocus required="required">
-											<span class="label label-primary">MODEL IMAGE</span>
-											<input type="file" id="model_Image" name="model_Image" class="form-control" placeholder="Model Image" autofocus required="required">
-											<span class="label label-primary">DETAIL IMAGE</span>
-											<input type="file" id="detail_Image" name="detail_Image" class="form-control" placeholder="Detail Image" autofocus required="required">
-											<span class="label label-primary">ENGINE</span>
-											<input type="text" id="engine" name="engine" class="form-control" placeholder="Engine" required="required">
-											<span class="label label-primary">MODEL YEAR</span>
-											<input type="number" id="modelYear" name="modelYear" class="form-control" min="1900" max="2099" step="1" value="2016" />
-											<span class="label label-primary">MILEAGE</span>
-											<input type="text" id="mileage" name="mileage" class="form-control" placeholder="mileage" required="required">
+											<div class="form-group">
+												<span class="label label-primary">MODEL NAME</span>
+												<input type="text" id="modelName" name="modelName" class="form-control" placeholder="Model Name" autofocus required="required">
+											</div>
+											<div class="form-group">
+												<span class="label label-primary">MODEL CODE</span>
+												<input type="text" id="modelCode" name="modelCode" class="form-control" placeholder="Model Code" autofocus required="required">
+											</div>
+											<div class="form-group">
+												<span class="label label-primary">MODEL IMAGE</span>
+												<input type="file" id="model_Image" name="model_Image" class="form-control" placeholder="Model Image" autofocus required="required">
+											</div>
+											<div class="form-group">
+												<span class="label label-primary">DETAIL IMAGE</span>
+												<input type="file" id="detail_Image" name="detail_Image" class="form-control" placeholder="Detail Image" autofocus required="required">
+											</div>
+											<div class="form-group">
+												<span class="label label-primary">ENGINE</span>
+												<input type="text" id="engine" name="engine" class="form-control" placeholder="Engine" required="required">
+											</div>
+											<div class="form-group">
+												<span class="label label-primary">MODEL YEAR</span>
+												<input type="number" id="modelYear" name="modelYear" class="form-control" min="1900" max="2099" step="1" value="2016" />
+											</div>
+											<div class="form-group">
+												<span class="label label-primary">MILEAGE</span>
+												<input type="text" id="mileage" name="mileage" class="form-control" placeholder="mileage" required="required">
+											</div>
 										</form>
 
 									</div>
@@ -76,12 +90,12 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-										<h4 class="modal-title">Edit Vehicle</h4>
+										<h4 class="modal-title">Update Vehicle</h4>
 									</div>
 									<div class="modal-body">
 
 										<form id="form-editvehicle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/updatevehicle" method="POST">
-										<span class="label label-primary">MODEL NAME</span>
+											<span class="label label-primary">MODEL NAME</span>
 											<input type="text" id="editModelName" name="modelName" class="form-control" placeholder="Model Name" readonly="readonly">
 											<span class="label label-primary">MODEL CODE</span>
 											<input type="text" id="editModelCode" name="modelCode" class="form-control" placeholder="Model Code" readonly="readonly">
@@ -109,9 +123,9 @@
 
 
 
-						<!-- Vehicle List를 보여주는 Table -->
 						<div class="table-responsive">
 
+							<!-- Vehicle Table Start -->
 							<table class="table table-striped table-hover table-bordered" id="editable-sample">
 								<thead>
 									<tr>
@@ -145,6 +159,7 @@
 
 								</tbody>
 							</table>
+							<!-- Vehicle Table End -->
 
 						</div>
 					</div>
@@ -185,24 +200,23 @@
 	</script>
 
 	<script type="text/javascript">
-	
 		// Edit Modal 폼을 띄울때 해당 되는 데이터를 Modal에 넣어주는 함수
 		function callEditModal(modelCode) {
 			$("#editModelName").val(
-				$("#vehicle" + modelCode).children().eq(0).text());
+					$("#vehicle" + modelCode).children().eq(0).text());
 			$("#editModelCode").val(
-				$("#vehicle" + modelCode).children().eq(1).text());
+					$("#vehicle" + modelCode).children().eq(1).text());
 			$("#editEngine").val(
-				$("#vehicle" + modelCode).children().eq(4).text());
+					$("#vehicle" + modelCode).children().eq(4).text());
 			$("#editModelYear").val(
-				$("#vehicle" + modelCode).children().eq(5).text());
+					$("#vehicle" + modelCode).children().eq(5).text());
 			$("#editMilage").val(
-				$("#vehicle" + modelCode).children().eq(6).text());
-	
+					$("#vehicle" + modelCode).children().eq(6).text());
+
 			$("#modalEdit").modal("toggle");
-	
+
 		}
-	
+
 		// 삭제 여부를 묻고 AJAX를 통해서 차량을 삭제하는 함수
 		function deleteVehicleTr(modelCode) {
 			if (confirm("삭제 하시겠습니까?") == true) {
@@ -221,7 +235,7 @@
 				return;
 			}
 		}
-	
+
 		// 차량 등록 폼에서 AJAX로 Model Code 비교후 등록을 수행하는 함수
 		function addVehicleCheck() {
 			var checkModelCode = false;
@@ -240,7 +254,7 @@
 					} else {
 						// 동일한 Model Code가 이미 DB에 존재하므로 자동차를 등록할 수 없다
 						alert("동일한 Model Code가 이미 존재합니다!");
-	
+
 					}
 				}
 			});

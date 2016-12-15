@@ -18,12 +18,13 @@
 				<div class="panel-body">
 					<div class="adv-table editable-table ">
 						<div class="clearfix"></div>
-						
+
 					</div>
 					<div class="space15"></div>
 
 					<div class="table-responsive">
-
+						
+						<!-- User Request Table Start  -->
 						<table class="table table-striped table-hover table-bordered" id="editable-sample">
 							<thead>
 								<tr>
@@ -50,9 +51,9 @@
 
 							</tbody>
 						</table>
+						<!-- User Request Table End -->
 
 					</div>
-				</div>
 				</div>
 			</section>
 			<!-- page end-->

@@ -42,22 +42,33 @@
 											<div class="modal-body">
 												<form id="form-registration" class="form-signin" action="/obigoProject/insertuser" onsubmit="return check()" method="POST">
 													<div class="login-wrap">
-														<span class="label label-primary">NAME</span>
-														<input type="text" name="name" id="name" class="form-control" placeholder="Full Name" autofocus required="required">
-														<span class="label label-primary">E-MAIL</span>
-														<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
-														<span class="label label-primary">PHONE</span>
-														<input type="text" name="phone" class="form-control" placeholder="phone" autofocus required="required">
-														<span class="label label-primary">USER ID</span>
-														<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
-														<div id="idCheck"></div>
-														<span class="label label-primary">PASSWORD</span>
-														<input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
-														<span class="label label-primary">PASSWORD</span>
-														<input type="password" id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
-														<div id="passwordCheck"></div>
+														<div class="form-group">
+															<span class="label label-primary">NAME</span>
+															<input type="text" name="name" id="name" class="form-control" placeholder="Full Name" autofocus required="required">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">E-MAIL</span>
+															<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">PHONE</span>
+															<input type="text" name="phone" class="form-control" placeholder="phone" autofocus required="required">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">USER ID</span>
+															<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
+															<div id="idCheck"></div>
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">PASSWORD</span>
+															<input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">PASSWORD</span>
+															<input type="password" id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
+															<div id="passwordCheck"></div>
+														</div>
 													</div>
-
 												</form>
 
 
@@ -83,14 +94,22 @@
 											<div class="modal-body">
 												<form id="form-update" class="form-signin" action="/obigoProject/updateuser" method="POST">
 													<div class="login-wrap">
-													<span class="label label-primary">USER ID</span>
-														<input type="text" name="userId" id="edituserId" class="form-control" autofocus readonly="readonly" value="${userId}">
-														<span class="label label-primary">NAME</span>
-														<input type="text" name="name" id="editname" class="form-control" autofocus placeholder="Full Name" readonly="readonly" value="${userName}">
-														<span class="label label-primary">EMAIL</span>
-														<input type="email" name="eMail" id="editeMail" class="form-control" placeholder="Email" autofocus required="required">
-														<span class="label label-primary">PHONE</span>
-														<input type="text" name="phone" id="editphone" class="form-control" placeholder="phone" autofocus required="required">
+														<div class="form-group">
+															<span class="label label-primary">USER ID</span>
+															<input type="text" name="userId" id="edituserId" class="form-control" autofocus readonly="readonly" value="${userId}">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">NAME</span>
+															<input type="text" name="name" id="editname" class="form-control" autofocus placeholder="Full Name" readonly="readonly" value="${userName}">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">EMAIL</span>
+															<input type="email" name="eMail" id="editeMail" class="form-control" placeholder="Email" autofocus required="required">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">PHONE</span>
+															<input type="text" name="phone" id="editphone" class="form-control" placeholder="phone" autofocus required="required">
+														</div>
 													</div>
 												</form>
 											</div>
@@ -101,12 +120,12 @@
 										</div>
 									</div>
 								</div>
-								<!-- modal -->
-
-								<!-- Modal -->
+								<!-- Modal End-->
 							</div>
 							<div class="space15"></div>
 							<div class="table-responsive">
+							
+								<!-- User Table Start  -->
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
@@ -133,6 +152,7 @@
 										</c:forEach>
 									</tbody>
 								</table>
+								<!-- User Table End -->
 
 							</div>
 						</div>
@@ -147,9 +167,9 @@
 		<!--footer end-->
 	</section>
 	<script type="text/javascript">
-	
 		function userVehicle(userId) {
-			document.location.href = "/obigoProject/userVehicle?userId=" + userId
+			document.location.href = "/obigoProject/userVehicle?userId="
+					+ userId
 		}
 		//id체크
 		function idCheck() {
@@ -176,7 +196,7 @@
 			if ($("#password") == null || $("#password2") == null) {
 				$("#passwordCheck").html("");
 			} else {
-	
+
 				if ($("#password").val() == $("#password2").val()) {
 					$("#passwordCheck").html("비밀번호가 일치합니다.");
 					$("#passwordCheck").css("color", "blue");
@@ -200,7 +220,7 @@
 						location.reload();
 					}
 				});
-	
+
 			}
 		}
 		//user수정
@@ -212,15 +232,16 @@
 			$("#edituserId").val(userId);
 			$("#editModal").modal();
 		}
-	
+
 		function check() {
-			if ($("#idCheck").html() == "사용가능한 아이디 입니다." && $("#passwordCheck").html() == "비밀번호가 일치합니다.") {
+			if ($("#idCheck").html() == "사용가능한 아이디 입니다."
+					&& $("#passwordCheck").html() == "비밀번호가 일치합니다.") {
 				return true;
 			} else {
 				alert("아이디와 비밀번호를 확인해 주세요");
 				return false;
 			}
-	
+
 		}
 	</script>
 
