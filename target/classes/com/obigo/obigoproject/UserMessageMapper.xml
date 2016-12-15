@@ -10,12 +10,11 @@
 		<result column="user_message_number" property="userMessageNumber" />
 		<result column="user_id" property="userId" />
 		<result column="message_number" property="messageNumber" />
-		<result column="path" property="path" />
 	</resultMap>
 
 	<insert id="insertUserMessage" parameterType="UserMessage">
 	<![CDATA[
-		insert into user_message values(sq_user_message_number.nextval, #{userId}, #{messageNumber}, #{path})
+		insert into user_message values(sq_user_message_number.nextval, #{userId}, #{messageNumber})
 	]]>
 	</insert>
 
