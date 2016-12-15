@@ -72,7 +72,7 @@ public class RestFulApiController {
 		if (select.equals("vehicle")) {
 			path = "c:/obigo/vehicle/";
 		} else if (select.equals("pushmessage")) {
-			path = "c:/obigo/pushmessage";
+			path = "c:/obigo/pushmessage/";
 		} else {
 			path = "C:/obigo/no_img.gif";
 		}
@@ -201,7 +201,7 @@ public class RestFulApiController {
 	 * @return "flag" : 등록 여부
 	 */
 	@RequestMapping(value = "/api/userrequest/{userId}/{modelCode}/{color}/{location}/{vin}", method = {
-			RequestMethod.GET })
+			RequestMethod.POST })
 	@ResponseBody
 	public String userRequest(@PathVariable String userId, @PathVariable String modelCode, @PathVariable String color,
 			@PathVariable String location, @PathVariable String vin) {
