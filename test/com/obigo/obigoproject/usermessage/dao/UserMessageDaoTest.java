@@ -18,7 +18,6 @@ public class UserMessageDaoTest {
 	@Test
 	public void insertUserMessageTest() {
 		UserMessageVO vo = new UserMessageVO();
-		vo.setPath("gggg");
 		vo.setUserId("asdf");
 		vo.setMessageNumber(2);
 
@@ -29,7 +28,6 @@ public class UserMessageDaoTest {
 	public void updateUserMessageTest() {
 		UserMessageVO vo = new UserMessageVO();
 		vo.setUserMessageNumber(2);
-		vo.setPath("gjgjgjgj");
 
 		Assert.assertEquals(1, usermessagedao.updateUserMessage(vo));
 	}
