@@ -128,7 +128,6 @@ public class UserController {
 	public String passwordCheck(@RequestParam("userId") String userId, @RequestParam("password") String password) {
 		JSONObject jobj = new JSONObject();
 		userId = userId.toLowerCase();
-		System.out.println("passwordcheck" + " " + userId);
 		if (userService.getUser(userId).getPassword().equals(password)) {
 			jobj.put("flag", true);
 		} else {
