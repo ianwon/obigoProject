@@ -32,4 +32,9 @@ public class registrationidServiceTest {
 	public void getRegistrationidList(){
 		System.out.println(registrationidService.getRegistrationidList());
 	}
+	
+	@Test
+	public void deleteRegistrationid(){
+		System.out.println(registrationidService.deleteRegistrationid("12345678910"));
+	}
 }

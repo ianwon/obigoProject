@@ -28,4 +28,9 @@ public class RegistrationidDaoImpl implements RegistrationidDao {
 		return sqlSession.selectList("obigoproject.Registrationid.selectRegistrationidList");
 	}
 
+	@Override
+	public int deleteRegistrationid(String registrationId) {
+		return sqlSession.delete("obigoproject.Registrationid.deleteRegistrationid", registrationId);
+	}
+
 }
