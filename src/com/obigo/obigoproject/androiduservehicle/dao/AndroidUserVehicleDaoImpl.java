@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.obigo.obigoproject.vo.AndroidUserVehicleVO;
 
-@Repository("androiduservehicleDao")
+@Repository("androidUserVehicleDao")
 public class AndroidUserVehicleDaoImpl implements AndroidUserVehicleDao {
 
 	@Autowired
@@ -17,5 +17,4 @@ public class AndroidUserVehicleDaoImpl implements AndroidUserVehicleDao {
 	public List<AndroidUserVehicleVO> getAndroidUserVehicleListByUserid(String userId) {
 		return sqlSession.selectList("obigoproject.AndroidUserVehicle.selectAndroidUserVehicle", userId);
 	}
-
 }
