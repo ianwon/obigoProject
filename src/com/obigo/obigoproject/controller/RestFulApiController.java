@@ -6,13 +6,9 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -197,16 +193,21 @@ public class RestFulApiController {
 	 * 
 	 * @return "flag" : 등록 여부
 	 */
-	@RequestMapping(value = "/api/userrequest", method = { RequestMethod.POST })
+	@RequestMapping(value = "/api/userrequest/{userId}/{modelCode}/{color}/{location}/{vin}", method = {
+			RequestMethod.POST })
 	@ResponseBody
-	public String userRequest(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
-	      System.out.println(data);
-	      ObjectMapper mapper = new ObjectMapper();
-	      UserRequestVO userRequestVO = mapper.readValue(data, UserRequestVO.class);
-	      System.out.println(userRequestVO.toString());
-		return null;
-	      
-	   }
+	public String userRequest(@PathVariable String userId, @PathVariable String modelCode, @PathVariable String color,
+			@PathVariable String location, @PathVariable String vin) {
+		JSONObject jobj = new JSONObject();
+		UserRequestVO vo = new UserRequestVO();
+		vo.setColor(color);
+		vo.setLocation(location);
+		vo.setModelCode(modelCode);
+		vo.setUserId(userId);
+		vo.setVin(vin);
+		jobj.put("flag", userRequestService.insertUserRequest(vo));
+		return jobj.toString();
+	}
 
 	/**
 	 * 유저 푸시메시지 리스트 요청 Api parameter = "userId":유저아이디, "index":페이지번호
