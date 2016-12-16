@@ -23,7 +23,6 @@ public class UserDaoTest {
 		vo.setName("zzzz");
 		vo.setPassword("1234");
 		vo.setPhone("asdf");
-		vo.setRegistrationId("zzzz");
 		vo.setRoleName("zzzzzzzzz");
 		vo.setUserId("YUN");
 
@@ -37,7 +36,6 @@ public class UserDaoTest {
 		vo.setName("zzzz");
 		vo.setPassword("1234");
 		vo.setPhone("456789");
-		vo.setRegistrationId("zzzz");
 		vo.setRoleName("zzzzzzzzz");
 		vo.setUserId("asdf");
 

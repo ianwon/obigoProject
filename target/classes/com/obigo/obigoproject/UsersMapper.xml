@@ -12,7 +12,6 @@
 		<result column="name" property="name" />
 		<result column="eMail" property="eMail" />
 		<result column="phone" property="phone" />
-		<result column="registration_Id" property="registrationId" />
 		<result column="role_Name" property="roleName" />
 		<result column="cdate" property="date" />
 	</resultMap>
@@ -20,8 +19,8 @@
 	<insert id="insertUser" parameterType="Users">
 		insert into Users
 		values
-		(#{userId},#{password},#{name},#{eMail},#{phone},#{registrationId,
-		jdbcType=VARCHAR},#{roleName},sysdate)
+		(#{userId},#{password},#{name},#{eMail},#{phone},
+		#{roleName},sysdate)
 	</insert>
 
 	<update id="updateUser" parameterType="Users">
