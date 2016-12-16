@@ -28,6 +28,7 @@
 		<typeAlias type="com.obigo.obigoproject.vo.ApiVO" alias="Api" />
 		<typeAlias type="com.obigo.obigoproject.vo.UserMessageVO" alias="UserMessage" />
 		<typeAlias type="com.obigo.obigoproject.vo.AndroidUserVehicleVO" alias="AndroidUserVehicle"/>
+		<typeAlias type="com.obigo.obigoproject.vo.RegistrationidVO" alias="Registrationid"/>
 
 	</typeAliases>
 
@@ -45,6 +46,7 @@
 		<mapper resource="com/obigo/obigoproject/ApiMapper.xml" />
 		<mapper resource="com/obigo/obigoproject/UserMessageMapper.xml" />
 		<mapper resource="com/obigo/obigoproject/AndroidUserVehicleMapper.xml"/>
+		<mapper resource="com/obigo/obigoproject/RegistrationidMapper.xml"/>
 	</mappers>
 
 

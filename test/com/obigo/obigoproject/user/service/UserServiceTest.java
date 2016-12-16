@@ -22,7 +22,6 @@ public class UserServiceTest {
 		vo.setName("zzzz");
 		vo.setPassword("1234");
 		vo.setPhone("asdf");
-		vo.setRegistrationId("zzzzz");
 		vo.setRoleName("zzzzzzzzz");
 		vo.setUserId("zzzzzzzz1123");
 		System.out.println(userservice.insertUser(vo));

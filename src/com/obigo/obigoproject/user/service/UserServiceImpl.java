@@ -18,7 +18,6 @@ public class UserServiceImpl implements UserService {
 	// user 등록
 	@Override
 	public boolean insertUser(UsersVO vo) {
-		vo.setRegistrationId(null);
 		int resultcount = userDao.insertUser(vo);
 		if (resultcount == 1)
 			return true;

@@ -6,9 +6,13 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -178,6 +182,7 @@ public class RestFulApiController {
 		System.out.println(userId);
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(androiduservehicleService.getAndroidUserVehicleListByUserid(userId));
+		System.out.println(jsonArray.toString());
 		return jsonArray.toString();
 	}
 
@@ -215,6 +220,16 @@ public class RestFulApiController {
 		jobj.put("flag", userRequestService.insertUserRequest(vo));
 		return jobj.toString();
 	}
+	
+	@RequestMapping(value = "/api/userrequest", method = {RequestMethod.POST})
+	   @ResponseBody
+	   public String insertUserRequest(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
+	      System.out.println(data);
+	      ObjectMapper mapper = new ObjectMapper();
+	      UserRequestVO userRequestVO = mapper.readValue(data, UserRequestVO.class);
+	      System.out.println(userRequestVO.toString());
+	      return "true";
+	   }
 
 	/**
 	 * 유저 푸시메시지 리스트 요청 Api parameter = "userId":유저아이디, "index":페이지번호
