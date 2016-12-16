@@ -72,7 +72,7 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/image/{select}/{imagename:.+}", method = { RequestMethod.GET })
 	@ResponseBody
 	public void image(@PathVariable String select, @PathVariable String imagename, HttpServletResponse response) {
-		String path = "c:/obigo/"+select+"/";
+		String path = "c:/obigo/" + select + "/";
 
 		path += imagename;
 		FileInputStream fs = null;
@@ -198,31 +198,17 @@ public class RestFulApiController {
 	 * 
 	 * @return "flag" : 등록 여부
 	 */
-	@RequestMapping(value = "/api/userrequest/{userId}/{modelCode}/{color}/{location}/{vin}", method = {
-			RequestMethod.POST })
+
+	@RequestMapping(value = "/api/userrequest", method = { RequestMethod.POST })
 	@ResponseBody
-	public String userRequest(@PathVariable String userId, @PathVariable String modelCode, @PathVariable String color,
-			@PathVariable String location, @PathVariable String vin) {
-		JSONObject jobj = new JSONObject();
-		UserRequestVO vo = new UserRequestVO();
-		vo.setColor(color);
-		vo.setLocation(location);
-		vo.setModelCode(modelCode);
-		vo.setUserId(userId);
-		vo.setVin(vin);
-		jobj.put("flag", userRequestService.insertUserRequest(vo));
-		return jobj.toString();
+	public String insertUserRequest(@RequestBody String data)
+			throws JsonParseException, JsonMappingException, IOException {
+		System.out.println(data);
+		ObjectMapper mapper = new ObjectMapper();
+		UserRequestVO userRequestVO = mapper.readValue(data, UserRequestVO.class);
+		System.out.println(userRequestVO.toString());
+		return "true";
 	}
-	
-	@RequestMapping(value = "/api/userrequest", method = {RequestMethod.POST})
-	   @ResponseBody
-	   public String insertUserRequest(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
-	      System.out.println(data);
-	      ObjectMapper mapper = new ObjectMapper();
-	      UserRequestVO userRequestVO = mapper.readValue(data, UserRequestVO.class);
-	      System.out.println(userRequestVO.toString());
-	      return "true";
-	   }
 
 	/**
 	 * 유저 푸시메시지 리스트 요청 Api parameter = "userId":유저아이디, "index":페이지번호
