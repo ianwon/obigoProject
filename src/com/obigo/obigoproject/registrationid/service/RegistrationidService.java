@@ -10,4 +10,6 @@ public interface RegistrationidService {
 	public List<RegistrationidVO> getRegistrationidListByuserId(String userId);
 	
 	public List<RegistrationidVO> getRegistrationidList();
+	
+	public boolean deleteRegistrationid(String registrationId);
 }

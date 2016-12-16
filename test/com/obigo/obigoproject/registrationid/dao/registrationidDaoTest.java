@@ -30,7 +30,12 @@ public class registrationidDaoTest {
 	}
 	
 	@Test
-	public void getRegistrationidList(){
+	public void getRegistrationidListTest(){
 		System.out.println(registrationidDao.getRegistrationidList());
+	}
+	
+	@Test
+	public void deleteRegistrationidTest(){
+		Assert.assertEquals(1, registrationidDao.deleteRegistrationid("123456789"));
 	}
 }

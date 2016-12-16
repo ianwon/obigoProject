@@ -145,7 +145,7 @@
 												<td onclick="userVehicle('${u.userId}')">${u.name}</td>
 												<td onclick="userVehicle('${u.userId}')">${u.eMail}</td>
 												<td onclick="userVehicle('${u.userId}')">${u.phone}</td>
-												<td onclick="userVehicle('${u.userId}')">${u.registrationId}</td>
+												<td></td>
 												<td><a class="update" href="javascript:update('${u.phone}','${u.eMail}','${u.name}','${u.userId }')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${u.userId}')">Delete</a></td>
 											</tr>
