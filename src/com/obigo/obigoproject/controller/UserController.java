@@ -76,7 +76,8 @@ public class UserController {
 	}
 
 	/**
-	 * 유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저 요청을 DB에서 제거 결과를 해당 유저 에게 Pushmessage로 발송해야함
+	 * 유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저 요청을 DB에서 제거 결과를 해당 유저 에게
+	 * Pushmessage로 발송해야함
 	 * 
 	 * @return 유저요청페이지
 	 */
@@ -190,17 +191,6 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/deleteuservehicle", method = RequestMethod.POST)
 	public String deleteUserVehicle(@RequestParam int userVehicleNumber) {
-		return null;
-	}
-
-	/////////////////////////////////////////////////////////////////////
-	/*
-	 * 로그인시 Registration ID 가져오기(받은 아이디랑 비밀번호로 db에서 정보를 찾고 registrationid에 token 값으로 업데이트)
-	 * 
-	 */
-	@RequestMapping(value = "/gettoken", method = RequestMethod.POST)
-	public String getToken(@RequestParam String token) {
-		System.out.println(token);
 		return null;
 	}
 }
