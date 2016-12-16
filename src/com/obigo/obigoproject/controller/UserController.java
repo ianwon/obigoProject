@@ -51,7 +51,7 @@ public class UserController {
 		vo.setUserId(vo.getUserId().toLowerCase());
 		vo.setRoleName("USER");
 		userService.insertUser(vo);
-		return "redirect:/users";
+		return "redirect:/usermanagement";
 	}
 
 	/**
