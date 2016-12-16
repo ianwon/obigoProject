@@ -68,14 +68,7 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/image/{select}/{imagename:.+}", method = { RequestMethod.GET })
 	@ResponseBody
 	public void image(@PathVariable String select, @PathVariable String imagename, HttpServletResponse response) {
-		String path = "";
-		if (select.equals("vehicle")) {
-			path = "c:/obigo/vehicle/";
-		} else if (select.equals("pushmessage")) {
-			path = "c:/obigo/pushmessage/";
-		} else {
-			path = "C:/obigo/no_img.gif";
-		}
+		String path = "c:/obigo/"+select+"/";
 
 		path += imagename;
 		FileInputStream fs = null;
