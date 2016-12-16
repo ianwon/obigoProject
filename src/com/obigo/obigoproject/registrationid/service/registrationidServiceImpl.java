@@ -36,4 +36,17 @@ public class registrationidServiceImpl implements RegistrationidService {
 		return registrationidDao.getRegistrationidList();
 	}
 
+	@Override
+	public boolean deleteRegistrationid(String registrationId) {
+		int resultCount = 0;
+
+		resultCount = registrationidDao.deleteRegistrationid(registrationId);
+
+		if (resultCount == 1)
+			return true;
+		else
+			return false;
+
+	}
+
 }

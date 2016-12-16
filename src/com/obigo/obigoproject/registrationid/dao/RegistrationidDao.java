@@ -10,4 +10,6 @@ public interface RegistrationidDao {
 	public List<RegistrationidVO> getRegistrationidListByuserId(String userId);
 	
 	public List<RegistrationidVO> getRegistrationidList();
+	
+	public int deleteRegistrationid(String registrationId);
 }
