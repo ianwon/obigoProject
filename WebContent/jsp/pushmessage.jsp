@@ -21,14 +21,12 @@
 					<div class="panel-body">
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
-
-
-
-								<!-- api table start -->
 							</div>
 							
 							<input type="hidden" id="hidden-pushmessage">
 							<div class="space15"></div>
+							
+							<!--  Pushmessage Table start -->
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
@@ -57,7 +55,7 @@
 								</table>
 
 							</div>
-							<!-- api table end -->
+							<!--  Pushmessage Table end -->
 						</div>
 					</div>
 				</section>
