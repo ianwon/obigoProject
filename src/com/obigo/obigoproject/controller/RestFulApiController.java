@@ -6,13 +6,9 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -213,6 +209,7 @@ public class RestFulApiController {
 		jobj.put("flag", userRequestService.insertUserRequest(vo));
 		return jobj.toString();
 	}
+<<<<<<< HEAD
 	
 	@RequestMapping(value = "/api/userrequest", method = {RequestMethod.POST})
 	   @ResponseBody
@@ -223,6 +220,8 @@ public class RestFulApiController {
 	      System.out.println(userRequestVO.toString());
 	      return "true";
 	   }
+=======
+>>>>>>> parent of a3cab75... 1234
 
 	/**
 	 * 유저 푸시메시지 리스트 요청 Api parameter = "userId":유저아이디, "index":페이지번호
