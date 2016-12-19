@@ -25,6 +25,7 @@ import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
 import com.obigo.obigoproject.log.service.LogService;
 import com.obigo.obigoproject.messagecategory.service.MessageCategoryService;
 import com.obigo.obigoproject.pushmessage.service.PushMessageService;
+import com.obigo.obigoproject.registrationid.service.RegistrationidService;
 import com.obigo.obigoproject.resource.service.ResourceService;
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.usermessage.service.UserMessageService;
@@ -65,6 +66,8 @@ public class RestFulApiController {
 	VehicleService vehicleService;
 	@Autowired
 	AndroidUserVehicleService androiduservehicleService;
+	@Autowired
+	RegistrationidService registrationidService;
 
 	/**
 	 * Image 받아가시오 ~
@@ -236,10 +239,20 @@ public class RestFulApiController {
 	 * 
 	 */
 	@RequestMapping(value = "/api/registrationid", method = RequestMethod.POST)
-	public String getRegistrationid(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
+	public String insertRegistrationid(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
+		registrationidService.insertRegistrationid(vo);
 		System.out.println(vo);
 		return "true";
+	}
+
+	@RequestMapping(value = "/api/vehicle", method = RequestMethod.GET)
+	@ResponseBody
+	public String getVehicleList(  ){
+		JSONArray jsonArray = new JSONArray();
+		jsonArray.addAll(vehicleService.getVehicleList());
+		System.out.println(jsonArray.toString());
+		return jsonArray.toString();
 	}
 }
