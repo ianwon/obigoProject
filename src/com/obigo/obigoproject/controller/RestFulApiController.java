@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.androiduservehicle.service.AndroidUserVehicleService;
@@ -24,12 +25,14 @@ import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
 import com.obigo.obigoproject.log.service.LogService;
 import com.obigo.obigoproject.messagecategory.service.MessageCategoryService;
 import com.obigo.obigoproject.pushmessage.service.PushMessageService;
+import com.obigo.obigoproject.registrationid.service.RegistrationidService;
 import com.obigo.obigoproject.resource.service.ResourceService;
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.usermessage.service.UserMessageService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.vehicle.service.VehicleService;
+import com.obigo.obigoproject.vo.RegistrationidVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
 
 import net.sf.json.JSONArray;
@@ -63,6 +66,8 @@ public class RestFulApiController {
 	VehicleService vehicleService;
 	@Autowired
 	AndroidUserVehicleService androiduservehicleService;
+	@Autowired
+	RegistrationidService registrationidService;
 
 	/**
 	 * Image 받아가시오 ~
@@ -203,11 +208,13 @@ public class RestFulApiController {
 	@ResponseBody
 	public String insertUserRequest(@RequestBody String data)
 			throws JsonParseException, JsonMappingException, IOException {
-		System.out.println(data);
 		ObjectMapper mapper = new ObjectMapper();
-		UserRequestVO userRequestVO = mapper.readValue(data, UserRequestVO.class);
-		System.out.println(userRequestVO.toString());
-		return "true";
+		UserRequestVO vo = mapper.readValue(data, UserRequestVO.class);
+		System.out.println(vo);
+		if (userRequestService.insertUserRequest(vo) == true)
+			return "true";
+		else
+			return "false";
 	}
 
 	/**
@@ -217,10 +224,34 @@ public class RestFulApiController {
 	 */
 	@RequestMapping(value = "/api/message/{userId}", method = { RequestMethod.GET })
 	@ResponseBody
-	public String messageList(@PathVariable String userId) {
+	public String getMessageList(@PathVariable String userId) {
 		System.out.println(userId);
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(pushMessageService.getPushMessageList(userId));
+		System.out.println(jsonArray.toString());
+		return jsonArray.toString();
+	}
+
+	/////////////////////////////////////////////////////////////////////
+	/*
+	 * 로그인시 Registration ID 가져오기(받은 아이디랑 비밀번호로 db에서 정보를 찾고 registrationid에 token
+	 * 값으로 업데이트)
+	 * 
+	 */
+	@RequestMapping(value = "/api/registrationid", method = RequestMethod.POST)
+	public String insertRegistrationid(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
+		registrationidService.insertRegistrationid(vo);
+		System.out.println(vo);
+		return "true";
+	}
+
+	@RequestMapping(value = "/api/vehicle", method = RequestMethod.GET)
+	@ResponseBody
+	public String getVehicleList(  ){
+		JSONArray jsonArray = new JSONArray();
+		jsonArray.addAll(vehicleService.getVehicleList());
 		System.out.println(jsonArray.toString());
 		return jsonArray.toString();
 	}
