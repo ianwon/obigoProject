@@ -92,7 +92,6 @@ public class PushMessageServiceImpl implements PushMessageService {
 		int RETRY = 2; // 메시지 전송실패시 재시도 횟수
 
 		String simpleApiKey = "AIzaSyAugaUfy_TbAFpMsr91f4_M8cTvePi0now";
-		String gcmURL = "https://android.googleapis.com/fcm/send";
 		Sender sender = new Sender(simpleApiKey);
 		Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE)
 				.timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("title", vo.getTitle()).build();
