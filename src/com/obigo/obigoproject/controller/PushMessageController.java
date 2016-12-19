@@ -11,6 +11,7 @@ import com.obigo.obigoproject.messagecategory.service.MessageCategoryService;
 import com.obigo.obigoproject.pushmessage.service.PushMessageService;
 import com.obigo.obigoproject.usermessage.service.UserMessageService;
 import com.obigo.obigoproject.vo.PushMessageVO;
+import com.obigo.obigoproject.vo.UserMessageVO;
 
 import net.sf.json.JSONObject;
 
@@ -33,6 +34,8 @@ public class PushMessageController {
 	public String sendTextMessage(PushMessageVO vo) {
 		pushMessageService.insertPushMessage(vo);
 		pushMessageService.sendPushMessageToGcm(vo);
+		UserMessageVO umvo = new UserMessageVO();
+		userMessageService.insertUserMessage(umvo);
 		return "redirect:/pushmessage";
 	}
 
@@ -59,7 +62,7 @@ public class PushMessageController {
 			jobj.put("flag", true);
 		else
 			jobj.put("flag", false);
-			
+
 		return jobj.toString();
 	}
 
