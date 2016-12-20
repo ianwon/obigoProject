@@ -92,6 +92,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 	@Override
 	public boolean sendPushMessageToGcm(PushMessageVO vo) {
 		List<String> userIdList = uservehicleDao.getUserId(vo);
+		System.out.println(userIdList);
 		for (String userId : userIdList) {
 			List<String> registrationidList = registrationidDao.getRegistrationidListByuserId(userId);
 			String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1); // 메시지
