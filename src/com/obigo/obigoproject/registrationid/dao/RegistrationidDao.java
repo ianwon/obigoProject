@@ -7,7 +7,7 @@ import com.obigo.obigoproject.vo.RegistrationidVO;
 public interface RegistrationidDao {
 	public int insertRegistrationid(RegistrationidVO vo);
 	
-	public List<RegistrationidVO> getRegistrationidListByuserId(String userId);
+	public List<String> getRegistrationidListByuserId(String userId);
 	
 	public List<RegistrationidVO> getRegistrationidList();
 	

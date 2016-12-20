@@ -7,16 +7,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.android.gcm.server.Message;
+import com.google.android.gcm.server.MulticastResult;
 import com.google.android.gcm.server.Result;
 import com.google.android.gcm.server.Sender;
 import com.obigo.obigoproject.pushmessage.dao.PushMessageDao;
+import com.obigo.obigoproject.registrationid.dao.RegistrationidDao;
+import com.obigo.obigoproject.registrationid.service.RegistrationidService;
+import com.obigo.obigoproject.uservehicle.dao.UserVehicleDao;
 import com.obigo.obigoproject.vo.PushMessageVO;
+import com.obigo.obigoproject.vo.RegistrationidVO;
 
 @Service("pushMessageService")
 public class PushMessageServiceImpl implements PushMessageService {
 
 	@Autowired
 	PushMessageDao pushMessageDao;
+
+	@Autowired
+	UserVehicleDao uservehicleDao;
+
+	@Autowired
+	RegistrationidDao registrationidDao;
 
 	// PUSHMESSAGE 등록
 	@Override
@@ -80,26 +91,24 @@ public class PushMessageServiceImpl implements PushMessageService {
 	// GCM 서버로 푸시 메시지 전송
 	@Override
 	public boolean sendPushMessageToGcm(PushMessageVO vo) {
-		String token = "eJsy9f6ndaE:APA91bEudo9tltJRUTVmFTsCU8NkQxjIQyni7K6qByMzm89S0XMxxWjQP69J8XQu6fKqlJGiEkB016YbVJF5K7B4TZQhXlP8TX6bTO-CEoXN8j5xKPWmiJLPMOgzV5oLA0G3Qgh-Vbrl"; // 저장
-		String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1); // 메시지 고유
-		boolean SHOW_ON_IDLE = false; // 옙 활성화 상태일때 보여줄것인지
-		int LIVE_TIME = 1; // 옙 비활성화 상태일때 FCM가 메시지를 유효화하는 시간
-		int RETRY = 2; // 메시지 전송실패시 재시도 횟수
-		System.out.println(vo.getContent());
-		String simpleApiKey = "AIzaSyAugaUfy_TbAFpMsr91f4_M8cTvePi0now";
-		Sender sender = new Sender(simpleApiKey);
-		Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE)
-				.timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("title", vo.getTitle()).build();
-		try {
-			Result result1 = sender.send(message, token, RETRY);
-		} catch (IOException e) {
-			e.printStackTrace();
+		List<String> userIdList = uservehicleDao.getUserId(vo);
+		for (String userId : userIdList) {
+			List<String> registrationidList = registrationidDao.getRegistrationidListByuserId(userId);
+			String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1); // 메시지
+																			// 고유
+			boolean SHOW_ON_IDLE = false; // 옙 활성화 상태일때 보여줄것인지
+			int LIVE_TIME = 1; // 옙 비활성화 상태일때 FCM가 메시지를 유효화하는 시간
+			int RETRY = 2; // 메시지 전송실패시 재시도 횟수
+			String simpleApiKey = "AIzaSyAugaUfy_TbAFpMsr91f4_M8cTvePi0now";
+			Sender sender = new Sender(simpleApiKey);
+			Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE)
+					.timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("title", vo.getTitle()).build();
+			try {
+				MulticastResult result1 = sender.send(message, registrationidList, RETRY);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		/*
-		 * if (result1 != null) { List<Result> resultList = result1.geResul();
-		 * for (Result result : resultList) {
-		 * System.out.println(result.getErrorCodeName()); } }
-		 */
 		return true;
 	}
 
