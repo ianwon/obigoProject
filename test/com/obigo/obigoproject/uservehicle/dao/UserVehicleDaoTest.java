@@ -59,8 +59,6 @@ public class UserVehicleDaoTest {
 	@Test
 	public void getUserIdTest(){
 		PushMessageVO vo = new PushMessageVO();
-		vo.setLocation("korea");
-		vo.setModelCode("asdf");
 		System.out.println(uservehicledao.getUserId(vo));
 	}
 }

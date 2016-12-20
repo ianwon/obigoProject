@@ -243,7 +243,6 @@ public class RestFulApiController {
 		ObjectMapper mapper = new ObjectMapper();
 		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
 		registrationidService.insertRegistrationid(vo);
-		System.out.println(vo);
 		return "true";
 	}
 
@@ -257,7 +256,10 @@ public class RestFulApiController {
 	}
 
 	@RequestMapping(value = "/api/user/{userId}", method = RequestMethod.GET)
+	@ResponseBody
 	public String getUser(@PathVariable String userId) {
+		System.out.println("user");
+		System.out.println(userId);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("user", userService.getUser(userId));
 		return jsonObject.toString();
