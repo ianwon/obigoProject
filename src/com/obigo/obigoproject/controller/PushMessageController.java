@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.obigo.obigoproject.messagecategory.service.MessageCategoryService;
 import com.obigo.obigoproject.pushmessage.service.PushMessageService;
 import com.obigo.obigoproject.usermessage.service.UserMessageService;
+import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.vo.PushMessageVO;
+import com.obigo.obigoproject.vo.UserMessageVO;
 
 import net.sf.json.JSONObject;
 
@@ -38,15 +40,14 @@ public class PushMessageController {
 	public String sendTextMessage(PushMessageVO vo) {
 		pushMessageService.insertPushMessage(vo);
 		pushMessageService.sendPushMessageToGcm(vo);
-		List<PushMessageVO> pushMessage = pushMessageService.getPushMessageList();
-		List<String> messageList = userVehicleService.getUserId(vo);
-//		for(int i=0;i<messageList.size();i++){
-//			UserMessageVO messagevo = new UserMessageVO();
-//			messagevo.setMessageNumber(vo.getMessageNumber());
-//			messagevo.setUserId(messageList.get(i));
-//			System.out.println(messagevo);
-//			userMessageService.insertUserMessage(messagevo);
-//		}
+		PushMessageVO pushMessage = pushMessageService.getPushMessage();
+		List<String> userIdList = userVehicleService.getUserId(pushMessage);
+		for (String userId : userIdList) {
+			UserMessageVO umvo = new UserMessageVO();
+			umvo.setMessageNumber(pushMessage.getMessageNumber());
+			umvo.setUserId(userId);
+			userMessageService.insertUserMessage(umvo);
+		}
 		return "redirect:/pushmessage";
 	}
 
