@@ -52,7 +52,7 @@
 													</c:forEach>
 												</select>
 												&nbsp;&nbsp;&nbsp; <label>Model : </label>
-												<select id=selectmodel name="modelName">
+												<select id=selectmodel name="modelCode">
 													<option value="">Select Model</option>
 													<c:forEach var="m" items="${modelList}" begin="0">
 														<option value="${m.modelName}">ModelName : ${m.modelName}</option>

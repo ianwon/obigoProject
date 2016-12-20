@@ -25,7 +25,7 @@ public class PushMessageServiceTest {
 		vo.setContent("hihihi");
 		vo.setLocation("Korea");
 		vo.setCategoryNumber(10);
-		vo.setModelName("zzzz");
+		vo.setModelCode("zzzz");
 		vo.setTitle("경우짱");
 		vo.setUploadFile("C://");
 		Assert.assertTrue(pushMessageService.insertPushMessage(vo));
@@ -35,7 +35,7 @@ public class PushMessageServiceTest {
 		vo2.setContent("hihihi222");
 		vo2.setLocation("Korea2222");
 		vo2.setCategoryNumber(10);
-		vo2.setModelName("zzzz");
+		vo2.setModelCode("zzzz");
 		vo2.setTitle("경우짱2222");
 		vo2.setUploadFile("C://2222");
 		Assert.assertTrue(pushMessageService.insertPushMessage(vo2));
@@ -45,7 +45,7 @@ public class PushMessageServiceTest {
 		vo3.setContent("hihihi3333");
 		vo3.setLocation("Korea3333");
 		vo3.setCategoryNumber(10);
-		vo3.setModelName("zzzz");
+		vo3.setModelCode("zzzz");
 		vo3.setTitle("경우짱33333");
 		vo3.setUploadFile("C://3333");
 		Assert.assertTrue(pushMessageService.insertPushMessage(vo3));
@@ -61,7 +61,7 @@ public class PushMessageServiceTest {
 		vo.setContent("jesus");
 		vo.setLocation("Korea 업데이트");
 		vo.setCategoryNumber(10);
-		vo.setModelName("kkwZzang 업데이트");
+		vo.setModelCode("kkwZzang 업데이트");
 		vo.setTitle("경우짱 업데이트");
 		vo.setUploadFile("C:// 업데이트");
 		Assert.assertTrue(pushMessageService.updatePushMessage(vo));

@@ -1,5 +1,7 @@
 package com.obigo.obigoproject.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.obigo.obigoproject.messagecategory.service.MessageCategoryService;
 import com.obigo.obigoproject.pushmessage.service.PushMessageService;
 import com.obigo.obigoproject.usermessage.service.UserMessageService;
+import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.vo.PushMessageVO;
-import com.obigo.obigoproject.vo.UserMessageVO;
 
 import net.sf.json.JSONObject;
 
@@ -23,6 +25,8 @@ public class PushMessageController {
 	UserMessageService userMessageService;
 	@Autowired
 	MessageCategoryService messageCategoryService;
+	@Autowired
+	UserVehicleService userVehicleService;
 
 	/**
 	 * Text Area의 값을 Category로 선택한 대상자에게 메시지 전송
@@ -34,8 +38,15 @@ public class PushMessageController {
 	public String sendTextMessage(PushMessageVO vo) {
 		pushMessageService.insertPushMessage(vo);
 		pushMessageService.sendPushMessageToGcm(vo);
-		UserMessageVO umvo = new UserMessageVO();
-		userMessageService.insertUserMessage(umvo);
+		List<PushMessageVO> pushMessage = pushMessageService.getPushMessageList();
+		List<String> messageList = userVehicleService.getUserId(vo);
+//		for(int i=0;i<messageList.size();i++){
+//			UserMessageVO messagevo = new UserMessageVO();
+//			messagevo.setMessageNumber(vo.getMessageNumber());
+//			messagevo.setUserId(messageList.get(i));
+//			System.out.println(messagevo);
+//			userMessageService.insertUserMessage(messagevo);
+//		}
 		return "redirect:/pushmessage";
 	}
 
