@@ -26,6 +26,22 @@
 		<property name="maxInMemorySize" value="100000000" />
 	</bean>
 
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/html;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 
 	<mvc:interceptors>
 		<!-- 회원 체크 -->
@@ -44,11 +60,11 @@
 			<mvc:exclude-mapping path="/api/**" />
 			<bean class="com.obigo.obigoproject.interceptor.LoginCheckInterceptor" />
 		</mvc:interceptor>
-	<!-- API로그 찍어버렷 -->
-<!-- 		<mvc:interceptor> -->
-<!-- 			<mvc:mapping path="/api/**" /> -->
-<!-- 			<bean class="com.obigo.obigoproject.interceptor.LogInterceptor" /> -->
-<!-- 		</mvc:interceptor> -->
+		<!-- API로그 찍어버렷 -->
+		<!-- <mvc:interceptor> -->
+		<!-- <mvc:mapping path="/api/**" /> -->
+		<!-- <bean class="com.obigo.obigoproject.interceptor.LogInterceptor" /> -->
+		<!-- </mvc:interceptor> -->
 	</mvc:interceptors>
 
 
