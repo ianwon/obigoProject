@@ -262,4 +262,11 @@ public class RestFulApiController {
 		jsonObject.put("user", userService.getUser(userId));
 		return jsonObject.toString();
 	}
+	
+	@RequestMapping(value = "/api/login", method = RequestMethod.GET)
+	public String login(){
+		return null;
+	}
+	
+	
 }

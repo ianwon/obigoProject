@@ -27,7 +27,7 @@ public class registrationidServiceImpl implements RegistrationidService {
 	}
 
 	@Override
-	public List<RegistrationidVO> getRegistrationidListByuserId(String userId) {
+	public List<String> getRegistrationidListByuserId(String userId) {
 		return registrationidDao.getRegistrationidListByuserId(userId);
 	}
 
