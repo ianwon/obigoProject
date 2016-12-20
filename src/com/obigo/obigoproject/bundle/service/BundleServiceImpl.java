@@ -38,7 +38,7 @@ public class BundleServiceImpl implements BundleService {
 
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		MultipartFile bundleFile = multiRequest.getFile("bundleFile");
-		String saveDir = "c:\\obigo\\bundle";
+		String saveDir = "/home/ec2-user/obigo/bundle/";
 		File saveDirFile = new File(saveDir);
 
 		if (!saveDirFile.exists()) {
