@@ -15,12 +15,13 @@ public interface PushMessageDao {
 
 	// 전체 PUSHMESSAGE를 가지고오는 메소드
 	public List<PushMessageVO> getPushMessageList();
-	
+
 	// 특정 아이디의 pushmessage를 인덱싱하여 가지고오는 메소드
 	public List<PushMessageVO> getPushMessageList(String userId);
 
 	// 특정 카테고리의 PUSHMESSAGE를 가지고오는 메소드
 	public List<PushMessageVO> getPushMessageListByCategory(int categoryNumber);
 
+	public PushMessageVO getPushMessage();
 
 }

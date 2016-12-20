@@ -44,4 +44,9 @@ public class PushMessageDaoImpl implements PushMessageDao {
 		return sqlSession.selectList("obigoproject.PushMessage.selectPushMessageByUserid",userId);
 	}
 
+	@Override
+	public PushMessageVO getPushMessage() {
+		return sqlSession.selectOne("obigoproject.PushMessage.selectPushMessage");
+	}
+
 }

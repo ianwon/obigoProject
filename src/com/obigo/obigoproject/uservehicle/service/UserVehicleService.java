@@ -2,6 +2,7 @@ package com.obigo.obigoproject.uservehicle.service;
 
 import java.util.List;
 
+import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 
 public interface UserVehicleService {
@@ -18,4 +19,7 @@ public interface UserVehicleService {
 	public UserVehicleVO getUserVehicle(int userVehicleNumber);
 	
 	public List<String> getLocation();
+	
+	public List<String>	getUserId(PushMessageVO vo);
+	
 }

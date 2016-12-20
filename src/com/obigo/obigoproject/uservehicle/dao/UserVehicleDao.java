@@ -2,6 +2,7 @@ package com.obigo.obigoproject.uservehicle.dao;
 
 import java.util.List;
 
+import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 
 public interface UserVehicleDao {
@@ -19,5 +20,7 @@ public interface UserVehicleDao {
 	
 	// location 리스트를 가지고와야함
 	public List<String> getLocation();
+	
+	public List<String> getUserId(PushMessageVO vo);
 
 }

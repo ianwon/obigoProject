@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.obigo.obigoproject.uservehicle.dao.UserVehicleDao;
+import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 
 @Service("userVehicleService")
@@ -53,6 +54,11 @@ public class UserVehicleServiceImpl implements UserVehicleService {
 	@Override
 	public List<String> getLocation() {
 		return userVehicleDao.getLocation();
+	}
+
+	@Override
+	public List<String> getUserId(PushMessageVO vo) {
+		return userVehicleDao.getUserId(vo);
 	}
 
 }
