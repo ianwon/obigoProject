@@ -64,7 +64,9 @@
 	</select>
 
 	<select id="selectPushMessage" resultMap="PushMessageResultMap">
-		SELECT * FROM PUSH_MESSAGE
+	<![CDATA[
+		SELECT * FROM ( SELECT * FROM PUSH_MESSAGE ORDER BY MESSAGE_NUMBER DESC) WHERE ROWNUM = 1 
+	]]>
 	</select>
 
 </mapper>

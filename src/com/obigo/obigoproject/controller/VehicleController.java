@@ -106,7 +106,7 @@ public class VehicleController {
 		// // e.printStackTrace();
 		// }
 		// }
-		String path = "c:/obigo/vehicle/";
+		String path = "/home/ec2-user/obigo/vehicle/";
 
 		path += modelImage;
 		FileInputStream fs = null;
@@ -118,7 +118,7 @@ public class VehicleController {
 			response.getOutputStream().write(iconImage);
 		} catch (Exception e1) {
 			try {
-				fs = new FileInputStream("C:/obigo/no_img.gif");
+				fs = new FileInputStream("/home/ec2-user/obigo/no_img.gif");
 				byte[] iconImage = new byte[fs.available()];
 				fs.read(iconImage);
 				response.setContentType("image/jpg");

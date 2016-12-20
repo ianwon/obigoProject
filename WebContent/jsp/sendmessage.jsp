@@ -55,7 +55,7 @@
 												<select id=selectmodel name="modelCode">
 													<option value="">Select Model</option>
 													<c:forEach var="m" items="${modelList}" begin="0">
-														<option value="${m.modelName}">ModelName : ${m.modelName}</option>
+														<option value="${m.modelCode}">ModelName : ${m.modelName}</option>
 													</c:forEach>
 												</select>
 										</div>

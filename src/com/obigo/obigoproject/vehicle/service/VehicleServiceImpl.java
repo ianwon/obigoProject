@@ -81,7 +81,7 @@ public class VehicleServiceImpl implements VehicleService {
 		MultipartFile imageFile = multiRequest.getFile("model_Image");
 		MultipartFile detailFile = multiRequest.getFile("detail_Image");
 
-		String imagePath = "c:\\obigo\\vehicle\\";
+		String imagePath = "/home/ec2-user/obigo/vehicle/";
 		File imageDir = new File(imagePath);
 		if (!imageDir.exists())
 			imageDir.mkdirs();
