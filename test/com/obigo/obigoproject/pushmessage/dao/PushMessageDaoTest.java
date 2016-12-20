@@ -23,7 +23,7 @@ public class PushMessageDaoTest {
 		vo.setContent("hihihi");
 		vo.setLocation("Korea");
 		vo.setCategoryNumber(1);
-		vo.setModelName("wyhZzang");
+		vo.setModelCode("wyhZzang");
 		vo.setTitle("원유짱");
 		vo.setUploadFile("C://");
 		Assert.assertEquals(pushMessageDao.insertPushMessage(vo), 1);
@@ -36,7 +36,7 @@ public class PushMessageDaoTest {
 		vo.setContent("LOL");
 		vo.setLocation("Korea");
 		vo.setCategoryNumber(10);
-		vo.setModelName("wyhZzang");
+		vo.setModelCode("wyhZzang");
 		vo.setTitle("원유짱");
 		vo.setUploadFile("C://");
 		Assert.assertEquals(pushMessageDao.updatePushMessage(vo), 1);
@@ -64,6 +64,11 @@ public class PushMessageDaoTest {
 		System.out.println(list.size());
 		Assert.assertEquals(list.get(0).getContent(), "LOL");
 
+	}
+	@Test
+	public void getPushMessage(){
+		PushMessageVO vo = pushMessageDao.getPushMessage();
+		System.out.println(vo);
 	}
 
 }

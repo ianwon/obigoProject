@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.androiduservehicle.service.AndroidUserVehicleService;
@@ -239,7 +238,8 @@ public class RestFulApiController {
 	 * 
 	 */
 	@RequestMapping(value = "/api/registrationid", method = RequestMethod.POST)
-	public String insertRegistrationid(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
+	public String insertRegistrationid(@RequestBody String data)
+			throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
 		registrationidService.insertRegistrationid(vo);
@@ -249,10 +249,17 @@ public class RestFulApiController {
 
 	@RequestMapping(value = "/api/vehicle", method = RequestMethod.GET)
 	@ResponseBody
-	public String getVehicleList(  ){
+	public String getVehicleList() {
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(vehicleService.getVehicleList());
 		System.out.println(jsonArray.toString());
 		return jsonArray.toString();
+	}
+
+	@RequestMapping(value = "/api/user/{userId}", method = RequestMethod.GET)
+	public String getUser(@PathVariable String userId) {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("user", userService.getUser(userId));
+		return jsonObject.toString();
 	}
 }

@@ -1,19 +1,14 @@
 package com.obigo.obigoproject.pushmessage.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.android.gcm.server.Message;
-import com.google.android.gcm.server.MulticastResult;
 import com.google.android.gcm.server.Result;
 import com.google.android.gcm.server.Sender;
-import com.itextpdf.text.log.SysoCounter;
 import com.obigo.obigoproject.pushmessage.dao.PushMessageDao;
 import com.obigo.obigoproject.vo.PushMessageVO;
 
@@ -98,7 +93,6 @@ public class PushMessageServiceImpl implements PushMessageService {
 		try {
 			Result result1 = sender.send(message, token, RETRY);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		/*

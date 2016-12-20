@@ -6,7 +6,7 @@ public class PushMessageVO {
 	private String content;
 	private String sendDate;
 	private String uploadFile;
-	private String modelName;
+	private String modelCode;
 	private String location;
 	private int categoryNumber;
 
@@ -50,12 +50,12 @@ public class PushMessageVO {
 		this.uploadFile = uploadFile;
 	}
 
-	public String getModelName() {
-		return modelName;
+	public String getModelCode() {
+		return modelCode;
 	}
 
-	public void setModelName(String modelName) {
-		this.modelName = modelName;
+	public void setModelCode(String modelCode) {
+		this.modelCode = modelCode;
 	}
 
 	public String getLocation() {
@@ -77,7 +77,8 @@ public class PushMessageVO {
 	@Override
 	public String toString() {
 		return "PushMessageVO [messageNumber=" + messageNumber + ", title=" + title + ", content=" + content
-				+ ", sendDate=" + sendDate + ", uploadFile=" + uploadFile + ", modelName=" + modelName + ", location="
+				+ ", sendDate=" + sendDate + ", uploadFile=" + uploadFile + ", modelCode=" + modelCode + ", location="
 				+ location + ", categoryNumber=" + categoryNumber + "]";
 	}
+
 }
