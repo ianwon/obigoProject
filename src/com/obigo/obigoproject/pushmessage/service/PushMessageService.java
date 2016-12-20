@@ -31,4 +31,5 @@ public interface PushMessageService {
 	// GCM 서버로 푸시 메시지 전송
 	public boolean sendPushMessageToGcm(PushMessageVO vo);
 
+	public PushMessageVO getPushMessage();
 }

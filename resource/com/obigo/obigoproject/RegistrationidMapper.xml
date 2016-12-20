@@ -19,9 +19,9 @@
 	</insert>
 
 	<select id="selectRegistrationidListByuserId" parameterType="java.lang.String"
-		resultMap="RegistrationidResultMap">
+		resultType="java.lang.String">
      <![CDATA[
-     select * from registrationid where user_id=#{userId}
+     select REGISTRATION_ID from registrationid where user_id=#{userId}
 	]]>
 	</select>
 	<select id="selectRegistrationidList" resultMap="RegistrationidResultMap">

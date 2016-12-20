@@ -15,7 +15,11 @@
 		<result column="User_Vehicle_Number" property="userVehicleNumber" />
 		<result column="active_dtc_count" property="activeDtcCount" />
 	</resultMap>
-	
+
+	<resultMap type="java.lang.String" id="UserVehicleUserIdResultMap">
+		<result column="User_id" property="userId" />
+	</resultMap>
+
 	<insert id="insertUserVehicle" parameterType="UserVehicle">
 		insert into
 		User_Vehicle
@@ -33,7 +37,8 @@
 
 	<delete id="deleteUserVehicle" parameterType="java.lang.Integer">
 		delete
-		from User_Vehicle
+		from
+		User_Vehicle
 		where user_vehicle_number=#{userVehicleNumber}
 	</delete>
 
@@ -46,11 +51,27 @@
 
 	<select id="selectUserVehicleList" parameterType="java.lang.String"
 		resultMap="UserVehicleResultMap">
-		SELECT * FROM USER_VEHICLE WHERE USER_ID=#{userId} ORDER BY USER_VEHICLE_NUMBER ASC
-	</select>
-	
-	<select id="selectLocation" resultMap="UserVehicleResultMap">
-	SELECT LOCATION FROM USER_VEHICLE
+		SELECT * FROM USER_VEHICLE WHERE USER_ID=#{userId} ORDER BY
+		USER_VEHICLE_NUMBER ASC
 	</select>
 
+	<select id="selectLocation" resultMap="UserVehicleResultMap">
+		SELECT LOCATION FROM
+		USER_VEHICLE
+	</select>
+
+	<select id="selectUserId" parameterType="PushMessage"
+		resultMap="UserVehicleUserIdResultMap">
+		SELECT USER_ID FROM USER_VEHICLE
+		<choose>
+			<when test="location!=null">
+				WHERE location=#{location}
+			</when>
+			<when test="modelCode!=null">
+				WHERE MODELCODE=#{modelCode}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
 </mapper>

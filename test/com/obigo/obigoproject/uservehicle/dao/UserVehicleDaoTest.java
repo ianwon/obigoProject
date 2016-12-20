@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.itextpdf.text.log.SysoCounter;
+import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -54,5 +54,13 @@ public class UserVehicleDaoTest {
 	@Test
 	public void getLocationTest(){
 		System.out.println(uservehicledao.getLocation().size());
+	}
+	
+	@Test
+	public void getUserIdTest(){
+		PushMessageVO vo = new PushMessageVO();
+		vo.setLocation("korea");
+		vo.setModelCode("asdf");
+		System.out.println(uservehicledao.getUserId(vo));
 	}
 }

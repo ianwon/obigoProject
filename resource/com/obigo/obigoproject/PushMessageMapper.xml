@@ -12,14 +12,14 @@
 		<result column="content" property="content" />
 		<result column="send_date" property="sendDate" />
 		<result column="upload_file" property="uploadFile" />
-		<result column="model_name" property="modelName" />
+		<result column="model_code" property="modelCode" />
 		<result column="location" property="location" />
 		<result column="category_number" property="categoryNumber" />
 	</resultMap>
 
 	<insert id="insertPushMessage" parameterType="PushMessage">
 	<![CDATA[
-		insert into push_message values(sq_message_number.nextval, #{title}, #{content}, sysdate, #{uploadFile}, #{modelName}, #{location}, #{categoryNumber})
+		insert into push_message values(sq_message_number.nextval, #{title}, #{content}, sysdate, #{uploadFile}, #{modelCode}, #{location}, #{categoryNumber})
 	]]>
 	</insert>
 
@@ -52,7 +52,7 @@
 	<select id="selectPushMessageByCategory" parameterType="java.lang.Integer"
 		resultMap="PushMessageResultMap">
 		<![CDATA[
-			select pm.message_number, pm.title, pm.content, pm.send_date, pm.upload_file, pm.model_name, pm.location, pm.category_number from push_message pm, message_category mc where pm.category_number=mc.category_number and mc.category_number=#{categoryNumber}
+			select pm.message_number, pm.title, pm.content, pm.send_date, pm.upload_file, pm.model_code, pm.location, pm.category_number from push_message pm, message_category mc where pm.category_number=mc.category_number and mc.category_number=#{categoryNumber}
 		]]>
 	</select>
 
@@ -60,6 +60,12 @@
 		resultMap="PushMessageResultMap">
 		<![CDATA[
 	select pm.* from push_message pm, user_message um where pm.message_number = um.message_number and um.user_id=#{userId}
+	]]>
+	</select>
+
+	<select id="selectPushMessage" resultMap="PushMessageResultMap">
+	<![CDATA[
+		SELECT * FROM ( SELECT * FROM PUSH_MESSAGE ORDER BY MESSAGE_NUMBER DESC) WHERE ROWNUM = 1 
 	]]>
 	</select>
 
