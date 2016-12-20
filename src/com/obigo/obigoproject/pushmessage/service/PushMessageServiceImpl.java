@@ -85,7 +85,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 		boolean SHOW_ON_IDLE = false; // 옙 활성화 상태일때 보여줄것인지
 		int LIVE_TIME = 1; // 옙 비활성화 상태일때 FCM가 메시지를 유효화하는 시간
 		int RETRY = 2; // 메시지 전송실패시 재시도 횟수
-		
+		System.out.println(vo.getContent());
 		String simpleApiKey = "AIzaSyAugaUfy_TbAFpMsr91f4_M8cTvePi0now";
 		Sender sender = new Sender(simpleApiKey);
 		Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE)
@@ -107,6 +107,11 @@ public class PushMessageServiceImpl implements PushMessageService {
 	@Override
 	public List<PushMessageVO> getPushMessageList(String userId) {
 		return pushMessageDao.getPushMessageList(userId);
+	}
+
+	@Override
+	public PushMessageVO getPushMessage() {
+		return pushMessageDao.getPushMessage();
 	}
 
 }
