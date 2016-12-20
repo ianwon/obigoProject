@@ -1,5 +1,6 @@
 package com.obigo.obigoproject.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,10 @@ public class PushMessageController {
 	 * 
 	 * 
 	 * @return 푸시 메시지 관리 페이지
+	 * @throws IOException 
 	 */
 	@RequestMapping("/sendtextmessage")
-	public String sendTextMessage(PushMessageVO vo) {
-		pushMessageService.insertPushMessage(vo);
+	public String sendTextMessage(PushMessageVO vo) throws IOException {
 		pushMessageService.sendPushMessageToGcm(vo);
 		PushMessageVO pushMessage = pushMessageService.getPushMessage();
 		List<String> userIdList = userVehicleService.getUserId(pushMessage);

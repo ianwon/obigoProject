@@ -1,5 +1,6 @@
 package com.obigo.obigoproject.pushmessage.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public interface PushMessageService {
 	public boolean sendEmail(List<PushMessageVO> list);
 
 	// GCM 서버로 푸시 메시지 전송
-	public boolean sendPushMessageToGcm(PushMessageVO vo);
+	public boolean sendPushMessageToGcm(PushMessageVO vo) throws IOException;
 
 	public PushMessageVO getPushMessage();
 }

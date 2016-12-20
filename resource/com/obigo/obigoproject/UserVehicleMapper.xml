@@ -24,7 +24,7 @@
 		insert into
 		User_Vehicle
 		values
-		(#{userId},#{modelCode},#{color},#{location},#{vin},sq_user_vehicle_number.nextval,#{activeDtcCount})
+		(#{userId},#{modelCode,jdbcType=VARCHAR},#{color},#{location,jdbcType=VARCHAR},#{vin},sq_user_vehicle_number.nextval,#{activeDtcCount})
 	</insert>
 
 	<update id="updateUserVehicle" parameterType="UserVehicle">
@@ -71,6 +71,7 @@
 				WHERE MODELCODE=#{modelCode}
 			</when>
 			<otherwise>
+				
 			</otherwise>
 		</choose>
 	</select>

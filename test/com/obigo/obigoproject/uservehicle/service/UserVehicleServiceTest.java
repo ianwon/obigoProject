@@ -55,8 +55,6 @@ public class UserVehicleServiceTest {
 	@Test
 	public void getUserId(){
 		PushMessageVO vo = new PushMessageVO();
-		vo.setLocation("korea");
-		vo.setModelCode("asdf");
-		uservehicleservice.getUserId(vo);
+		System.out.println(uservehicleservice.getUserId(vo));
 	}
 }
