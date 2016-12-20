@@ -88,24 +88,6 @@ public class VehicleController {
 	// 차량 이미지를 보여주기위한 메소드
 	@RequestMapping("/vehicleImage")
 	public void vehicleImage(@RequestParam("modelImage") String modelImage, HttpServletResponse response) {
-		// String filename = vehicleService.getVehicle(modelCode).getModelImage();
-		// FileInputStream fs = null;
-		// try {
-		// filename = filename.trim();
-		// fs = new FileInputStream("c:/obigo/vehicle/image/94587474604170img_visual_car.png");
-		// byte[] iconImage = new byte[fs.available()];
-		// fs.read(iconImage);
-		// response.setContentType("image/jpg");
-		// response.getOutputStream().write(iconImage);
-		// } catch (Exception e1) {
-		// // e1.printStackTrace();
-		// } finally {
-		// try {
-		// response.getOutputStream().close();
-		// } catch (Exception e) {
-		// // e.printStackTrace();
-		// }
-		// }
 		String path = "/home/ec2-user/obigo/vehicle/";
 
 		path += modelImage;
