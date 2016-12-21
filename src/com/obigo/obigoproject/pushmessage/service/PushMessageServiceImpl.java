@@ -3,19 +3,17 @@ package com.obigo.obigoproject.pushmessage.service;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.ibatis.javassist.bytecode.stackmap.BasicBlock.Catch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.MulticastResult;
-import com.google.android.gcm.server.Result;
 import com.google.android.gcm.server.Sender;
 import com.obigo.obigoproject.pushmessage.dao.PushMessageDao;
 import com.obigo.obigoproject.registrationid.dao.RegistrationidDao;
-import com.obigo.obigoproject.registrationid.service.RegistrationidService;
 import com.obigo.obigoproject.uservehicle.dao.UserVehicleDao;
 import com.obigo.obigoproject.vo.PushMessageVO;
-import com.obigo.obigoproject.vo.RegistrationidVO;
 
 @Service("pushMessageService")
 public class PushMessageServiceImpl implements PushMessageService {
@@ -84,14 +82,15 @@ public class PushMessageServiceImpl implements PushMessageService {
 	// 정기적으로 통계리포트 생성 및 등록된 이메일로 발송 (pdf로 출력하기 기능)
 	@Override
 	public boolean sendEmail(List<PushMessageVO> list) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	// GCM 서버로 푸시 메시지 전송
 	@Override
-	public boolean sendPushMessageToGcm(PushMessageVO vo) {
-		List<String> userIdList = uservehicleDao.getUserId(vo);
+	public boolean sendPushMessageToGcm(PushMessageVO vo) throws IllegalArgumentException, IOException {
+		pushMessageDao.insertPushMessage(vo);
+		PushMessageVO pushmessage = pushMessageDao.getPushMessage();
+		List<String> userIdList = uservehicleDao.getUserId(pushmessage);
 		System.out.println(userIdList);
 		for (String userId : userIdList) {
 			List<String> registrationidList = registrationidDao.getRegistrationidListByuserId(userId);
@@ -102,12 +101,13 @@ public class PushMessageServiceImpl implements PushMessageService {
 			int RETRY = 2; // 메시지 전송실패시 재시도 횟수
 			String simpleApiKey = "AIzaSyAugaUfy_TbAFpMsr91f4_M8cTvePi0now";
 			Sender sender = new Sender(simpleApiKey);
-			Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE)
-					.timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("title", vo.getTitle()).build();
 			try {
+				Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE)
+						.timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("title", vo.getTitle())
+						.build();
 				MulticastResult result1 = sender.send(message, registrationidList, RETRY);
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+
 			}
 		}
 		return true;
