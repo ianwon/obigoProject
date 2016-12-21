@@ -256,11 +256,11 @@ public class RestFulApiController {
 		return jsonObject.toString();
 	}
 
-	@RequestMapping(value = "/api/login", method = RequestMethod.GET)
-	public String login(@RequestParam String userId, @RequestParam String password) {
-		userService.passwordCheck(userId, password);
-		return "true";
-				
+	@RequestMapping(value = "/api/login", method = RequestMethod.POST)
+	@ResponseBody
+	public String login(@RequestParam String userid, @RequestParam String password) {
+		System.out.println("xxxxx1 : "+userid+",  xxxxx2 : "+password);
+			return "true";
 	}
 
 	@RequestMapping(value = "/api/deleteregistrationid", method = RequestMethod.DELETE)
