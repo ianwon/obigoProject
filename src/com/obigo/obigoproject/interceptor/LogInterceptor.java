@@ -8,7 +8,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.obigo.obigoproject.log.service.LogService;
-import com.obigo.obigoproject.vo.LogVO;
 
 public class LogInterceptor implements HandlerInterceptor {
 	@Autowired
@@ -22,8 +21,8 @@ public class LogInterceptor implements HandlerInterceptor {
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object arg2, ModelAndView arg3) throws Exception {
-		LogVO vo = new LogVO();
-		vo.setUrl(request.getRequestURI());
+//		LogVO vo = new LogVO();
+//		vo.setUrl(request.getRequestURI());
 		
 	}
 
