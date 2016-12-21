@@ -66,8 +66,9 @@ public class MoveController {
 	 * @return 메인 페이지
 	 */
 	@RequestMapping("/main")
-	public String moveDashBoard() {
-
+	public String moveDashBoard(Model model) {
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/header/main";
 	}
 
@@ -77,8 +78,9 @@ public class MoveController {
 	 * @return 회원 가입 페이지
 	 */
 	@RequestMapping("/registration")
-	public String moveRegistration() {
-
+	public String moveRegistration(Model model) {
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/registration";
 	}
 
@@ -92,6 +94,8 @@ public class MoveController {
 
 		List<UsersVO> list = userService.getUserList();
 		model.addAttribute("userList", list);
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/user";
 	}
 
@@ -105,6 +109,8 @@ public class MoveController {
 
 		List<UsersVO> list = userService.getAdminList();
 		model.addAttribute("adminList", list);
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/admin";
 	}
 
@@ -141,6 +147,8 @@ public class MoveController {
 
 		List<VehicleVO> list = vehicleService.getVehicleList();
 		model.addAttribute("vehicleList", list);
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/vehicle";
 	}
 
@@ -151,6 +159,9 @@ public class MoveController {
 	 */
 	@RequestMapping("/bundle")
 	public String moveBundle(Model model) {
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
+		
 		String version = bundleVersionService.getBundleVersion();
 		List<BundleVO> list = bundleService.getBundleList();
 		model.addAttribute("bundleList", list);
@@ -174,6 +185,9 @@ public class MoveController {
 			List<ResourceVO> resourcelist = resourceService.getResourceListBybundleKey(bundleKey);
 			model.addAttribute("resourceList", resourcelist);
 		}
+		
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 
 		return "/jsp/resource";
 
@@ -187,6 +201,8 @@ public class MoveController {
 	@RequestMapping("/api")
 	public String moveApi(Model model) {
 
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 		List<ApiVO> list = apiService.getApiList();
 		model.addAttribute("apiList", list);
 		return "/jsp/api";
@@ -199,7 +215,8 @@ public class MoveController {
 	 */
 	@RequestMapping("/pushmessage")
 	public String movePushMessage(Model model) {
-
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 		List<PushMessageVO> list = pushMessageService.getPushMessageList();
 		model.addAttribute("pushMessageList", list);
 		return "/jsp/pushmessage";
@@ -212,6 +229,8 @@ public class MoveController {
 	 */
 	@RequestMapping("/sendmessage")
 	public String moveSendMessage(Model model) {
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 		model.addAttribute("modelList", vehicleService.getVehicleList());
 		model.addAttribute("locationList", userVehicleService.getLocation());
 		model.addAttribute("messagecategory", messageCategoryService.getMessageCategoryList());
@@ -225,7 +244,9 @@ public class MoveController {
 	 */
 	@RequestMapping("/log")
 	public String moveLog(Model model) {
-
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
+		
 		List<LogVO> list = logService.getLogList();
 		model.addAttribute("logList", list);
 		return "/jsp/log";
@@ -238,6 +259,10 @@ public class MoveController {
 	 */
 	@RequestMapping(value = "/userVehicle")
 	public String moveUserVehicle(@RequestParam("userId") String userId, Model model, HttpServletResponse response) {
+		
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
+		
 		////////////// userVehicleList, vehicleList 초기화///////////////////////////
 		List<UserVehicleVO> userVehicleList = userVehicleService.getUserVehicleList(userId);
 		model.addAttribute("userVehicleList", userVehicleList);
@@ -260,6 +285,8 @@ public class MoveController {
 	 */
 	@RequestMapping("/analytics")
 	public String moveAnalytics(Model model) {
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 		return null;
 	}
 
