@@ -3,6 +3,7 @@ package com.obigo.obigoproject.controller;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -244,7 +245,11 @@ public class RestFulApiController {
 			throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
-		registrationidService.insertRegistrationid(vo);
+		System.out.println(vo);
+		try {
+			registrationidService.insertRegistrationid(vo);
+		} catch (Exception e) {
+		}
 		return "true";
 	}
 
