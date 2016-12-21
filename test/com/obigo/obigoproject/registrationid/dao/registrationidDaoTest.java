@@ -19,8 +19,8 @@ public class registrationidDaoTest {
 	@Test
 	public void insertRegistrationidTest(){
 		RegistrationidVO vo = new RegistrationidVO();
-		vo.setRegistrationId("123456789");
-		vo.setUserId("ssung");
+		vo.setRegistrationId("cKYJ_azyA3E:APA91bGI1uYegrQJYzecGS1ufQXAsKz2qzOam4BPGNCyGnt90x_pdJ-syEc-L7me5j4X35sQi_MoOesddy5GcHEHB7FO_T331BFA9XxR6i6wOm8qc_UhrfiVQl1AusfLuUpPhGWZNVXO");
+		vo.setUserId("won");
 		Assert.assertEquals(1, registrationidDao.insertRegistrationid(vo));
 	}
 	
