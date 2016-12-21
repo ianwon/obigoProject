@@ -77,7 +77,7 @@
 				<ul class="nav pull-right top-menu">
 
 					<!-- user login dropdown start (상단 header 로그인 버튼)-->
-					<li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle"  style="background-color: white;" href="#"> <img alt="" src="/obigoProject/img/obigo_logo_small.png"> <span
+					<li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" style="background-color: white;" href="#"> <img alt="" src="/obigoProject/img/obigo_logo_small.png"> <span
 							class="username" style="color: black;">SUPERWYH</span> <b class="caret"></b>
 					</a>
 						<ul class="dropdown-menu extended logout">
