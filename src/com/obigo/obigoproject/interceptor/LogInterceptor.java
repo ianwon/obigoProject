@@ -22,8 +22,8 @@ public class LogInterceptor implements HandlerInterceptor {
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object arg2, ModelAndView arg3) throws Exception {
-		LogVO vo = new LogVO();
-		vo.setUrl(request.getRequestURI());
+//		LogVO vo = new LogVO();
+//		vo.setUrl(request.getRequestURI());
 		
 	}
 
