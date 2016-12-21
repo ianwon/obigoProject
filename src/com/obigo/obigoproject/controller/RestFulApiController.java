@@ -3,7 +3,6 @@ package com.obigo.obigoproject.controller;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -117,28 +116,6 @@ public class RestFulApiController {
 				// e.printStackTrace();
 			}
 		}
-	}
-
-	/**
-	 * 로그인 체크 Api parameter = "id":유저아이디 "password":비밀번호
-	 * 
-	 * @return "flag" : 결과
-	 */
-	@RequestMapping(value = "/api/login/{id}/{password}", method = { RequestMethod.GET })
-	@ResponseBody
-	public String login(@PathVariable String id, @PathVariable String password) {
-		JSONObject jobj = new JSONObject();
-		if (!(userService.idCheck(id))) {
-			if (userService.getUser(id).getPassword().equals(password)) {
-				jobj.put("flag", true);
-				jobj.put("userVehicle", userVehicleService.getUserVehicleList(id));
-			} else
-				jobj.put("flag", false);
-		} else {
-			jobj.put("flag", false);
-		}
-
-		return jobj.toString();
 	}
 
 	/**
@@ -280,14 +257,18 @@ public class RestFulApiController {
 	}
 
 	@RequestMapping(value = "/api/login", method = RequestMethod.GET)
-	public String login() {
-		return null;
+	public String login(@RequestParam String userId, @RequestParam String password) {
+		userService.passwordCheck(userId, password);
+		return "true";
+				
 	}
 
 	@RequestMapping(value = "/api/deleteregistrationid", method = RequestMethod.DELETE)
-	public String deleteRegistrationId(@RequestParam String registrationId) {
-		System.out.println(registrationId);
-		return "true";
+	public String logout(@RequestParam String registrationId) {
+		if (registrationidService.deleteRegistrationid(registrationId) != true)
+			return "false";
+		else
+			return "true";
 	}
 
 }

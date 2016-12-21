@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.obigo.obigoproject.bundle.dao.BundleDao;
 import com.obigo.obigoproject.vo.BundleVO;
-import com.obigo.obigoproject.vo.ResourceVO;
 
 @Service("bundleService")
 public class BundleServiceImpl implements BundleService {

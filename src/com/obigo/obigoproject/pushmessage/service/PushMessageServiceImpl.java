@@ -3,7 +3,6 @@ package com.obigo.obigoproject.pushmessage.service;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.ibatis.javassist.bytecode.stackmap.BasicBlock.Catch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
