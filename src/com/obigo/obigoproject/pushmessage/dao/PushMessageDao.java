@@ -1,7 +1,6 @@
 package com.obigo.obigoproject.pushmessage.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import com.obigo.obigoproject.vo.PushMessageVO;
 

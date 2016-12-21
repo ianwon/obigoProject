@@ -2,7 +2,6 @@ package com.obigo.obigoproject.pushmessage.service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import com.obigo.obigoproject.vo.PushMessageVO;
 
