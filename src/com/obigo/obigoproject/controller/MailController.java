@@ -125,7 +125,8 @@ public class MailController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 			String fileName = formatter.format(calendar.getTime()) + "_log.pdf"; // for
 																					// log-time
-			String path = "/home/ec2-user/obigo/pdf/" + fileName;
+//			String path = "/home/ec2-user/obigo/pdf/" + fileName;
+			String path = "c:\\obigo\\pdf\\" + fileName;
 
 			// PDF 만들어주는 메서드 호출 및 PDF 파일 첨부
 			if (pdfpage(path)) {
