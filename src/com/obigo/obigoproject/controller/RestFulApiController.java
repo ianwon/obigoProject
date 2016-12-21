@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.androiduservehicle.service.AndroidUserVehicleService;
@@ -33,6 +34,7 @@ import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.vehicle.service.VehicleService;
 import com.obigo.obigoproject.vo.RegistrationidVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
+import com.obigo.obigoproject.vo.UsersVO;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -258,17 +260,29 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/user/{userId}", method = RequestMethod.GET)
 	@ResponseBody
 	public String getUser(@PathVariable String userId) {
-		System.out.println("user");
-		System.out.println(userId);
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("user", userService.getUser(userId));
+		UsersVO usersVO = userService.getUser(userId);
+
+		jsonObject.put("userId", usersVO.getUserId());
+		jsonObject.put("name", usersVO.getName());
+		jsonObject.put("password", usersVO.getPassword());
+		jsonObject.put("eMail", usersVO.geteMail());
+		jsonObject.put("phone", usersVO.getPhone());
+		jsonObject.put("roleName", usersVO.getRoleName());
+		jsonObject.put("date", usersVO.getDate());
+
 		return jsonObject.toString();
 	}
-	
+
 	@RequestMapping(value = "/api/login", method = RequestMethod.GET)
-	public String login(){
+	public String login() {
 		return null;
 	}
-	
-	
+
+	@RequestMapping(value = "/api/deleteregistrationid", method = RequestMethod.DELETE)
+	public String deleteRegistrationId(@RequestParam String registrationId) {
+		System.out.println(registrationId);
+		return "true";
+	}
+
 }
