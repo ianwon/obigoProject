@@ -9,7 +9,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.obigo.obigoproject.log.service.LogService;
-import com.obigo.obigoproject.vo.LogVO;
 
 public class LoginCheckInterceptor implements HandlerInterceptor {
 	@Autowired

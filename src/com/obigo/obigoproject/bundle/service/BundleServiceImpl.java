@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.obigo.obigoproject.bundle.dao.BundleDao;
 import com.obigo.obigoproject.vo.BundleVO;
-import com.obigo.obigoproject.vo.ResourceVO;
 
 @Service("bundleService")
 public class BundleServiceImpl implements BundleService {
@@ -38,7 +37,8 @@ public class BundleServiceImpl implements BundleService {
 
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		MultipartFile bundleFile = multiRequest.getFile("bundleFile");
-		String saveDir = "/home/ec2-user/obigo/bundle/";
+//		String saveDir = "/home/ec2-user/obigo/bundle/";
+		String saveDir = "c:\\obigo\\bundle\\";
 		File saveDirFile = new File(saveDir);
 
 		if (!saveDirFile.exists()) {

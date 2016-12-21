@@ -119,28 +119,6 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * 로그인 체크 Api parameter = "id":유저아이디 "password":비밀번호
-	 * 
-	 * @return "flag" : 결과
-	 */
-	@RequestMapping(value = "/api/login/{id}/{password}", method = { RequestMethod.GET })
-	@ResponseBody
-	public String login(@PathVariable String id, @PathVariable String password) {
-		JSONObject jobj = new JSONObject();
-		if (!(userService.idCheck(id))) {
-			if (userService.getUser(id).getPassword().equals(password)) {
-				jobj.put("flag", true);
-				jobj.put("userVehicle", userVehicleService.getUserVehicleList(id));
-			} else
-				jobj.put("flag", false);
-		} else {
-			jobj.put("flag", false);
-		}
-
-		return jobj.toString();
-	}
-
-	/**
 	 * 번들 체크 Api parameter : "bundleVersion":번들버전
 	 * 
 	 * @return "flag" : 결과
@@ -244,7 +222,11 @@ public class RestFulApiController {
 			throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
-		registrationidService.insertRegistrationid(vo);
+		System.out.println(vo);
+		try {
+			registrationidService.insertRegistrationid(vo);
+		} catch (Exception e) {
+		}
 		return "true";
 	}
 
@@ -275,14 +257,18 @@ public class RestFulApiController {
 	}
 
 	@RequestMapping(value = "/api/login", method = RequestMethod.GET)
-	public String login() {
-		return null;
+	public String login(@RequestParam String userId, @RequestParam String password) {
+		userService.passwordCheck(userId, password);
+		return "true";
+				
 	}
 
 	@RequestMapping(value = "/api/deleteregistrationid", method = RequestMethod.DELETE)
-	public String deleteRegistrationId(@RequestParam String registrationId) {
-		System.out.println(registrationId);
-		return "true";
+	public String logout(@RequestParam String registrationId) {
+		if (registrationidService.deleteRegistrationid(registrationId) != true)
+			return "false";
+		else
+			return "true";
 	}
 
 }

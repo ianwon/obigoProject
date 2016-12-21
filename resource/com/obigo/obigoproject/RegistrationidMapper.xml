@@ -14,7 +14,7 @@
 
 	<insert id="insertRegistrationid" parameterType="Registrationid">
     <![CDATA[
-		insert into registrationid values(#{userId},#{registrationId})
+		insert into REGISTRATIONID VALUES(#{userId},#{registrationId})
 	]]>
 	</insert>
 
