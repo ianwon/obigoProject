@@ -1,6 +1,10 @@
 package com.obigo.obigoproject.log.service;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +51,20 @@ public class LogServiceImpl implements LogService {
 	@Override
 	public List<LogVO> getLogListByUrl(String url) {
 		return logDao.getLogListByUrl(url);
+	}
+
+	@Override
+	public List<Integer> getMonthLogCount() {
+		List<Integer> list = new ArrayList<>();
+		Map<String, Integer> map = new HashMap<>();
+		Calendar cal = Calendar.getInstance();
+		map.put("year", cal.get(Calendar.YEAR)-2000);
+
+		for (int i = 1; i <= 12; i++) {
+			map.put("month", i);
+			list.add(logDao.getMonthLogCount(map));
+		}
+		return list;
 	}
 
 }
