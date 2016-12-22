@@ -22,5 +22,7 @@ public interface UserVehicleDao {
 	public List<String> getLocation();
 	
 	public List<String> getUserId(PushMessageVO vo);
+	
+	public int getUserVehicleCount();
 
 }

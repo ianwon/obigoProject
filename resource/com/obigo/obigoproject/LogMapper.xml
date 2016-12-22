@@ -42,4 +42,12 @@
 		select count(*) from log
 	</select>
 
+	<select id="selectMonthLogCount" parameterType="hashmap"
+		resultType="java.lang.Integer">
+	<![CDATA[
+		select count(*) from log where url like '%log' and date_time like #{year}||'/'||#{month}||'/%'
+		]]>
+	</select>
+
+
 </mapper>

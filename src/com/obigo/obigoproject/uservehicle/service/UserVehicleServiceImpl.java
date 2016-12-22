@@ -61,4 +61,9 @@ public class UserVehicleServiceImpl implements UserVehicleService {
 		return userVehicleDao.getUserId(vo);
 	}
 
+	@Override
+	public int getUserVehicleCount() {
+		return userVehicleDao.getUserVehicleCount();
+	}
+
 }

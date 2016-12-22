@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.log.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,11 @@ public class LogDaoImpl implements LogDao {
 	@Override
 	public int getLogCount() {
 		return sqlSession.selectOne("obigoproject.Log.selectLogCount");
+	}
+
+	@Override
+	public int getMonthLogCount(Map<String,Integer> map) {
+		return sqlSession.selectOne("obigoproject.Log.selectMonthLogCount", map);
 	}
 
 }

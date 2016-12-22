@@ -22,4 +22,6 @@ public interface UserVehicleService {
 	
 	public List<String>	getUserId(PushMessageVO vo);
 	
+	public int getUserVehicleCount();
+	
 }

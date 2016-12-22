@@ -69,5 +69,9 @@
 		resultType="java.lang.String">
    <![CDATA[SELECT U.REGISTRATION_ID FROM USERS U JOIN USER_VEHICLE UV ON U.ID = UV.USER_ID WHERE UV.MODEL_CODE = #{modelCode}]]>
 	</select>
+	
+	<select id="selectUserCount" 	resultType="java.lang.Integer">
+		select count(*) from Users where role_name='USER'
+	</select>
 
 </mapper>
