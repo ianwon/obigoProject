@@ -44,7 +44,7 @@
 				<i class="fa fa-bars"></i>
 			</div>
 			<!--logo start-->
-			<a href="/obigoProject/main" class="logo">
+			<a href="/obigoProject/dashboard" class="logo">
 				Obigo
 				<span>MAS</span>
 			</a>

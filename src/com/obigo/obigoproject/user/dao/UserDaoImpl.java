@@ -54,4 +54,9 @@ public class UserDaoImpl implements UserDao {
 		return sqlsession.selectList("obigoproject.User.selectRegistrationIdByModelCode", modelCode);
 	}
 
+	@Override
+	public int getUserCount() {
+		return sqlsession.selectOne("obigoproject.User.selectUserCount");
+	}
+
 }

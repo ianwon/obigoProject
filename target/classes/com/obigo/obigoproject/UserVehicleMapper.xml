@@ -59,6 +59,10 @@
 		SELECT LOCATION FROM
 		USER_VEHICLE
 	</select>
+	
+	<select id="selectUserVehicleCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM USER_VEHICLE
+	</select>
 
 	<select id="selectUserId" parameterType="PushMessage"
 		resultMap="UserVehicleUserIdResultMap">
@@ -71,7 +75,7 @@
 				WHERE MODELCODE=#{modelCode}
 			</when>
 			<otherwise>
-				
+
 			</otherwise>
 		</choose>
 	</select>
