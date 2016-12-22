@@ -1,3 +1,4 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -38,72 +39,76 @@
 						</div>
 					</section>
 				</div>
+				<img src="http://www.kipfa.or.kr/Common/ImageView.aspx?folder=/Information/&fileName=i_201407150330203630861542.jpg">
 			</div>
 			<!--state overview end-->
 
-  <!--custom chart start-->
-                      <div class="border-head">
-                          <h3>Earning Graph</h3>
-                      </div>
-                      <div class="custom-bar-chart">
-                          <ul class="y-axis">
-                              <li><span>100</span></li>
-                              <li><span>80</span></li>
-                              <li><span>60</span></li>
-                              <li><span>40</span></li>
-                              <li><span>20</span></li>
-                              <li><span>0</span></li>
-                          </ul>
-                          <div class="bar">
-                              <div class="title">JAN</div>
-                              <div class="value tooltips" data-original-title="${logCountList[0]}%" data-toggle="tooltip" data-placement="top">${logCountList[0]}%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">FEB</div>
-                              <div class="value tooltips" data-original-title="${logCountList[1]}%" data-toggle="tooltip" data-placement="top">${logCountList[1]}%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">MAR</div>
-                              <div class="value tooltips" data-original-title="${logCountList[2]}%" data-toggle="tooltip" data-placement="top">${logCountList[2]}%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">APR</div>
-                              <div class="value tooltips" data-original-title="${logCountList[3]}%" data-toggle="tooltip" data-placement="top">${logCountList[3]}%</div>
-                          </div>
-                          <div class="bar">
-                              <div class="title">MAY</div>
-                              <div class="value tooltips" data-original-title="${logCountList[4]}%" data-toggle="tooltip" data-placement="top">${logCountList[4]}%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">JUN</div>
-                              <div class="value tooltips" data-original-title="${logCountList[5]}%" data-toggle="tooltip" data-placement="top">${logCountList[5]}%</div>
-                          </div>
-                          <div class="bar">
-                              <div class="title">JUL</div>
-                              <div class="value tooltips" data-original-title="${logCountList[6]}%" data-toggle="tooltip" data-placement="top">${logCountList[6]}%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">AUG</div>
-                              <div class="value tooltips" data-original-title="${logCountList[7]}%" data-toggle="tooltip" data-placement="top">${logCountList[7]}%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">SEP</div>
-                              <div class="value tooltips" data-original-title="${logCountList[8]}%" data-toggle="tooltip" data-placement="top">${logCountList[8]}%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">OCT</div>
-                              <div class="value tooltips" data-original-title="${logCountList[9]}%" data-toggle="tooltip" data-placement="top">${logCountList[9]}%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">NOV</div>
-                              <div class="value tooltips" data-original-title="${logCountList[10]}%" data-toggle="tooltip" data-placement="top">${logCountList[10]}%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">DEC</div>
-                              <div class="value tooltips" data-original-title="${logCountList[11]}%" data-toggle="tooltip" data-placement="top">${logCountList[11]}%</div>
-                          </div>
-                      </div>
-                      <!--custom chart end-->
+
+			<!--custom chart start-->
+			<div class="border-head">
+				<h3><%=Calendar.getInstance().get(Calendar.YEAR)%>
+					Graph
+				</h3>
+			</div>
+			<div class="custom-bar-chart">
+				<ul class="y-axis">
+					<li><span>100</span></li>
+					<li><span>80</span></li>
+					<li><span>60</span></li>
+					<li><span>40</span></li>
+					<li><span>20</span></li>
+					<li><span>0</span></li>
+				</ul>
+				<div class="bar">
+					<div class="title">JAN</div>
+					<div class="value tooltips" data-original-title="${logCountList[0]}%" data-toggle="tooltip" data-placement="top">${logCountList[0]}%</div>
+				</div>
+				<div class="bar ">
+					<div class="title">FEB</div>
+					<div class="value tooltips" data-original-title="${logCountList[1]}%" data-toggle="tooltip" data-placement="top">${logCountList[1]}%</div>
+				</div>
+				<div class="bar ">
+					<div class="title">MAR</div>
+					<div class="value tooltips" data-original-title="${logCountList[2]}%" data-toggle="tooltip" data-placement="top">${logCountList[2]}%</div>
+				</div>
+				<div class="bar ">
+					<div class="title">APR</div>
+					<div class="value tooltips" data-original-title="${logCountList[3]}%" data-toggle="tooltip" data-placement="top">${logCountList[3]}%</div>
+				</div>
+				<div class="bar">
+					<div class="title">MAY</div>
+					<div class="value tooltips" data-original-title="${logCountList[4]}%" data-toggle="tooltip" data-placement="top">${logCountList[4]}%</div>
+				</div>
+				<div class="bar ">
+					<div class="title">JUN</div>
+					<div class="value tooltips" data-original-title="${logCountList[5]}%" data-toggle="tooltip" data-placement="top">${logCountList[5]}%</div>
+				</div>
+				<div class="bar">
+					<div class="title">JUL</div>
+					<div class="value tooltips" data-original-title="${logCountList[6]}%" data-toggle="tooltip" data-placement="top">${logCountList[6]}%</div>
+				</div>
+				<div class="bar ">
+					<div class="title">AUG</div>
+					<div class="value tooltips" data-original-title="${logCountList[7]}%" data-toggle="tooltip" data-placement="top">${logCountList[7]}%</div>
+				</div>
+				<div class="bar ">
+					<div class="title">SEP</div>
+					<div class="value tooltips" data-original-title="${logCountList[8]}%" data-toggle="tooltip" data-placement="top">${logCountList[8]}%</div>
+				</div>
+				<div class="bar ">
+					<div class="title">OCT</div>
+					<div class="value tooltips" data-original-title="${logCountList[9]}%" data-toggle="tooltip" data-placement="top">${logCountList[9]}%</div>
+				</div>
+				<div class="bar ">
+					<div class="title">NOV</div>
+					<div class="value tooltips" data-original-title="${logCountList[10]}%" data-toggle="tooltip" data-placement="top">${logCountList[10]}%</div>
+				</div>
+				<div class="bar ">
+					<div class="title">DEC</div>
+					<div class="value tooltips" data-original-title="${logCountList[11]}%" data-toggle="tooltip" data-placement="top">${logCountList[11]}%</div>
+				</div>
+			</div>
+			<!--custom chart end-->
 
 
 			<!-- page end-->
@@ -119,7 +124,7 @@
 	<script src="/obigoProject/js/jquery.nicescroll.js" type="text/javascript"></script>
 	<script src="/obigoProject/js/jquery.sparkline.js" type="text/javascript"></script>
 	<script src="/obigoProject/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
-	<script src="	/obigoProject/js/owl.carousel.js"></script>
+	<script src="/obigoProject/js/owl.carousel.js"></script>
 	<script src="/obigoProject/js/jquery.customSelect.min.js"></script>
 	<script src="/obigoProject/js/respond.min.js"></script>
 
@@ -135,13 +140,15 @@
 	<!-- 	<script src="/obigoProject/js/count.js"></script> -->
 
 	<script type="text/javascript">
+	
+	
 	function countUp(count)
 	{
 	    var div_by = 100,
 	        speed = Math.round(count / div_by),
 	        $display = $('.count'),
 	        run_count = 1,
-	        int_speed = 24;
+	        int_speed = 10;
 
 	    var int = setInterval(function() {
 	        if(run_count < div_by){
@@ -164,7 +171,7 @@
 	        speed = Math.round(count / div_by),
 	        $display = $('.count2'),
 	        run_count = 1,
-	        int_speed = 24;
+	        int_speed = 10;
 
 	    var int = setInterval(function() {
 	        if(run_count < div_by){

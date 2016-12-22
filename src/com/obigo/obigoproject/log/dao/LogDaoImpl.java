@@ -42,7 +42,6 @@ public class LogDaoImpl implements LogDao {
 
 	@Override
 	public int getMonthLogCount(Map<String,Integer> map) {
-		System.out.println(map);
 		return sqlSession.selectOne("obigoproject.Log.selectMonthLogCount", map);
 	}
 
