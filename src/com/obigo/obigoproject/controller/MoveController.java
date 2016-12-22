@@ -70,6 +70,7 @@ public class MoveController {
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userVehicleCount",userVehicleService.getUserVehicleCount());
 		model.addAttribute("userCount", userService.getUserCount());
+		model.addAttribute("logCountList", logService.getMonthLogCount());
 		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/header/dashboard";
 	}

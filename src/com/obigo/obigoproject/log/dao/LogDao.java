@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.log.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.obigo.obigoproject.vo.LogVO;
 
@@ -17,5 +18,7 @@ public interface LogDao {
 	public List<LogVO> getLogListByUrl(String url);
 	
 	public int getLogCount();
-
+	
+	public int getMonthLogCount(Map<String,Integer> map);
+	
 }
