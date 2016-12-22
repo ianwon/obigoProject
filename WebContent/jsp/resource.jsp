@@ -20,7 +20,8 @@
 							<div class="clearfix">
 								<div class="btn-group">
 									<button id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
-										Add Resource <i class="fa fa-plus"></i>
+										Add Resource
+										<i class="fa fa-plus"></i>
 									</button>
 								</div>
 								<!--modal start-->
@@ -103,18 +104,25 @@
 							<input type="hidden" id="hidden-resource">
 							<div class="space15"></div>
 							<div class="bundleList">
-								<form action="/obigoProject/resource">
-									<select id=selectbundle name="bundleKey">
+								<form action="/obigoProject/resource" id="frmBundleVersion">
+									<select id="selectbundle" name="bundleKey" onchange="changeBundleVersion(this)">
 										<option value="">Select BundleVersion</option>
 										<c:forEach var="b" items="${bundleList}" begin="0">
-											<option value="${b.bundleKey}">Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option>
+											<c:choose>
+												<c:when test="${param.bundleKey==b.bundleKey}">
+													<option value="${b.bundleKey}" selected>Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${b.bundleKey}">Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option>
+												</c:otherwise>
+											</c:choose>
 										</c:forEach>
 									</select>
-									<input type="submit" value="검색">
+									<input type="submit" hidden="hidden">
 								</form>
 							</div>
 							<div class="table-responsive">
-							
+
 								<!-- Resource Table Start  -->
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
@@ -219,6 +227,14 @@
 	<script src="/obigoProject/js/editable-table.js"></script>
 
 	<!-- END JAVASCRIPTS -->
+
+	<script type="text/javascript">
+		function changeBundleVersion(option) {
+			document.getElementById("frmBundleVersion").submit();
+		}
+	</script>
+
+
 	<script>
 		jQuery(document).ready(function() {
 			EditableTable.init();
