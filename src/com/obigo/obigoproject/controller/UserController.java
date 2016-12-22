@@ -146,7 +146,7 @@ public class UserController {
 		userId = userId.toLowerCase();
 		if (userService.passwordCheck(userId, password)) {
 			session.setAttribute("LoginOK", userId);
-			return "redirect:/main";
+			return "redirect:/dashboard";
 		} else {
 			return "redirect:/login";
 		}
