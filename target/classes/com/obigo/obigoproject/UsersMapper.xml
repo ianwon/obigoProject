@@ -71,7 +71,7 @@
 	</select>
 	
 	<select id="selectUserCount" 	resultType="java.lang.Integer">
-		select count(*) from Users
+		select count(*) from Users where role_name='USER'
 	</select>
 
 </mapper>
