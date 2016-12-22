@@ -93,4 +93,9 @@ public class UserServiceImpl implements UserService {
 		} else
 			return false; // 아이디가 틀림
 	}
+
+	@Override
+	public int getUserCount() {
+		return userDao.getUserCount();
+	}
 }

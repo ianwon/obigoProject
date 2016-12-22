@@ -24,5 +24,6 @@ public interface UserDao {
 
 	// VEHICLE_NAME에 따른 PUSH메시지를 전송하기 위해 REGISTRATION_ID를 추출
 	public List<String> getRegistrationByModelCode(String modelCode);
-
+	
+	public int getUserCount();
 }

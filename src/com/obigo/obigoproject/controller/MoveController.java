@@ -65,11 +65,13 @@ public class MoveController {
 	 * 
 	 * @return 메인 페이지
 	 */
-	@RequestMapping("/main")
+	@RequestMapping("/dashboard")
 	public String moveDashBoard(Model model) {
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userVehicleCount",userVehicleService.getUserVehicleCount());
+		model.addAttribute("userCount", userService.getUserCount());
 		model.addAttribute("userRequestList", userRequestList);
-		return "/jsp/header/main";
+		return "/jsp/header/dashboard";
 	}
 
 	/**
@@ -161,7 +163,7 @@ public class MoveController {
 	public String moveBundle(Model model) {
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
-		
+
 		String version = bundleVersionService.getBundleVersion();
 		List<BundleVO> list = bundleService.getBundleList();
 		model.addAttribute("bundleList", list);
@@ -185,7 +187,7 @@ public class MoveController {
 			List<ResourceVO> resourcelist = resourceService.getResourceListBybundleKey(bundleKey);
 			model.addAttribute("resourceList", resourcelist);
 		}
-		
+
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
 
@@ -246,7 +248,7 @@ public class MoveController {
 	public String moveLog(Model model) {
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
-		
+
 		List<LogVO> list = logService.getLogList();
 		model.addAttribute("logList", list);
 		return "/jsp/log";
@@ -259,10 +261,10 @@ public class MoveController {
 	 */
 	@RequestMapping(value = "/userVehicle")
 	public String moveUserVehicle(@RequestParam("userId") String userId, Model model, HttpServletResponse response) {
-		
+
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
-		
+
 		////////////// userVehicleList, vehicleList 초기화///////////////////////////
 		List<UserVehicleVO> userVehicleList = userVehicleService.getUserVehicleList(userId);
 		model.addAttribute("userVehicleList", userVehicleList);

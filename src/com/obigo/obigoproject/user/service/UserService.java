@@ -28,5 +28,6 @@ public interface UserService {
 
 	public boolean passwordCheck(String userId, String password);
 	
+	public int getUserCount();
 
 }
