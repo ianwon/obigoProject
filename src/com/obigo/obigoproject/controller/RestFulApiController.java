@@ -3,6 +3,7 @@ package com.obigo.obigoproject.controller;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,7 +33,9 @@ import com.obigo.obigoproject.usermessage.service.UserMessageService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.vehicle.service.VehicleService;
+import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.RegistrationidVO;
+import com.obigo.obigoproject.vo.ResourceVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
 import com.obigo.obigoproject.vo.UsersVO;
 
@@ -156,10 +159,8 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/uservehicle/{userId}", method = { RequestMethod.GET })
 	@ResponseBody
 	public String userVehicle(@PathVariable String userId) {
-		System.out.println(userId);
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(androiduservehicleService.getAndroidUserVehicleListByUserid(userId));
-		System.out.println(jsonArray.toString());
 		return jsonArray.toString();
 	}
 
@@ -189,7 +190,6 @@ public class RestFulApiController {
 			throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		UserRequestVO vo = mapper.readValue(data, UserRequestVO.class);
-		System.out.println(vo);
 		if (userRequestService.insertUserRequest(vo) == true)
 			return "true";
 		else
@@ -204,10 +204,8 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/message/{userId}", method = { RequestMethod.GET })
 	@ResponseBody
 	public String getMessageList(@PathVariable String userId) {
-		System.out.println(userId);
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(pushMessageService.getPushMessageList(userId));
-		System.out.println(jsonArray.toString());
 		return jsonArray.toString();
 	}
 
@@ -222,7 +220,6 @@ public class RestFulApiController {
 			throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
-		System.out.println(vo);
 		try {
 			registrationidService.insertRegistrationid(vo);
 		} catch (Exception e) {
@@ -235,32 +232,33 @@ public class RestFulApiController {
 	public String getVehicleList() {
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(vehicleService.getVehicleList());
-		System.out.println(jsonArray.toString());
 		return jsonArray.toString();
 	}
 
 	@RequestMapping(value = "/api/user/{userId}", method = RequestMethod.GET)
 	@ResponseBody
 	public String getUser(@PathVariable String userId) {
-		JSONObject jsonObject = new JSONObject();
+		JSONObject jobj = new JSONObject();
 		UsersVO usersVO = userService.getUser(userId);
 
-		jsonObject.put("userId", usersVO.getUserId());
-		jsonObject.put("name", usersVO.getName());
-		jsonObject.put("password", usersVO.getPassword());
-		jsonObject.put("eMail", usersVO.geteMail());
-		jsonObject.put("phone", usersVO.getPhone());
-		jsonObject.put("roleName", usersVO.getRoleName());
-		jsonObject.put("date", usersVO.getDate());
+		jobj.put("userId", usersVO.getUserId());
+		jobj.put("name", usersVO.getName());
+		jobj.put("password", usersVO.getPassword());
+		jobj.put("eMail", usersVO.geteMail());
+		jobj.put("phone", usersVO.getPhone());
+		jobj.put("roleName", usersVO.getRoleName());
+		jobj.put("date", usersVO.getDate());
 
-		return jsonObject.toString();
+		return jobj.toString();
 	}
 
-	@RequestMapping(value = "/api/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/login", method = RequestMethod.GET)
 	@ResponseBody
 	public String login(@RequestParam String userid, @RequestParam String password) {
-		System.out.println("xxxxx1 : "+userid+",  xxxxx2 : "+password);
-			return "true";
+		// if (userService.passwordCheck(userid, password) != true)
+		// return "false";
+		// else
+		return "true";
 	}
 
 	@RequestMapping(value = "/api/deleteregistrationid", method = RequestMethod.DELETE)
@@ -269,6 +267,27 @@ public class RestFulApiController {
 			return "false";
 		else
 			return "true";
+	}
+
+	@RequestMapping(value = "/api/bundleversioncheck", method = RequestMethod.GET)
+	@ResponseBody
+	public String bundleVersioncheck(@RequestParam String bundleVersion) {
+		System.out.println(bundleVersion);
+		System.out.println("어떤게온거니.?");
+		System.out.println(bundleVersionService.getBundleVersion());
+		if (bundleVersion.equals(bundleVersionService.getBundleVersion()))
+			return "true";
+		else
+			return "false";
+	}
+
+	@RequestMapping(value = "api/bundleversionupdate", method = RequestMethod.GET)
+	@ResponseBody
+	public String getbundle() {
+		BundleVO bundleVO = bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion());
+		JSONArray jsonarray = new JSONArray();
+		jsonarray.addAll(resourceService.getResourceListBybundleKey(bundleVO.getBundleKey()));
+		return jsonarray.toString();
 	}
 
 }
