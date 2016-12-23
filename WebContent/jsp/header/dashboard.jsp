@@ -39,6 +39,48 @@
 						</div>
 					</section>
 				</div>
+				<div class="col-lg-4">
+					<!--weather statement start-->
+					<section class="panel">
+						<div class="weather-bg">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-6">
+										<img id="weather-icon" style="width: 100px; height: 80px;" src="http://openweathermap.org/img/w/10d.png"><br>
+										<span id="weather-city">Seoul</span>
+									</div>
+									<div class="col-xs-6">
+										<div class="degree">
+											<span id="weather-temp">24</span>°
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<footer class="weather-category">
+							<ul>
+								<li class="active">
+									<h5>humidity</h5>
+									<span id="weather-humidity">56</span>
+									%
+								</li>
+								<li>
+									<h5>description</h5>
+									<span id="weather-description"></span>
+								</li>
+								<li>
+									<h5>winds</h5>
+									<span id="weather-windspeed">10</span>
+									m/s
+								</li>
+							</ul>
+						</footer>
+
+					</section>
+					<!--weather statement end-->
+				</div>
+
 				<img src="http://www.kipfa.or.kr/Common/ImageView.aspx?folder=/Information/&fileName=i_201407150330203630861542.jpg">
 			</div>
 			<!--state overview end-->
@@ -52,12 +94,24 @@
 			</div>
 			<div class="custom-bar-chart">
 				<ul class="y-axis">
-					<li><span>100</span></li>
-					<li><span>80</span></li>
-					<li><span>60</span></li>
-					<li><span>40</span></li>
-					<li><span>20</span></li>
-					<li><span>0</span></li>
+					<li>
+						<span>100</span>
+					</li>
+					<li>
+						<span>80</span>
+					</li>
+					<li>
+						<span>60</span>
+					</li>
+					<li>
+						<span>40</span>
+					</li>
+					<li>
+						<span>20</span>
+					</li>
+					<li>
+						<span>0</span>
+					</li>
 				</ul>
 				<div class="bar">
 					<div class="title">JAN</div>
@@ -140,7 +194,25 @@
 	<!-- 	<script src="/obigoProject/js/count.js"></script> -->
 
 	<script type="text/javascript">
-	
+	$(document).ready(
+			function() {
+				$.ajax({
+							type : "get",
+							url : "http://api.openweathermap.org/data/2.5/weather?appid=979f0179827d470b83d8072d50e99855&q=Seoul&units=metric",
+							dataType : "json",
+							success : function(data) {
+								$("#weather-windspeed").text(data.wind.speed);
+								$("#weather-humidity").text(data.main.humidity);
+								$("#weather-city").text(data.name);
+								$("#weather-temp").text(Math.floor(data.main.temp));
+								$("#weather-description").text(data.weather[0].description);
+								$("#weather-icon").attr("src","http://openweathermap.org/img/w/"+ data.weather[0].icon+".png");
+							},
+							error : function(e) {
+								console.log(e);
+							}
+						});
+			});
 	
 	function countUp(count)
 	{
