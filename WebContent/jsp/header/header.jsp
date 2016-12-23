@@ -84,7 +84,7 @@
 									</li>
 								</c:forEach>
 								<li>
-									<a href="#">See all notifications</a>
+									<a href="/obigoProject/userrequest">See all notifications</a>
 								</li>
 							</c:if>
 						</ul>
