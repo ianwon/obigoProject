@@ -128,7 +128,7 @@ public class RestFulApiController {
 		}
 
 		vo.setUrl("/api/bundledown");
-		vo.setBody(null);
+		vo.setBody("null");
 		vo.setReturned("{bundleVersion : " + bundleVersionService.getBundleVersion() + "}, {bundleFile : " + bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload() + "}");
 		logService.insertLog(vo);
 	}
@@ -181,7 +181,7 @@ public class RestFulApiController {
 		}
 		vo.setUrl("/api/image");
 		vo.setBody("{select : " + select + "}, {imagename : " + imagename + "}");
-		vo.setReturned(null);
+		vo.setReturned("null");
 		logService.insertLog(vo);
 	}
 
@@ -218,7 +218,7 @@ public class RestFulApiController {
 		jobj.put("path", bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
 
 		vo.setUrl("/api/bundleupdate");
-		vo.setBody(null);
+		vo.setBody("null");
 		vo.setReturned(jobj.toString());
 		logService.insertLog(vo);
 		return jobj.toString();
@@ -270,7 +270,7 @@ public class RestFulApiController {
 		ObjectMapper mapper = new ObjectMapper();
 		UserRequestVO vo = mapper.readValue(data, UserRequestVO.class);
 		this.vo.setUrl("/api/userrequest");
-		this.vo.setBody(null);
+		this.vo.setBody("null");
 		if (userRequestService.insertUserRequest(vo) == true) {
 			this.vo.setReturned("true");
 			logService.insertLog(this.vo);
@@ -315,7 +315,7 @@ public class RestFulApiController {
 		}
 
 		this.vo.setUrl("/api/registrationid");
-		this.vo.setBody(null);
+		this.vo.setBody("null");
 		this.vo.setReturned("true");
 		logService.insertLog(this.vo);
 		return "true";
@@ -327,7 +327,7 @@ public class RestFulApiController {
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(vehicleService.getVehicleList());
 		vo.setUrl("/api/vehicle");
-		vo.setBody(null);
+		vo.setBody("null");
 		vo.setReturned(jsonArray.toString());
 		logService.insertLog(vo);
 		return jsonArray.toString();
@@ -411,7 +411,7 @@ public class RestFulApiController {
 		jsonarray.addAll(resourceService.getResourceListBybundleKey(bundleVO.getBundleKey()));
 		
 		vo.setUrl("/api/bundleversionupdate");
-		vo.setBody(null);
+		vo.setBody("null");
 		vo.setReturned(jsonarray.toString());
 		logService.insertLog(vo);
 		return jsonarray.toString();
