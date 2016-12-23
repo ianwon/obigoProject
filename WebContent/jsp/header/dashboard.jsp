@@ -46,7 +46,7 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-xs-6">
-										<img id="weather-icon" style="width: 100px; height: 80px;" src="http://openweathermap.org/img/w/10d.png"><br>
+										<img id="weather-icon" style="width: 100px; height: 80px;" src="http://openweathermap.org/img/w/01d.png"><br>
 										<span id="weather-city">Seoul</span>
 									</div>
 									<div class="col-xs-6">
@@ -67,7 +67,7 @@
 								</li>
 								<li>
 									<h5>description</h5>
-									<span id="weather-description"></span>
+									<span id="weather-description">Sky is Clear</span>
 								</li>
 								<li>
 									<h5>winds</h5>
@@ -80,8 +80,6 @@
 					</section>
 					<!--weather statement end-->
 				</div>
-
-				<img src="http://www.kipfa.or.kr/Common/ImageView.aspx?folder=/Information/&fileName=i_201407150330203630861542.jpg">
 			</div>
 			<!--state overview end-->
 
