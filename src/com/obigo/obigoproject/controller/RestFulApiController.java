@@ -3,6 +3,7 @@ package com.obigo.obigoproject.controller;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -72,6 +73,58 @@ public class RestFulApiController {
 	AndroidUserVehicleService androiduservehicleService;
 	@Autowired
 	RegistrationidService registrationidService;
+
+	/**
+	 * 번들번들번들번들번들번들 받아가시오 ~
+	 * 
+	 * @return 번들~~~~~~~~~~~~~
+	 */
+	@RequestMapping(value = "/api/bundledown", method = { RequestMethod.GET })
+	@ResponseBody
+	public void bundleDown(HttpServletResponse response) {
+		String path = "c:/obigo/bundle/" + bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload();
+		FileInputStream fs = null;
+		try {
+			fs = new FileInputStream(path);
+			byte[] fileByte = new byte[fs.available()];
+			fs.read(fileByte);
+			response.setContentType("application/octet-stream");
+			response.setContentLength(fileByte.length);
+			response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload(), "UTF-8") + "\";");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			response.getOutputStream().write(fileByte);
+		} catch (Exception e1) {
+			try {
+				fs = new FileInputStream("C:/obigo/no_img.gif");
+				byte[] fileByte = new byte[fs.available()];
+				fs.read(fileByte);
+				response.setContentType("application/octet-stream");
+				response.setContentLength(fileByte.length);
+				response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("no_img.gif", "UTF-8") + "\";");
+				response.setHeader("Content-Transfer-Encoding", "binary");
+				response.getOutputStream().write(fileByte);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				try {
+					response.getOutputStream().close();
+				} catch (Exception e) {
+					// e.printStackTrace();
+				}
+			}
+
+		} finally {
+			try {
+				response.getOutputStream().close();
+			} catch (Exception e) {
+				// e.printStackTrace();
+			}
+		}
+	}
 
 	/**
 	 * Image 받아가시오 ~
@@ -146,8 +199,7 @@ public class RestFulApiController {
 	@ResponseBody
 	public String bundleUpdate() {
 		JSONObject jobj = new JSONObject();
-		jobj.put("path",
-				bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
+		jobj.put("path", bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
 		return jobj.toString();
 	}
 
@@ -178,16 +230,14 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * 유저 차량 등록 요청 Api parameter = "userId":유저아이디, "modelCode":차량코드, "color":색상,
-	 * "location":지역, "vin":고유번호
+	 * 유저 차량 등록 요청 Api parameter = "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역, "vin":고유번호
 	 * 
 	 * @return "flag" : 등록 여부
 	 */
 
 	@RequestMapping(value = "/api/userrequest", method = { RequestMethod.POST })
 	@ResponseBody
-	public String insertUserRequest(@RequestBody String data)
-			throws JsonParseException, JsonMappingException, IOException {
+	public String insertUserRequest(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		UserRequestVO vo = mapper.readValue(data, UserRequestVO.class);
 		if (userRequestService.insertUserRequest(vo) == true)
@@ -211,13 +261,11 @@ public class RestFulApiController {
 
 	/////////////////////////////////////////////////////////////////////
 	/*
-	 * 로그인시 Registration ID 가져오기(받은 아이디랑 비밀번호로 db에서 정보를 찾고 registrationid에 token
-	 * 값으로 업데이트)
+	 * 로그인시 Registration ID 가져오기(받은 아이디랑 비밀번호로 db에서 정보를 찾고 registrationid에 token 값으로 업데이트)
 	 * 
 	 */
 	@RequestMapping(value = "/api/registrationid", method = RequestMethod.POST)
-	public String insertRegistrationid(@RequestBody String data)
-			throws JsonParseException, JsonMappingException, IOException {
+	public String insertRegistrationid(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
 		try {
@@ -281,7 +329,7 @@ public class RestFulApiController {
 			return "false";
 	}
 
-	@RequestMapping(value = "api/bundleversionupdate", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/bundleversionupdate", method = RequestMethod.GET)
 	@ResponseBody
 	public String getbundle() {
 		BundleVO bundleVO = bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion());
