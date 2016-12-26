@@ -17,6 +17,8 @@
 
 			<!--state overview start-->
 			<div class="row state-overview">
+			
+				<!-- 등록된 User의 통계 Start -->
 				<div class="col-lg-3 col-sm-6">
 					<section class="panel">
 						<div class="symbol terques">
@@ -28,6 +30,9 @@
 						</div>
 					</section>
 				</div>
+				<!-- 등록된 User의 통계 End -->
+				
+				<!-- 등록된 User Vehicle의 통계 Start -->
 				<div class="col-lg-3 col-sm-6">
 					<section class="panel">
 						<div class="symbol red">
@@ -39,8 +44,11 @@
 						</div>
 					</section>
 				</div>
+				<!-- 등록된 User Vehicle의 통계 End -->
+				
+				
+				<!-- 날씨 api Start -->
 				<div class="col-lg-4">
-					<!--weather statement start-->
 					<section class="panel">
 						<div class="weather-bg">
 							<div class="panel-body">
@@ -51,7 +59,8 @@
 									</div>
 									<div class="col-xs-6">
 										<div class="degree">
-											<span id="weather-temp">24</span>°
+											<span id="weather-temp">24</span>
+											°
 										</div>
 									</div>
 								</div>
@@ -78,13 +87,29 @@
 						</footer>
 
 					</section>
-					<!--weather statement end-->
 				</div>
+				<!-- 날씨 api End -->
+				
 			</div>
 			<!--state overview end-->
 
+			<!-- User Vehicle에 등록된 Model 비율 통계 Start -->
+			<div class="flot-chart">
+				<div class="row">
+					<div class="col-lg-6">
+						<section class="panel">
+							<header class="panel-heading"> User Vehicle에 등록된 차종 비율 </header>
+							<div class="panel-body">
+								<div id="graph2" class="chart"></div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+			<!-- User Vehicle에 등록된 Model 비율 통계 End -->
 
-			<!--custom chart start-->
+
+			<!-- 월별 Login 통계 Start -->
 			<div class="border-head">
 				<h3><%=Calendar.getInstance().get(Calendar.YEAR)%>
 					Graph
@@ -160,7 +185,7 @@
 					<div class="value tooltips" data-original-title="${logCountList[11]}%" data-toggle="tooltip" data-placement="top">${logCountList[11]}%</div>
 				</div>
 			</div>
-			<!--custom chart end-->
+			<!-- 월별 Login 통계 End -->
 
 
 			<!-- page end-->
@@ -180,6 +205,14 @@
 	<script src="/obigoProject/js/jquery.customSelect.min.js"></script>
 	<script src="/obigoProject/js/respond.min.js"></script>
 
+
+	<script src="/obigoProject/assets/flot/jquery.flot.js"></script>
+	<script src="/obigoProject/assets/flot/jquery.flot.resize.js"></script>
+	<script src="/obigoProject/assets/flot/jquery.flot.pie.js"></script>
+	<script src="/obigoProject/assets/flot/jquery.flot.stack.js"></script>
+	<script src="/obigoProject/assets/flot/jquery.flot.crosshair.js"></script>
+
+
 	<!--right slidebar-->
 	<script src="/obigoProject/js/slidebars.min.js"></script>
 
@@ -192,8 +225,24 @@
 	<!-- 	<script src="/obigoProject/js/count.js"></script> -->
 
 	<script type="text/javascript">
+		
+		// User Vehicle 차종 별 통계 Method를 호출할 때, 자바스크립트 Error를 없애기 위해 필요한 선언
+		jQuery.browser = {};
+		(function() {
+			jQuery.browser.msie = false;
+			jQuery.browser.version = 0;
+			if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+				jQuery.browser.msie = true;
+				jQuery.browser.version = RegExp.$1;
+			}
+		})();
+			
 	$(document).ready(
+			
+			
 			function() {
+				
+				// 날씨 api 데이터를 받아서 적용해주는 AJAX
 				$.ajax({
 							type : "get",
 							url : "http://api.openweathermap.org/data/2.5/weather?appid=979f0179827d470b83d8072d50e99855&q=Seoul&units=metric",
@@ -210,7 +259,71 @@
 								console.log(e);
 							}
 						});
+				
+				
+				// User Vehicle에 등록된 차종을 그래프로 출력해주는 AJAX
+				$.ajax({
+					type : "post",
+					url : "/obigoProject/countingbymodel",
+					dataType : "json",
+					success : function(data) {
+						// 그래프로 출력해주기 위해서 Json data를 함수의 인자로 보내준다.
+						makePie2Chart(data);
+					},
+					error : function(e) {
+						console.log(e);
+					}
+				});
+				
 			});
+	
+	// 차종별 비율을 그래프로 출력해주는 함수
+	function makePie2Chart(jsonData) {
+
+		var plot;
+
+		$(function() {
+			
+			// JSON Data
+			var data = jsonData;
+			
+			// JSON Data Array의 length
+			var series=jsonData.length;
+
+			// GRAPH 2
+			$.plot($("#graph2"),
+							data,
+							{
+								series : {
+									pie : {
+										show : true,
+										radius : 1,
+										label : {
+											show : true,
+											radius : 1,
+											formatter : function(label,
+													series) {
+												return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">'
+														+ label
+														+ '<br/>'
+														+ Math
+																.round(series.percent)
+														+ '%</div>';
+											},
+											background : {
+												opacity : 0.8
+											}
+										}
+									}
+								},
+								legend : {
+									show : false
+								}
+							});
+
+		});
+
+	}
 	
 	function countUp(count)
 	{
