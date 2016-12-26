@@ -68,9 +68,9 @@ public class MoveController {
 	@RequestMapping("/dashboard")
 	public String moveDashBoard(Model model) {
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		model.addAttribute("userVehicleCount",userVehicleService.getUserVehicleCount());
+		model.addAttribute("userVehicleCount", userVehicleService.getUserVehicleCount());
 		model.addAttribute("userCount", userService.getUserCount());
-		model.addAttribute("logCountList", logService.getMonthLogCount());
+		model.addAttribute("logCountList", logService.getMonthLogCount("%log"));
 		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/header/dashboard";
 	}
@@ -286,11 +286,10 @@ public class MoveController {
 	 * 
 	 * @return 통계 관리 페이지
 	 */
-	@RequestMapping("/analytics")
-	public String moveAnalytics(Model model) {
-		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		model.addAttribute("userRequestList", userRequestList);
-		return null;
+	@RequestMapping("/useranalytics")
+	public String moveUserAnalytics(Model model) {
+		model.addAttribute("userAnalytics", logService.getMonthLogCount("%login"));
+		return "/jsp/analytics";
 	}
 
 }

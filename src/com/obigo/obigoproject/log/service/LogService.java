@@ -18,5 +18,5 @@ public interface LogService {
 	// 특정 URL API 가져오는 메소드(카테고리)
 	public List<LogVO> getLogListByUrl(String url);
 
-	public List<Integer> getMonthLogCount();
+	public List<Integer> getMonthLogCount(String url);
 }

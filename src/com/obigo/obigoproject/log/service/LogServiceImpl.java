@@ -54,11 +54,12 @@ public class LogServiceImpl implements LogService {
 	}
 
 	@Override
-	public List<Integer> getMonthLogCount() {
+	public List<Integer> getMonthLogCount(String url) {
 		List<Integer> list = new ArrayList<>();
-		Map<String, Integer> map = new HashMap<>();
+		Map map = new HashMap();
 		Calendar cal = Calendar.getInstance();
-		map.put("year", cal.get(Calendar.YEAR)-2000);
+		map.put("year", cal.get(Calendar.YEAR) - 2000);
+		map.put("url", url);
 
 		for (int i = 1; i <= 12; i++) {
 			map.put("month", i);
