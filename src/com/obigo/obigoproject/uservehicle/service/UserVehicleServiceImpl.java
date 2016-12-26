@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.uservehicle.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,11 @@ public class UserVehicleServiceImpl implements UserVehicleService {
 	@Override
 	public int getUserVehicleCount() {
 		return userVehicleDao.getUserVehicleCount();
+	}
+	
+	@Override
+	public List<Map<String, Object>> getCountingByModelName(){
+		return userVehicleDao.getCountingByModelName();
 	}
 
 }

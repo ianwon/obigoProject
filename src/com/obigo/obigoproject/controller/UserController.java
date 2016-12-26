@@ -1,5 +1,8 @@
 package com.obigo.obigoproject.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.obigo.obigoproject.vo.UsersVO;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -172,6 +176,28 @@ public class UserController {
 	@RequestMapping(value = "/insertuservehicle", method = RequestMethod.POST)
 	public String insertUserVehicle(@RequestParam UserVehicleVO vo) {
 		return null;
+	}
+	
+	////////////// Dashboard에서 User Vehicle에 대한 통계 ///////////////////////////
+	/**
+	 * Dashboard에서 User Vehicle에 등록된 Model 종류별로 등록된 차량의 대수의 정보를 전달
+	 * 
+	 * @return Dashboard 페이지
+	 */
+	@RequestMapping(value = "/countingbymodel", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String countingByModelName() {
+		List<Map<String, Object>> list= userVehicleService.getCountingByModelName();
+		JSONArray jArray=new JSONArray();
+		JSONObject jObj=new JSONObject();
+		
+		// bootstrap 통계 그래프를 사용하기 위해서 json data 명칭으로 label, data를 사용해야 한다.
+		for(int i=0;i<list.size();i++){
+			jObj.put("label", list.get(i).get("MODEL_NAME"));
+			jObj.put("data", list.get(i).get("COUNTING"));
+			jArray.add(i, jObj);
+		}
+		return jArray.toString();
 	}
 
 	/**

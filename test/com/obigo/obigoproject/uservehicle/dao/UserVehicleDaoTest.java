@@ -1,5 +1,8 @@
 package com.obigo.obigoproject.uservehicle.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,5 +63,14 @@ public class UserVehicleDaoTest {
 	public void getUserIdTest(){
 		PushMessageVO vo = new PushMessageVO();
 		System.out.println(uservehicledao.getUserId(vo));
+	}
+	
+	
+	@Test
+	public void getCountingByModelName(){
+		List<Map<String, Object>> list=uservehicledao.getCountingByModelName();
+		System.out.println("model name: "+list.get(0).get("MODEL_NAME")+", counting: "+list.get(0).get("COUNTING"));
+		System.out.println("model name: "+list.get(1).get("MODEL_NAME")+", counting: "+list.get(1).get("COUNTING"));
+		Assert.assertEquals(2, (list.size()));
 	}
 }

@@ -57,4 +57,11 @@ public class UserVehicleServiceTest {
 		PushMessageVO vo = new PushMessageVO();
 		System.out.println(uservehicleservice.getUserId(vo));
 	}
+	@Test
+	public void getCountingByModelName(){
+		
+		System.out.println(uservehicleservice.getCountingByModelName().size());
+		
+	}
+	
 }
