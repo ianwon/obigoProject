@@ -58,7 +58,7 @@ public class LogServiceImpl implements LogService {
 		List<Integer> list = new ArrayList<>();
 		Map map = new HashMap();
 		Calendar cal = Calendar.getInstance();
-		map.put("year", cal.get(Calendar.YEAR) - 2000);
+		map.put("year", cal.get(Calendar.YEAR)-2000);
 		map.put("url", url);
 
 		for (int i = 1; i <= 12; i++) {
@@ -67,5 +67,6 @@ public class LogServiceImpl implements LogService {
 		}
 		return list;
 	}
+
 
 }

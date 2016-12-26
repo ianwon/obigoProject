@@ -35,7 +35,7 @@
 				<div id="morris">
 					<div class="row">
 						<!-- page start-->
-						<div class="col-lg-6" style="width: 1500px;">
+						<div class="col-lg-6" style="width:1500px;">
 							<section class="panel">
 								<header class="panel-heading"> 사용자 접속 통계</header>
 								<div class="panel-body">
@@ -74,30 +74,30 @@
 	<script src="/obigoProject/js/common-scripts.js"></script>
 
 	<!-- script for this page only-->
-	<!-- 		<script src="/obigoProject/js/morris-script.js"></script> -->
+<!-- 		<script src="/obigoProject/js/morris-script.js"></script> -->
 
 	<script type="text/javascript">
-	alert(${userAnalytics})
-	var Script = setUp(${userAnalytics});
-		
-	function setUp(data){
+	var Script = function () {
+
+
 	    $(function () {
 	      Morris.Bar({
 	        element: 'hero-bar',
 	        resize: true,
 	        data: [
-	          {device: 'JAN', geekbench: data[0]},
-	          {device: 'FEB', geekbench: data[1]},
-	          {device: 'MAR', geekbench: data[2]},
-	          {device: 'APR', geekbench: data[3]},
-	          {device: 'MAY', geekbench: data[4]},
-	          {device: 'JUN', geekbench: data[5]},
-	          {device: 'JUL', geekbench: data[6]},
-	          {device: 'AUG', geekbench: data[7]},
-	          {device: 'SEP', geekbench: data[8]},
-	          {device: 'OCT', geekbench: data[9]},
-	          {device: 'NOV', geekbench: data[10]},
-	          {device: 'DEC', geekbench: data[11]},
+	          {device: 'JAN', geekbench: ${UserAnalytics[0]}},
+	          {device: 'FEB', geekbench: ${UserAnalytics[0]}},
+	          {device: 'MAR', geekbench: ${UserAnalytics[0]}},
+	          {device: 'APR', geekbench: ${UserAnalytics[0]}},
+	          {device: 'MAY', geekbench: ${UserAnalytics[0]}},
+	          {device: 'JUN', geekbench: ${UserAnalytics[0]}},
+	          {device: 'JUL', geekbench: ${UserAnalytics[0]}},
+	          {device: 'AUG', geekbench: ${UserAnalytics[0]}},
+	          {device: 'SEP', geekbench: ${UserAnalytics[0]}},
+	          {device: 'OCT', geekbench: ${UserAnalytics[0]}},
+	          {device: 'NOV', geekbench: ${UserAnalytics[0]}},
+	          {device: 'DEC', geekbench: ${UserAnalytics[0]}},
+
 	        ],
 	        xkey: 'device',
 	        ykeys: ['geekbench'],
@@ -105,10 +105,12 @@
 	        barRatio: 0.4,
 	        xLabelAngle: 0,
 	        hideHover: 'auto',
-	        barColors: ['#6883a3']
+	        barColors: ['#6883a3']D
 	      });
+
 	    });
-	};
+
+	}();
 	</script>
 </body>
 </html>
