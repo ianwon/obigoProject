@@ -289,7 +289,20 @@ public class MoveController {
 	@RequestMapping("/useranalytics")
 	public String moveUserAnalytics(Model model) {
 		model.addAttribute("userAnalytics", logService.getMonthLogCount("%login"));
-		return "/jsp/analytics";
+		return "/jsp/useranalytics";
+	}
+	
+	
+	/////////////////// 잠시 생각/////////////////////////////////
+	/**
+	 * 헤더 ANALYTICS클릭시 이동
+	 * 
+	 * @return 통계 관리 페이지
+	 */
+	@RequestMapping("/uvanalytics")
+	public String moveUserVehicleAnalytics(Model model) {
+		model.addAttribute("userVehicleAnalytics", logService.getMonthLogCount("%login"));
+		return "/jsp/uvanalytics";
 	}
 
 }
