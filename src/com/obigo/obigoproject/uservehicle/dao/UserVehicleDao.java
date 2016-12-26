@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.uservehicle.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.UserVehicleVO;
@@ -24,5 +25,7 @@ public interface UserVehicleDao {
 	public List<String> getUserId(PushMessageVO vo);
 	
 	public int getUserVehicleCount();
+	
+	public List<Map<String, Object>> getCountingByModelName();
 
 }

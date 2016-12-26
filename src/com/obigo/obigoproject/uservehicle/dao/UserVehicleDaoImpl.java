@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.uservehicle.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,11 @@ public class UserVehicleDaoImpl implements UserVehicleDao {
 	@Override
 	public int getUserVehicleCount() {
 		return sqlSession.selectOne("obigoproject.UserVehicle.selectUserVehicleCount");
+	}
+	
+	@Override
+	public List<Map<String, Object>> getCountingByModelName(){
+		return sqlSession.selectList("obigoproject.UserVehicle.selectCountingByModelName");
 	}
 
 }
