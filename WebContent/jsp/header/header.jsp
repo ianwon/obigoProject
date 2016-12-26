@@ -217,12 +217,29 @@
 					</li>
 					<li class="sub-menu">
 						<a href="javascript:;">
-							<i class=" fa fa-bar-chart-o"></i>
+							<i class=" fa fa-list-ol"></i>
 							<span>Logs Management</span>
 						</a>
 						<ul class="sub">
 							<li>
 								<a href="/obigoProject/log">Log</a>
+							</li>
+						</ul>
+					</li>
+					<li class="sub-menu">
+						<a href="javascript:;">
+							<i class=" fa fa-bar-chart-o"></i>
+							<span>Analytics</span>
+						</a>
+						<ul class="sub">
+							<li>
+								<a href="/obigoProject/useranalytics">User</a>
+							</li>
+							<li>
+								<a href="/obigoProject/analytics">ㅎㅎㅎ</a>
+							</li>
+							<li>
+								<a href="/obigoProject/analytics">ㅎㅎㅎ</a>
 							</li>
 						</ul>
 					</li>
