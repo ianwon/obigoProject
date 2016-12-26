@@ -356,14 +356,18 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/login", method = RequestMethod.GET)
 	@ResponseBody
 	public String login(@RequestParam String userid, @RequestParam String password) {
-		// if (userService.passwordCheck(userid, password) != true)
-		// return "false";
-		// else
-		// vo.setUrl("/api/login");
-		// vo.setBody("{userid : " + userid +"}, {password : " + password + "}");
-		// vo.setReturned("true");
-		// logService.insertLog(vo);
-		return "true";
+
+		vo.setUrl("/api/login");
+		vo.setBody("{userid : " + userid + "}, {password : " + password + "}");
+		if (userService.passwordCheck(userid, password) != true) {
+			vo.setReturned("false");
+			logService.insertLog(vo);
+			return "false";
+		} else {
+			vo.setReturned("true");
+			logService.insertLog(vo);
+			return "true";
+		}
 	}
 
 	@RequestMapping(value = "/api/deleteregistrationid", method = RequestMethod.DELETE)
@@ -409,7 +413,7 @@ public class RestFulApiController {
 		BundleVO bundleVO = bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion());
 		JSONArray jsonarray = new JSONArray();
 		jsonarray.addAll(resourceService.getResourceListBybundleKey(bundleVO.getBundleKey()));
-		
+
 		vo.setUrl("/api/bundleversionupdate");
 		vo.setBody("null");
 		vo.setReturned(jsonarray.toString());
