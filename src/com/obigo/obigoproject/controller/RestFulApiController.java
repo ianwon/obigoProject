@@ -125,11 +125,61 @@ public class RestFulApiController {
 				// e.printStackTrace();
 			}
 		}
-
+		JSONObject jobj = new JSONObject();
+		jobj.put("bundleVersion", bundleVersionService.getBundleVersion());
+		jobj.put("bundleFile", bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
 		vo.setUrl("/api/bundledown");
 		vo.setBody("null");
-		vo.setReturned("{bundleVersion : " + bundleVersionService.getBundleVersion() + "}, {bundleFile : " + bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload() + "}");
+		vo.setReturned(jobj.toString());
 		logService.insertLog(vo);
+	}
+
+	@RequestMapping(value = "/api/bundledownn", method = { RequestMethod.GET })
+	@ResponseBody
+	public void bundleDown22(HttpServletResponse response) {
+		String path = "c:/obigo/vehicle/bfff2677a6680ea95fda98295d464e14c9eb2a6b555c2da35293fe692d58d2b6.png";
+		FileInputStream fs = null;
+		try {
+			fs = new FileInputStream(path);
+			byte[] fileByte = new byte[fs.available()];
+			fs.read(fileByte);
+			response.setContentType("application/octet-stream");
+			response.setContentLength(fileByte.length);
+			response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("bfff2677a6680ea95fda98295d464e14c9eb2a6b555c2da35293fe692d58d2b6.png", "UTF-8") + "\";");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			response.getOutputStream().write(fileByte);
+		} catch (Exception e1) {
+			try {
+				fs = new FileInputStream("C:/obigo/no_img.gif");
+				byte[] fileByte = new byte[fs.available()];
+				fs.read(fileByte);
+				response.setContentType("application/octet-stream");
+				response.setContentLength(fileByte.length);
+				response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("no_img.gif", "UTF-8") + "\";");
+				response.setHeader("Content-Transfer-Encoding", "binary");
+				response.getOutputStream().write(fileByte);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				try {
+					response.getOutputStream().close();
+				} catch (Exception e) {
+					// e.printStackTrace();
+				}
+			}
+
+		} finally {
+			try {
+				response.getOutputStream().close();
+			} catch (Exception e) {
+				// e.printStackTrace();
+			}
+		}
+
 	}
 
 	/**
@@ -178,8 +228,11 @@ public class RestFulApiController {
 				// e.printStackTrace();
 			}
 		}
+		JSONObject jobj = new JSONObject();
+		jobj.put("select", select);
+		jobj.put("imagename", imagename);
 		vo.setUrl("/api/image");
-		vo.setBody("{select : " + select + "}, {imagename : " + imagename + "}");
+		vo.setBody(jobj.toString());
 		vo.setReturned("null");
 		logService.insertLog(vo);
 	}
@@ -197,9 +250,11 @@ public class RestFulApiController {
 			jobj.put("flag", true);
 		else
 			jobj.put("flag", false);
-
+		JSONObject bodyJobj = new JSONObject();
+		bodyJobj.put("bundleVersion", bundleVersion);
+		
 		vo.setUrl("/api/bundlecheck");
-		vo.setBody("{bundleVersion : " + bundleVersion + "}");
+		vo.setBody(bodyJobj.toString());
 		vo.setReturned(jobj.toString());
 		logService.insertLog(vo);
 		return jobj.toString();
@@ -233,8 +288,10 @@ public class RestFulApiController {
 	public String userVehicle(@PathVariable String userId) {
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(androiduservehicleService.getAndroidUserVehicleListByUserid(userId));
+		JSONObject jobj = new JSONObject();
+		jobj.put("userId", userId);
 		vo.setUrl("/api/uservehicle");
-		vo.setBody("{userId : " + userId + "}");
+		vo.setBody(jobj.toString());
 		vo.setReturned(jsonArray.toString());
 		logService.insertLog(vo);
 		return jsonArray.toString();
@@ -250,8 +307,11 @@ public class RestFulApiController {
 	public String userVehicleDetail(@PathVariable String modelCode) {
 		JSONObject jobj = new JSONObject();
 		jobj.put("userVehicle", vehicleService.getVehicle(modelCode));
+		JSONObject bodyJobj = new JSONObject();
+		jobj.put("modelCode", modelCode);
+		
 		vo.setUrl("/api/cardetailinfo");
-		vo.setBody("{modelCode : " + modelCode + "}");
+		vo.setBody(bodyJobj.toString());
 		vo.setReturned(jobj.toString());
 		logService.insertLog(vo);
 		return jobj.toString();
@@ -291,9 +351,11 @@ public class RestFulApiController {
 	public String getMessageList(@PathVariable String userId) {
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(pushMessageService.getPushMessageList(userId));
-
+		JSONObject jobj = new JSONObject();
+		jobj.put("userId", userId);
+		
 		vo.setUrl("/api/message");
-		vo.setBody("{userId : " + userId + "}");
+		vo.setBody(jobj.toString());
 		vo.setReturned(jsonArray.toString());
 		logService.insertLog(vo);
 		return jsonArray.toString();
@@ -337,7 +399,6 @@ public class RestFulApiController {
 	public String getUser(@PathVariable String userId) {
 		JSONObject jobj = new JSONObject();
 		UsersVO usersVO = userService.getUser(userId);
-
 		jobj.put("userId", usersVO.getUserId());
 		jobj.put("name", usersVO.getName());
 		jobj.put("password", usersVO.getPassword());
@@ -345,8 +406,12 @@ public class RestFulApiController {
 		jobj.put("phone", usersVO.getPhone());
 		jobj.put("roleName", usersVO.getRoleName());
 		jobj.put("date", usersVO.getDate());
+		
+		JSONObject bodyJobj = new JSONObject();
+		bodyJobj.put("userId", userId);
+		
 		vo.setUrl("/api/user");
-		vo.setBody("{userId : " + userId + "}");
+		vo.setBody(bodyJobj.toString());
 		vo.setReturned(jobj.toString());
 		logService.insertLog(vo);
 		return jobj.toString();
@@ -372,7 +437,9 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/deleteregistrationid", method = RequestMethod.DELETE)
 	public String logout(@RequestParam String registrationId) {
 		vo.setUrl("/api/deleteregistrationid");
-		vo.setBody("{registrationId : " + registrationId + "}");
+		JSONObject jobj = new JSONObject();
+		jobj.put("registrationId", registrationId);
+		vo.setBody(jobj.toString());
 
 		if (registrationidService.deleteRegistrationid(registrationId) != true) {
 			vo.setReturned("false");
@@ -393,7 +460,9 @@ public class RestFulApiController {
 		System.out.println(bundleVersionService.getBundleVersion());
 
 		vo.setUrl("/api/bundleversioncheck");
-		vo.setBody("{bundleVersion : " + bundleVersion + "}");
+		JSONObject jobj = new JSONObject();
+		jobj.put("bundleVersion", bundleVersion);
+		vo.setBody(jobj.toString());
 
 		if (bundleVersion.equals(bundleVersionService.getBundleVersion())) {
 			vo.setReturned("true");
