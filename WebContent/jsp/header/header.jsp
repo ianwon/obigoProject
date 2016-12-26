@@ -236,7 +236,7 @@
 								<a href="/obigoProject/useranalytics">User</a>
 							</li>
 							<li>
-								<a href="/obigoProject/analytics">ㅎㅎㅎ</a>
+								<a href="/obigoProject/uvanalytics">User Vehicle</a>
 							</li>
 							<li>
 								<a href="/obigoProject/analytics">ㅎㅎㅎ</a>
