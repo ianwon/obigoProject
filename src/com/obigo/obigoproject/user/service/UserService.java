@@ -35,5 +35,7 @@ public interface UserService {
 	public int getUserCount();
 	
 	public List<Integer> getMonthUserCount();
+	
+	public List<Integer> getMonthUserCount2();
 
 }

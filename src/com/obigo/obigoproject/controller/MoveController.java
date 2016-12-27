@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -291,8 +292,7 @@ public class MoveController {
 		model.addAttribute("userAnalytics", logService.getMonthLogCount("%login"));
 		return "/jsp/useranalytics";
 	}
-	
-	
+
 	/////////////////// 잠시 생각/////////////////////////////////
 	/**
 	 * 헤더 ANALYTICS클릭시 이동
@@ -303,6 +303,32 @@ public class MoveController {
 	public String moveUserVehicleAnalytics(Model model) {
 		model.addAttribute("userVehicleAnalytics", logService.getMonthLogCount("%login"));
 		return "/jsp/uvanalytics";
+	}
+
+	/////////////////// 잠시 생각/////////////////////////////////
+	/**
+	 * 헤더 ANALYTICS클릭시 이동
+	 * 
+	 * @return 통계 관리 페이지
+	 */
+	@RequestMapping("/downanalytics")
+	public String moveDownAnalytics(Model model) {
+		model.addAttribute("bundleUpdateList", logService.getBundleUpdateCount());
+		model.addAttribute("userCountList", logService.getBundleUpdateCount());
+		List list = new ArrayList();
+		Calendar cal = Calendar.getInstance();
+		int year = new Integer(cal.get(Calendar.YEAR));
+		int month = cal.get(Calendar.MONDAY + 1);
+		for (int i = 0; i < 8; i++) {
+			if (month == 0) {
+				year -= 1;
+				month = 12;
+			}
+			list.add(year + "-" + month);
+			month--;
+		}
+		model.addAttribute("period", list);
+		return "/jsp/downanalytics";
 	}
 
 }
