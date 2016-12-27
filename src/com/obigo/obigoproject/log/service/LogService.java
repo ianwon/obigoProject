@@ -19,4 +19,6 @@ public interface LogService {
 	public List<LogVO> getLogListByUrl(String url);
 
 	public List<Integer> getMonthLogCount(String url);
+	
+	public List<Integer> getUserMonthLogCount(String url, String userId);
 }
