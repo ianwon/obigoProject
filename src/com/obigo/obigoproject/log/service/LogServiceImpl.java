@@ -67,8 +67,8 @@ public class LogServiceImpl implements LogService {
 		}
 		return list;
 	}
-	
-	public List<Integer> getUserMonthLogCount(String url, String userId){
+
+	public List<Integer> getUserMonthLogCount(String url, String userId) {
 		List<Integer> list = new ArrayList<>();
 		Map<String, Object> map = new HashMap();
 		Calendar cal = Calendar.getInstance();
@@ -80,6 +80,25 @@ public class LogServiceImpl implements LogService {
 			map.put("month", i);
 			list.add(logDao.getUserMonthLogCount(map));
 		}
+		return list;
+	}
+
+	public List<Integer> getBundleUpdateCount() {
+		List<Integer> list = new ArrayList<>();
+		Map<String, Object> map = new HashMap();
+		Calendar cal = Calendar.getInstance();
+		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
+		int month = cal.get(Calendar.MONDAY + 1);
+		for (int i = 0; i < 8; i++) {
+			if (month == 0) {
+				map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000 - 1));
+				month = 12;
+			}
+			map.put("month", month);
+			list.add(logDao.getBundleUpdateCount(map));
+			month--;
+		}
+
 		return list;
 	}
 

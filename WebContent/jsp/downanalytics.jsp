@@ -75,69 +75,64 @@
 	<!-- 	<script src="/obigoProject/js/morris-script.js"></script> -->
 
 	<script>
-		var Script = function() {
-	
+		var Script = setUp(${chartList})	
 			//morris chart
-	
+	function setUp(data){
 			$(function() {
 				// data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type
 				var tax_data = [
 					{
-						"period" : "2011 Q3",
-						"licensed" : 3407,
-						"sorned" : 660
+						"period" : "2011-4",
+						"USERS" : 3407,
+						"BUNDLE UPDATE" : 660
 					},
 					{
-						"period" : "2011 Q2",
-						"licensed" : 3351,
-						"sorned" : 629
+						"period" : "2011-3",
+						"USERS" : 3351,
+						"BUNDLE UPDATE" : 629
 					},
 					{
-						"period" : "2011 Q1",
-						"licensed" : 3269,
-						"sorned" : 618
+						"period" : "2011-2",
+						"USERS" : 3269,
+						"BUNDLE UPDATE" : 618
 					},
 					{
-						"period" : "2010 Q4",
-						"licensed" : 12,
-						"sorned" : 661
+						"period" : "2011-1",
+						"USERS" : 12,
+						"BUNDLE UPDATE" : 661
 					},
 					{
-						"period" : "2009 Q4",
-						"licensed" : 3171,
-						"sorned" : 676
+						"period" : "2010-12",
+						"USERS" : 3171,
+						"BUNDLE UPDATE" : 676
 					},
 					{
-						"period" : "2008 Q4",
-						"licensed" : 3155,
-						"sorned" : 681
+						"period" : "2010-11",
+						"USERS" : 3155,
+						"BUNDLE UPDATE" : 681
 					},
 					{
-						"period" : "2007 Q4",
-						"licensed" : 3226,
-						"sorned" : 620
+						"period" : "2010-10",
+						"USERS" : 3155,
+						"BUNDLE UPDATE" : 681
 					},
 					{
-						"period" : "2006 Q4",
-						"licensed" : 3245,
-						"sorned" : null
+						"period" : "2010-9",
+						"USERS" : 3155,
+						"BUNDLE UPDATE" : 681
 					},
-					{
-						"period" : "2005 Q4",
-						"licensed" : 3289,
-						"sorned" : null
-					}
+					
 				];
 				Morris.Line({
 					element : 'hero-graph',
 					data : tax_data,
 					xkey : 'period',
-					ykeys : [ 'licensed', 'sorned' ],
-					labels : [ 'Licensed', 'Off the road' ],
+					ykeys : [ 'USERS', 'BUNDLE UPDATE' ],
+					labels : [ 'users', 'budle update' ],
 					lineColors : [ '#8075c4', '#6883a3' ]
 				});
 			});
-		}();
+		};
 	</script>
 
 

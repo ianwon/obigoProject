@@ -122,4 +122,23 @@ public class UserServiceImpl implements UserService {
 		}
 		return list;
 	}
+
+	@Override
+	public List<Integer> getMonthUserCount2() { // 번들 업데이트 수랑 사용자수 최근 8개월치 비교하기 위해 ... 일단 만듬 이름변경 하고 해야함
+		List<Integer> list = new ArrayList<>();
+		Map<String, Object> map = new HashMap();
+		Calendar cal = Calendar.getInstance();
+		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
+		int month = cal.get(Calendar.MONDAY + 1);
+		for (int i = 0; i < 8; i++) {
+			if (month == 0) {
+				map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000 - 1));
+				month = 12;
+			}
+			map.put("month", month);
+			list.add(userDao.getMonthUserCount(map));
+			month--;
+		}
+		return list;
+	}
 }
