@@ -71,7 +71,11 @@
 	</select>
 	
 	<select id="selectUserCount" 	resultType="java.lang.Integer">
-		select count(*) from Users where role_name='USER'
+	<![CDATA[ select count(*) from Users where role_name='USER' ]]>
+	</select>
+
+	<select id="selectLoginUserList" resultMap="UsersResultMap">
+	<![CDATA[ select * from users where id like #{userId} ]]>
 	</select>
 
 </mapper>
