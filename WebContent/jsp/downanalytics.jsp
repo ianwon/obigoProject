@@ -72,54 +72,54 @@
 	<script src="/obigoProject/js/common-scripts.js"></script>
 
 	<!-- script for this page only-->
-<!-- 		<script src="/obigoProject/js/morris-script.js"></script> -->
+	<!-- 	<script src="/obigoProject/js/morris-script.js"></script> -->
 
 	<script>
-		var Script = setUp(${bundleUpdateList},${userCountList},${period})	
+		var Script = setUp(${chartList})	
 			//morris chart
-	function setUp(bundle,user,period){
+	function setUp(data){
 			$(function() {
 				// data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type
 				var tax_data = [
 					{
-						"period" : period[0].toString(),
-						"USERS" : user[0],
-						"BUNDLE UPDATE" : bundle[0]
+						"period" : "2011-4",
+						"USERS" : 3407,
+						"BUNDLE UPDATE" : 660
 					},
 					{
-						"period" : period[1].toString(),
-						"USERS" : user[1],
-						"BUNDLE UPDATE" : bundle[1]
+						"period" : "2011-3",
+						"USERS" : 3351,
+						"BUNDLE UPDATE" : 629
 					},
 					{
-						"period" : period[2].toString(),
-						"USERS" : user[2],
-						"BUNDLE UPDATE" : bundle[2]
+						"period" : "2011-2",
+						"USERS" : 3269,
+						"BUNDLE UPDATE" : 618
 					},
 					{
-						"period" : period[3].toString(),
-						"USERS" : user[3],
-						"BUNDLE UPDATE" : bundle[3]
+						"period" : "2011-1",
+						"USERS" : 12,
+						"BUNDLE UPDATE" : 661
 					},
 					{
-						"period" : period[4].toString(),
-						"USERS" : user[4],
-						"BUNDLE UPDATE" : bundle[4]
+						"period" : "2010-12",
+						"USERS" : 3171,
+						"BUNDLE UPDATE" : 676
 					},
 					{
-						"period" : period[5].toString(),
-						"USERS" : user[5],
-						"BUNDLE UPDATE" : bundle[5]
+						"period" : "2010-11",
+						"USERS" : 3155,
+						"BUNDLE UPDATE" : 681
 					},
 					{
-						"period" : period[6].toString(),
-						"USERS" : user[6],
-						"BUNDLE UPDATE" : bundle[6]
+						"period" : "2010-10",
+						"USERS" : 3155,
+						"BUNDLE UPDATE" : 681
 					},
 					{
-						"period" : period[7].toString(),
-						"USERS" : user[7],
-						"BUNDLE UPDATE" : bundle[7]
+						"period" : "2010-9",
+						"USERS" : 3155,
+						"BUNDLE UPDATE" : 681
 					},
 					
 				];

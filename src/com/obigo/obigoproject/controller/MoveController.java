@@ -314,18 +314,17 @@ public class MoveController {
 	@RequestMapping("/downanalytics")
 	public String moveDownAnalytics(Model model) {
 		model.addAttribute("bundleUpdateList", logService.getBundleUpdateCount());
-		model.addAttribute("userCountList", userService.getMonthUserCount2());
+		model.addAttribute("userCountList", logService.getBundleUpdateCount());
 		List list = new ArrayList();
 		Calendar cal = Calendar.getInstance();
 		int year = new Integer(cal.get(Calendar.YEAR));
-		int month = cal.get(Calendar.MONTH) + 1;
-		System.out.println(month);
+		int month = cal.get(Calendar.MONDAY + 1);
 		for (int i = 0; i < 8; i++) {
 			if (month == 0) {
 				year -= 1;
 				month = 12;
 			}
-			list.add("'" + year + "-" + month + "'");
+			list.add(year + "-" + month);
 			month--;
 		}
 		model.addAttribute("period", list);

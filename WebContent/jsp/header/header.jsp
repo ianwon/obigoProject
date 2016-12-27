@@ -239,7 +239,7 @@
 								<a href="/obigoProject/uvanalytics">User Vehicle</a>
 							</li>
 							<li>
-								<a href="/obigoProject/downanalytics">Down Analytics</a>
+								<a href="/obigoProject/analytics">ㅎㅎㅎ</a>
 							</li>
 						</ul>
 					</li>
