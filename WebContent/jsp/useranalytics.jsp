@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,8 +31,10 @@
 		<!--main content start-->
 
 		<section id="main-content">
-
 			<section class="wrapper site-min-height">
+				<form action="">
+					<input type="text" id="searchId" onkeyup="searchUserId()">
+				</form>
 				<div id="morris">
 					<div class="row">
 						<!-- page start-->
@@ -50,6 +53,34 @@
 		</section>
 		<!--main content end-->
 
+
+
+		<table id="myTable">
+
+			<thead>
+				<tr>
+					<th>User ID</th>
+					<th>Password</th>
+					<th>Name</th>
+					<th>Emain</th>
+					<th>Phone</th>
+					<th>Role Name</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th>User ID</th>
+					<th>Password</th>
+					<th>Name</th>
+					<th>Emain</th>
+					<th>Phone</th>
+					<th>Role Name</th>
+					<th>Date</th>
+				</tr>
+			</tfoot>
+		</table>
+
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
@@ -66,7 +97,7 @@
 	<script src="/obigoProject/assets/morris.js-0.4.3/morris.min.js" type="text/javascript"></script>
 	<script src="/obigoProject/assets/morris.js-0.4.3/raphael-min.js" type="text/javascript"></script>
 	<script src="/obigoProject/js/respond.min.js"></script>
-
+	<script type="text/javascript" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
 	<!--right slidebar-->
 	<script src="/obigoProject/js/slidebars.min.js"></script>
 
@@ -77,7 +108,64 @@
 	<!-- 		<script src="/obigoProject/js/morris-script.js"></script> -->
 
 	<script type="text/javascript">
-	var Script = setUp(${userAnalytics});
+	$(document).ready(
+			
+			function() {
+				
+				if($("#searchId").val()==""){
+					setUp(${userAnalytics});
+				}else {
+					alert("false");
+					// User Vehicle에 등록된 차종을 그래프로 출력해주는 AJAX
+					
+				}
+			});
+	
+	
+	function searchUserId(){
+		
+		$('#myTable').DataTable( {
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": {
+	            "url": "/obigoProject/loginuserlist",
+	            "type": "POST"
+	        },
+	        "columns": [
+	            { "data": "userId" },
+	            { "data": "password" },
+	            { "data": "name" },
+	            { "data": "eMain" },
+	            { "data": "phone" },
+	            { "data": "roleName" },
+	            { "data": "date" }
+	        ]
+	    } );
+		
+		/* alert($("#searchId").val());
+		$.ajax({
+			type : "post",
+			url : "/obigoProject/loginuserlist",
+			data: {
+				"userId": $("#searchId").val()
+			},
+			dataType : "json",
+			success : function(data) {
+				
+				var table = $('#myTable').DataTable();
+				table.ajax.reload();
+	
+// 				alert(data.length);
+// 				alert(data[0].userId);			
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		}); */
+		
+	}
+	
+// 	var Script = setUp(${userAnalytics});
 		
 	function setUp(data){
 	    $(function () {
@@ -108,6 +196,8 @@
 	      });
 	    });
 	};
+	
+	
 	</script>
 </body>
 </html>

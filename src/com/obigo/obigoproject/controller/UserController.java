@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,8 +81,7 @@ public class UserController {
 	}
 
 	/**
-	 * 유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저 요청을 DB에서 제거 결과를 해당 유저 에게
-	 * Pushmessage로 발송해야함
+	 * 유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저 요청을 DB에서 제거 결과를 해당 유저 에게 Pushmessage로 발송해야함
 	 * 
 	 * @return 유저요청페이지
 	 */
@@ -177,22 +177,22 @@ public class UserController {
 	public String insertUserVehicle(@RequestParam UserVehicleVO vo) {
 		return null;
 	}
-	
-	////////////// Dashboard에서 User Vehicle에 대한 통계 ///////////////////////////
+
+	////////////// Analytics에서 User Vehicle에 대한 통계 ///////////////////////////
 	/**
-	 * Dashboard에서 User Vehicle에 등록된 Model 종류별로 등록된 차량의 대수의 정보를 전달
+	 * Analytics에서 User Vehicle에 등록된 Model 종류별로 등록된 차량의 대수의 정보를 전달
 	 * 
-	 * @return Dashboard 페이지
+	 * @return Analytics 페이지
 	 */
 	@RequestMapping(value = "/countingbymodel", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String countingByModelName() {
-		List<Map<String, Object>> list= userVehicleService.getCountingByModelName();
-		JSONArray jArray=new JSONArray();
-		JSONObject jObj=new JSONObject();
-		
+		List<Map<String, Object>> list = userVehicleService.getCountingByModelName();
+		JSONArray jArray = new JSONArray();
+		JSONObject jObj = new JSONObject();
+
 		// bootstrap 통계 그래프를 사용하기 위해서 json data 명칭으로 label, data를 사용해야 한다.
-		for(int i=0;i<list.size();i++){
+		for (int i = 0; i < list.size(); i++) {
 			jObj.put("label", list.get(i).get("MODEL_NAME"));
 			jObj.put("data", list.get(i).get("COUNTING"));
 			jArray.add(i, jObj);
@@ -200,6 +200,45 @@ public class UserController {
 		return jArray.toString();
 	}
 
+	////////////// Analytics에서 User에 대한 통계 ///////////////////////////
+	/**
+	 * Analytics > User에서 검색한 ID에 해당하는 User List를 전달
+	 * 
+	 * @return Analytics > User 페이지
+	 */
+	@RequestMapping(value = "/loginuserlist", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String getLoginUserList(@RequestParam String userId) {
+		JSONArray jArray=new JSONArray();
+		
+		List<UsersVO>list=userService.getLoginUserList("%"+userId+"%");
+		if(list!=null){
+			for(UsersVO vo:list){
+				jArray.add(vo);
+			}
+			System.out.println(jArray.toString());
+			return jArray.toString();
+		}else
+			return null;
+		
+	}
+/*	@RequestMapping(value = "/loginuserlist", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String getLoginUserList(@RequestParam String userId) {
+		JSONArray jArray=new JSONArray();
+		
+		List<UsersVO>list=userService.getLoginUserList("%"+userId+"%");
+		if(list!=null){
+			for(UsersVO vo:list){
+				jArray.add(vo);
+			}
+			System.out.println(jArray.toString());
+			return jArray.toString();
+		}else
+			return null;
+		
+	}
+*/
 	/**
 	 * 유저 차량 수정 폼에서 정보 입력후 등록 버튼 클릭시 유저 차량 수정 수행
 	 * 

@@ -98,4 +98,9 @@ public class UserServiceImpl implements UserService {
 	public int getUserCount() {
 		return userDao.getUserCount();
 	}
+	
+	@Override
+	public List<UsersVO> getLoginUserList(String userId){
+		return userDao.getLoginUserList(userId);
+	}
 }

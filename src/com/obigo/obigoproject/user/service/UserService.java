@@ -14,6 +14,9 @@ public interface UserService {
 	public List<UsersVO> getUserList();
 	
 	public List<UsersVO> getAdminList();
+	
+	// ID 검색을 통한 Login 통계를 출력할 때 대상에 해당하는 User ID의 목록을 출력하기 위함
+	public List<UsersVO> getLoginUserList(String userId);
 
 	// 해당 유저의 USERVEHICLE 찾기위함
 	public UsersVO getUser(String userId);
