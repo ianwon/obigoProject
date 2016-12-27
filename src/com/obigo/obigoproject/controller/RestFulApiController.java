@@ -422,7 +422,10 @@ public class RestFulApiController {
 	public String login(@RequestParam String userid, @RequestParam String password) {
 
 		vo.setUrl("/api/login");
-		vo.setBody("{userid : " + userid + "}, {password : " + password + "}");
+		JSONObject jobj = new JSONObject();
+		jobj.put("userid", userid);
+		jobj.put("password", password);
+		vo.setBody(jobj.toString());
 		if (userService.passwordCheck(userid, password) != true) {
 			vo.setReturned("false");
 			logService.insertLog(vo);
