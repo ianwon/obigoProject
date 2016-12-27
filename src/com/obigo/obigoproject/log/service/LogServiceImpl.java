@@ -88,7 +88,7 @@ public class LogServiceImpl implements LogService {
 		Map<String, Object> map = new HashMap();
 		Calendar cal = Calendar.getInstance();
 		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
-		int month = cal.get(Calendar.MONDAY + 1);
+		int month = cal.get(Calendar.MONTH)+1;
 		for (int i = 0; i < 8; i++) {
 			if (month == 0) {
 				map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000 - 1));
