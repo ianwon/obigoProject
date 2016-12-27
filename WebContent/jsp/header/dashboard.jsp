@@ -122,51 +122,51 @@
 				</ul>
 				<div class="bar">
 					<div class="title">JAN</div>
-					<div class="value tooltips" data-original-title="${logCountList[0]}%" data-toggle="tooltip" data-placement="top">${logCountList[0]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[0]}%" data-toggle="tooltip" data-placement="top">${userCountList[0]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">FEB</div>
-					<div class="value tooltips" data-original-title="${logCountList[1]}%" data-toggle="tooltip" data-placement="top">${logCountList[1]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[1]}%" data-toggle="tooltip" data-placement="top">${userCountList[1]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">MAR</div>
-					<div class="value tooltips" data-original-title="${logCountList[2]}%" data-toggle="tooltip" data-placement="top">${logCountList[2]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[2]}%" data-toggle="tooltip" data-placement="top">${userCountList[2]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">APR</div>
-					<div class="value tooltips" data-original-title="${logCountList[3]}%" data-toggle="tooltip" data-placement="top">${logCountList[3]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[3]}%" data-toggle="tooltip" data-placement="top">${userCountList[3]}%</div>
 				</div>
 				<div class="bar">
 					<div class="title">MAY</div>
-					<div class="value tooltips" data-original-title="${logCountList[4]}%" data-toggle="tooltip" data-placement="top">${logCountList[4]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[4]}%" data-toggle="tooltip" data-placement="top">${userCountList[4]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">JUN</div>
-					<div class="value tooltips" data-original-title="${logCountList[5]}%" data-toggle="tooltip" data-placement="top">${logCountList[5]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[5]}%" data-toggle="tooltip" data-placement="top">${userCountList[5]}%</div>
 				</div>
 				<div class="bar">
 					<div class="title">JUL</div>
-					<div class="value tooltips" data-original-title="${logCountList[6]}%" data-toggle="tooltip" data-placement="top">${logCountList[6]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[6]}%" data-toggle="tooltip" data-placement="top">${userCountList[6]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">AUG</div>
-					<div class="value tooltips" data-original-title="${logCountList[7]}%" data-toggle="tooltip" data-placement="top">${logCountList[7]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[7]}%" data-toggle="tooltip" data-placement="top">${userCountList[7]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">SEP</div>
-					<div class="value tooltips" data-original-title="${logCountList[8]}%" data-toggle="tooltip" data-placement="top">${logCountList[8]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[8]}%" data-toggle="tooltip" data-placement="top">${userCountList[8]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">OCT</div>
-					<div class="value tooltips" data-original-title="${logCountList[9]}%" data-toggle="tooltip" data-placement="top">${logCountList[9]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[9]}%" data-toggle="tooltip" data-placement="top">${userCountList[9]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">NOV</div>
-					<div class="value tooltips" data-original-title="${logCountList[10]}%" data-toggle="tooltip" data-placement="top">${logCountList[10]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[10]}%" data-toggle="tooltip" data-placement="top">${userCountList[10]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">DEC</div>
-					<div class="value tooltips" data-original-title="${logCountList[11]}%" data-toggle="tooltip" data-placement="top">${logCountList[11]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[11]}%" data-toggle="tooltip" data-placement="top">${userCountList[11]}%</div>
 				</div>
 			</div>
 			<!-- 월별 Login 통계 End -->

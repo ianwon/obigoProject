@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.obigo.obigoproject.vo.UsersVO;
 
@@ -32,5 +33,7 @@ public interface UserService {
 	public boolean passwordCheck(String userId, String password);
 	
 	public int getUserCount();
+	
+	public List<Integer> getMonthUserCount();
 
 }

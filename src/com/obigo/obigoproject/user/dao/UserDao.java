@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.user.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.obigo.obigoproject.vo.UsersVO;
 
@@ -29,4 +30,6 @@ public interface UserDao {
 	public List<String> getRegistrationByModelCode(String modelCode);
 
 	public int getUserCount();
+	
+	public int getMonthUserCount(Map map);
 }
