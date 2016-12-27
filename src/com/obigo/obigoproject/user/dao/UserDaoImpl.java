@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.user.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,11 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<UsersVO> getLoginUserList(String userId){
 		return sqlsession.selectList("obigoproject.User.selectLoginUserList", userId);
+	}
+
+	@Override
+	public int getMonthUserCount(Map map) {
+		return sqlsession.selectOne("obigoproject.User.selectMonthUserCount", map);
 	}
 
 }

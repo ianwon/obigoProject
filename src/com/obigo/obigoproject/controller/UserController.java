@@ -53,6 +53,7 @@ public class UserController {
 	public String insertUser(UsersVO vo) {
 		vo.setUserId(vo.getUserId().toLowerCase());
 		vo.setRoleName("USER");
+		System.out.println(vo);
 		userService.insertUser(vo);
 		return "redirect:/usermanagement";
 	}
@@ -209,36 +210,30 @@ public class UserController {
 	@RequestMapping(value = "/loginuserlist", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String getLoginUserList(@RequestParam String userId) {
-		JSONArray jArray=new JSONArray();
-		
-		List<UsersVO>list=userService.getLoginUserList("%"+userId+"%");
-		if(list!=null){
-			for(UsersVO vo:list){
+		JSONArray jArray = new JSONArray();
+
+		List<UsersVO> list = userService.getLoginUserList("%" + userId + "%");
+		if (list != null) {
+			for (UsersVO vo : list) {
 				jArray.add(vo);
 			}
 			System.out.println(jArray.toString());
 			return jArray.toString();
-		}else
+		} else
 			return null;
-		
+
 	}
-/*	@RequestMapping(value = "/loginuserlist", method = RequestMethod.POST, produces = "application/json")
-	@ResponseBody
-	public String getLoginUserList(@RequestParam String userId) {
-		JSONArray jArray=new JSONArray();
-		
-		List<UsersVO>list=userService.getLoginUserList("%"+userId+"%");
-		if(list!=null){
-			for(UsersVO vo:list){
-				jArray.add(vo);
-			}
-			System.out.println(jArray.toString());
-			return jArray.toString();
-		}else
-			return null;
-		
-	}
-*/
+
+	/*
+	 * @RequestMapping(value = "/loginuserlist", method = RequestMethod.POST, produces = "application/json")
+	 * 
+	 * @ResponseBody public String getLoginUserList(@RequestParam String userId) { JSONArray jArray=new JSONArray();
+	 * 
+	 * List<UsersVO>list=userService.getLoginUserList("%"+userId+"%"); if(list!=null){ for(UsersVO vo:list){ jArray.add(vo); } System.out.println(jArray.toString()); return
+	 * jArray.toString(); }else return null;
+	 * 
+	 * }
+	 */
 	/**
 	 * 유저 차량 수정 폼에서 정보 입력후 등록 버튼 클릭시 유저 차량 수정 수행
 	 * 

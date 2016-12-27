@@ -1,6 +1,10 @@
 package com.obigo.obigoproject.user.service;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,9 +102,24 @@ public class UserServiceImpl implements UserService {
 	public int getUserCount() {
 		return userDao.getUserCount();
 	}
-	
+
 	@Override
-	public List<UsersVO> getLoginUserList(String userId){
+	public List<UsersVO> getLoginUserList(String userId) {
 		return userDao.getLoginUserList(userId);
+	}
+
+	@Override
+	public List<Integer> getMonthUserCount() {
+		List<Integer> list = new ArrayList<>();
+		Map map = new HashMap();
+		Calendar cal = Calendar.getInstance();
+		map.put("year", cal.get(Calendar.YEAR) - 2000);
+		map.put("month", "%");
+		int total = userDao.getMonthUserCount(map);
+		for (int i = 1; i <= 12; i++) {
+			map.put("month", i);
+			list.add((int) (((float) userDao.getMonthUserCount(map) / total) * 100));
+		}
+		return list;
 	}
 }
