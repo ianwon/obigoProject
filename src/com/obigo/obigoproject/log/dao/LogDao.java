@@ -23,4 +23,5 @@ public interface LogDao {
 	
 	public int getUserMonthLogCount(Map<String,Object> map);
 	
+	public int getBundleUpdateCount(Map<String,Object> map);
 }
