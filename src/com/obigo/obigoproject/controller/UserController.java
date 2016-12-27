@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.obigo.obigoproject.log.service.LogService;
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
@@ -30,6 +31,8 @@ public class UserController {
 	UserVehicleService userVehicleService;
 	@Autowired
 	UserRequestService userRequestService;
+	@Autowired
+	LogService logService;
 
 	/**
 	 * 회원가입 등록폼을 통해 유저정보를 전달받으면 유저를 등록하고 로그인 페이지로 이동
@@ -211,15 +214,39 @@ public class UserController {
 	@ResponseBody
 	public String getLoginUserList(@RequestParam String userId) {
 		JSONArray jArray = new JSONArray();
+		JSONObject jObj = new JSONObject();
 
 		List<UsersVO> list = userService.getLoginUserList("%" + userId + "%");
 		if (list != null) {
 			for (UsersVO vo : list) {
 				jArray.add(vo);
 			}
-			System.out.println(jArray.toString());
-			return jArray.toString();
+			jObj.put("data", jArray);
+			return jObj.toString();
 		} else
+			return null;
+	}
+
+	////////////// Analytics에서 User에 대한 통계 ///////////////////////////
+	/**
+	 * Analytics > User에서 선택된 User ID의 매달 User Login Count를 배열로 전달
+	 * 
+	 * @return Analytics > User 페이지
+	 */
+	@RequestMapping(value = "/countuserlogin", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String countUserLogin(@RequestParam String userId) {
+		JSONArray jArray=new JSONArray();
+		List<Integer> list=null;
+		
+		list=logService.getUserMonthLogCount("%login%","%"+"\"userid\":\""+userId+"\"%");
+		
+		if(list!=null){
+			for(Integer i:list){
+				jArray.add(i);
+			}
+			return jArray.toString();
+		}else
 			return null;
 
 	}
@@ -229,8 +256,8 @@ public class UserController {
 	 * 
 	 * @ResponseBody public String getLoginUserList(@RequestParam String userId) { JSONArray jArray=new JSONArray();
 	 * 
-	 * List<UsersVO>list=userService.getLoginUserList("%"+userId+"%"); if(list!=null){ for(UsersVO vo:list){ jArray.add(vo); } System.out.println(jArray.toString()); return
-	 * jArray.toString(); }else return null;
+	 * List<UsersVO>list=userService.getLoginUserList("%"+userId+"%"); if(list!=null){ for(UsersVO vo:list){ jArray.add(vo); }
+	 * System.out.println(jArray.toString()); return jArray.toString(); }else return null;
 	 * 
 	 * }
 	 */

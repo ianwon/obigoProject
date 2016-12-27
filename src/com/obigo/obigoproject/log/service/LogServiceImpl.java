@@ -67,5 +67,20 @@ public class LogServiceImpl implements LogService {
 		}
 		return list;
 	}
+	
+	public List<Integer> getUserMonthLogCount(String url, String userId){
+		List<Integer> list = new ArrayList<>();
+		Map<String, Object> map = new HashMap();
+		Calendar cal = Calendar.getInstance();
+		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
+		map.put("url", url);
+		map.put("body", userId);
+
+		for (int i = 1; i <= 12; i++) {
+			map.put("month", i);
+			list.add(logDao.getUserMonthLogCount(map));
+		}
+		return list;
+	}
 
 }
