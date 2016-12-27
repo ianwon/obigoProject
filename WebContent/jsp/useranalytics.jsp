@@ -21,11 +21,13 @@
 <!-- Custom styles for this template -->
 <link href="/obigoProject/css/style.css" rel="stylesheet">
 <link href="/obigoProject/css/style-responsive.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet" />
 <!--     <link href="/obigoProject/assets/morris.js-0.4.3/morris.css" rel="stylesheet" /> -->
 </head>
 <body>
 
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+
 
 	<section id="container" class="">
 		<!--main content start-->
@@ -49,37 +51,45 @@
 						<!-- page end-->
 					</div>
 				</div>
+				
+				<table id="myTable" style="width: 1500px;">
+
+					<thead>
+						<tr>
+							<th>User ID</th>
+							<th>Password</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>Role Name</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>User ID</th>
+							<th>Password</th>
+							<th>Name</th>
+							<th>Emain</th>
+							<th>Phone</th>
+							<th>Role Name</th>
+							<th>Date</th>
+						</tr>
+					</tfoot>
+				</table>
+
+				
 			</section>
+
+
 		</section>
 		<!--main content end-->
 
 
 
-		<table id="myTable">
 
-			<thead>
-				<tr>
-					<th>User ID</th>
-					<th>Password</th>
-					<th>Name</th>
-					<th>Emain</th>
-					<th>Phone</th>
-					<th>Role Name</th>
-					<th>Date</th>
-				</tr>
-			</thead>
-			<tfoot>
-				<tr>
-					<th>User ID</th>
-					<th>Password</th>
-					<th>Name</th>
-					<th>Emain</th>
-					<th>Phone</th>
-					<th>Role Name</th>
-					<th>Date</th>
-				</tr>
-			</tfoot>
-		</table>
+
+
 
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
@@ -111,62 +121,78 @@
 	$(document).ready(
 			
 			function() {
-				
+				// User 통계 Page가 처음 loading 되었을 때
 				if($("#searchId").val()==""){
 					setUp(${userAnalytics});
 				}else {
 					alert("false");
-					// User Vehicle에 등록된 차종을 그래프로 출력해주는 AJAX
+					
 					
 				}
 			});
 	
-	
+	// Text에 입력한 문자열을 포함하는 User ID의 List를 테이블로 보여준다.
 	function searchUserId(){
 		
-		$('#myTable').DataTable( {
+		
+		// datatables 라이브러리는 사용하는데 table을 사용하기 위해서 initialize 해주는 작업
+		var table=$('#myTable').DataTable( {
 	        "processing": true,
-	        "serverSide": true,
+	        "bDestroy": true,
 	        "ajax": {
 	            "url": "/obigoProject/loginuserlist",
+	            "data": {
+	                "userId": $("#searchId").val()
+	            },
 	            "type": "POST"
 	        },
 	        "columns": [
 	            { "data": "userId" },
 	            { "data": "password" },
 	            { "data": "name" },
-	            { "data": "eMain" },
+	            { "data": "eMail" },
 	            { "data": "phone" },
 	            { "data": "roleName" },
 	            { "data": "date" }
 	        ]
-	    } );
+	    } ); 
 		
-		/* alert($("#searchId").val());
-		$.ajax({
-			type : "post",
-			url : "/obigoProject/loginuserlist",
-			data: {
-				"userId": $("#searchId").val()
-			},
-			dataType : "json",
-			success : function(data) {
-				
-				var table = $('#myTable').DataTable();
-				table.ajax.reload();
-	
-// 				alert(data.length);
-// 				alert(data[0].userId);			
-			},
-			error : function(e) {
-				console.log(e);
-			}
-		}); */
+		// table의 row를 클릭했을 때 해당된는 row의 User ID에 대한 Login 통계를 보여주는 함수
+		$('#myTable tbody').on( 'click', 'tr', function () {
+	        if ( $(this).hasClass('selected') ) {
+	            $(this).removeClass('selected');
+	        }
+	        else {
+	            table.$('tr.selected').removeClass('selected');
+	            $(this).addClass('selected');
+	            
+	            var userId=$(this).find("td:eq(0)").text(); 
+	            
+	            
+	            $.ajax({
+					type : "post",
+					url : "/obigoProject/countuserlogin",
+					dataType : "json",
+					data:{
+						"userId":userId
+					},
+					success : function(data) {
+			            $("#hero-bar").empty();
+			            setUp(data);
+					},
+					error : function(e) {
+						console.log(e);
+					}
+				});
+	            
+	            
+	            
+	        }
+	    } );
 		
 	}
 	
-// 	var Script = setUp(${userAnalytics});
-		
+	// User Login 통계 그래프를 보여주는 함수
 	function setUp(data){
 	    $(function () {
 	      Morris.Bar({

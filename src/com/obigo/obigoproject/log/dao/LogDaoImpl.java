@@ -44,5 +44,10 @@ public class LogDaoImpl implements LogDao {
 	public int getMonthLogCount(Map<String,Integer> map) {
 		return sqlSession.selectOne("obigoproject.Log.selectMonthLogCount", map);
 	}
+	
+	@Override
+	public int getUserMonthLogCount(Map<String,Object> map){
+		return sqlSession.selectOne("obigoproject.Log.selectUserMonthLogCount", map);
+	}
 
 }
