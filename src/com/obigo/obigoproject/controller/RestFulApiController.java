@@ -459,7 +459,6 @@ public class RestFulApiController {
 	@ResponseBody
 	public String bundleVersioncheck(@RequestParam String bundleVersion) {
 		System.out.println(bundleVersion);
-		System.out.println("어떤게온거니.?");
 		System.out.println(bundleVersionService.getBundleVersion());
 
 		vo.setUrl("/api/bundleversioncheck");
