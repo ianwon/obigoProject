@@ -216,15 +216,17 @@ public class UserController {
 		JSONArray jArray = new JSONArray();
 		JSONObject jObj = new JSONObject();
 
-		List<UsersVO> list = userService.getLoginUserList("%" + userId + "%");
-		if (list != null) {
-			for (UsersVO vo : list) {
-				jArray.add(vo);
+		if (userId != null && !"".equals(userId)) {
+
+			List<UsersVO> list = userService.getLoginUserList("%" + userId + "%");
+			if (list != null) {
+				for (UsersVO vo : list) {
+					jArray.add(vo);
+				}
 			}
-			jObj.put("data", jArray);
-			return jObj.toString();
-		} else
-			return null;
+		}
+		jObj.put("data", jArray);
+		return jObj.toString();
 	}
 
 	////////////// Analytics에서 User에 대한 통계 ///////////////////////////
@@ -236,17 +238,22 @@ public class UserController {
 	@RequestMapping(value = "/countuserlogin", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String countUserLogin(@RequestParam String userId) {
-		JSONArray jArray=new JSONArray();
-		List<Integer> list=null;
+		JSONArray jArray = new JSONArray();
+		List<Integer> list = null;
+
+		if (userId == null || "".equals(userId) || "No data available in table".equals(userId)){
+			list = logService.getMonthLogCount("%login%");
+		}
+		else{
+			list = logService.getUserMonthLogCount("%login%", "%" + "\"userid\":\"" + userId + "\"%");
+		}
 		
-		list=logService.getUserMonthLogCount("%login%","%"+"\"userid\":\""+userId+"\"%");
-		
-		if(list!=null){
-			for(Integer i:list){
+		if (list != null) {
+			for (Integer i : list) {
 				jArray.add(i);
 			}
 			return jArray.toString();
-		}else
+		} else
 			return null;
 
 	}
