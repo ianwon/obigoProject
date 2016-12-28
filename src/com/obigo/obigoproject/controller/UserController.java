@@ -211,7 +211,7 @@ public class UserController {
 	 * 
 	 * @return Analytics > User 페이지
 	 */
-	@RequestMapping(value = "/loginuserlist", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/loginuserlist", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String getLoginUserList(@RequestParam String userId) {
 		JSONArray jArray = new JSONArray();
