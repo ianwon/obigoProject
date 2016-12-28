@@ -141,12 +141,12 @@
 											radius : 1,
 											formatter : function(label,
 													series) {
-												return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">'
+												return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;"><a href="#modal">'
 														+ label
 														+ '<br/>'
 														+ Math
 																.round(series.percent)
-														+ '%</div>';
+														+ '%</a></div>';
 											},
 											background : {
 												opacity : 0.8
@@ -162,6 +162,27 @@
 		});
 
 	}
+	
+// 	function selectVehicle(data){
+// 		$.ajax({
+// 			type : "post",
+// 			url : "/obigoProject/apinamecheck",
+// 			dataType : "json",
+// 			async : false,
+// 			data : {
+// 				"vehicleName" : data
+// 			},
+// 			success : function(data) {
+// 				if (data.flag === false) {
+// 					alert("존재하는 Api Name입니다.");
+// 				} else {
+// 					alert("Api 생성에 성공하였습니다.");
+// 					apiNameCheck = true;
+// 				}
+// 			}
+// 		});
+		
+// 	}
 	
 	</script>
 </body>
