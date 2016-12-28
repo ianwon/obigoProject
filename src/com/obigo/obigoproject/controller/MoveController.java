@@ -319,7 +319,6 @@ public class MoveController {
 		Calendar cal = Calendar.getInstance();
 		int year = new Integer(cal.get(Calendar.YEAR));
 		int month = cal.get(Calendar.MONTH) + 1;
-		System.out.println(month);
 		for (int i = 0; i < 8; i++) {
 			if (month == 0) {
 				year -= 1;
