@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.obigo.obigoproject.vehicle.service.VehicleService;
 import com.obigo.obigoproject.vo.VehicleVO;
@@ -72,20 +72,6 @@ public class VehicleController {
 	}
 
 	/**
-	 * 특정 자동차 정보 가져오기
-	 * 
-	 * @return 특정 차량 정보
-	 */
-	@RequestMapping(value = "/selectvehicle", method = RequestMethod.POST, produces = "application/json")
-	@ResponseBody
-	public String selectVehicle(@RequestParam("modelCode") String modelCode, Model model) {
-		JSONObject jobj = new JSONObject();
-		jobj.put("vehicle", vehicleService.getVehicle(modelCode));
-
-		return jobj.toString();
-	}
-
-	/**
 	 * 자동차 삭제 버튼 클릭시 확인후 차량 데이터 삭제
 	 * 
 	 * @return 자동차 관리 페이지
@@ -103,7 +89,7 @@ public class VehicleController {
 	// 차량 이미지를 보여주기위한 메소드
 	@RequestMapping("/vehicleImage")
 	public void vehicleImage(@RequestParam("modelImage") String modelImage, HttpServletResponse response) {
-		// String path = "/home/ec2-user/obigo/vehicle/";
+//		String path = "/home/ec2-user/obigo/vehicle/";
 		String path = "c:\\obigo\\vehicle\\";
 
 		path += modelImage;
@@ -144,5 +130,6 @@ public class VehicleController {
 		}
 
 	}
+	
 
 }

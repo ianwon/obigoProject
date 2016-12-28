@@ -199,7 +199,6 @@ public class UserController {
 		for (int i = 0; i < list.size(); i++) {
 			jObj.put("label", list.get(i).get("MODEL_NAME"));
 			jObj.put("data", list.get(i).get("COUNTING"));
-			jObj.put("code", list.get(i).get("MODEL_CODE"));
 			jArray.add(i, jObj);
 		}
 		return jArray.toString();
@@ -237,17 +236,17 @@ public class UserController {
 	@RequestMapping(value = "/countuserlogin", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String countUserLogin(@RequestParam String userId) {
-		JSONArray jArray = new JSONArray();
-		List<Integer> list = null;
-
-		list = logService.getUserMonthLogCount("%login%", "%" + "\"userid\":\"" + userId + "\"%");
-
-		if (list != null) {
-			for (Integer i : list) {
+		JSONArray jArray=new JSONArray();
+		List<Integer> list=null;
+		
+		list=logService.getUserMonthLogCount("%login%","%"+"\"userid\":\""+userId+"\"%");
+		
+		if(list!=null){
+			for(Integer i:list){
 				jArray.add(i);
 			}
 			return jArray.toString();
-		} else
+		}else
 			return null;
 
 	}
@@ -257,8 +256,8 @@ public class UserController {
 	 * 
 	 * @ResponseBody public String getLoginUserList(@RequestParam String userId) { JSONArray jArray=new JSONArray();
 	 * 
-	 * List<UsersVO>list=userService.getLoginUserList("%"+userId+"%"); if(list!=null){ for(UsersVO vo:list){ jArray.add(vo); } System.out.println(jArray.toString()); return
-	 * jArray.toString(); }else return null;
+	 * List<UsersVO>list=userService.getLoginUserList("%"+userId+"%"); if(list!=null){ for(UsersVO vo:list){ jArray.add(vo); }
+	 * System.out.println(jArray.toString()); return jArray.toString(); }else return null;
 	 * 
 	 * }
 	 */
