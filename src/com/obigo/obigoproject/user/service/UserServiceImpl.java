@@ -80,20 +80,26 @@ public class UserServiceImpl implements UserService {
 	// id 중복체크 //중복이면 false 가능하면 true
 	// 로그인 id체크
 	@Override
-	public boolean idCheck(String userId) {
-		if (null == userDao.getUser(userId))
+	public boolean idCheck(String userId, String roleName) {
+		UsersVO userVO=userDao.getUser(userId);
+		
+		
+		if (null == userVO || !roleName.equals(userVO.getRoleName()))
 			return true;
 		else
 			return false;
 	}
 
 	@Override
-	public boolean passwordCheck(String userId, String password) {
-		if (!idCheck(userId)) {
-			if (password.equals(userDao.getUser(userId).getPassword()))
+	public boolean passwordCheck(String userId, String password, String roleName) {
+		if (!idCheck(userId, roleName)) {
+			UsersVO userVO=userDao.getUser(userId);
+
+			if (password.equals(userVO.getPassword()) && roleName.equals(userVO.getRoleName()))
 				return true; // 둘다맞음
 			else
 				return false; // 패스워드가 틀림
+			
 		} else
 			return false; // 아이디가 틀림
 	}

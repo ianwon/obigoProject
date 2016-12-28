@@ -75,7 +75,7 @@
 	</select>
 
 	<select id="selectLoginUserList" resultMap="UsersResultMap">
-	<![CDATA[ select * from users where id like #{userId} ]]>
+	<![CDATA[ select * from users where id like #{userId} and role_name='USER']]>
 	</select>
 	
 	<select id="selectMonthUserCount" parameterType="hashmap" resultType="java.lang.Integer">
