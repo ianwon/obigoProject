@@ -217,15 +217,20 @@ public class UserController {
 		JSONArray jArray = new JSONArray();
 		JSONObject jObj = new JSONObject();
 
-		List<UsersVO> list = userService.getLoginUserList("%" + userId + "%");
-		if (list != null) {
-			for (UsersVO vo : list) {
-				jArray.add(vo);
+		// userId가 null 또는 ""일 경우, 실시간 User  ID를 검색해서 보여주는 테이블에 
+		// 아무 User List도 보여주지 않기 위함
+		if (userId != null && !"".equals(userId)) {
+
+			List<UsersVO> list = userService.getLoginUserList("%" + userId + "%");
+			if (list != null) {
+				for (UsersVO vo : list) {
+					jArray.add(vo);
+				}
 			}
-			jObj.put("data", jArray);
-			return jObj.toString();
-		} else
-			return null;
+		}
+		jObj.put("data", jArray);
+		return jObj.toString();
+		
 	}
 
 	////////////// Analytics에서 User에 대한 통계 ///////////////////////////
@@ -240,7 +245,15 @@ public class UserController {
 		JSONArray jArray = new JSONArray();
 		List<Integer> list = null;
 
-		list = logService.getUserMonthLogCount("%login%", "%" + "\"userid\":\"" + userId + "\"%");
+		// User Login 통계 그래프 출력할 때, 검색 Input text에 아무것도 입력하지 않았을 경우에 대한 처리
+		if (userId == null || "".equals(userId) || "No data available in table".equals(userId)) {
+			// 전체 Login 횟수에 대한 통계 값을 가져오는 메서드
+			list = logService.getMonthLogCount("%login%");
+		} else {
+			// 특정 User ID에 대한 매달 Login 횟수에 대한 통계 값을 가져오는 메서드
+			list = logService.getUserMonthLogCount("%login%", "%" + "\"userid\":\"" + userId + "\"%");
+		}
+		// list = logService.getUserMonthLogCount("%login%", "%" + "\"userid\":\"" + userId + "\"%");
 
 		if (list != null) {
 			for (Integer i : list) {
@@ -251,7 +264,6 @@ public class UserController {
 			return null;
 
 	}
-
 
 	/**
 	 * 유저 차량 수정 폼에서 정보 입력후 등록 버튼 클릭시 유저 차량 수정 수행
