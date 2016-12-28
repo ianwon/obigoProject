@@ -199,6 +199,7 @@ public class UserController {
 		for (int i = 0; i < list.size(); i++) {
 			jObj.put("label", list.get(i).get("MODEL_NAME"));
 			jObj.put("data", list.get(i).get("COUNTING"));
+			jObj.put("code", list.get(i).get("MODEL_CODE"));
 			jArray.add(i, jObj);
 		}
 		return jArray.toString();
@@ -216,17 +217,15 @@ public class UserController {
 		JSONArray jArray = new JSONArray();
 		JSONObject jObj = new JSONObject();
 
-		if (userId != null && !"".equals(userId)) {
-
-			List<UsersVO> list = userService.getLoginUserList("%" + userId + "%");
-			if (list != null) {
-				for (UsersVO vo : list) {
-					jArray.add(vo);
-				}
+		List<UsersVO> list = userService.getLoginUserList("%" + userId + "%");
+		if (list != null) {
+			for (UsersVO vo : list) {
+				jArray.add(vo);
 			}
-		}
-		jObj.put("data", jArray);
-		return jObj.toString();
+			jObj.put("data", jArray);
+			return jObj.toString();
+		} else
+			return null;
 	}
 
 	////////////// Analytics에서 User에 대한 통계 ///////////////////////////
@@ -241,13 +240,8 @@ public class UserController {
 		JSONArray jArray = new JSONArray();
 		List<Integer> list = null;
 
-		if (userId == null || "".equals(userId) || "No data available in table".equals(userId)){
-			list = logService.getMonthLogCount("%login%");
-		}
-		else{
-			list = logService.getUserMonthLogCount("%login%", "%" + "\"userid\":\"" + userId + "\"%");
-		}
-		
+		list = logService.getUserMonthLogCount("%login%", "%" + "\"userid\":\"" + userId + "\"%");
+
 		if (list != null) {
 			for (Integer i : list) {
 				jArray.add(i);
@@ -258,16 +252,7 @@ public class UserController {
 
 	}
 
-	/*
-	 * @RequestMapping(value = "/loginuserlist", method = RequestMethod.POST, produces = "application/json")
-	 * 
-	 * @ResponseBody public String getLoginUserList(@RequestParam String userId) { JSONArray jArray=new JSONArray();
-	 * 
-	 * List<UsersVO>list=userService.getLoginUserList("%"+userId+"%"); if(list!=null){ for(UsersVO vo:list){ jArray.add(vo); }
-	 * System.out.println(jArray.toString()); return jArray.toString(); }else return null;
-	 * 
-	 * }
-	 */
+
 	/**
 	 * 유저 차량 수정 폼에서 정보 입력후 등록 버튼 클릭시 유저 차량 수정 수행
 	 * 

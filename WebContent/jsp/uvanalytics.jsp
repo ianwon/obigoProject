@@ -30,8 +30,44 @@
 		<!--main content start-->
 
 		<section id="main-content">
+
 			<section class="wrapper site-min-height">
 
+				<!-- modal start -->
+				<div class="modal fade " id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title">Update Vehicle</h4>
+							</div>
+							<div class="modal-body">
+
+								<form id="form-editvehicle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/updatevehicle" method="POST">
+									<span class="label label-primary">MODEL NAME</span>
+									<input type="text" id="ModelName" name="modelName" class="form-control" placeholder="Model Name" readonly="readonly">
+									<span class="label label-primary">MODEL CODE</span>
+									<input type="text" id="ModelCode" name="modelCode" class="form-control" placeholder="Model Code" readonly="readonly">
+									<span class="label label-primary">MODEL IMAGE</span>
+									<input type="file" id="ModelImage" name="model_Image" class="form-control" placeholder="Model Image" readonly="readonly">
+									<span class="label label-primary">DETAIL IMAGE</span>
+									<input type="file" id="DetailImage" name="detail_Image" class="form-control" placeholder="Detail Image" readonly="readonly">
+									<span class="label label-primary">ENGINE</span>
+									<input type="text" id="Engine" name="engine" class="form-control" placeholder="Engine" required="required" readonly="readonly">
+									<span class="label label-primary">MODEL YEAR</span>
+									<input type="number" id="ModelYear" name="modelYear" class="form-control" min="1900" max="2099" step="1" value="2016" readonly="readonly">
+									<span class="label label-primary">MILEAGE</span>
+									<input type="text" id="Mileage" name="mileage" class="form-control" placeholder="mileage" readonly="readonly" readonly="readonly">
+								</form>
+
+							</div>
+							<div class="modal-footer">
+								<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- modal end -->
 				<!-- User Vehicle에 등록된 Model 비율 통계 Start -->
 				<div class="flot-chart">
 					<div class="row">
@@ -84,22 +120,22 @@
 	<!-- 		<script src="/obigoProject/js/morris-script.js"></script> -->
 
 	<script type="text/javascript">
-	// User Vehicle 차종 별 통계 Method를 호출할 때, 자바스크립트 Error를 없애기 위해 필요한 선언
-	jQuery.browser = {};
-	(function() {
-		jQuery.browser.msie = false;
-		jQuery.browser.version = 0;
-		if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
-			jQuery.browser.msie = true;
-			jQuery.browser.version = RegExp.$1;
-		}
-	})();
+		// User Vehicle 차종 별 통계 Method를 호출할 때, 자바스크립트 Error를 없애기 위해 필요한 선언
+		jQuery.browser = {};
+		(function() {
+			jQuery.browser.msie = false;
+			jQuery.browser.version = 0;
+			if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+				jQuery.browser.msie = true;
+				jQuery.browser.version = RegExp.$1;
+			}
+		})();
 	
 	
-	$(document).ready(
-
+		$(document).ready(
+	
 			function() {
-				
+	
 				// User Vehicle에 등록된 차종을 그래프로 출력해주는 AJAX
 				$.ajax({
 					type : "post",
@@ -115,75 +151,69 @@
 				});
 			});
 	
-	// 차종별 비율을 그래프로 출력해주는 함수
-	function makePie2Chart(jsonData) {
-
-		var plot;
-
-		$(function() {
-			
-			// JSON Data
-			var data = jsonData;
-			
-			// JSON Data Array의 length
-			var series=jsonData.length;
-
-			// GRAPH 2
-			$.plot($("#graph2"),
-							data,
-							{
-								series : {
-									pie : {
-										show : true,
-										radius : 1,
-										label : {
-											show : true,
-											radius : 1,
-											formatter : function(label,
-													series) {
-												return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;"><a href="#modal">'
-														+ label
-														+ '<br/>'
-														+ Math
-																.round(series.percent)
-														+ '%</a></div>';
-											},
-											background : {
-												opacity : 0.8
-											}
-										}
+		// 차종별 비율을 그래프로 출력해주는 함수
+		function makePie2Chart(jsonData) {
+			var plot;
+	
+			$(function() {
+	
+				// JSON Data
+				var data = jsonData;
+				var code = jsonData[0].code;
+				alert(code);
+				// JSON Data Array의 length
+				var series = jsonData.length;
+	
+				// GRAPH 2
+				$.plot($("#graph2"),
+					data,
+					{
+						series : {
+							pie : {
+								show : true,
+								radius : 1,
+								label : {
+									show : true,
+									radius : 1,
+									formatter : function(label,
+										series) {
+										return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;"><a href="javascript:openModal('+"'"+ code +"'"+')">'											+ label
+											+ '<br/>'
+											+ Math
+												.round(series.percent)
+											+ '%</a></div>';
+									},
+									background : {
+										opacity : 0.8
 									}
-								},
-								legend : {
-									show : false
 								}
-							});
-
-		});
-
-	}
+							}
+						},
+						legend : {
+							show : false
+						}
+					});
 	
-// 	function selectVehicle(data){
-// 		$.ajax({
-// 			type : "post",
-// 			url : "/obigoProject/apinamecheck",
-// 			dataType : "json",
-// 			async : false,
-// 			data : {
-// 				"vehicleName" : data
-// 			},
-// 			success : function(data) {
-// 				if (data.flag === false) {
-// 					alert("존재하는 Api Name입니다.");
-// 				} else {
-// 					alert("Api 생성에 성공하였습니다.");
-// 					apiNameCheck = true;
-// 				}
-// 			}
-// 		});
-		
-// 	}
+			});
 	
+		}
+	
+		function openModal(modelCode){
+			
+			$.ajax({
+				type : "post",
+				url : "/obigoProject/selectvehicle",
+				dataType : "json",
+				data : {
+					"modelCode" : modelCode
+				},
+				success : function(data) {
+					$("#ModelName").val(data.vehicle);
+					$("#ModelCode").val("ggg");
+					$("#modal").modal();
+				}
+			});
+		}
 	</script>
 </body>
 </html>
