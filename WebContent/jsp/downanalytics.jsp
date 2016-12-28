@@ -35,7 +35,7 @@
 						<!-- page start-->
 						<div class="col-lg-6" style="width: 1500px">
 							<section class="panel">
-								<header class="panel-heading"> Jaguar 'E' Type vehicles in the UK </header>
+								<header class="panel-heading">사용자 인원통계와 번들 업데이트 횟수</header>
 								<div class="panel-body">
 									<div id="hero-graph" class="graph"></div>
 								</div>
