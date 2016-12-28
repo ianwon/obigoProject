@@ -302,7 +302,7 @@ public class MoveController {
 	@RequestMapping("/uvanalytics")
 	public String moveUserVehicleAnalytics(Model model) {
 		model.addAttribute("userVehicleAnalytics", logService.getMonthLogCount("%login"));
-		return "/jsp/uvanalytics";
+		return "/jsp/uvanalytics2";
 	}
 
 	/////////////////// 잠시 생각/////////////////////////////////

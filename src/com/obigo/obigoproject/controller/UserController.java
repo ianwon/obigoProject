@@ -197,9 +197,9 @@ public class UserController {
 
 		// bootstrap 통계 그래프를 사용하기 위해서 json data 명칭으로 label, data를 사용해야 한다.
 		for (int i = 0; i < list.size(); i++) {
-			jObj.put("label", list.get(i).get("MODEL_NAME"));
-			jObj.put("data", list.get(i).get("COUNTING"));
-			jObj.put("code", list.get(i).get("MODEL_CODE"));
+			jObj.put("name", list.get(i).get("MODEL_NAME"));
+			jObj.put("y", list.get(i).get("COUNTING"));
+//			jObj.put("code", list.get(i).get("MODEL_CODE"));
 			jArray.add(i, jObj);
 		}
 		return jArray.toString();
