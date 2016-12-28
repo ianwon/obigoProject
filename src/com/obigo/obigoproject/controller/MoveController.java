@@ -302,7 +302,7 @@ public class MoveController {
 	@RequestMapping("/uvanalytics")
 	public String moveUserVehicleAnalytics(Model model) {
 		model.addAttribute("userVehicleAnalytics", logService.getMonthLogCount("%login"));
-		return "/jsp/uvanalytics2";
+		return "/jsp/uvanalytics";
 	}
 
 	/////////////////// 잠시 생각/////////////////////////////////
@@ -315,7 +315,7 @@ public class MoveController {
 	public String moveDownAnalytics(Model model) {
 		model.addAttribute("bundleUpdateList", logService.getBundleUpdateCount());
 		model.addAttribute("userCountList", userService.getMonthUserCount2());
-		List list = new ArrayList();
+		List<String> list = new ArrayList<>();
 		Calendar cal = Calendar.getInstance();
 		int year = new Integer(cal.get(Calendar.YEAR));
 		int month = cal.get(Calendar.MONTH) + 1;

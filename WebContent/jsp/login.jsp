@@ -32,7 +32,7 @@
 			<h2 class="form-signin-heading">sign in now</h2>
 			<div class="login-wrap">
 				<input type="text" class="form-control" placeholder="User ID" autofocus name="userId" id="userId">
-				<input type="password" class="form-control" placeholder="Password" name="password">
+				<input type="password" class="form-control" placeholder="Password" name="password" id="password">
 				<label class="checkbox"> <input type="checkbox" value="remember-me"> Remember me
 				</label>
 				<input class="btn btn-lg btn-login btn-block" type="submit" value="Sign in">
@@ -79,19 +79,23 @@
 		function passwordCheck() {
 			$.ajax({
 				type : "post",
-				url : "/obigoProject/password",
+				url : "/obigoProject/passwordcheck",
 				dataType : "json",
 				data : {
 					"userId" : $("#userId").val(),
 					"password" : $("#password").val()
 				},
 				success : function(data) {
-					if (data.flag == false) {
+					if (data.flag == true) {
 						return true;
 					} else {
-						alert("비밀번호가 틀렸습니다.");
+						alert("아이디 또는 비밀번호가 틀렸습니다.");
 						return false;
 					}
+				},
+				error : function(e) {
+					alert("에러");
+					console.log(e);
 				}
 			});
 		}
