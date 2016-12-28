@@ -63,6 +63,7 @@
 						<form action="">
 							<label>Search User ID:&nbsp;&nbsp; </label>
 							<input type="text" id="searchId" style="width: 150px;" onkeyup="searchUserId()">
+							<input type="text" style="display: none;" />
 						</form>
 					</header>
 					<div class="panel-body">
