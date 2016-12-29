@@ -56,7 +56,7 @@ public class LogServiceImpl implements LogService {
 	@Override
 	public List<Integer> getMonthLogCount(String url) {
 		List<Integer> list = new ArrayList<>();
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<>();
 		Calendar cal = Calendar.getInstance();
 		map.put("year", cal.get(Calendar.YEAR) - 2000);
 		map.put("url", url);
@@ -70,7 +70,7 @@ public class LogServiceImpl implements LogService {
 
 	public List<Integer> getUserMonthLogCount(String url, String userId) {
 		List<Integer> list = new ArrayList<>();
-		Map<String, Object> map = new HashMap();
+		Map<String, Object> map = new HashMap<>();
 		Calendar cal = Calendar.getInstance();
 		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
 		map.put("url", url);
@@ -85,7 +85,7 @@ public class LogServiceImpl implements LogService {
 
 	public List<Integer> getBundleUpdateCount() {
 		List<Integer> list = new ArrayList<>();
-		Map<String, Object> map = new HashMap();
+		Map<String, Object> map = new HashMap<>();
 		Calendar cal = Calendar.getInstance();
 		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
 		int month = cal.get(Calendar.MONTH)+1;

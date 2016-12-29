@@ -426,7 +426,7 @@ public class RestFulApiController {
 		jobj.put("userid", userid);
 		jobj.put("password", password);
 		vo.setBody(jobj.toString());
-		if (userService.passwordCheck(userid, password) != true) {
+		if (userService.passwordCheck(userid, password,"USER") != true) {
 			vo.setReturned("false");
 			logService.insertLog(vo);
 			return "false";

@@ -121,7 +121,7 @@ public class UserController {
 	public String idCheck(@RequestParam("userId") String userId) {
 		userId = userId.toLowerCase();
 		JSONObject jobj = new JSONObject();
-		jobj.put("flag", userService.idCheck(userId));
+		jobj.put("flag", userService.idCheck(userId, "ADMIN"));
 		return jobj.toString();
 	}
 
@@ -135,7 +135,8 @@ public class UserController {
 	public String passwordCheck(@RequestParam("userId") String userId, @RequestParam("password") String password) {
 		JSONObject jobj = new JSONObject();
 		userId = userId.toLowerCase();
-		if (userService.getUser(userId).getPassword().equals(password)) {
+
+		if (userService.passwordCheck(userId, password, "ADMIN")) {
 			jobj.put("flag", true);
 		} else {
 			jobj.put("flag", false);
@@ -152,7 +153,7 @@ public class UserController {
 	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
 	public String login(@RequestParam String userId, @RequestParam String password, HttpSession session) {
 		userId = userId.toLowerCase();
-		if (userService.passwordCheck(userId, password)) {
+		if (userService.passwordCheck(userId, password, "ADMIN")) {
 			session.setAttribute("LoginOK", userId);
 			return "redirect:/dashboard";
 		} else {
@@ -211,7 +212,7 @@ public class UserController {
 	 * 
 	 * @return Analytics > User 페이지
 	 */
-	@RequestMapping(value = "/loginuserlist", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/loginuserlist", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String getLoginUserList(@RequestParam String userId) {
 		JSONArray jArray = new JSONArray();
@@ -259,10 +260,8 @@ public class UserController {
 			for (Integer i : list) {
 				jArray.add(i);
 			}
-			return jArray.toString();
-		} else
-			return null;
-
+		}
+		return jArray.toString();
 	}
 
 	/**

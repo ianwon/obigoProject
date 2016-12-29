@@ -28,9 +28,9 @@ public interface UserService {
 	// VEHICLE_NAME에 따른 PUSH메시지를 전송하기 위해 REGISTRATION_ID를 추출
 	public List<String> getRegistrationByModelCode(String modelCode);
 
-	public boolean idCheck(String userId);
+	public boolean idCheck(String userId, String roleName);
 
-	public boolean passwordCheck(String userId, String password);
+	public boolean passwordCheck(String userId, String password, String roleName);
 	
 	public int getUserCount();
 	
