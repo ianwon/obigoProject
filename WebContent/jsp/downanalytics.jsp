@@ -72,7 +72,7 @@
 	<script src="/obigoProject/js/common-scripts.js"></script>
 
 	<!-- script for this page only-->
-<!-- 		<script src="/obigoProject/js/morris-script.js"></script> -->
+	<!-- 		<script src="/obigoProject/js/morris-script.js"></script> -->
 
 	<script>
 		var Script = setUp(${bundleUpdateList},${userCountList},${period})	
