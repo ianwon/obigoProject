@@ -21,8 +21,8 @@
 <link href="/obigoProject/css/style.css" rel="stylesheet">
 <link href="/obigoProject/css/style-responsive.css" rel="stylesheet" />
 
-
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 </head>
 <body>
@@ -32,7 +32,7 @@
 	<section id="container" class="">
 		<section id="main-content">
 			<section class="wrapper site-min-height">
-				<div id="container-graph" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+				<div id="container-graph" style="height: 400px;"></div>
 			</section>
 		</section>
 		<!--footer start-->
@@ -67,53 +67,42 @@
 	<script type="text/javascript">
 		function makeChart(data1) {
 
-			Highcharts
-					.chart(
-							'container-graph',
-							{
-								chart : {
-									plotBackgroundColor : null,
-									plotBorderWidth : null,
-									plotShadow : false,
-									type : 'pie'
-								},
-								title : {
-									text : 'Registered Car Model Ratio'
-								},
-								tooltip : {
-									pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
-								},
-								plotOptions : {
-									pie : {
-										allowPointSelect : true,
-										cursor : 'pointer',
-										dataLabels : {
-											enabled : true,
-											format : '<b>{point.name}</b>: {point.percentage:.1f} %',
-											style : {
-												color : (Highcharts.theme && Highcharts.theme.contrastTextColor)
-														|| 'black'
-											}
-										}
-									}
-								},
-								series : [ {
-									name : 'Model',
-									colorByPoint : true,
-									data : data1
-								} ]
-							});
+			$(function () {
+			    Highcharts.chart('container-graph', {
+			        chart: {
+			            type: 'pie',
+			            options3d: {
+			                enabled: true,
+			                alpha: 45
+			            }
+			        },
+			        title: {
+			            text: 'Push message Analytics'
+			        },
+			        subtitle: {
+			            text: 'Counting of Push message'
+			        },
+			        plotOptions: {
+			            pie: {
+			                innerSize: 100,
+			                depth: 45
+			            }
+			        },
+			        series: [{
+			            name: 'Send message counting',
+			            data: data1
+			        }]
+			    });
+			});
 
 		}
 		$(function() {
 			// User Vehicle에 등록된 차종을 그래프로 출력해주는 AJAX
 			$.ajax({
 				type : "post",
-				url : "/obigoProject/countingbymodel",
+				url : "/obigoProject/messageanalytics",
 				dataType : "json",
 				success : function(data) {
-					// 				alert(data[0].label);
-					// 그래프로 출력해주기 위해서 Json data를 함수의 인자로 보내준다.
 					makeChart(data);
 				},
 				error : function(e) {
