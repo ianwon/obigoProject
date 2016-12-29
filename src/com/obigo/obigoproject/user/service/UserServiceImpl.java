@@ -1,6 +1,10 @@
 package com.obigo.obigoproject.user.service;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,20 +80,26 @@ public class UserServiceImpl implements UserService {
 	// id 중복체크 //중복이면 false 가능하면 true
 	// 로그인 id체크
 	@Override
-	public boolean idCheck(String userId) {
-		if (null == userDao.getUser(userId))
+	public boolean idCheck(String userId, String roleName) {
+		UsersVO userVO=userDao.getUser(userId);
+		
+		
+		if (null == userVO || !roleName.equals(userVO.getRoleName()))
 			return true;
 		else
 			return false;
 	}
 
 	@Override
-	public boolean passwordCheck(String userId, String password) {
-		if (!idCheck(userId)) {
-			if (password.equals(userDao.getUser(userId).getPassword()))
+	public boolean passwordCheck(String userId, String password, String roleName) {
+		if (!idCheck(userId, roleName)) {
+			UsersVO userVO=userDao.getUser(userId);
+
+			if (password.equals(userVO.getPassword()) && roleName.equals(userVO.getRoleName()))
 				return true; // 둘다맞음
 			else
 				return false; // 패스워드가 틀림
+			
 		} else
 			return false; // 아이디가 틀림
 	}
@@ -97,5 +107,44 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int getUserCount() {
 		return userDao.getUserCount();
+	}
+
+	@Override
+	public List<UsersVO> getLoginUserList(String userId) {
+		return userDao.getLoginUserList(userId);
+	}
+
+	@Override
+	public List<Integer> getMonthUserCount() {
+		List<Integer> list = new ArrayList<>();
+		Map map = new HashMap();
+		Calendar cal = Calendar.getInstance();
+		map.put("year", cal.get(Calendar.YEAR) - 2000);
+		map.put("month", "%");
+		int total = userDao.getMonthUserCount(map);
+		for (int i = 1; i <= 12; i++) {
+			map.put("month", i);
+			list.add((int) (((float) userDao.getMonthUserCount(map) / total) * 100));
+		}
+		return list;
+	}
+
+	@Override
+	public List<Integer> getMonthUserCount2() { // 번들 업데이트 수랑 사용자수 최근 8개월치 비교하기 위해 ... 일단 만듬 이름변경 하고 해야함
+		List<Integer> list = new ArrayList<>();
+		Map<String, Object> map = new HashMap();
+		Calendar cal = Calendar.getInstance();
+		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
+		int month = cal.get(Calendar.MONTH)+1;
+		for (int i = 0; i < 8; i++) {
+			if (month == 0) {
+				map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000 - 1));
+				month = 12;
+			}
+			map.put("month", month);
+			list.add(userDao.getMonthUserCount(map));
+			month--;
+		}
+		return list;
 	}
 }

@@ -43,16 +43,16 @@
 							<input type="hidden" id="hidden-log">
 
 							<div class="space15"></div>
-							
+
 							<!--  Log Table start -->
 							<div class="table-responsive">
-								<table class="table table-striped table-hover table-bordered" id="editable-sample">
+								<table style="table-layout: fixed; word-break: break-all;" class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
 											<th>Url</th>
 											<th>Body</th>
 											<th>Date Time</th>
-											<th>Return</th>
+											<th style="width: 800px;">Return</th>
 										</tr>
 									</thead>
 									<tbody>

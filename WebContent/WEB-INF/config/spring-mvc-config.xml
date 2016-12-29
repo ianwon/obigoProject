@@ -50,7 +50,7 @@
 			<mvc:exclude-mapping path="/login" />
 			<mvc:exclude-mapping path="/logincheck" />
 			<mvc:exclude-mapping path="/idcheck" />
-			<mvc:exclude-mapping path="/password" />
+			<mvc:exclude-mapping path="/passwordcheck" />
 			<mvc:exclude-mapping path="/registration" />
 			<mvc:exclude-mapping path="/signup" />
 			<mvc:exclude-mapping path="/css/**" />

@@ -18,5 +18,12 @@ public interface LogService {
 	// 특정 URL API 가져오는 메소드(카테고리)
 	public List<LogVO> getLogListByUrl(String url);
 
-	public List<Integer> getMonthLogCount();
+	//전체 로그의 특정 url값에 접근한 로그의 횟수 추출
+	public List<Integer> getMonthLogCount(String url);
+
+	//특정 유저 로그의 특정 url값에 접근한 로그의 횟수 추출
+	public List<Integer> getUserMonthLogCount(String url, String userId);
+
+	//번들 업데이트 로그의 횟수 추출
+	public List<Integer> getBundleUpdateCount();
 }

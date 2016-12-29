@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.uservehicle.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.UserVehicleVO;
@@ -23,5 +24,7 @@ public interface UserVehicleService {
 	public List<String>	getUserId(PushMessageVO vo);
 	
 	public int getUserVehicleCount();
+	
+	public List<Map<String, Object>> getCountingByModelName();
 	
 }

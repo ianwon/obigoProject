@@ -71,7 +71,15 @@
 	</select>
 	
 	<select id="selectUserCount" 	resultType="java.lang.Integer">
-		select count(*) from Users where role_name='USER'
+	<![CDATA[ select count(*) from Users where role_name='USER' ]]>
 	</select>
 
+	<select id="selectLoginUserList" resultMap="UsersResultMap">
+	<![CDATA[ select * from users where id like #{userId} and role_name='USER']]>
+	</select>
+	
+	<select id="selectMonthUserCount" parameterType="hashmap" resultType="java.lang.Integer">
+	<![CDATA[ select count(*) from users where cdate like #{year}||'/'||#{month}||'/%' and role_name='USER' ]]>
+	</select>
+	
 </mapper>

@@ -59,9 +59,10 @@
 		SELECT LOCATION FROM
 		USER_VEHICLE
 	</select>
-	
+
 	<select id="selectUserVehicleCount" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM USER_VEHICLE
+		SELECT COUNT(*)
+		FROM USER_VEHICLE
 	</select>
 
 	<select id="selectUserId" parameterType="PushMessage"
@@ -79,4 +80,12 @@
 			</otherwise>
 		</choose>
 	</select>
+
+	<select id="selectCountingByModelName" resultType="hashmap">
+		select v.model_name, t.counting, v.model_code from vehicle v, (select model_code, count(*)
+		counting from user_vehicle group by model_code) t where
+		t.model_code=v.model_code
+	</select>
+
+
 </mapper>

@@ -17,6 +17,8 @@
 
 			<!--state overview start-->
 			<div class="row state-overview">
+
+				<!-- 등록된 User의 통계 Start -->
 				<div class="col-lg-3 col-sm-6">
 					<section class="panel">
 						<div class="symbol terques">
@@ -28,6 +30,9 @@
 						</div>
 					</section>
 				</div>
+				<!-- 등록된 User의 통계 End -->
+
+				<!-- 등록된 User Vehicle의 통계 Start -->
 				<div class="col-lg-3 col-sm-6">
 					<section class="panel">
 						<div class="symbol red">
@@ -39,19 +44,23 @@
 						</div>
 					</section>
 				</div>
+				<!-- 등록된 User Vehicle의 통계 End -->
+
+
+				<!-- 날씨 api Start -->
 				<div class="col-lg-4">
-					<!--weather statement start-->
 					<section class="panel">
 						<div class="weather-bg">
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-xs-6">
-										<img id="weather-icon" style="width: 100px; height: 80px;" src="http://openweathermap.org/img/w/10d.png"><br>
+										<img id="weather-icon" style="width: 100px; height: 80px;" src="http://openweathermap.org/img/w/01d.png"><br>
 										<span id="weather-city">Seoul</span>
 									</div>
 									<div class="col-xs-6">
 										<div class="degree">
-											<span id="weather-temp">24</span>°
+											<span id="weather-temp">24</span>
+											°
 										</div>
 									</div>
 								</div>
@@ -67,7 +76,7 @@
 								</li>
 								<li>
 									<h5>description</h5>
-									<span id="weather-description"></span>
+									<span id="weather-description">Sky is Clear</span>
 								</li>
 								<li>
 									<h5>winds</h5>
@@ -78,15 +87,13 @@
 						</footer>
 
 					</section>
-					<!--weather statement end-->
 				</div>
+				<!-- 날씨 api End -->
 
-				<img src="http://www.kipfa.or.kr/Common/ImageView.aspx?folder=/Information/&fileName=i_201407150330203630861542.jpg">
 			</div>
 			<!--state overview end-->
 
-
-			<!--custom chart start-->
+			<!-- 월별 Login 통계 Start -->
 			<div class="border-head">
 				<h3><%=Calendar.getInstance().get(Calendar.YEAR)%>
 					Graph
@@ -115,54 +122,54 @@
 				</ul>
 				<div class="bar">
 					<div class="title">JAN</div>
-					<div class="value tooltips" data-original-title="${logCountList[0]}%" data-toggle="tooltip" data-placement="top">${logCountList[0]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[0]}%" data-toggle="tooltip" data-placement="top">${userCountList[0]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">FEB</div>
-					<div class="value tooltips" data-original-title="${logCountList[1]}%" data-toggle="tooltip" data-placement="top">${logCountList[1]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[1]}%" data-toggle="tooltip" data-placement="top">${userCountList[1]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">MAR</div>
-					<div class="value tooltips" data-original-title="${logCountList[2]}%" data-toggle="tooltip" data-placement="top">${logCountList[2]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[2]}%" data-toggle="tooltip" data-placement="top">${userCountList[2]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">APR</div>
-					<div class="value tooltips" data-original-title="${logCountList[3]}%" data-toggle="tooltip" data-placement="top">${logCountList[3]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[3]}%" data-toggle="tooltip" data-placement="top">${userCountList[3]}%</div>
 				</div>
 				<div class="bar">
 					<div class="title">MAY</div>
-					<div class="value tooltips" data-original-title="${logCountList[4]}%" data-toggle="tooltip" data-placement="top">${logCountList[4]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[4]}%" data-toggle="tooltip" data-placement="top">${userCountList[4]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">JUN</div>
-					<div class="value tooltips" data-original-title="${logCountList[5]}%" data-toggle="tooltip" data-placement="top">${logCountList[5]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[5]}%" data-toggle="tooltip" data-placement="top">${userCountList[5]}%</div>
 				</div>
 				<div class="bar">
 					<div class="title">JUL</div>
-					<div class="value tooltips" data-original-title="${logCountList[6]}%" data-toggle="tooltip" data-placement="top">${logCountList[6]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[6]}%" data-toggle="tooltip" data-placement="top">${userCountList[6]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">AUG</div>
-					<div class="value tooltips" data-original-title="${logCountList[7]}%" data-toggle="tooltip" data-placement="top">${logCountList[7]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[7]}%" data-toggle="tooltip" data-placement="top">${userCountList[7]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">SEP</div>
-					<div class="value tooltips" data-original-title="${logCountList[8]}%" data-toggle="tooltip" data-placement="top">${logCountList[8]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[8]}%" data-toggle="tooltip" data-placement="top">${userCountList[8]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">OCT</div>
-					<div class="value tooltips" data-original-title="${logCountList[9]}%" data-toggle="tooltip" data-placement="top">${logCountList[9]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[9]}%" data-toggle="tooltip" data-placement="top">${userCountList[9]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">NOV</div>
-					<div class="value tooltips" data-original-title="${logCountList[10]}%" data-toggle="tooltip" data-placement="top">${logCountList[10]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[10]}%" data-toggle="tooltip" data-placement="top">${userCountList[10]}%</div>
 				</div>
 				<div class="bar ">
 					<div class="title">DEC</div>
-					<div class="value tooltips" data-original-title="${logCountList[11]}%" data-toggle="tooltip" data-placement="top">${logCountList[11]}%</div>
+					<div class="value tooltips" data-original-title="${userCountList[11]}%" data-toggle="tooltip" data-placement="top">${userCountList[11]}%</div>
 				</div>
 			</div>
-			<!--custom chart end-->
+			<!-- 월별 Login 통계 End -->
 
 
 			<!-- page end-->
@@ -182,6 +189,7 @@
 	<script src="/obigoProject/js/jquery.customSelect.min.js"></script>
 	<script src="/obigoProject/js/respond.min.js"></script>
 
+
 	<!--right slidebar-->
 	<script src="/obigoProject/js/slidebars.min.js"></script>
 
@@ -195,10 +203,13 @@
 
 	<script type="text/javascript">
 	$(document).ready(
+
 			function() {
+				
+				// 날씨 api 데이터를 받아서 적용해주는 AJAX
 				$.ajax({
 							type : "get",
-							url : "http://api.openweathermap.org/data/2.5/weather?appid=979f0179827d470b83d8072d50e99855&q=Seoul&units=metric",
+							url : "http://api.openweathermap.org/data/2.5/weather?appid=979f0179827d470b83d8072d50e99855&q=Seongnam&units=metric",
 							dataType : "json",
 							success : function(data) {
 								$("#weather-windspeed").text(data.wind.speed);
@@ -212,7 +223,13 @@
 								console.log(e);
 							}
 						});
+				
+				
+				
+				
 			});
+	
+	
 	
 	function countUp(count)
 	{

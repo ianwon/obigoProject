@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -68,9 +69,9 @@ public class MoveController {
 	@RequestMapping("/dashboard")
 	public String moveDashBoard(Model model) {
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		model.addAttribute("userVehicleCount",userVehicleService.getUserVehicleCount());
+		model.addAttribute("userVehicleCount", userVehicleService.getUserVehicleCount());
 		model.addAttribute("userCount", userService.getUserCount());
-		model.addAttribute("logCountList", logService.getMonthLogCount());
+		model.addAttribute("userCountList", userService.getMonthUserCount());
 		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/header/dashboard";
 	}
@@ -286,11 +287,48 @@ public class MoveController {
 	 * 
 	 * @return 통계 관리 페이지
 	 */
-	@RequestMapping("/analytics")
-	public String moveAnalytics(Model model) {
-		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		model.addAttribute("userRequestList", userRequestList);
-		return null;
+	@RequestMapping("/useranalytics")
+	public String moveUserAnalytics(Model model) {
+		model.addAttribute("userAnalytics", logService.getMonthLogCount("%login"));
+		return "/jsp/useranalytics";
+	}
+
+	/////////////////// 잠시 생각/////////////////////////////////
+	/**
+	 * 헤더 ANALYTICS클릭시 이동
+	 * 
+	 * @return 통계 관리 페이지
+	 */
+	@RequestMapping("/uvanalytics")
+	public String moveUserVehicleAnalytics(Model model) {
+		model.addAttribute("userVehicleAnalytics", logService.getMonthLogCount("%login"));
+		return "/jsp/uvanalytics";
+	}
+
+	/////////////////// 잠시 생각/////////////////////////////////
+	/**
+	 * 헤더 ANALYTICS클릭시 이동
+	 * 
+	 * @return 통계 관리 페이지
+	 */
+	@RequestMapping("/downanalytics")
+	public String moveDownAnalytics(Model model) {
+		model.addAttribute("bundleUpdateList", logService.getBundleUpdateCount());
+		model.addAttribute("userCountList", userService.getMonthUserCount2());
+		List<String> list = new ArrayList<>();
+		Calendar cal = Calendar.getInstance();
+		int year = new Integer(cal.get(Calendar.YEAR));
+		int month = cal.get(Calendar.MONTH) + 1;
+		for (int i = 0; i < 8; i++) {
+			if (month == 0) {
+				year -= 1;
+				month = 12;
+			}
+			list.add("'" + year + "-" + month + "'");
+			month--;
+		}
+		model.addAttribute("period", list);
+		return "/jsp/downanalytics";
 	}
 
 }

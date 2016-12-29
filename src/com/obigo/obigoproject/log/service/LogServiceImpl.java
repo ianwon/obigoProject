@@ -54,16 +54,51 @@ public class LogServiceImpl implements LogService {
 	}
 
 	@Override
-	public List<Integer> getMonthLogCount() {
+	public List<Integer> getMonthLogCount(String url) {
 		List<Integer> list = new ArrayList<>();
-		Map<String, Integer> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		Calendar cal = Calendar.getInstance();
-		map.put("year", cal.get(Calendar.YEAR)-2000);
+		map.put("year", cal.get(Calendar.YEAR) - 2000);
+		map.put("url", url);
 
 		for (int i = 1; i <= 12; i++) {
 			map.put("month", i);
 			list.add(logDao.getMonthLogCount(map));
 		}
+		return list;
+	}
+
+	public List<Integer> getUserMonthLogCount(String url, String userId) {
+		List<Integer> list = new ArrayList<>();
+		Map<String, Object> map = new HashMap<>();
+		Calendar cal = Calendar.getInstance();
+		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
+		map.put("url", url);
+		map.put("body", userId);
+
+		for (int i = 1; i <= 12; i++) {
+			map.put("month", i);
+			list.add(logDao.getUserMonthLogCount(map));
+		}
+		return list;
+	}
+
+	public List<Integer> getBundleUpdateCount() {
+		List<Integer> list = new ArrayList<>();
+		Map<String, Object> map = new HashMap<>();
+		Calendar cal = Calendar.getInstance();
+		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
+		int month = cal.get(Calendar.MONTH)+1;
+		for (int i = 0; i < 8; i++) {
+			if (month == 0) {
+				map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000 - 1));
+				month = 12;
+			}
+			map.put("month", month);
+			list.add(logDao.getBundleUpdateCount(map));
+			month--;
+		}
+
 		return list;
 	}
 
