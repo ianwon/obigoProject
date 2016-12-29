@@ -26,7 +26,7 @@
 							<div class="clearfix">
 								<div class="btn-group">
 									<button id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
-										Add User <i class="fa fa-plus"></i>
+										Add Admin <i class="fa fa-plus"></i>
 									</button>
 								</div>
 								<!--modal start-->
@@ -142,10 +142,10 @@
 									<tbody>
 										<c:forEach var="u" items="${adminList}" begin="0">
 											<tr class="">
-												<td onclick="userVehicle('${u.userId}')">${u.userId}</td>
-												<td onclick="userVehicle('${u.userId}')">${u.name}</td>
-												<td onclick="userVehicle('${u.userId}')">${u.eMail}</td>
-												<td onclick="userVehicle('${u.userId}')">${u.phone}</td>
+												<td>${u.userId}</td>
+												<td>${u.name}</td>
+												<td>${u.eMail}</td>
+												<td>${u.phone}</td>
 												<td></td>
 												<td><a class="update" href="javascript:update('${u.phone}','${u.eMail}','${u.name}','${u.userId }')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${u.userId}')">Delete</a></td>
