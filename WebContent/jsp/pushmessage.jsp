@@ -20,12 +20,11 @@
 					<header class="panel-heading"> PushMessage </header>
 					<div class="panel-body">
 						<div class="adv-table editable-table ">
-							<div class="clearfix">
-							</div>
-							
+							<div class="clearfix"></div>
+
 							<input type="hidden" id="hidden-pushmessage">
 							<div class="space15"></div>
-							
+
 							<!--  Pushmessage Table start -->
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
