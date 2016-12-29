@@ -1,8 +1,11 @@
 package com.obigo.obigoproject.pushmessage.service;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,8 @@ import com.obigo.obigoproject.pushmessage.dao.PushMessageDao;
 import com.obigo.obigoproject.registrationid.dao.RegistrationidDao;
 import com.obigo.obigoproject.uservehicle.dao.UserVehicleDao;
 import com.obigo.obigoproject.vo.PushMessageVO;
+
+import net.sf.json.JSONArray;
 
 @Service("pushMessageService")
 public class PushMessageServiceImpl implements PushMessageService {
@@ -101,9 +106,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 			String simpleApiKey = "AIzaSyAugaUfy_TbAFpMsr91f4_M8cTvePi0now";
 			Sender sender = new Sender(simpleApiKey);
 			try {
-				Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE)
-						.timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("title", vo.getTitle())
-						.build();
+				Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE).timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("title", vo.getTitle()).build();
 				MulticastResult result1 = sender.send(message, registrationidList, RETRY);
 			} catch (IllegalArgumentException e) {
 
@@ -121,6 +124,20 @@ public class PushMessageServiceImpl implements PushMessageService {
 	@Override
 	public PushMessageVO getPushMessage() {
 		return pushMessageDao.getPushMessage();
+	}
+
+	@Override
+	public JSONArray getCategoryName() {
+		JSONArray jArray = new JSONArray();
+		JSONObject jobj = new JSONObject();
+		List<Map<String, Integer>> list = pushMessageDao.getCategoryName();
+
+		for (int i = 0; i < list.size(); i++) {
+			jobj.put("name", list.get(i).get("CATEGORY_NAME"));
+			jobj.put("y", list.get(i).get("COUNTING"));
+			jArray.add(i, jobj);
+		}
+		return jArray;
 	}
 
 }

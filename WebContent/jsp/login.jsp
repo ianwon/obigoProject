@@ -94,7 +94,6 @@
 					}
 				},
 				error : function(e) {
-					alert("에러");
 					console.log(e);
 				}
 			});

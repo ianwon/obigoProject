@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.pushmessage.service;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import com.obigo.obigoproject.vo.PushMessageVO;
@@ -32,4 +33,6 @@ public interface PushMessageService {
 	public boolean sendPushMessageToGcm(PushMessageVO vo) throws IOException;
 
 	public PushMessageVO getPushMessage();
+	
+	public List<HashMap> getCategoryName();
 }

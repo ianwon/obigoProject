@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.api.service.ApiService;
 import com.obigo.obigoproject.bundle.service.BundleService;
@@ -33,6 +35,8 @@ import com.obigo.obigoproject.vo.UserRequestVO;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.obigo.obigoproject.vo.UsersVO;
 import com.obigo.obigoproject.vo.VehicleVO;
+
+import net.sf.json.JSONArray;
 
 @Controller
 public class MoveController {
@@ -329,6 +333,18 @@ public class MoveController {
 		}
 		model.addAttribute("period", list);
 		return "/jsp/downanalytics";
+	}
+
+	/////////////////// 잠시 생각/////////////////////////////////
+	/**
+	 * 헤더 ANALYTICS클릭시 이동
+	 * 
+	 * @return 통계 관리 페이지
+	 */
+	@RequestMapping("/messageanalytics")
+	public String moveMessageAnalytics() {
+		
+		return "/jsp/messageanalytics";
 	}
 
 }

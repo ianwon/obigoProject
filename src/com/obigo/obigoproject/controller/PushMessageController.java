@@ -17,6 +17,7 @@ import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.UserMessageVO;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -76,6 +77,17 @@ public class PushMessageController {
 			jobj.put("flag", false);
 
 		return jobj.toString();
+	}
+	/**
+	 * getmessageanalytics
+	 * 
+	 * @return 푸시 메시지 관리 페이지
+	 */
+	@RequestMapping(value = "/getmessageanalytics", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String getMessageAnalytics() {
+		JSONArray jArray = (JSONArray) pushMessageService.getCategoryName();
+		return jArray.toString();
 	}
 
 }
