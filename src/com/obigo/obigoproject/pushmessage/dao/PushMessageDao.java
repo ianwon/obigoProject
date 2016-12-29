@@ -1,6 +1,8 @@
 package com.obigo.obigoproject.pushmessage.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.obigo.obigoproject.vo.PushMessageVO;
 
@@ -22,5 +24,7 @@ public interface PushMessageDao {
 	public List<PushMessageVO> getPushMessageListByCategory(int categoryNumber);
 
 	public PushMessageVO getPushMessage();
+
+	public List<Map<String, Integer>> getCategoryName();
 
 }
