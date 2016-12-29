@@ -224,6 +224,11 @@
 
 		// Text에 입력한 문자열을 포함하는 User ID의 List를 테이블로 보여준다.
 		function searchUserId() {
+			
+			if(table) { // Check if table object exists and needs to be flushed
+				table.destroy(); // For new version use table.destroy();
+			    $('#myTable').empty(); // empty in case the columns change
+			}
 
 			// datatables 라이브러리는 사용하는데 table을 사용하기 위해서 initialize 해주는 작업
 			table = $("#myTable").DataTable({
@@ -263,6 +268,55 @@
 					"data" : "date"
 				} ]
 			}); 
+			
+			// table의 row를 클릭했을 때 해당된는 row의 User ID에 대한 Login 통계를 보여주는 함수
+			$("#myTable tbody").on("click", "tr", function() {
+				if ($(this).hasClass("selected")) {
+					$(this).removeClass("selected");
+					
+					$.ajax({
+						type : "post",
+						url : "/obigoProject/countuserlogin",
+						dataType : "json",
+						data : {
+							"userId" : ""
+						},
+						success : function(data) {
+							$("#hero-bar").empty();
+							$("#head-userid").text("[All]");
+							setUp(data);
+						},
+						error : function(e) {
+							console.log(e);
+						}
+					});
+
+				} else {
+					table.$("tr.selected").removeClass("selected");
+					$(this).addClass("selected");
+					var userId = $(this).find("td:eq(0)").text();
+
+					// 선택한 User ID의 월별 Login Count를 얻어오는 AJAX
+					$.ajax({
+						type : "post",
+						url : "/obigoProject/countuserlogin",
+						dataType : "json",
+						data : {
+							"userId" : userId
+						},
+						success : function(data) {
+							if (userId != "No data available in table") {
+								$("#hero-bar").empty();
+								$("#head-userid").text("[ID: " + userId + "]");
+								setUp(data);
+							}
+						},
+						error : function(e) {
+							console.log(e);
+						}
+					});
+				}
+			});
 
 			if ($("#searchId").val() == "") {
 				$.ajax({
