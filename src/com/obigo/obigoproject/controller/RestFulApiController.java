@@ -91,7 +91,10 @@ public class RestFulApiController {
 			fs.read(fileByte);
 			response.setContentType("application/octet-stream");
 			response.setContentLength(fileByte.length);
-			response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload(), "UTF-8") + "\";");
+			response.setHeader("Content-Disposition",
+					"attachment; fileName=\"" + URLEncoder.encode(bundleService
+							.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload(), "UTF-8")
+							+ "\";");
 			response.setHeader("Content-Transfer-Encoding", "binary");
 			response.getOutputStream().write(fileByte);
 		} catch (Exception e1) {
@@ -101,7 +104,8 @@ public class RestFulApiController {
 				fs.read(fileByte);
 				response.setContentType("application/octet-stream");
 				response.setContentLength(fileByte.length);
-				response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("no_img.gif", "UTF-8") + "\";");
+				response.setHeader("Content-Disposition",
+						"attachment; fileName=\"" + URLEncoder.encode("no_img.gif", "UTF-8") + "\";");
 				response.setHeader("Content-Transfer-Encoding", "binary");
 				response.getOutputStream().write(fileByte);
 			} catch (FileNotFoundException e) {
@@ -127,7 +131,8 @@ public class RestFulApiController {
 		}
 		JSONObject jobj = new JSONObject();
 		jobj.put("bundleVersion", bundleVersionService.getBundleVersion());
-		jobj.put("bundleFile", bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
+		jobj.put("bundleFile",
+				bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
 		vo.setUrl("/api/bundledown");
 		vo.setBody("null");
 		vo.setReturned(jobj.toString());
@@ -145,7 +150,9 @@ public class RestFulApiController {
 			fs.read(fileByte);
 			response.setContentType("application/octet-stream");
 			response.setContentLength(fileByte.length);
-			response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("bfff2677a6680ea95fda98295d464e14c9eb2a6b555c2da35293fe692d58d2b6.png", "UTF-8") + "\";");
+			response.setHeader("Content-Disposition", "attachment; fileName=\""
+					+ URLEncoder.encode("bfff2677a6680ea95fda98295d464e14c9eb2a6b555c2da35293fe692d58d2b6.png", "UTF-8")
+					+ "\";");
 			response.setHeader("Content-Transfer-Encoding", "binary");
 			response.getOutputStream().write(fileByte);
 		} catch (Exception e1) {
@@ -155,7 +162,8 @@ public class RestFulApiController {
 				fs.read(fileByte);
 				response.setContentType("application/octet-stream");
 				response.setContentLength(fileByte.length);
-				response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("no_img.gif", "UTF-8") + "\";");
+				response.setHeader("Content-Disposition",
+						"attachment; fileName=\"" + URLEncoder.encode("no_img.gif", "UTF-8") + "\";");
 				response.setHeader("Content-Transfer-Encoding", "binary");
 				response.getOutputStream().write(fileByte);
 			} catch (FileNotFoundException e) {
@@ -252,7 +260,7 @@ public class RestFulApiController {
 			jobj.put("flag", false);
 		JSONObject bodyJobj = new JSONObject();
 		bodyJobj.put("bundleVersion", bundleVersion);
-		
+
 		vo.setUrl("/api/bundlecheck");
 		vo.setBody(bodyJobj.toString());
 		vo.setReturned(jobj.toString());
@@ -269,7 +277,8 @@ public class RestFulApiController {
 	@ResponseBody
 	public String bundleUpdate() {
 		JSONObject jobj = new JSONObject();
-		jobj.put("path", bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
+		jobj.put("path",
+				bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
 
 		vo.setUrl("/api/bundleupdate");
 		vo.setBody("null");
@@ -309,7 +318,7 @@ public class RestFulApiController {
 		jobj.put("userVehicle", vehicleService.getVehicle(modelCode));
 		JSONObject bodyJobj = new JSONObject();
 		jobj.put("modelCode", modelCode);
-		
+
 		vo.setUrl("/api/cardetailinfo");
 		vo.setBody(bodyJobj.toString());
 		vo.setReturned(jobj.toString());
@@ -318,14 +327,16 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * 유저 차량 등록 요청 Api parameter = "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역, "vin":고유번호
+	 * 유저 차량 등록 요청 Api parameter = "userId":유저아이디, "modelCode":차량코드, "color":색상,
+	 * "location":지역, "vin":고유번호
 	 * 
 	 * @return "flag" : 등록 여부
 	 */
 
 	@RequestMapping(value = "/api/userrequest", method = { RequestMethod.POST })
 	@ResponseBody
-	public String insertUserRequest(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
+	public String insertUserRequest(@RequestBody String data)
+			throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		UserRequestVO vo = mapper.readValue(data, UserRequestVO.class);
 		this.vo.setUrl("/api/userrequest");
@@ -353,7 +364,7 @@ public class RestFulApiController {
 		jsonArray.addAll(pushMessageService.getPushMessageList(userId));
 		JSONObject jobj = new JSONObject();
 		jobj.put("userId", userId);
-		
+
 		vo.setUrl("/api/message");
 		vo.setBody(jobj.toString());
 		vo.setReturned(jsonArray.toString());
@@ -363,11 +374,13 @@ public class RestFulApiController {
 
 	/////////////////////////////////////////////////////////////////////
 	/*
-	 * 로그인시 Registration ID 가져오기(받은 아이디랑 비밀번호로 db에서 정보를 찾고 registrationid에 token 값으로 업데이트)
+	 * 로그인시 Registration ID 가져오기(받은 아이디랑 비밀번호로 db에서 정보를 찾고 registrationid에 token
+	 * 값으로 업데이트)
 	 * 
 	 */
 	@RequestMapping(value = "/api/registrationid", method = RequestMethod.POST)
-	public String insertRegistrationid(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
+	public String insertRegistrationid(@RequestBody String data)
+			throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
 		try {
@@ -406,10 +419,10 @@ public class RestFulApiController {
 		jobj.put("phone", usersVO.getPhone());
 		jobj.put("roleName", usersVO.getRoleName());
 		jobj.put("date", usersVO.getDate());
-		
+
 		JSONObject bodyJobj = new JSONObject();
 		bodyJobj.put("userId", userId);
-		
+
 		vo.setUrl("/api/user");
 		vo.setBody(bodyJobj.toString());
 		vo.setReturned(jobj.toString());
@@ -423,10 +436,11 @@ public class RestFulApiController {
 
 		vo.setUrl("/api/login");
 		JSONObject jobj = new JSONObject();
+		System.out.println(userid + password);
 		jobj.put("userid", userid);
 		jobj.put("password", password);
 		vo.setBody(jobj.toString());
-		if (userService.passwordCheck(userid, password,"USER") != true) {
+		if (userService.passwordCheck(userid, password, "USER") != true) {
 			vo.setReturned("false");
 			logService.insertLog(vo);
 			return "false";
@@ -437,9 +451,9 @@ public class RestFulApiController {
 		}
 	}
 
-	@RequestMapping(value = "/api/deleteregistrationid", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/api/logout", method = RequestMethod.DELETE)
 	public String logout(@RequestParam String registrationId) {
-		vo.setUrl("/api/deleteregistrationid");
+		vo.setUrl("/api/logout");
 		JSONObject jobj = new JSONObject();
 		jobj.put("registrationId", registrationId);
 		vo.setBody(jobj.toString());
@@ -465,16 +479,15 @@ public class RestFulApiController {
 		JSONObject jobj = new JSONObject();
 		jobj.put("bundleVersion", bundleVersion);
 		vo.setBody(jobj.toString());
-
-		if (bundleVersion.equals(bundleVersionService.getBundleVersion())) {
-			vo.setReturned("true");
-			logService.insertLog(vo);
-			return "true";
-		} else {
-			vo.setReturned("false");
-			logService.insertLog(vo);
-			return "false";
-		}
+		return "true";
+		// if (bundleVersion.equals(bundleVersionService.getBundleVersion())) {
+		// vo.setReturned("true");
+		// logService.insertLog(vo);
+		// return "true";
+		// } else {
+		// vo.setReturned("false");
+		// logService.insertLog(vo);
+		// return "false";
 	}
 
 	@RequestMapping(value = "/api/bundleversionupdate", method = RequestMethod.GET)
