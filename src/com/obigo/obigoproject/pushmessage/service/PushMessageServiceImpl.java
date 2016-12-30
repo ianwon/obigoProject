@@ -141,7 +141,6 @@ public class PushMessageServiceImpl implements PushMessageService {
 		}else{
 			content="Your request Rejected";
 		}
-
 		String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1); // 메시지
 		// 고유
 		boolean SHOW_ON_IDLE = false; // 옙 활성화 상태일때 보여줄것인지

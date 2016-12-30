@@ -44,8 +44,8 @@
 										<td>${k.modelCode}</td>
 										<td>${k.vin}</td>
 										<td class="center">${k.location}</td>
-										<td><a class="Accept" href="javascript:accept(${k.userRequestNumber }, ${k.userId});">Accept</a></td>
-										<td><a class="Reject" href="javascript:reject(${k.userRequestNumber }, ${k.userId});">Reject</a></td>
+										<td><a class="Accept" href="javascript:accept(${k.userRequestNumber }, '${k.userId}');">Accept</a></td>
+										<td><a class="Reject" href="javascript:reject(${k.userRequestNumber }, '${k.userId}');">Reject</a></td>
 									</tr>
 								</c:forEach>
 
