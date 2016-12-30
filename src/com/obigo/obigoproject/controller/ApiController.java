@@ -47,7 +47,7 @@ public class ApiController {
 	 * 
 	 * @return api 관리 페이지
 	 */
-	@RequestMapping(value = "/deleteapi", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/deleteapi", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String deleteApi(@RequestParam("apiName") String apiName) {
 		System.out.println(apiName);
@@ -62,7 +62,7 @@ public class ApiController {
 	 * 
 	 * @return JSONObject
 	 */
-	@RequestMapping(value = "/apinamecheck", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/apinamecheck", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String apiNameCheck(@RequestParam("apiName") String apiName) {
 		JSONObject jobj = new JSONObject();

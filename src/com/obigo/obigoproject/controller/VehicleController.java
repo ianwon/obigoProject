@@ -76,7 +76,7 @@ public class VehicleController {
 	 * 
 	 * @return 특정 차량 정보
 	 */
-	@RequestMapping(value = "/selectvehicle", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/selectvehicle", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String selectVehicle(@RequestParam("modelCode") String modelCode, Model model) {
 		JSONObject jobj = new JSONObject();

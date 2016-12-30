@@ -23,7 +23,7 @@ public class LogController {
 	 * 
 	 * @return 로그 조회 페이지
 	 */
-	@RequestMapping(value = "/deletelog", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/deletelog", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String deleteLog() {
 		JSONObject jobj = new JSONObject();
