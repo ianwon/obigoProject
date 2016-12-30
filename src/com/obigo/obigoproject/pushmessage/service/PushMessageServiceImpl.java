@@ -117,7 +117,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 			String simpleApiKey = "AIzaSyAugaUfy_TbAFpMsr91f4_M8cTvePi0now";
 			Sender sender = new Sender(simpleApiKey);
 			try {
-				Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE).timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("title", vo.getTitle()).build();
+				Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE).timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("upload", vo.getUploadFile()).addData("title", vo.getTitle()).build();
 				MulticastResult result1 = sender.send(message, registrationidList, RETRY);
 			} catch (IllegalArgumentException e) {
 
