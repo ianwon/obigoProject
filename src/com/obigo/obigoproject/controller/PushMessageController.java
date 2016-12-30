@@ -3,6 +3,8 @@ package com.obigo.obigoproject.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.UserMessageVO;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -35,11 +38,11 @@ public class PushMessageController {
 	 * 
 	 * 
 	 * @return 푸시 메시지 관리 페이지
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	@RequestMapping("/sendtextmessage")
-	public String sendTextMessage(PushMessageVO vo) throws IOException {
-		pushMessageService.sendPushMessageToGcm(vo);
+	@RequestMapping(value = "/sendtextmessage", method = RequestMethod.POST)
+	public String sendTextMessage(PushMessageVO vo, HttpServletRequest request) throws IOException {
+		pushMessageService.sendPushMessageToGcm(vo, request);
 		PushMessageVO pushMessage = pushMessageService.getPushMessage();
 		List<String> userIdList = userVehicleService.getUserId(pushMessage);
 		for (String userId : userIdList) {
@@ -66,7 +69,7 @@ public class PushMessageController {
 	 * 
 	 * @return 푸시 메시지 관리 페이지
 	 */
-	@RequestMapping(value = "/deletepushmessage", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/deletepushmessage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String deleteMessage(@RequestParam("messageNumber") int messageNumber) {
 		JSONObject jobj = new JSONObject();
@@ -76,6 +79,18 @@ public class PushMessageController {
 			jobj.put("flag", false);
 
 		return jobj.toString();
+	}
+
+	/**
+	 * getmessageanalytics
+	 * 
+	 * @return 푸시 메시지 관리 페이지
+	 */
+	@RequestMapping(value = "/getmessageanalytics", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String getMessageAnalytics() {
+		JSONArray jArray = (JSONArray) pushMessageService.getCategoryName();
+		return jArray.toString();
 	}
 
 }

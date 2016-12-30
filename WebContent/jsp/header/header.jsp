@@ -241,6 +241,9 @@
 							<li>
 								<a href="/obigoProject/downanalytics">Down Analytics</a>
 							</li>
+							<li>
+								<a href="/obigoProject/messageanalytics">Message Analytics</a>
+							</li>
 						</ul>
 					</li>
 				</ul>

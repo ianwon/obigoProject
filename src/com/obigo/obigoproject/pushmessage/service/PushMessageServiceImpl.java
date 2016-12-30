@@ -1,10 +1,18 @@
 package com.obigo.obigoproject.pushmessage.service;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.MulticastResult;
@@ -12,7 +20,10 @@ import com.google.android.gcm.server.Sender;
 import com.obigo.obigoproject.pushmessage.dao.PushMessageDao;
 import com.obigo.obigoproject.registrationid.dao.RegistrationidDao;
 import com.obigo.obigoproject.uservehicle.dao.UserVehicleDao;
+import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.PushMessageVO;
+
+import net.sf.json.JSONArray;
 
 @Service("pushMessageService")
 public class PushMessageServiceImpl implements PushMessageService {
@@ -86,11 +97,10 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 	// GCM 서버로 푸시 메시지 전송
 	@Override
-	public boolean sendPushMessageToGcm(PushMessageVO vo) throws IllegalArgumentException, IOException {
-		pushMessageDao.insertPushMessage(vo);
+	public boolean sendPushMessageToGcm(PushMessageVO vo, HttpServletRequest request) throws IllegalArgumentException, IOException {
+		pushMessageDao.insertPushMessage(createFile(vo, request));
 		PushMessageVO pushmessage = pushMessageDao.getPushMessage();
 		List<String> userIdList = uservehicleDao.getUserId(pushmessage);
-		System.out.println(userIdList);
 		for (String userId : userIdList) {
 			List<String> registrationidList = registrationidDao.getRegistrationidListByuserId(userId);
 			String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1); // 메시지
@@ -101,9 +111,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 			String simpleApiKey = "AIzaSyAugaUfy_TbAFpMsr91f4_M8cTvePi0now";
 			Sender sender = new Sender(simpleApiKey);
 			try {
-				Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE)
-						.timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("title", vo.getTitle())
-						.build();
+				Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE).timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("title", vo.getTitle()).build();
 				MulticastResult result1 = sender.send(message, registrationidList, RETRY);
 			} catch (IllegalArgumentException e) {
 
@@ -123,4 +131,42 @@ public class PushMessageServiceImpl implements PushMessageService {
 		return pushMessageDao.getPushMessage();
 	}
 
+	@Override
+	public JSONArray getCategoryName() {
+		JSONArray jArray = new JSONArray();
+		JSONObject jobj = new JSONObject();
+		List<Map<String, Integer>> list = pushMessageDao.getCategoryName();
+
+		for (int i = 0; i < list.size(); i++) {
+			jobj.put("name", list.get(i).get("CATEGORY_NAME"));
+			jobj.put("y", list.get(i).get("COUNTING"));
+			jArray.add(i, jobj);
+		}
+		return jArray;
+	}
+
+	PushMessageVO createFile(PushMessageVO vo, HttpServletRequest request) {
+
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+		MultipartFile messageFile = multiRequest.getFile("messageFile");
+		// String saveDir = "/home/ec2-user/obigo/pushmessage/";
+		String saveDir = "c:\\obigo\\pushmessage\\";
+		File saveDirFile = new File(saveDir);
+
+		if (!saveDirFile.exists()) {
+			saveDirFile.mkdirs();
+		}
+		String fileName = null;
+		if (messageFile.getOriginalFilename() != null && !"".equals(messageFile.getOriginalFilename())) {
+			fileName = System.nanoTime() + messageFile.getOriginalFilename();
+			try {
+				messageFile.transferTo(new File(saveDir + File.separator + fileName));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			vo.setUploadFile(fileName);
+		}
+
+		return vo;
+	}
 }

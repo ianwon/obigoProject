@@ -40,7 +40,7 @@
 		resultMap="PushMessageResultMap">
 		<![CDATA[
 			select * from (select rownum num, p.title, p.content, p.send_date, p.upload_file from push_message p, user_message u
-			where p.message_number=u.message_number and u.user_id=#{userId} order by p.send_date desc) where num between #{start} and #{end};
+			where p.message_number=u.message_number and u.user_id=#{userId} order by p.send_date desc) where num between #{start} and #{end}
 		]]>
 	</select>
 	<select id="selectPushMessageList" resultMap="PushMessageResultMap">
@@ -66,6 +66,11 @@
 	<select id="selectPushMessage" resultMap="PushMessageResultMap">
 	<![CDATA[
 		SELECT * FROM ( SELECT * FROM PUSH_MESSAGE ORDER BY MESSAGE_NUMBER DESC) WHERE ROWNUM = 1 
+	]]>
+	</select>
+	<select id="groupByCategoryName" resultType="hashmap">
+	<![CDATA[
+		select count(p.category_number) COUNTING, m.category_name from push_message p ,message_category m where p.category_number = m.category_number group by m.category_name
 	]]>
 	</select>
 

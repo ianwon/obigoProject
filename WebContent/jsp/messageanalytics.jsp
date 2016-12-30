@@ -8,7 +8,7 @@
 <meta name="author" content="Mosaddek">
 <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 <link rel="shortcut icon" href="img/favicon.png">
-<title>Insert title here</title>
+<title>Message Analytics</title>
 <!-- Bootstrap core CSS -->
 <link href="/obigoProject/css/bootstrap.min.css" rel="stylesheet">
 <link href="/obigoProject/css/bootstrap-reset.css" rel="stylesheet">
@@ -65,7 +65,8 @@
 	<script src="/obigoProject/js/common-scripts.js"></script>
 
 	<script type="text/javascript">
-		function makeChart(data1) {
+		
+	function makeChart(data1) {
 
 			$(function () {
 			    Highcharts.chart('container-graph', {
@@ -100,7 +101,7 @@
 			// User Vehicle에 등록된 차종을 그래프로 출력해주는 AJAX
 			$.ajax({
 				type : "post",
-				url : "/obigoProject/messageanalytics",
+				url : "/obigoProject/getmessageanalytics",
 				dataType : "json",
 				success : function(data) {
 					makeChart(data);
