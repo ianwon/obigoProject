@@ -3,6 +3,8 @@ package com.obigo.obigoproject.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,11 +38,11 @@ public class PushMessageController {
 	 * 
 	 * 
 	 * @return 푸시 메시지 관리 페이지
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	@RequestMapping("/sendtextmessage")
-	public String sendTextMessage(PushMessageVO vo) throws IOException {
-		pushMessageService.sendPushMessageToGcm(vo);
+	@RequestMapping(value = "/sendtextmessage", method = RequestMethod.POST)
+	public String sendTextMessage(PushMessageVO vo, HttpServletRequest request) throws IOException {
+		pushMessageService.sendPushMessageToGcm(vo, request);
 		PushMessageVO pushMessage = pushMessageService.getPushMessage();
 		List<String> userIdList = userVehicleService.getUserId(pushMessage);
 		for (String userId : userIdList) {
@@ -78,6 +80,7 @@ public class PushMessageController {
 
 		return jobj.toString();
 	}
+
 	/**
 	 * getmessageanalytics
 	 * 

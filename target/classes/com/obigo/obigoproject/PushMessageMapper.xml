@@ -40,7 +40,7 @@
 		resultMap="PushMessageResultMap">
 		<![CDATA[
 			select * from (select rownum num, p.title, p.content, p.send_date, p.upload_file from push_message p, user_message u
-			where p.message_number=u.message_number and u.user_id=#{userId} order by p.send_date desc) where num between #{start} and #{end};
+			where p.message_number=u.message_number and u.user_id=#{userId} order by p.send_date desc) where num between #{start} and #{end}
 		]]>
 	</select>
 	<select id="selectPushMessageList" resultMap="PushMessageResultMap">

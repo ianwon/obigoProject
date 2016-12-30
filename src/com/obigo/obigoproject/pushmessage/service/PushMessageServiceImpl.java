@@ -1,13 +1,18 @@
 package com.obigo.obigoproject.pushmessage.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.MulticastResult;
@@ -15,6 +20,7 @@ import com.google.android.gcm.server.Sender;
 import com.obigo.obigoproject.pushmessage.dao.PushMessageDao;
 import com.obigo.obigoproject.registrationid.dao.RegistrationidDao;
 import com.obigo.obigoproject.uservehicle.dao.UserVehicleDao;
+import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.PushMessageVO;
 
 import net.sf.json.JSONArray;
@@ -91,8 +97,8 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 	// GCM 서버로 푸시 메시지 전송
 	@Override
-	public boolean sendPushMessageToGcm(PushMessageVO vo) throws IllegalArgumentException, IOException {
-		pushMessageDao.insertPushMessage(vo);
+	public boolean sendPushMessageToGcm(PushMessageVO vo, HttpServletRequest request) throws IllegalArgumentException, IOException {
+		pushMessageDao.insertPushMessage(createFile(vo, request));
 		PushMessageVO pushmessage = pushMessageDao.getPushMessage();
 		List<String> userIdList = uservehicleDao.getUserId(pushmessage);
 		System.out.println(userIdList);
@@ -140,4 +146,28 @@ public class PushMessageServiceImpl implements PushMessageService {
 		return jArray;
 	}
 
+	PushMessageVO createFile(PushMessageVO vo, HttpServletRequest request) {
+
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+		MultipartFile messageFile = multiRequest.getFile("messageFile");
+		// String saveDir = "/home/ec2-user/obigo/pushmessage/";
+		String saveDir = "c:\\obigo\\pushmessage\\";
+		File saveDirFile = new File(saveDir);
+
+		if (!saveDirFile.exists()) {
+			saveDirFile.mkdirs();
+		}
+		String fileName = null;
+		if (messageFile.getOriginalFilename() != null && !"".equals(messageFile.getOriginalFilename())) {
+			fileName = System.nanoTime() + messageFile.getOriginalFilename();
+			try {
+				messageFile.transferTo(new File(saveDir + File.separator + fileName));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			vo.setUploadFile(fileName);
+		}
+
+		return vo;
+	}
 }
