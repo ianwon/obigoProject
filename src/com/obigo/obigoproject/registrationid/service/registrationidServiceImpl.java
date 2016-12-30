@@ -9,7 +9,7 @@ import com.obigo.obigoproject.registrationid.dao.RegistrationidDao;
 import com.obigo.obigoproject.vo.RegistrationidVO;
 
 @Service("registrationidService")
-public class registrationidServiceImpl implements RegistrationidService {
+public class RegistrationidServiceImpl implements RegistrationidService {
 	@Autowired
 	RegistrationidDao registrationidDao;
 
