@@ -56,7 +56,6 @@ public class UserController {
 	public String insertUser(UsersVO vo) {
 		vo.setUserId(vo.getUserId().toLowerCase());
 		vo.setRoleName("USER");
-		System.out.println(vo);
 		userService.insertUser(vo);
 		return "redirect:/usermanagement";
 	}
@@ -89,7 +88,7 @@ public class UserController {
 	 * 
 	 * @return 유저요청페이지
 	 */
-	@RequestMapping(value = "/acceptrequest", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/acceptrequest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber) {
 		userRequestService.acceptUserRequest(userRequestNumber);
@@ -103,7 +102,7 @@ public class UserController {
 	 * 
 	 * @return 유저요청페이지
 	 */
-	@RequestMapping(value = "/rejectrequest", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/rejectrequest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String rejectRequest(@RequestParam("userRequestNumber") int userRequestNumber) {
 		userRequestService.deleteUserRequest(userRequestNumber);
@@ -116,7 +115,7 @@ public class UserController {
 	 * 
 	 * @return 회원가입 폼
 	 */
-	@RequestMapping(value = "/idcheck", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/idcheck", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String idCheck(@RequestParam("userId") String userId) {
 		userId = userId.toLowerCase();
@@ -130,7 +129,7 @@ public class UserController {
 	 * 
 	 * @return 회원가입 폼
 	 */
-	@RequestMapping(value = "/passwordcheck", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/passwordcheck", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String passwordCheck(@RequestParam("userId") String userId, @RequestParam("password") String password) {
 		JSONObject jobj = new JSONObject();
@@ -189,7 +188,7 @@ public class UserController {
 	 * 
 	 * @return Analytics 페이지
 	 */
-	@RequestMapping(value = "/countingbymodel", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/countingbymodel", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String countingByModelName() {
 		List<Map<String, Object>> list = userVehicleService.getCountingByModelName();
@@ -240,7 +239,7 @@ public class UserController {
 	 * 
 	 * @return Analytics > User 페이지
 	 */
-	@RequestMapping(value = "/countuserlogin", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/countuserlogin", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String countUserLogin(@RequestParam String userId) {
 		JSONArray jArray = new JSONArray();
