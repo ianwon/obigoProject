@@ -23,7 +23,7 @@
 					<div class="space15"></div>
 
 					<div class="table-responsive">
-						
+
 						<!-- User Request Table Start  -->
 						<table class="table table-striped table-hover table-bordered" id="editable-sample">
 							<thead>
@@ -91,31 +91,39 @@
 	<script type="text/javascript">
 		//유저 요청 수락 함수.
 		function accept(data) {
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/acceptrequest",
-				dataType : "json",
-				data : {
-					"userRequestNumber" : data
-				},
-				success : function(data) {
-					location.reload();
-				}
-			});
+			if (confirm("정말 수락하시겠습니까??") == true) {
+				$.ajax({
+					type : "post",
+					url : "/obigoProject/acceptrequest",
+					dataType : "json",
+					data : {
+						"userRequestNumber" : data,
+						"flag" : "accept"
+					},
+					success : function(data) {
+						location.reload();
+					}
+				});
+			} else
+				return;
 		}
 		//유저 요청 거절 함수
 		function reject(data) {
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/rejectrequest",
-				dataType : "json",
-				data : {
-					"userRequestNumber" : data
-				},
-				success : function(data) {
-					location.reload();
-				}
-			});
+			if (confirm("정말 거절하시겠습니까??") == true) {
+				$.ajax({
+					type : "post",
+					url : "/obigoProject/rejectrequest",
+					dataType : "json",
+					data : {
+						"userRequestNumber" : data,
+						"flag" : "reject"
+					},
+					success : function(data) {
+						location.reload();
+					}
+				});
+			} else
+				return;
 		}
 	</script>
 
