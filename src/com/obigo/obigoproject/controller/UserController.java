@@ -1,5 +1,6 @@
 package com.obigo.obigoproject.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.log.service.LogService;
+import com.obigo.obigoproject.pushmessage.service.PushMessageService;
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
@@ -33,6 +35,8 @@ public class UserController {
 	UserRequestService userRequestService;
 	@Autowired
 	LogService logService;
+	@Autowired
+	PushMessageService pushmessageService;
 
 	/**
 	 * 회원가입 등록폼을 통해 유저정보를 전달받으면 유저를 등록하고 로그인 페이지로 이동
@@ -90,10 +94,18 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/acceptrequest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber) {
-		userRequestService.acceptUserRequest(userRequestNumber);
+	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber, @RequestParam("userId") String userId, @RequestParam("flag") String flag) {
+
+		try {
+			if (userRequestService.acceptUserRequest(userRequestNumber))
+				pushmessageService.sendUserReqeustPushMessage(userId, flag);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		JSONObject jobj = new JSONObject();
 		/// 푸시메시지 알아서 날려////
+
 		return jobj.toString();
 	}
 
@@ -104,8 +116,14 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/rejectrequest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String rejectRequest(@RequestParam("userRequestNumber") int userRequestNumber) {
-		userRequestService.deleteUserRequest(userRequestNumber);
+	public String rejectRequest(@RequestParam("userRequestNumber") int userRequestNumber, @RequestParam("userId") String userId, @RequestParam("flag") String flag) {
+		try {
+			if (userRequestService.deleteUserRequest(userRequestNumber))
+				pushmessageService.sendUserReqeustPushMessage(userId, flag);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		JSONObject jobj = new JSONObject();
 		return jobj.toString();
 	}
@@ -199,7 +217,7 @@ public class UserController {
 		for (int i = 0; i < list.size(); i++) {
 			jObj.put("name", list.get(i).get("MODEL_NAME"));
 			jObj.put("y", list.get(i).get("COUNTING"));
-//			jObj.put("code", list.get(i).get("MODEL_CODE"));
+			// jObj.put("code", list.get(i).get("MODEL_CODE"));
 			jArray.add(i, jObj);
 		}
 		return jArray.toString();
@@ -217,7 +235,7 @@ public class UserController {
 		JSONArray jArray = new JSONArray();
 		JSONObject jObj = new JSONObject();
 
-		// userId가 null 또는 ""일 경우, 실시간 User  ID를 검색해서 보여주는 테이블에 
+		// userId가 null 또는 ""일 경우, 실시간 User ID를 검색해서 보여주는 테이블에
 		// 아무 User List도 보여주지 않기 위함
 		if (userId != null && !"".equals(userId)) {
 
@@ -230,7 +248,7 @@ public class UserController {
 		}
 		jObj.put("data", jArray);
 		return jObj.toString();
-		
+
 	}
 
 	////////////// Analytics에서 User에 대한 통계 ///////////////////////////
