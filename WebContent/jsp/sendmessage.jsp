@@ -35,7 +35,7 @@
 							<header class="panel-heading"> Send Pushmessage </header>
 							<div class="panel-body">
 								<div class=" form">
-									<form class="cmxform form-horizontal tasi-form" id="commentForm" method="post" action="/obigoProject/sendtextmessage">
+									<form class="cmxform form-horizontal tasi-form" enctype="multipart/form-data" id="commentForm" method="post" action="/obigoProject/sendtextmessage">
 										<div class="form-group ">
 												&nbsp;&nbsp;&nbsp; <label>Category : </label>
 												<select id=selectcategory name="categoryNumber">
@@ -75,7 +75,7 @@
 										<div class="form-group">
 											<label class="control-label col-md-2">File Upload</label>
 											<div class="col-md-4">
-												<input type="file" class="default" name="uploadFile" />
+												<input type="file" class="default" name="messageFile" />
 											</div>
 										</div>
 
