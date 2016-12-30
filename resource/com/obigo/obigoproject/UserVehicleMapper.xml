@@ -69,11 +69,14 @@
 		resultMap="UserVehicleUserIdResultMap">
 		SELECT USER_ID FROM USER_VEHICLE
 		<choose>
+			<when test="location!=null and modelCode!=null">
+				WHERE location=#{location} and MODEL_CODE=#{modelCode}
+			</when>
 			<when test="location!=null">
 				WHERE location=#{location}
 			</when>
 			<when test="modelCode!=null">
-				WHERE MODELCODE=#{modelCode}
+				WHERE MODEL_CODE=#{modelCode}
 			</when>
 			<otherwise>
 
@@ -82,8 +85,11 @@
 	</select>
 
 	<select id="selectCountingByModelName" resultType="hashmap">
-		select v.model_name, t.counting, v.model_code from vehicle v, (select model_code, count(*)
-		counting from user_vehicle group by model_code) t where
+		select
+		v.model_name, t.counting, v.model_code from vehicle v, (select
+		model_code, count(*)
+		counting from user_vehicle group by model_code) t
+		where
 		t.model_code=v.model_code
 	</select>
 
