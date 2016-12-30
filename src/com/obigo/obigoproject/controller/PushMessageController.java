@@ -69,7 +69,7 @@ public class PushMessageController {
 	 * 
 	 * @return 푸시 메시지 관리 페이지
 	 */
-	@RequestMapping(value = "/deletepushmessage", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/deletepushmessage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String deleteMessage(@RequestParam("messageNumber") int messageNumber) {
 		JSONObject jobj = new JSONObject();
@@ -86,7 +86,7 @@ public class PushMessageController {
 	 * 
 	 * @return 푸시 메시지 관리 페이지
 	 */
-	@RequestMapping(value = "/getmessageanalytics", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/getmessageanalytics", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String getMessageAnalytics() {
 		JSONArray jArray = (JSONArray) pushMessageService.getCategoryName();

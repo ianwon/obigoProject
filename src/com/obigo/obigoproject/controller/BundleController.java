@@ -28,7 +28,7 @@ public class BundleController {
 	 * 
 	 * @return 번들 관리 페이지
 	 */
-	@RequestMapping(value = "/applybundle", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/applybundle", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String applyBundle(@RequestParam("bundleVersion") String bundleVersion) {
 		JSONObject jobj = new JSONObject();
@@ -82,7 +82,7 @@ public class BundleController {
 		}
 	}
 
-	@RequestMapping(value = "/bundleversioncheck", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/bundleversioncheck", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String bundleversionCheck(@RequestParam("bundleVersion") String bundleVersion) {
 		JSONObject jobj = new JSONObject();
@@ -96,7 +96,7 @@ public class BundleController {
 		}
 	}
 
-	@RequestMapping(value = "/bundlekeycheck", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/bundlekeycheck", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String bundlekeyCheck(@RequestParam("bundleKey") String bundleKey) {
 		JSONObject jobj = new JSONObject();
