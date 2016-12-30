@@ -47,3 +47,4 @@ Temporary Items
 .apdisk
 target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 target/m2e-wtp/web-resources/META-INF/maven/obigoProject/obigoProject/pom.properties
+/target/
