@@ -35,29 +35,24 @@
 							<header class="panel-heading"> Send Pushmessage </header>
 							<div class="panel-body">
 								<div class=" form">
-									<form class="cmxform form-horizontal tasi-form" enctype="multipart/form-data" id="commentForm" method="post" action="/obigoProject/sendtextmessage">
+									<form class="cmxform form-horizontal tasi-form" onsubmit="return check()" enctype="multipart/form-data" id="commentForm" method="post" action="/obigoProject/sendtextmessage">
 										<div class="form-group ">
-												&nbsp;&nbsp;&nbsp; <label>Category : </label>
-												<select id=selectcategory name="categoryNumber">
-													<option value="">Select Category</option>
-													<c:forEach var="c" items="${messagecategory}" begin="0">
-														<option value="${c.categoryNumber}">Category Name : ${c.categoryName}</option>
-													</c:forEach>
-												</select>
-												&nbsp;&nbsp;&nbsp; <label>Location : </label>
-												<select id=selectlocation name="location">
-													<option value="">Select Location</option>
-													<c:forEach var="l" items="${locationList}" begin="0">
-														<option value="${l.location}">Location : ${l.location}</option>
-													</c:forEach>
-												</select>
-												&nbsp;&nbsp;&nbsp; <label>Model : </label>
-												<select id=selectmodel name="modelCode">
-													<option value="">Select Model</option>
-													<c:forEach var="m" items="${modelList}" begin="0">
-														<option value="${m.modelCode}">ModelName : ${m.modelName}</option>
-													</c:forEach>
-												</select>
+											&nbsp;&nbsp;&nbsp; <label>Category : </label> <select id="selectcategory" name="categoryNumber">
+												<option value="">Select Category</option>
+												<c:forEach var="c" items="${messagecategory}" begin="0">
+													<option value="${c.categoryNumber}">Category Name : ${c.categoryName}</option>
+												</c:forEach>
+											</select> &nbsp;&nbsp;&nbsp; <label>Location : </label> <select id="selectlocation" name="location">
+												<option value="">Select Location</option>
+												<c:forEach var="l" items="${locationList}" begin="0">
+													<option value="${l.location}">Location : ${l.location}</option>
+												</c:forEach>
+											</select> &nbsp;&nbsp;&nbsp; <label>Model : </label> <select id="selectmodel" name="modelCode">
+												<option value="">Select Model</option>
+												<c:forEach var="m" items="${modelList}" begin="0">
+													<option value="${m.modelCode}">ModelName : ${m.modelName}</option>
+												</c:forEach>
+											</select>
 										</div>
 										<div class="form-group ">
 											<label for="cname" class="control-label col-lg-2">Message Subject (required)</label>
@@ -141,6 +136,18 @@
 	<!--this page  script only-->
 	<script src="/obigoProject/js/advanced-form-components.js"></script>
 
+	<script type="text/javascript">
+		function check() {
+			if ($("#selectcategory").val() == "") {
+				alert("카테고리를 선택해주세요");
+				return false;
+			} else if (($("#selectlocation").val() == "") && $("#selectmodel").val() == "") {
+				alert("지역 혹은 모델을 선택해주세요")
+				return false;
+			}
+			return true;
+		}
+	</script>
 
 </body>
 </html>
