@@ -105,6 +105,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 		PushMessageVO pushmessage = pushMessageDao.getPushMessage();
 		List<String> userIdList = uservehicleDao.getUserId(pushmessage);
+
 		for (String userId : userIdList) {
 			List<String> registrationidList = registrationidDao.getRegistrationidListByuserId(userId);
 			String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1); // 메시지
@@ -121,6 +122,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 			}
 		}
+		
 		return true;
 	}
 
