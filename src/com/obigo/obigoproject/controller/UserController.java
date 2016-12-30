@@ -90,10 +90,14 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/acceptrequest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber) {
+	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber,
+			@RequestParam("userId") String userId,
+			@RequestParam("flag") String flag) {
+		
 		userRequestService.acceptUserRequest(userRequestNumber);
 		JSONObject jobj = new JSONObject();
 		/// 푸시메시지 알아서 날려////
+		
 		return jobj.toString();
 	}
 

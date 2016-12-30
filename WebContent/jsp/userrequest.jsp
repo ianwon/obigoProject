@@ -44,8 +44,8 @@
 										<td>${k.modelCode}</td>
 										<td>${k.vin}</td>
 										<td class="center">${k.location}</td>
-										<td><a class="Accept" href="javascript:accept(${k.userRequestNumber });">Accept</a></td>
-										<td><a class="Reject" href="javascript:reject(${k.userRequestNumber });">Reject</a></td>
+										<td><a class="Accept" href="javascript:accept(${k.userRequestNumber }, ${k.userId});">Accept</a></td>
+										<td><a class="Reject" href="javascript:reject(${k.userRequestNumber }, ${k.userId});">Reject</a></td>
 									</tr>
 								</c:forEach>
 
@@ -90,14 +90,15 @@
 
 	<script type="text/javascript">
 		//유저 요청 수락 함수.
-		function accept(data) {
+		function accept(requestNumber, userId) {
 			if (confirm("정말 수락하시겠습니까??") == true) {
 				$.ajax({
 					type : "post",
 					url : "/obigoProject/acceptrequest",
 					dataType : "json",
 					data : {
-						"userRequestNumber" : data,
+						"userRequestNumber" : requestNumber,
+						"userId": userId,
 						"flag" : "accept"
 					},
 					success : function(data) {
@@ -108,14 +109,15 @@
 				return;
 		}
 		//유저 요청 거절 함수
-		function reject(data) {
+		function reject(requestNumber, userId) {
 			if (confirm("정말 거절하시겠습니까??") == true) {
 				$.ajax({
 					type : "post",
 					url : "/obigoProject/rejectrequest",
 					dataType : "json",
 					data : {
-						"userRequestNumber" : data,
+						"userRequestNumber" : requestNumber,
+						"userId": userId,
 						"flag" : "reject"
 					},
 					success : function(data) {
