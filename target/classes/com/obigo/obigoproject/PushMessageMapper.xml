@@ -19,7 +19,7 @@
 
 	<insert id="insertPushMessage" parameterType="PushMessage">
 	<![CDATA[
-		insert into push_message values(sq_message_number.nextval, #{title}, #{content}, sysdate, #{uploadFile}, #{modelCode}, #{location}, #{categoryNumber})
+		insert into push_message values(sq_message_number.nextval, #{title}, #{content}, sysdate, #{uploadFile,jdbcType=VARCHAR}, #{modelCode}, #{location}, #{categoryNumber})
 	]]>
 	</insert>
 

@@ -98,7 +98,11 @@ public class PushMessageServiceImpl implements PushMessageService {
 	// GCM 서버로 푸시 메시지 전송
 	@Override
 	public boolean sendPushMessageToGcm(PushMessageVO vo, HttpServletRequest request) throws IllegalArgumentException, IOException {
-		pushMessageDao.insertPushMessage(createFile(vo, request));
+		if (((MultipartHttpServletRequest) request).getFile("messageFile") != null)
+			pushMessageDao.insertPushMessage(createFile(vo, request));
+		else
+			pushMessageDao.insertPushMessage(vo);
+
 		PushMessageVO pushmessage = pushMessageDao.getPushMessage();
 		List<String> userIdList = uservehicleDao.getUserId(pushmessage);
 		for (String userId : userIdList) {
