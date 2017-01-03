@@ -40,7 +40,7 @@
 			<h1>404</h1>
 			<h2>page not found</h2>
 			<p class="page-404">
-				Something went wrong or that page doesnât exist yet. <a href="index.html">Return Home</a>
+				Something went wrong or that page doesnât exist yet. <a href="/obigoProject/dashboard">Return Home</a>
 			</p>
 		</section>
 
