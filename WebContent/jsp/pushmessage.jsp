@@ -41,12 +41,13 @@
 									<tbody>
 
 										<c:forEach var="p" items="${pushMessageList}" begin="0">
+											<c:set var="cnumber" value="category${p.categoryNumber}" />
 											<tr class="">
 												<td class="center">${p.title}</td>
 												<td class="center">${p.uploadFile}</td>
 												<td class="center">${p.content}</td>
 												<td class="center">${p.sendDate}</td>
-												<td class="center">${p.categoryNumber}</td>
+												<td class="center"><c:out value="${messageCategoryMap[cnumber]}" /></td>
 												<td><a class="Delete" href="javascript:deletePushmessage(${p.messageNumber});">Delete</a></td>
 											</tr>
 										</c:forEach>
@@ -97,7 +98,6 @@
 			EditableTable.init();
 		});
 	</script>
-
 	<script type="text/javascript">
 	
 	
@@ -121,6 +121,5 @@
 			}
 		}
 	</script>
-
 </body>
 </html>

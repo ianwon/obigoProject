@@ -1,6 +1,8 @@
 package com.obigo.obigoproject.messagecategory.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +59,16 @@ public class MessageCategoryServiceImpl implements MessageCategoryService {
 	@Override
 	public List<MessageCategoryVO> getMessageCategoryList() {
 		return messageCategoryDao.getMessageCategoryList();
+	}
+
+	@Override
+	public Map<String, String> getMessageCategoryMap() {
+		Map<String, String> map = new HashMap<>();
+		List<MessageCategoryVO> list = messageCategoryDao.getMessageCategoryList();
+		for (int i = 0; i < list.size(); i++) {
+			map.put("category" + list.get(i).getCategoryNumber(), list.get(i).getCategoryName());
+		}
+		return map;
 	}
 
 }
