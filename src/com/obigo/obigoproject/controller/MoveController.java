@@ -227,6 +227,7 @@ public class MoveController {
 		model.addAttribute("userRequestList", userRequestList);
 		List<PushMessageVO> list = pushMessageService.getPushMessageList();
 		model.addAttribute("pushMessageList", list);
+		model.addAttribute("messageCategoryMap", messageCategoryService.getMessageCategoryMap());
 		return "/jsp/pushmessage";
 	}
 
@@ -343,7 +344,7 @@ public class MoveController {
 	 */
 	@RequestMapping("/messageanalytics")
 	public String moveMessageAnalytics() {
-		
+
 		return "/jsp/messageanalytics";
 	}
 
