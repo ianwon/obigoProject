@@ -60,11 +60,15 @@ public class LogServiceImpl implements LogService {
 		Calendar cal = Calendar.getInstance();
 		map.put("year", cal.get(Calendar.YEAR) - 2000);
 		map.put("url", url);
-
 		for (int i = 1; i <= 12; i++) {
-			map.put("month", i);
+			if (i < 10)
+				map.put("month", "0" + i);
+			else
+				map.put("month", "" + i);
+
 			list.add(logDao.getMonthLogCount(map));
 		}
+		System.out.println(list);
 		return list;
 	}
 
@@ -88,7 +92,7 @@ public class LogServiceImpl implements LogService {
 		Map<String, Object> map = new HashMap<>();
 		Calendar cal = Calendar.getInstance();
 		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
-		int month = cal.get(Calendar.MONTH)+1;
+		int month = cal.get(Calendar.MONTH) + 1;
 		for (int i = 0; i < 8; i++) {
 			if (month == 0) {
 				map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000 - 1));
