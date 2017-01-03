@@ -48,10 +48,16 @@
 								<header class="panel-heading">
 									사용자 접속 통계 <span id="head-userid"></span>
 									<div>
-										
+										<label>Category : </label> <select id="selectcategory" name="categoryNumber" onchange="javascript:refresh(this);">
+											<option value="">Select Year</option>
+											<c:forEach var="year" items="${yearList}">
+												<option value="${year}">${year}</option>
+											</c:forEach>
+										</select>
 									</div>
 								</header>
-								<div class="panel-body">
+
+								<div id="panel" class="panel-body">
 									<div id="hero-bar" class="graph"></div>
 								</div>
 							</section>
@@ -439,7 +445,13 @@
 			// 			hiddenField.setAttribute("value", year);
 			// 			document.body.appendChild(form);
 			// 			form.submit();
-			$('#hero-bar').load('/useranalytics?year='+year)
+			// 						$('#hero-bar').load('/useranalytics?year=' + year.value)
+			alert(year.value);
+			$.get("/obigoProject/useranalytics?year=2016"), function (returnedHTML){
+				alert(returnedHTML);
+				$("#hero-bar").html(returnedHTML);
+			}
+// 			$("#panel").load("/obigoProject/useranalytics?year=2016 #hero-bar");
 		}
 	</script>
 </body>
