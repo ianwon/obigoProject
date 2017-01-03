@@ -19,10 +19,10 @@ public interface LogService {
 	public List<LogVO> getLogListByUrl(String url);
 
 	//전체 로그의 특정 url값에 접근한 로그의 횟수 추출
-	public List<Integer> getMonthLogCount(String url, int Year);
+	public List<Integer> getMonthLogCount(String url);
 
 	//특정 유저 로그의 특정 url값에 접근한 로그의 횟수 추출
-	public List<Integer> getUserMonthLogCount(String url, String userId, int Year);
+	public List<Integer> getUserMonthLogCount(String url, String userId);
 
 	//번들 업데이트 로그의 횟수 추출
 	public List<Integer> getBundleUpdateCount();

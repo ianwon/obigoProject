@@ -1,11 +1,9 @@
 package com.obigo.obigoproject.controller;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -270,6 +268,7 @@ public class MoveController {
 	 */
 	@RequestMapping(value = "/userVehicle")
 	public String moveUserVehicle(@RequestParam("userId") String userId, Model model, HttpServletResponse response) {
+
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
 
@@ -293,22 +292,9 @@ public class MoveController {
 	 * 
 	 * @return 통계 관리 페이지
 	 */
-	@RequestMapping(value = "/useranalytics", method = { RequestMethod.GET, RequestMethod.POST })
-	public String moveUserAnalytics(Model model, HttpServletRequest request) {
-		int selectYear = 0;
-		if (request.getParameter("year") != null)
-			selectYear = Integer.parseInt(request.getParameter("year"));
-		else
-			selectYear = Calendar.getInstance().get(Calendar.YEAR);
-		System.out.println(selectYear);
-		model.addAttribute("userAnalytics", logService.getMonthLogCount("%login", selectYear));
-		List<Integer> list = new ArrayList<>();
-		for (int i = 2016; i <= Calendar.getInstance().get(Calendar.YEAR); i++) {
-			list.add(i);
-		}
-		System.out.println(list);
-		System.out.println(logService.getMonthLogCount("%login", selectYear));
-		model.addAttribute("yearList", list);
+	@RequestMapping("/useranalytics")
+	public String moveUserAnalytics(Model model) {
+		model.addAttribute("userAnalytics", logService.getMonthLogCount("%login"));
 		return "/jsp/useranalytics";
 	}
 
@@ -319,7 +305,8 @@ public class MoveController {
 	 * @return 통계 관리 페이지
 	 */
 	@RequestMapping("/uvanalytics")
-	public String moveUserVehicleAnalytics() {
+	public String moveUserVehicleAnalytics(Model model) {
+		model.addAttribute("userVehicleAnalytics", logService.getMonthLogCount("%login"));
 		return "/jsp/uvanalytics";
 	}
 
