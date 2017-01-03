@@ -128,15 +128,15 @@ public class PushMessageServiceImpl implements PushMessageService {
 	public boolean sendUserReqeustPushMessage(String userId, String flag) throws IOException {
 
 		List<String> registrationidList = registrationidDao.getRegistrationidListByuserId(userId);
-		
-		String content=null;
-		String title=null;
-		
-		title="<<Vehicle registration : "+userId+">>";
-		if("accept".equals(flag)){
-			content="Your request Accepted";
-		}else{
-			content="Your request Rejected";
+
+		String content = null;
+		String title = null;
+
+		title = "<<Vehicle registration : " + userId + ">>";
+		if ("accept".equals(flag)) {
+			content = "Your request Accepted";
+		} else {
+			content = "Your request Rejected";
 		}
 		String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1); // 메시지
 		// 고유
@@ -148,9 +148,9 @@ public class PushMessageServiceImpl implements PushMessageService {
 		try {
 			Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE).timeToLive(LIVE_TIME).addData("content", content).addData("title", title).build();
 			MulticastResult result = sender.send(message, registrationidList, RETRY);
-			
+
 		} catch (IllegalArgumentException e) {
-			
+
 			return false;
 		}
 
