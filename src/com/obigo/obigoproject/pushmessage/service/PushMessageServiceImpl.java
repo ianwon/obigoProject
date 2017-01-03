@@ -2,7 +2,6 @@ package com.obigo.obigoproject.pushmessage.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,9 +18,7 @@ import com.google.android.gcm.server.MulticastResult;
 import com.google.android.gcm.server.Sender;
 import com.obigo.obigoproject.pushmessage.dao.PushMessageDao;
 import com.obigo.obigoproject.registrationid.dao.RegistrationidDao;
-import com.obigo.obigoproject.registrationid.service.RegistrationidServiceImpl;
 import com.obigo.obigoproject.uservehicle.dao.UserVehicleDao;
-import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.PushMessageVO;
 
 import net.sf.json.JSONArray;
