@@ -1,3 +1,4 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -34,8 +35,6 @@
 <body>
 
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
-
-
 	<section id="container" class="">
 		<!--main content start-->
 
@@ -47,8 +46,10 @@
 						<div class="col-lg-6" style="width: 1500px;">
 							<section class="panel">
 								<header class="panel-heading">
-									사용자 접속 통계
-									<span id="head-userid"></span>
+									사용자 접속 통계 <span id="head-userid"></span>
+									<div>
+										
+									</div>
 								</header>
 								<div class="panel-body">
 									<div id="hero-bar" class="graph"></div>
@@ -119,117 +120,116 @@
 	<script type="text/javascript">
 		var table = null;
 		$(document).ready(
-
-		function() {
-			
-			// datatables 라이브러리는 사용하는데 table을 사용하기 위해서 initialize 해주는 작업
-			table = $("#myTable").DataTable({
-				"processing" : true,
-				// 				"bDestroy" : true,
-				"destroy" : true,
-				"bFilter" : false,
-				"order" : [ [ 0, "asc" ] ],
-				"columnDefs" : [ {
-					"width" : "80px",
-					"targets" : 4
-				}, {
-					"width" : "80px",
-					"targets" : 5
-				} ],
-				"ajax" : {
-					"url" : "/obigoProject/loginuserlist",
-					"data" : {
-						"userId" : $("#searchId").val()
+	
+			function() {
+	
+				// datatables 라이브러리는 사용하는데 table을 사용하기 위해서 initialize 해주는 작업
+				table = $("#myTable").DataTable({
+					"processing" : true,
+					// 				"bDestroy" : true,
+					"destroy" : true,
+					"bFilter" : false,
+					"order" : [ [ 0, "asc" ] ],
+					"columnDefs" : [ {
+						"width" : "80px",
+						"targets" : 4
+					}, {
+						"width" : "80px",
+						"targets" : 5
+					} ],
+					"ajax" : {
+						"url" : "/obigoProject/loginuserlist",
+						"data" : {
+							"userId" : $("#searchId").val()
+						},
+						"type" : "POST"
 					},
-					"type" : "POST"
-				},
-				"columns" : [ {
-					"data" : "userId"
-				}, {
-					"data" : "password",
-					"visible" : false
-				}, {
-					"data" : "name"
-				}, {
-					"data" : "eMail"
-				}, {
-					"data" : "phone"
-				}, {
-					"data" : "roleName"
-				}, {
-					"data" : "date"
-				} ]
-			});
-			
-			
-			// table의 row를 클릭했을 때 해당된는 row의 User ID에 대한 Login 통계를 보여주는 함수
-			$("#myTable tbody").on("click", "tr", function() {
-				if ($(this).hasClass("selected")) {
-					$(this).removeClass("selected");
-					
-					$.ajax({
-						type : "post",
-						url : "/obigoProject/countuserlogin",
-						dataType : "json",
-						data : {
-							"userId" : ""
-						},
-						success : function(data) {
-							$("#hero-bar").empty();
-							$("#head-userid").text("[All]");
-							setUp(data);
-						},
-						error : function(e) {
-							console.log(e);
-						}
-					});
-
-				} else {
-					table.$("tr.selected").removeClass("selected");
-					$(this).addClass("selected");
-					var userId = $(this).find("td:eq(0)").text();
-
-					// 선택한 User ID의 월별 Login Count를 얻어오는 AJAX
-					$.ajax({
-						type : "post",
-						url : "/obigoProject/countuserlogin",
-						dataType : "json",
-						data : {
-							"userId" : userId
-						},
-						success : function(data) {
-							if (userId != "No data available in table") {
+					"columns" : [ {
+						"data" : "userId"
+					}, {
+						"data" : "password",
+						"visible" : false
+					}, {
+						"data" : "name"
+					}, {
+						"data" : "eMail"
+					}, {
+						"data" : "phone"
+					}, {
+						"data" : "roleName"
+					}, {
+						"data" : "date"
+					} ]
+				});
+	
+	
+				// table의 row를 클릭했을 때 해당된는 row의 User ID에 대한 Login 통계를 보여주는 함수
+				$("#myTable tbody").on("click", "tr", function() {
+					if ($(this).hasClass("selected")) {
+						$(this).removeClass("selected");
+	
+						$.ajax({
+							type : "post",
+							url : "/obigoProject/countuserlogin",
+							dataType : "json",
+							data : {
+								"userId" : ""
+							},
+							success : function(data) {
 								$("#hero-bar").empty();
-								$("#head-userid").text("[ID: " + userId + "]");
+								$("#head-userid").text("[All]");
 								setUp(data);
+							},
+							error : function(e) {
+								console.log(e);
 							}
-						},
-						error : function(e) {
-							console.log(e);
-						}
-					});
+						});
+	
+					} else {
+						table.$("tr.selected").removeClass("selected");
+						$(this).addClass("selected");
+						var userId = $(this).find("td:eq(0)").text();
+	
+						// 선택한 User ID의 월별 Login Count를 얻어오는 AJAX
+						$.ajax({
+							type : "post",
+							url : "/obigoProject/countuserlogin",
+							dataType : "json",
+							data : {
+								"userId" : userId
+							},
+							success : function(data) {
+								if (userId != "No data available in table") {
+									$("#hero-bar").empty();
+									$("#head-userid").text("[ID: " + userId + "]");
+									setUp(data);
+								}
+							},
+							error : function(e) {
+								console.log(e);
+							}
+						});
+					}
+				});
+	
+				// User 통계 Page가 처음 loading 되었을 때
+				if ($("#searchId").val() == "") {
+					setUp(<c:out value="${userAnalytics}" />);
+					$("#head-userid").text("[All]");
+					searchUserId();
+				} else {
+					alert("false");
+	
 				}
 			});
-		
-			// User 통계 Page가 처음 loading 되었을 때
-			if ($("#searchId").val() == "") {
-				setUp(<c:out value="${userAnalytics}" />);
-				$("#head-userid").text("[All]");
-				searchUserId();
-			} else {
-				alert("false");
-
-			}
-		});
-
+	
 		// Text에 입력한 문자열을 포함하는 User ID의 List를 테이블로 보여준다.
 		function searchUserId() {
-			
-			if(table) { // Check if table object exists and needs to be flushed
+			if (table) { // Check if table object exists and needs to be flushed
 				table.destroy(); // For new version use table.destroy();
-			    $('#myTable').empty(); // empty in case the columns change
+				$('#myTable').empty(); // empty in case the columns change
 			}
-
+	
 			// datatables 라이브러리는 사용하는데 table을 사용하기 위해서 initialize 해주는 작업
 			table = $("#myTable").DataTable({
 				"processing" : true,
@@ -267,13 +267,13 @@
 				}, {
 					"data" : "date"
 				} ]
-			}); 
-			
+			});
+	
 			// table의 row를 클릭했을 때 해당된는 row의 User ID에 대한 Login 통계를 보여주는 함수
 			$("#myTable tbody").on("click", "tr", function() {
 				if ($(this).hasClass("selected")) {
 					$(this).removeClass("selected");
-					
+	
 					$.ajax({
 						type : "post",
 						url : "/obigoProject/countuserlogin",
@@ -290,12 +290,12 @@
 							console.log(e);
 						}
 					});
-
+	
 				} else {
 					table.$("tr.selected").removeClass("selected");
 					$(this).addClass("selected");
 					var userId = $(this).find("td:eq(0)").text();
-
+	
 					// 선택한 User ID의 월별 Login Count를 얻어오는 AJAX
 					$.ajax({
 						type : "post",
@@ -317,7 +317,7 @@
 					});
 				}
 			});
-
+	
 			if ($("#searchId").val() == "") {
 				$.ajax({
 					type : "post",
@@ -336,19 +336,19 @@
 					}
 				});
 			}
-
+	
 			/* // table의 row를 클릭했을 때 해당된는 row의 User ID에 대한 Login 통계를 보여주는 함수
 			$("#myTable tbody").on("click", "tr", function() {
 				if ($(this).hasClass("selected")) {
 					alert("1");
 					$(this).removeClass("selected");
-
+			
 				} else {
 					table.$("tr.selected").removeClass("selected");
 					$(this).addClass("selected");
 					alert("2");
 					var userId = $(this).find("td:eq(0)").text();
-
+			
 					// 선택한 User ID의 월별 Login Count를 얻어오는 AJAX
 					$.ajax({
 						type : "post",
@@ -370,9 +370,9 @@
 					});
 				}
 			}); */
-
+	
 		}
-
+	
 		// User Login 통계 그래프를 보여주는 함수
 		function setUp(data) {
 			$(function() {
@@ -425,7 +425,22 @@
 					barColors : [ '#6883a3' ]
 				});
 			});
-		};
+		}
+		;
+	
+		function refresh(year) {
+			// 			method = method || "post";
+			// 			var form = document.createElement("form");
+			// 			form.setAttribute("method", method);
+			// 			form.setAttribute("action", "/useranalytics");
+			// 			var hiddenField = document.createElement("input");
+			// 			hiddenField.setAttribute("type", "hidden");
+			// 			hiddenField.setAttribute("name", "year");
+			// 			hiddenField.setAttribute("value", year);
+			// 			document.body.appendChild(form);
+			// 			form.submit();
+			$('#hero-bar').load('/useranalytics?year='+year)
+		}
 	</script>
 </body>
 </html>
