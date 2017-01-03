@@ -29,10 +29,10 @@ public class RegistrationidServiceImpl implements RegistrationidService {
 	@Override
 	public List<String> getRegistrationidListByuserId(String userId) {
 		return registrationidDao.getRegistrationidListByuserId(userId);
-		}
-	
-		@Override
-		public List<RegistrationidVO> getRegistrationidList() {
+	}
+
+	@Override
+	public List<RegistrationidVO> getRegistrationidList() {
 		return registrationidDao.getRegistrationidList();
 	}
 
