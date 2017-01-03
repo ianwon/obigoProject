@@ -56,7 +56,7 @@
 	</select>
 
 	<select id="selectLocation" resultMap="UserVehicleResultMap">
-		SELECT LOCATION FROM
+		SELECT DISTINCT LOCATION FROM
 		USER_VEHICLE
 	</select>
 
