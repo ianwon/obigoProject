@@ -295,21 +295,22 @@ public class MoveController {
 	 */
 	@RequestMapping(value = "/useranalytics", method = { RequestMethod.GET, RequestMethod.POST })
 	public String moveUserAnalytics(Model model, HttpServletRequest request) {
-		System.out.println(request.getParameter("year"));
 		int selectYear = 0;
 		if (request.getParameter("year") != null)
 			selectYear = Integer.parseInt(request.getParameter("year"));
 		else
 			selectYear = Calendar.getInstance().get(Calendar.YEAR);
+		System.out.println(selectYear);
 		model.addAttribute("userAnalytics", logService.getMonthLogCount("%login", selectYear));
 		List<Integer> list = new ArrayList<>();
 		for (int i = 2016; i <= Calendar.getInstance().get(Calendar.YEAR); i++) {
 			list.add(i);
 		}
+		System.out.println(list);
+		System.out.println(logService.getMonthLogCount("%login", selectYear));
 		model.addAttribute("yearList", list);
 		return "/jsp/useranalytics";
 	}
-
 
 	/////////////////// 잠시 생각/////////////////////////////////
 	/**
