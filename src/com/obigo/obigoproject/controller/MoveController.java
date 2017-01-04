@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -221,13 +222,36 @@ public class MoveController {
 	 * 
 	 * @return 푸시메시지 관리 페이지
 	 */
-	@RequestMapping("/pushmessage")
-	public String movePushMessage(Model model) {
-		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		model.addAttribute("userRequestList", userRequestList);
-		List<PushMessageVO> list = pushMessageService.getPushMessageList();
-		model.addAttribute("pushMessageList", list);
+	@RequestMapping(value = "/pushmessage", method = { RequestMethod.POST, RequestMethod.GET })
+	public String movePushMessage(Model model, HttpServletRequest request) {
+		if ((request.getParameter("categoryNumber") == null || request.getParameter("categoryNumber").equals("")) && (request.getParameter("location") == null || request.getParameter("location").equals(""))
+				&& (request.getParameter("modelCode") == null || request.getParameter("location").equals("")))
+			model.addAttribute("pushMessageList", pushMessageService.getPushMessageList());
+		//////// select box///////
+		if (request.getParameter("categoryNumber") == null || request.getParameter("categoryNumber").equals("")) {
+			model.addAttribute("categoryNumber", null);
+		} else {
+			model.addAttribute("categoryNumber", request.getParameter("categoryNumber"));
+			model.addAttribute("pushMessageList", pushMessageService.getPushMessageListBy("categoryNumber", request.getParameter("categoryNumber")));
+		}
+		if (request.getParameter("location") == null || request.getParameter("location").equals("")) {
+			model.addAttribute("location", null);
+		} else {
+			model.addAttribute("location", request.getParameter("location"));
+			model.addAttribute("pushMessageList", pushMessageService.getPushMessageListBy("location", request.getParameter("location")));
+		}
+		if (request.getParameter("modelCode") == null || request.getParameter("modelCode").equals("")) {
+			model.addAttribute("modelCode", null);
+		} else {
+			model.addAttribute("modelCode", request.getParameter("modelCode"));
+			model.addAttribute("pushMessageList", pushMessageService.getPushMessageListBy("modelCode", request.getParameter("modelCode")));
+		}
+
+		model.addAttribute("messageCategoryList", messageCategoryService.getMessageCategoryList());
 		model.addAttribute("messageCategoryMap", messageCategoryService.getMessageCategoryMap());
+		model.addAttribute("locationList", userVehicleService.getLocation());
+		model.addAttribute("modelList", vehicleService.getVehicleList());
+
 		return "/jsp/pushmessage";
 	}
 
@@ -238,8 +262,6 @@ public class MoveController {
 	 */
 	@RequestMapping("/sendmessage")
 	public String moveSendMessage(Model model) {
-		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		model.addAttribute("userRequestList", userRequestList);
 		model.addAttribute("modelList", vehicleService.getVehicleList());
 		model.addAttribute("locationList", userVehicleService.getLocation());
 		model.addAttribute("messagecategory", messageCategoryService.getMessageCategoryList());

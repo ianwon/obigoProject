@@ -55,4 +55,15 @@ public class PushMessageDaoImpl implements PushMessageDao {
 		return sqlSession.selectList("obigoproject.PushMessage.groupByCategoryName");
 	}
 
+	@Override
+	public List<PushMessageVO> getPushMessageListBy(String by, String select) {
+		if (by.equals("categoryNumber"))
+			return sqlSession.selectList("obigoproject.PushMessage.selectPushMessageListByCategory", Integer.parseInt(select));
+		else if (by.equals("location"))
+			return sqlSession.selectList("obigoproject.PushMessage.selectPushMessageListByLocation", select);
+		else if (by.equals("modelCode"))
+			return sqlSession.selectList("obigoproject.PushMessage.selectPushMessageListByModelCode", select);
+		return null;
+	}
+
 }
