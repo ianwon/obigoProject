@@ -27,7 +27,7 @@
 										<c:forEach var="mcl" items="${messageCategoryList}" begin="0">
 											<c:choose>
 												<c:when test="${param.categoryNumber==mcl.categoryNumber}">
-													<option value="${mcl.categoryNumber}">Category : ${mcl.categoryName}</option>
+													<option value="${mcl.categoryNumber}" selected>Category : ${mcl.categoryName}</option>
 												</c:when>
 												<c:otherwise>
 													<option value="${mcl.categoryNumber}">Category : ${mcl.categoryName}</option>
@@ -39,7 +39,7 @@
 										<c:forEach var="ll" items="${locationList}" begin="0">
 											<c:choose>
 												<c:when test="${param.location==ll.location}">
-													<option value="${ll.location}">Location : ${ll.location}</option>
+													<option value="${ll.location}" selected>Location : ${ll.location}</option>
 												</c:when>
 												<c:otherwise>
 													<option value="${ll.location}">Location : ${ll.location}</option>
@@ -51,7 +51,7 @@
 										<c:forEach var="ml" items="${modelList}" begin="0">
 											<c:choose>
 												<c:when test="${param.modelCode==ml.modelName}">
-													<option value="${ml.modelCode}">ModelName : ${ml.modelName}</option>
+													<option value="${ml.modelCode}" selected>ModelName : ${ml.modelName}</option>
 												</c:when>
 												<c:otherwise>
 													<option value="${ml.modelCode}">ModelName : ${ml.modelName}</option>
@@ -93,8 +93,8 @@
 												<td class="center">${p.uploadFile}</td>
 												<td class="center">${p.content}</td>
 												<td class="center">${p.sendDate}</td>
-												<td class="center">${p.location}</td>
 												<td class="center">${p.modelCode}</td>
+												<td class="center">${p.location}</td>
 												<td class="center"><c:out value="${messageCategoryMap[cnumber]}" /></td>
 												<td><a class="Delete" href="javascript:deletePushmessage(${p.messageNumber});">Delete</a></td>
 											</tr>

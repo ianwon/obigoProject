@@ -63,7 +63,7 @@
 	<select id="selectPushMessageListByModelCode" parameterType="java.lang.String"
 		resultMap="PushMessageResultMap">
 		<![CDATA[
-			select * from push_message where model_code=#{modelCode}order by send_date desc
+			select * from push_message where model_code=#{modelCode} order by send_date desc
 		]]>
 	</select>
 
