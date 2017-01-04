@@ -48,6 +48,24 @@
 			select * from push_message order by send_date desc
 		]]>
 	</select>
+	<select id="selectPushMessageListByCategory" parameterType="java.lang.Integer"
+		resultMap="PushMessageResultMap">
+		<![CDATA[
+			select * from push_message where category_number=#{categoryNumber} order by send_date desc
+		]]>
+	</select>
+	<select id="selectPushMessageListByLocation" parameterType="java.lang.String"
+		resultMap="PushMessageResultMap">
+		<![CDATA[
+			select * from push_message where location=#{location} order by send_date desc
+		]]>
+	</select>
+	<select id="selectPushMessageListByModelCode" parameterType="java.lang.String"
+		resultMap="PushMessageResultMap">
+		<![CDATA[
+			select * from push_message where model_code=#{modelCode}order by send_date desc
+		]]>
+	</select>
 
 	<select id="selectPushMessageByCategory" parameterType="java.lang.Integer"
 		resultMap="PushMessageResultMap">
@@ -68,7 +86,7 @@
 		SELECT * FROM ( SELECT * FROM PUSH_MESSAGE ORDER BY MESSAGE_NUMBER DESC) WHERE ROWNUM = 1 
 	]]>
 	</select>
-	
+
 	<select id="groupByCategoryName" resultType="hashmap">
 	<![CDATA[
 		select count(p.category_number) COUNTING, m.category_name from push_message p ,message_category m where p.category_number = m.category_number group by m.category_name
