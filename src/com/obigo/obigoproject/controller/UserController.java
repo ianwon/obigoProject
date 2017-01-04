@@ -1,6 +1,7 @@
 package com.obigo.obigoproject.controller;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -259,19 +260,25 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/countuserlogin", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String countUserLogin(@RequestParam String userId) {
+	public String countUserLogin(@RequestParam String userId,@RequestParam String selectYear) {
 		JSONArray jArray = new JSONArray();
 		List<Integer> list = null;
-
+		Calendar cal = Calendar.getInstance();
+		
+		if (selectYear == null) {
+			selectYear = String.valueOf(cal.get(Calendar.YEAR));
+		}
+		
+		selectYear = selectYear.substring(2);
+		
 		// User Login 통계 그래프 출력할 때, 검색 Input text에 아무것도 입력하지 않았을 경우에 대한 처리
 		if (userId == null || "".equals(userId) || "No data available in table".equals(userId)) {
 			// 전체 Login 횟수에 대한 통계 값을 가져오는 메서드
-			list = logService.getMonthLogCount("%login%");
+			list = logService.getMonthLogCount("%login%",selectYear);
 		} else {
 			// 특정 User ID에 대한 매달 Login 횟수에 대한 통계 값을 가져오는 메서드
-			list = logService.getUserMonthLogCount("%login%", "%" + "\"userid\":\"" + userId + "\"%");
+			list = logService.getUserMonthLogCount(selectYear, "%login%", "%" + "\"userid\":\"" + userId + "\"%");
 		}
-		// list = logService.getUserMonthLogCount("%login%", "%" + "\"userid\":\"" + userId + "\"%");
 
 		if (list != null) {
 			for (Integer i : list) {

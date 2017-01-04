@@ -54,11 +54,11 @@ public class LogServiceImpl implements LogService {
 	}
 
 	@Override
-	public List<Integer> getMonthLogCount(String url) {
+	public List<Integer> getMonthLogCount(String url, String year) {
 		List<Integer> list = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
-		Calendar cal = Calendar.getInstance();
-		map.put("year", cal.get(Calendar.YEAR) - 2000);
+		System.out.println("Year: "+year);
+		map.put("year", year);
 		map.put("url", url);
 		for (int i = 1; i <= 12; i++) {
 			if (i < 10)
@@ -68,20 +68,21 @@ public class LogServiceImpl implements LogService {
 
 			list.add(logDao.getMonthLogCount(map));
 		}
-		System.out.println(list);
 		return list;
 	}
 
-	public List<Integer> getUserMonthLogCount(String url, String userId) {
+	public List<Integer> getUserMonthLogCount(String selectYear, String url, String userId) {
 		List<Integer> list = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
-		Calendar cal = Calendar.getInstance();
-		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
+		map.put("year", selectYear);
 		map.put("url", url);
 		map.put("body", userId);
 
 		for (int i = 1; i <= 12; i++) {
-			map.put("month", i);
+			if(i<10)
+				map.put("month", "0"+i);
+			else
+				map.put("month", i+"");
 			list.add(logDao.getUserMonthLogCount(map));
 		}
 		return list;

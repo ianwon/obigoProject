@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +37,8 @@
 
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
 
-
+	<jsp:useBean id="toYear" class="java.util.Date" />
+	<fmt:formatDate value="${toYear}" pattern="yyyy" var="nowYear" />
 	<section id="container" class="">
 		<!--main content start-->
 
@@ -51,6 +54,29 @@
 									<span id="head-userid"></span>
 								</header>
 								<div class="panel-body">
+									
+									<!-- 사용자 접속 통계의 대상이 되는 년도를 바꾸는 select 박스 -->
+									<form action="/obigoProject/useranalytics" id="frmSelectYear">
+										<label>검색 년도: </label>&nbsp; &nbsp;
+										<select id="selectYear" name="selectYear" onchange="changeYear()">
+											<c:choose>
+												<c:when test="${param.selectYear==nowYear}">
+													<option value="${nowYear}" selected>${nowYear}년</option>
+													<option value="${nowYear-1}">${nowYear-1}년</option>
+												</c:when>
+												<c:when test="${param.selectYear==nowYear-1}">
+													<option value="${nowYear}">${nowYear}년</option>
+													<option value="${nowYear-1}"  selected>${nowYear-1}년</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${nowYear}" selected>${nowYear}년</option>
+													<option value="${nowYear-1}">${nowYear-1}년</option>
+												</c:otherwise>
+											</c:choose>
+										</select>
+										<input type="submit" hidden="hidden">
+									</form>
+
 									<div id="hero-bar" class="graph"></div>
 								</div>
 							</section>
@@ -121,7 +147,7 @@
 		$(document).ready(
 
 		function() {
-			
+
 			// datatables 라이브러리는 사용하는데 table을 사용하기 위해서 initialize 해주는 작업
 			table = $("#myTable").DataTable({
 				"processing" : true,
@@ -160,19 +186,19 @@
 					"data" : "date"
 				} ]
 			});
-			
-			
+
 			// table의 row를 클릭했을 때 해당된는 row의 User ID에 대한 Login 통계를 보여주는 함수
 			$("#myTable tbody").on("click", "tr", function() {
 				if ($(this).hasClass("selected")) {
 					$(this).removeClass("selected");
-					
+
 					$.ajax({
 						type : "post",
 						url : "/obigoProject/countuserlogin",
 						dataType : "json",
 						data : {
-							"userId" : ""
+							"userId" : "",
+							"selectYear":$('#selectYear option:selected').val()
 						},
 						success : function(data) {
 							$("#hero-bar").empty();
@@ -195,7 +221,8 @@
 						url : "/obigoProject/countuserlogin",
 						dataType : "json",
 						data : {
-							"userId" : userId
+							"userId" : userId,
+							"selectYear":$('#selectYear option:selected').val()
 						},
 						success : function(data) {
 							if (userId != "No data available in table") {
@@ -210,24 +237,50 @@
 					});
 				}
 			});
-		
-			// User 통계 Page가 처음 loading 되었을 때
-			if ($("#searchId").val() == "") {
-				setUp(<c:out value="${userAnalytics}" />);
-				$("#head-userid").text("[All]");
-				searchUserId();
-			} else {
-				alert("false");
 
-			}
+			$("#hero-bar").empty();
+			$("#head-userid").text("[All]");
+			searchUserId();
+		 	// User 통계 Page가 처음 loading 되었을 때
+// 			if ($("#searchId").val() == "") {
+// 				$.ajax({
+// 					type : "post",
+// 					url : "/obigoProject/countuserlogin",
+// 					dataType : "json",
+// 					data : {
+// 						"userId" : "",
+// 						"selectYear":$('#selectYear option:selected').val()
+// 					},
+// 					success : function(data) {
+// 						$("#hero-bar").empty();
+// 						$("#head-userid").text("[All]");
+// 						searchUserId();
+// 					},
+// 					error : function(e) {
+// 						console.log(e);
+// 					}
+// 				});	
+				 				
+			
+// 				/* setUp(<c:out value="${userAnalytics}" />);
+// 				$("#head-userid").text("[All]");
+// 				searchUserId(); */
+// 			 } else {
+// 				alert("false");
+
+// 			} 
 		});
+
+		function changeYear() {
+			document.getElementById("frmSelectYear").submit();
+		}
 
 		// Text에 입력한 문자열을 포함하는 User ID의 List를 테이블로 보여준다.
 		function searchUserId() {
-			
-			if(table) { // Check if table object exists and needs to be flushed
+
+			if (table) { // Check if table object exists and needs to be flushed
 				table.destroy(); // For new version use table.destroy();
-			    $('#myTable').empty(); // empty in case the columns change
+				$('#myTable').empty(); // empty in case the columns change
 			}
 
 			// datatables 라이브러리는 사용하는데 table을 사용하기 위해서 initialize 해주는 작업
@@ -267,19 +320,20 @@
 				}, {
 					"data" : "date"
 				} ]
-			}); 
-			
+			});
+
 			// table의 row를 클릭했을 때 해당된는 row의 User ID에 대한 Login 통계를 보여주는 함수
 			$("#myTable tbody").on("click", "tr", function() {
 				if ($(this).hasClass("selected")) {
 					$(this).removeClass("selected");
-					
+
 					$.ajax({
 						type : "post",
 						url : "/obigoProject/countuserlogin",
 						dataType : "json",
 						data : {
-							"userId" : ""
+							"userId" : "",
+							"selectYear":$('#selectYear option:selected').val()
 						},
 						success : function(data) {
 							$("#hero-bar").empty();
@@ -302,7 +356,8 @@
 						url : "/obigoProject/countuserlogin",
 						dataType : "json",
 						data : {
-							"userId" : userId
+							"userId" : userId,
+							"selectYear":$('#selectYear option:selected').val()
 						},
 						success : function(data) {
 							if (userId != "No data available in table") {
@@ -318,13 +373,15 @@
 				}
 			});
 
+// 			alert("searchId()");
 			if ($("#searchId").val() == "") {
 				$.ajax({
 					type : "post",
 					url : "/obigoProject/countuserlogin",
 					dataType : "json",
 					data : {
-						"userId" : ""
+						"userId" : "",
+						"selectYear":$('#selectYear option:selected').val()
 					},
 					success : function(data) {
 						$("#hero-bar").empty();
