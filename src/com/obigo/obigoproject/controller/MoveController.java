@@ -75,11 +75,13 @@ public class MoveController {
 	 */
 	@RequestMapping("/dashboard")
 	public String moveDashBoard(Model model) {
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
+
 		model.addAttribute("userVehicleCount", userVehicleService.getUserVehicleCount());
 		model.addAttribute("userCount", userService.getUserCount());
 		model.addAttribute("userCountList", userService.getMonthUserCount());
-		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/header/dashboard";
 	}
 
@@ -90,8 +92,6 @@ public class MoveController {
 	 */
 	@RequestMapping("/registration")
 	public String moveRegistration(Model model) {
-		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/registration";
 	}
 
@@ -102,11 +102,12 @@ public class MoveController {
 	 */
 	@RequestMapping("/usermanagement")
 	public String moveUser(Model model) {
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 
 		List<UsersVO> list = userService.getUserList();
 		model.addAttribute("userList", list);
-		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/user";
 	}
 
@@ -117,11 +118,12 @@ public class MoveController {
 	 */
 	@RequestMapping("/adminmanagement")
 	public String moveAdmin(Model model) {
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 
 		List<UsersVO> list = userService.getAdminList();
 		model.addAttribute("adminList", list);
-		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/admin";
 	}
 
@@ -142,20 +144,19 @@ public class MoveController {
 	 */
 	@RequestMapping("/userrequest")
 	public String moveUserRequest(Model model) {
-
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		
-		List<VehicleVO> vehicleList = vehicleService.getVehicleList();
-		Map<String, String>vehicleMap=new HashMap<>();
-
-		for(VehicleVO vo:vehicleList){
-			vehicleMap.put(vo.getModelCode(),vo.getModelName());
-		}
-		
 		model.addAttribute("userRequestList", userRequestList);
+
+		List<VehicleVO> vehicleList = vehicleService.getVehicleList();
+		Map<String, String> vehicleMap = new HashMap<>();
+
+		for (VehicleVO vo : vehicleList) {
+			vehicleMap.put(vo.getModelCode(), vo.getModelName());
+		}
+
 		model.addAttribute("vehicleMap", vehicleMap);
-		
-		
+
 		return "/jsp/userrequest";
 	}
 
@@ -166,11 +167,12 @@ public class MoveController {
 	 */
 	@RequestMapping("/vehicle")
 	public String moveVehicle(Model model) {
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 
 		List<VehicleVO> list = vehicleService.getVehicleList();
 		model.addAttribute("vehicleList", list);
-		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		model.addAttribute("userRequestList", userRequestList);
 		return "/jsp/vehicle";
 	}
 
@@ -181,6 +183,7 @@ public class MoveController {
 	 */
 	@RequestMapping("/bundle")
 	public String moveBundle(Model model) {
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
 
@@ -198,6 +201,10 @@ public class MoveController {
 	 */
 	@RequestMapping("/resource")
 	public String moveResource(Model model, String bundleKey) {
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
+
 		List<BundleVO> bundlelist = bundleService.getBundleList();
 		model.addAttribute("bundleList", bundlelist);
 		if (bundleKey == null || bundleKey == "") {
@@ -208,8 +215,6 @@ public class MoveController {
 			model.addAttribute("resourceList", resourcelist);
 		}
 
-		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		model.addAttribute("userRequestList", userRequestList);
 
 		return "/jsp/resource";
 
@@ -222,9 +227,10 @@ public class MoveController {
 	 */
 	@RequestMapping("/api")
 	public String moveApi(Model model) {
-
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
+
 		List<ApiVO> list = apiService.getApiList();
 		model.addAttribute("apiList", list);
 		return "/jsp/api";
@@ -237,16 +243,19 @@ public class MoveController {
 	 */
 	@RequestMapping(value = "/pushmessage", method = { RequestMethod.POST, RequestMethod.GET })
 	public String movePushMessage(Model model, HttpServletRequest request) {
-		
-		List<VehicleVO> vehicleList = vehicleService.getVehicleList();
-		Map<String, String>vehicleMap=new HashMap<>();
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 
-		for(VehicleVO vo:vehicleList){
-			vehicleMap.put(vo.getModelCode(),vo.getModelName());
+		List<VehicleVO> vehicleList = vehicleService.getVehicleList();
+		Map<String, String> vehicleMap = new HashMap<>();
+
+		for (VehicleVO vo : vehicleList) {
+			vehicleMap.put(vo.getModelCode(), vo.getModelName());
 		}
-		
+
 		model.addAttribute("vehicleMap", vehicleMap);
-		
+
 		if ((request.getParameter("categoryNumber") == null || request.getParameter("categoryNumber").equals("")) && (request.getParameter("location") == null || request.getParameter("location").equals(""))
 				&& (request.getParameter("modelCode") == null || request.getParameter("location").equals("")))
 			model.addAttribute("pushMessageList", pushMessageService.getPushMessageList());
@@ -285,6 +294,10 @@ public class MoveController {
 	 */
 	@RequestMapping("/sendmessage")
 	public String moveSendMessage(Model model) {
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
+
 		model.addAttribute("modelList", vehicleService.getVehicleList());
 		model.addAttribute("locationList", userVehicleService.getLocation());
 		model.addAttribute("messagecategory", messageCategoryService.getMessageCategoryList());
@@ -298,6 +311,7 @@ public class MoveController {
 	 */
 	@RequestMapping("/log")
 	public String moveLog(Model model) {
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
 
@@ -313,7 +327,7 @@ public class MoveController {
 	 */
 	@RequestMapping(value = "/userVehicle")
 	public String moveUserVehicle(@RequestParam("userId") String userId, Model model, HttpServletResponse response) {
-
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
 
@@ -339,6 +353,10 @@ public class MoveController {
 	 */
 	@RequestMapping("/useranalytics")
 	public String moveUserAnalytics(Model model, String selectYear) {
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
+
 		return "/jsp/useranalytics";
 	}
 
@@ -350,6 +368,10 @@ public class MoveController {
 	 */
 	@RequestMapping("/uvanalytics")
 	public String moveUserVehicleAnalytics(Model model) {
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
+
 		return "/jsp/uvanalytics";
 	}
 
@@ -361,6 +383,10 @@ public class MoveController {
 	 */
 	@RequestMapping("/downanalytics")
 	public String moveDownAnalytics(Model model) {
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
+
 		model.addAttribute("bundleUpdateList", logService.getBundleUpdateCount());
 		model.addAttribute("userCountList", userService.getMonthUserCount2());
 		List<String> list = new ArrayList<>();
@@ -386,7 +412,10 @@ public class MoveController {
 	 * @return 통계 관리 페이지
 	 */
 	@RequestMapping("/messageanalytics")
-	public String moveMessageAnalytics() {
+	public String moveMessageAnalytics(Model model) {
+		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		model.addAttribute("userRequestList", userRequestList);
 
 		return "/jsp/messageanalytics";
 	}
