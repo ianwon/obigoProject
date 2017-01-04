@@ -28,7 +28,7 @@
 						<table class="table table-striped table-hover table-bordered" id="editable-sample">
 							<thead>
 								<tr>
-									<th>Username</th>
+									<th>User Name</th>
 									<th>Model Name</th>
 									<th>Vin</th>
 									<th>Location</th>
@@ -39,9 +39,11 @@
 							<tbody>
 								<!-- 유저요청 정보를 가져와서 테이블 형식으로 출력 -->
 								<c:forEach var="k" items="${userRequestList}" begin="0">
+									<c:set var="code" value="${k.modelCode}" />
 									<tr class="">
 										<td>${k.userId}</td>
-										<td>${k.modelCode}</td>
+										<td><c:out value="${vehicleMap[code]}"/></td>
+<%-- 										<td>${k.modelCode}</td> --%>
 										<td>${k.vin}</td>
 										<td class="center">${k.location}</td>
 										<td><a class="Accept" href="javascript:accept(${k.userRequestNumber }, '${k.userId}');">Accept</a></td>
