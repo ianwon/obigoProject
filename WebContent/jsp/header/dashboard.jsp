@@ -95,8 +95,8 @@
 
 			<!-- 월별 Login 통계 Start -->
 			<div class="border-head">
-				<h3><%=Calendar.getInstance().get(Calendar.YEAR)%>
-					Graph
+				<h3><%=Calendar.getInstance().get(Calendar.YEAR)%>&nbsp;
+					User Registration Graph
 				</h3>
 			</div>
 			<div class="custom-bar-chart">
