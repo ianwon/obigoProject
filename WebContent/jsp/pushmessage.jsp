@@ -14,7 +14,6 @@
 		<!--main content start-->
 		<section id="main-content">
 			<section class="wrapper site-min-height">
-
 				<!-- page start-->
 				<section class="panel">
 					<header class="panel-heading"> PushMessage </header>
@@ -152,6 +151,7 @@
 		});
 	</script>
 	<script type="text/javascript">
+	
 		function changeFrm(option) {
 			document.getElementById("frmSelect").submit();
 		}
