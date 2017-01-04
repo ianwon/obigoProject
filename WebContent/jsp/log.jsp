@@ -3,6 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+td {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+</style>
 <meta charset="UTF-8">
 <title>Log</title>
 </head>
@@ -17,6 +24,7 @@
 
 			<section class="wrapper site-min-height">
 
+
 				<!-- page start-->
 				<section class="panel">
 					<header class="panel-heading"> Log </header>
@@ -27,6 +35,42 @@
 									<a class="btn btn-success" data-toggle="modal" href="javascript:deleteLog();"> Delete All Log <i class="fa fa-minus"></i>
 									</a>
 								</div>
+								<!--modal start-->
+								<!-- ---------------insert modal start--------------- -->
+								<!-- Modal -->
+								<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h4 class="modal-title">Returned Api</h4>
+											</div>
+											<div class="modal-body">
+												<form class="form-signin" id="form-insertapi" action="/obigoProject/insertapi" onsubmit="return check();" method="POST">
+													<div class="login-wrap">
+														<div class="form-group">
+															<span class="label label-primary">URL</span>
+															<input type="text" name="apiUrl" id="apiUrl" class="form-control" disabled="disabled">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">BODY</span>
+															<input type="text" name="apiBody" id="apiBody" class="form-control" disabled="disabled">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">RETRUNED</span>
+															<textarea name="returned" id="returned" class="form-control" placeholder="Response To Send" rows="15" cols="45" disabled="disabled" style="font-size: 11px;text-align:left;"></textarea>
+														</div>
+													</div>
+												</form>
+											</div>
+											<div class="modal-footer">
+												<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- modal -->
+								<!-- ---------------insert modal start--------------- -->
 
 								<div class="btn-group pull-right">
 									<button class="btn dropdown-toggle" data-toggle="dropdown">
@@ -57,12 +101,12 @@
 									</thead>
 									<tbody>
 
-										<c:forEach var="l" items="${logList}" begin="0">
+										<c:forEach var="l" items="${logList}" begin="0" varStatus="status">
 											<tr class="">
-												<td>${l.url}</td>
-												<td class="center">${l.body}</td>
-												<td class="center">${l.dateTime}</td>
-												<td class="center">${l.returned}</td>
+												<td id="url${status.index}" onclick="javascript:showModal(${status.index});">${l.url}</td>
+												<td id="body${status.index}" class="center" onclick="javascript:showModal(${status.index});">${l.body}</td>
+												<td class="center" onclick="javascript:showModal(${status.index});">${l.dateTime}</td>
+												<td id="returned${status.index}" class="center" onclick="javascript:showModal(${status.index});">${l.returned}</td>
 											</tr>
 										</c:forEach>
 
@@ -115,6 +159,14 @@
 	</script>
 
 	<script type="text/javascript">
+	
+		function showModal(status) {
+			$("#apiUrl").val($("#url" + status).text());
+			$("#apiBody").val($("#body" + status).text());
+			$("#returned").val($("#returned" + status).text());
+			$("#myModal").modal();
+		}
+	
 		//api 삭제여부를 확인하고 true=삭제 false=취소
 		function deleteLog() {
 			if (confirm("전체 로그를 정말 삭제하시겠습니까?") == true) { //확인
@@ -131,9 +183,8 @@
 				return;
 			}
 		}
-
+	
 		function mailToAdmin() {
-
 			$.ajax({
 				type : "post",
 				url : "/obigoProject/pdfmail",
@@ -147,7 +198,7 @@
 						alert("Send email fail");
 				}
 			});
-
+	
 		}
 	</script>
 
