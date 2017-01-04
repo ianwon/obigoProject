@@ -2,7 +2,9 @@ package com.obigo.obigoproject.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -141,8 +143,19 @@ public class MoveController {
 	@RequestMapping("/userrequest")
 	public String moveUserRequest(Model model) {
 
-		List<UserRequestVO> list = userRequestService.getUserRequestList();
-		model.addAttribute("userRequestList", list);
+		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
+		
+		List<VehicleVO> vehicleList = vehicleService.getVehicleList();
+		Map<String, String>vehicleMap=new HashMap<>();
+
+		for(VehicleVO vo:vehicleList){
+			vehicleMap.put(vo.getModelCode(),vo.getModelName());
+		}
+		
+		model.addAttribute("userRequestList", userRequestList);
+		model.addAttribute("vehicleMap", vehicleMap);
+		
+		
 		return "/jsp/userrequest";
 	}
 
