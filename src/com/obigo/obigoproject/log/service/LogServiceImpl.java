@@ -57,7 +57,7 @@ public class LogServiceImpl implements LogService {
 	public List<Integer> getMonthLogCount(String url, String year) {
 		List<Integer> list = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
-		System.out.println("Year: "+year);
+
 		map.put("year", year);
 		map.put("url", url);
 		for (int i = 1; i <= 12; i++) {

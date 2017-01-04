@@ -310,31 +310,29 @@ public class MoveController {
 
 	/////////////////// 잠시 생각/////////////////////////////////
 	/**
-	 * 헤더 ANALYTICS클릭시 이동
+	 * 헤더 ANALYTICS > User 클릭시 이동
 	 * 
 	 * @return 통계 관리 페이지
 	 */
 	@RequestMapping("/useranalytics")
-	public String moveUserAnalytics(Model model) {
-		model.addAttribute("userAnalytics", logService.getMonthLogCount("%login"));
+	public String moveUserAnalytics(Model model, String selectYear) {
 		return "/jsp/useranalytics";
 	}
 
 	/////////////////// 잠시 생각/////////////////////////////////
 	/**
-	 * 헤더 ANALYTICS클릭시 이동
+	 * 헤더 ANALYTICS > User Vehicle 클릭시 이동
 	 * 
 	 * @return 통계 관리 페이지
 	 */
 	@RequestMapping("/uvanalytics")
 	public String moveUserVehicleAnalytics(Model model) {
-		model.addAttribute("userVehicleAnalytics", logService.getMonthLogCount("%login"));
 		return "/jsp/uvanalytics";
 	}
 
 	/////////////////// 잠시 생각/////////////////////////////////
 	/**
-	 * 헤더 ANALYTICS클릭시 이동
+	 * 헤더 ANALYTICS > Download Analytics 클릭시 이동
 	 * 
 	 * @return 통계 관리 페이지
 	 */
