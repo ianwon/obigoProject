@@ -19,6 +19,50 @@
 				<section class="panel">
 					<header class="panel-heading"> PushMessage </header>
 					<div class="panel-body">
+						<header>
+							<div class="panel">
+								<form action="/obigoProject/pushmessage" id="frmSelect">
+									<label>Category : </label> <select id="selectcategory" name="categoryNumber" onchange="changeFrm(this)">
+										<option value="">Select Category</option>
+										<c:forEach var="mcl" items="${messageCategoryList}" begin="0">
+											<c:choose>
+												<c:when test="${param.categoryNumber==mcl.categoryNumber}">
+													<option value="${mcl.categoryNumber}">Category : ${mcl.categoryName}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${mcl.categoryNumber}">Category : ${mcl.categoryName}</option>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+									</select> <label>Location : </label> <select id="selectlocation" name="location" onchange="changeFrm(this)">
+										<option value="">Select Location</option>
+										<c:forEach var="ll" items="${locationList}" begin="0">
+											<c:choose>
+												<c:when test="${param.location==ll.location}">
+													<option value="${ll.location}">Location : ${ll.location}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${ll.location}">Location : ${ll.location}</option>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+									</select> <label>Model : </label> <select id="selectmodel" name="modelCode" onchange="changeFrm(this)">
+										<option value="">Select Model</option>
+										<c:forEach var="ml" items="${modelList}" begin="0">
+											<c:choose>
+												<c:when test="${param.modelCode==ml.modelName}">
+													<option value="${ml.modelCode}">ModelName : ${ml.modelName}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${ml.modelCode}">ModelName : ${ml.modelName}</option>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+									</select>
+									<input type="submit" hidden="hidden">
+								</form>
+							</div>
+						</header>
 						<div class="adv-table editable-table ">
 							<div class="clearfix"></div>
 
@@ -34,6 +78,8 @@
 											<th>Upload File</th>
 											<th>Content</th>
 											<th>Send Date</th>
+											<th>Model Code</th>
+											<th>Location</th>
 											<th>Category Number</th>
 											<th>Delete</th>
 										</tr>
@@ -47,6 +93,8 @@
 												<td class="center">${p.uploadFile}</td>
 												<td class="center">${p.content}</td>
 												<td class="center">${p.sendDate}</td>
+												<td class="center">${p.location}</td>
+												<td class="center">${p.modelCode}</td>
 												<td class="center"><c:out value="${messageCategoryMap[cnumber]}" /></td>
 												<td><a class="Delete" href="javascript:deletePushmessage(${p.messageNumber});">Delete</a></td>
 											</tr>
@@ -99,7 +147,9 @@
 		});
 	</script>
 	<script type="text/javascript">
-	
+		function changeFrm(option) {
+			document.getElementById("frmSelect").submit();
+		}
 	
 	
 		//api 삭제여부를 확인하고 true=삭제 false=취소

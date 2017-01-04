@@ -81,6 +81,12 @@ public class PushMessageServiceImpl implements PushMessageService {
 		return pushMessageDao.getPushMessageList();
 	}
 
+	// 특정 PUSHMESSAGE를 가지고오는 메소드
+	@Override
+	public List<PushMessageVO> getPushMessageListBy(String by, String select) {
+		return pushMessageDao.getPushMessageListBy(by, select);
+	}
+
 	// 특정 카테고리의 PUSHMESSAGE를 가지고오는 메소드
 	@Override
 	public List<PushMessageVO> getPushMessageListByCategory(int categoryNumber) {
