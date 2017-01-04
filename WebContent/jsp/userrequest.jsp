@@ -43,7 +43,6 @@
 									<tr class="">
 										<td>${k.userId}</td>
 										<td><c:out value="${vehicleMap[code]}"/></td>
-<%-- 										<td>${k.modelCode}</td> --%>
 										<td>${k.vin}</td>
 										<td class="center">${k.location}</td>
 										<td><a class="Accept" href="javascript:accept(${k.userRequestNumber }, '${k.userId}');">Accept</a></td>

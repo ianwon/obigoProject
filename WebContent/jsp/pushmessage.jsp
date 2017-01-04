@@ -22,7 +22,8 @@
 						<header>
 							<div class="panel">
 								<form action="/obigoProject/pushmessage" id="frmSelect">
-									<label>Category : </label> <select id="selectcategory" name="categoryNumber" onchange="changeFrm(this)">
+									<label>Category : </label>
+									<select id="selectcategory" name="categoryNumber" onchange="changeFrm(this)">
 										<option value="">Select Category</option>
 										<c:forEach var="mcl" items="${messageCategoryList}" begin="0">
 											<c:choose>
@@ -34,7 +35,9 @@
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
-									</select> <label>Location : </label> <select id="selectlocation" name="location" onchange="changeFrm(this)">
+									</select>
+									<label>Location : </label>
+									<select id="selectlocation" name="location" onchange="changeFrm(this)">
 										<option value="">Select Location</option>
 										<c:forEach var="ll" items="${locationList}" begin="0">
 											<c:choose>
@@ -46,11 +49,13 @@
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
-									</select> <label>Model : </label> <select id="selectmodel" name="modelCode" onchange="changeFrm(this)">
+									</select>
+									<label>Model : </label>
+									<select id="selectmodel" name="modelCode" onchange="changeFrm(this)">
 										<option value="">Select Model</option>
 										<c:forEach var="ml" items="${modelList}" begin="0">
 											<c:choose>
-												<c:when test="${param.modelCode==ml.modelName}">
+												<c:when test="${param.modelCode==ml.modelCode}">
 													<option value="${ml.modelCode}" selected>ModelName : ${ml.modelName}</option>
 												</c:when>
 												<c:otherwise>
@@ -78,22 +83,22 @@
 											<th>Upload File</th>
 											<th>Content</th>
 											<th>Send Date</th>
-											<th>Model Code</th>
+											<th>Model Name</th>
 											<th>Location</th>
 											<th>Category Number</th>
 											<th>Delete</th>
 										</tr>
 									</thead>
 									<tbody>
-
 										<c:forEach var="p" items="${pushMessageList}" begin="0">
 											<c:set var="cnumber" value="category${p.categoryNumber}" />
+											<c:set var="code" value="${p.modelCode}" />
 											<tr class="">
 												<td class="center">${p.title}</td>
 												<td class="center">${p.uploadFile}</td>
 												<td class="center">${p.content}</td>
 												<td class="center">${p.sendDate}</td>
-												<td class="center">${p.modelCode}</td>
+												<td class="center"><c:out value="${vehicleMap[code]}" /></td>
 												<td class="center">${p.location}</td>
 												<td class="center"><c:out value="${messageCategoryMap[cnumber]}" /></td>
 												<td><a class="Delete" href="javascript:deletePushmessage(${p.messageNumber});">Delete</a></td>
@@ -150,8 +155,7 @@
 		function changeFrm(option) {
 			document.getElementById("frmSelect").submit();
 		}
-	
-	
+
 		//api 삭제여부를 확인하고 true=삭제 false=취소
 		function deletePushmessage(data) {
 			if (confirm("정말 삭제하시겠습니까??") == true) { //확인
