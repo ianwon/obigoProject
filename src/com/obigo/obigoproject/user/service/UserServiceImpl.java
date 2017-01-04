@@ -81,9 +81,8 @@ public class UserServiceImpl implements UserService {
 	// 로그인 id체크
 	@Override
 	public boolean idCheck(String userId, String roleName) {
-		UsersVO userVO=userDao.getUser(userId);
-		
-		
+		UsersVO userVO = userDao.getUser(userId);
+
 		if (null == userVO || !roleName.equals(userVO.getRoleName()))
 			return true;
 		else
@@ -93,13 +92,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean passwordCheck(String userId, String password, String roleName) {
 		if (!idCheck(userId, roleName)) {
-			UsersVO userVO=userDao.getUser(userId);
+			UsersVO userVO = userDao.getUser(userId);
 
 			if (password.equals(userVO.getPassword()) && roleName.equals(userVO.getRoleName()))
 				return true; // 둘다맞음
 			else
 				return false; // 패스워드가 틀림
-			
+
 		} else
 			return false; // 아이디가 틀림
 	}
@@ -117,13 +116,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Integer> getMonthUserCount() {
 		List<Integer> list = new ArrayList<>();
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<>();
 		Calendar cal = Calendar.getInstance();
 		map.put("year", cal.get(Calendar.YEAR) - 2000);
 		map.put("month", "%");
 		int total = userDao.getMonthUserCount(map);
 		for (int i = 1; i <= 12; i++) {
-			map.put("month", i);
+			
+			if (i < 10) {
+				map.put("month", "0" + i);
+			} else {
+				map.put("month", i + "");
+			}
+
 			list.add((int) (((float) userDao.getMonthUserCount(map) / total) * 100));
 		}
 		return list;
@@ -132,10 +137,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Integer> getMonthUserCount2() { // 번들 업데이트 수랑 사용자수 최근 8개월치 비교하기 위해 ... 일단 만듬 이름변경 하고 해야함
 		List<Integer> list = new ArrayList<>();
-		Map<String, Object> map = new HashMap();
+		Map<String, Object> map = new HashMap<>();
 		Calendar cal = Calendar.getInstance();
 		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
-		int month = cal.get(Calendar.MONTH)+1;
+		int month = cal.get(Calendar.MONTH) + 1;
 		for (int i = 0; i < 8; i++) {
 			if (month == 0) {
 				map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000 - 1));
