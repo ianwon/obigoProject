@@ -250,7 +250,7 @@ public class RestFulApiController {
 	 * 
 	 * @return "flag" : 결과
 	 */
-	@RequestMapping(value = "/api/bundlecheck/{bundleVersion}", method = { RequestMethod.GET })
+	@RequestMapping(value = "/api/bundlecheck/{bundleVersion}", method = { RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String bundlecheck(@PathVariable String bundleVersion) {
 		JSONObject jobj = new JSONObject();
@@ -273,7 +273,7 @@ public class RestFulApiController {
 	 * 
 	 * @return "bundle" : 번들 주소값
 	 */
-	@RequestMapping(value = "/api/bundleupdate", method = { RequestMethod.GET })
+	@RequestMapping(value = "/api/bundleupdate", method = { RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String bundleUpdate() {
 		JSONObject jobj = new JSONObject();
@@ -292,7 +292,7 @@ public class RestFulApiController {
 	 * 
 	 * @return "userVehicleList" : 유저 차량 리스트
 	 */
-	@RequestMapping(value = "/api/uservehicle/{userId}", method = { RequestMethod.GET })
+	@RequestMapping(value = "/api/uservehicle/{userId}", method = { RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String userVehicle(@PathVariable String userId) {
 		JSONArray jsonArray = new JSONArray();
@@ -311,7 +311,7 @@ public class RestFulApiController {
 	 * 
 	 * @return "userVehicle" : 유저 차량 정보
 	 */
-	@RequestMapping(value = "/api/cardetailinfo/{modelCode}", method = { RequestMethod.GET })
+	@RequestMapping(value = "/api/cardetailinfo/{modelCode}", method = { RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String userVehicleDetail(@PathVariable String modelCode) {
 		JSONObject jobj = new JSONObject();
@@ -357,7 +357,7 @@ public class RestFulApiController {
 	 * 
 	 * @return "messageList" : 메시지 리스트
 	 */
-	@RequestMapping(value = "/api/message/{userId}", method = { RequestMethod.GET })
+	@RequestMapping(value = "/api/message/{userId}", method = { RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String getMessageList(@PathVariable String userId) {
 		JSONArray jsonArray = new JSONArray();
@@ -395,7 +395,7 @@ public class RestFulApiController {
 		return "true";
 	}
 
-	@RequestMapping(value = "/api/vehicle", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/vehicle", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String getVehicleList() {
 		JSONArray jsonArray = new JSONArray();
@@ -407,7 +407,7 @@ public class RestFulApiController {
 		return jsonArray.toString();
 	}
 
-	@RequestMapping(value = "/api/user/{userId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/user/{userId}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String getUser(@PathVariable String userId) {
 		JSONObject jobj = new JSONObject();
@@ -490,7 +490,7 @@ public class RestFulApiController {
 		// return "false";
 	}
 
-	@RequestMapping(value = "/api/bundleversionupdate", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/bundleversionupdate", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String getbundle() {
 		BundleVO bundleVO = bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion());
