@@ -237,6 +237,16 @@ public class MoveController {
 	 */
 	@RequestMapping(value = "/pushmessage", method = { RequestMethod.POST, RequestMethod.GET })
 	public String movePushMessage(Model model, HttpServletRequest request) {
+		
+		List<VehicleVO> vehicleList = vehicleService.getVehicleList();
+		Map<String, String>vehicleMap=new HashMap<>();
+
+		for(VehicleVO vo:vehicleList){
+			vehicleMap.put(vo.getModelCode(),vo.getModelName());
+		}
+		
+		model.addAttribute("vehicleMap", vehicleMap);
+		
 		if ((request.getParameter("categoryNumber") == null || request.getParameter("categoryNumber").equals("")) && (request.getParameter("location") == null || request.getParameter("location").equals(""))
 				&& (request.getParameter("modelCode") == null || request.getParameter("location").equals("")))
 			model.addAttribute("pushMessageList", pushMessageService.getPushMessageList());
