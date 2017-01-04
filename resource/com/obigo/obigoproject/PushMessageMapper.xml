@@ -77,7 +77,7 @@
 	<select id="selectPushMessageByUserid" parameterType="java.lang.String"
 		resultMap="PushMessageResultMap">
 		<![CDATA[
-	select pm.* from push_message pm, user_message um where pm.message_number = um.message_number and um.user_id=#{userId}
+	select pm.message_number, pm.title, pm.content, to_char(pm.send_date,'yyyy/mm/dd hh24:mi:ss') SEND_DATE, pm.upload_file, pm.model_code, pm.location, pm.category_number from push_message pm, user_message um where pm.message_number = um.message_number and um.user_id=#{userId} order by pm.send_date desc
 	]]>
 	</select>
 
