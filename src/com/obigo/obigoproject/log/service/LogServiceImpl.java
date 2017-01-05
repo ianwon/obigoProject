@@ -36,13 +36,6 @@ public class LogServiceImpl implements LogService {
 			return false;
 	}
 
-	// 미구현
-	@Override
-	public boolean sendEmail(List<LogVO> list) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	@Override
 	public List<LogVO> getLogList() {
 		return logDao.getLogList();
@@ -53,6 +46,7 @@ public class LogServiceImpl implements LogService {
 		return logDao.getLogListByUrl(url);
 	}
 
+	// 월단위 특정 Log 카운트 하는 메소드
 	@Override
 	public List<Integer> getMonthLogCount(String url, String year) {
 		List<Integer> list = new ArrayList<>();
@@ -71,6 +65,7 @@ public class LogServiceImpl implements LogService {
 		return list;
 	}
 
+	// 월단위 특정 User의 특정 Log 카운트 하는 메소드
 	public List<Integer> getUserMonthLogCount(String selectYear, String url, String userId) {
 		List<Integer> list = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
@@ -79,10 +74,10 @@ public class LogServiceImpl implements LogService {
 		map.put("body", userId);
 
 		for (int i = 1; i <= 12; i++) {
-			if(i<10)
-				map.put("month", "0"+i);
+			if (i < 10)
+				map.put("month", "0" + i);
 			else
-				map.put("month", i+"");
+				map.put("month", i + "");
 			list.add(logDao.getUserMonthLogCount(map));
 		}
 		return list;

@@ -45,11 +45,13 @@ public class UserDaoImpl implements UserDao {
 		return sqlsession.selectOne("obigoproject.User.selectUser", userId);
 	}
 
+	// 특정 location 차량 가지고 있는 user의 RegistrationId List를 가져오는 메소드
 	@Override
 	public List<String> getRegistrationIdByLocation(String location) {
 		return sqlsession.selectList("obigoproject.User.selectRegistrationIdByLocation", location);
 	}
 
+	// 특정 차량 model을 가지고 있는 user의 RegistrationId List를 가져오는 메소드
 	@Override
 	public List<String> getRegistrationByModelCode(String modelCode) {
 		return sqlsession.selectList("obigoproject.User.selectRegistrationIdByModelCode", modelCode);
@@ -60,11 +62,13 @@ public class UserDaoImpl implements UserDao {
 		return sqlsession.selectOne("obigoproject.User.selectUserCount");
 	}
 
+	// 유저 검색시 유저 목록을 가져오기 위한 메소드
 	@Override
-	public List<UsersVO> getLoginUserList(String userId){
+	public List<UsersVO> getLoginUserList(String userId) {
 		return sqlsession.selectList("obigoproject.User.selectLoginUserList", userId);
 	}
 
+	// 특정 년, 월 별 회원가입 수 카운드하는 메소드
 	@Override
 	public int getMonthUserCount(Map map) {
 		return sqlsession.selectOne("obigoproject.User.selectMonthUserCount", map);

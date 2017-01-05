@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import com.obigo.obigoproject.vo.BundleVersionVO;
 
+/*
+ * BundleVersion DB에서 번들버전 데이터를 입력, 수정, 삭제, 리스트 호출등
+ * BundleVersion DB와 접근하기 위한 BundleVersion Class  
+ */
 @Repository("bundleVerionDao")
 public class BundleVersionDaoImpl implements BundleVersionDao {
 
