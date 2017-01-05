@@ -9,9 +9,6 @@ public interface LogService {
 
 	public boolean deleteAllLog();
 
-	// 로그 내용을 이메일 발송, 혹은 pdf형태로 출력
-	public boolean sendEmail(List<LogVO> list);
-
 	// 전체 API 가져오는 메소드
 	public List<LogVO> getLogList();
 

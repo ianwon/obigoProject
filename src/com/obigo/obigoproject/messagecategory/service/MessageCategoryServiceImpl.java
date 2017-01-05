@@ -61,6 +61,8 @@ public class MessageCategoryServiceImpl implements MessageCategoryService {
 		return messageCategoryDao.getMessageCategoryList();
 	}
 
+	// Message Category를 Map형식으로 받아오는 메소드
+	// Map<key="CategoryNumber", value="CategoryName">
 	@Override
 	public Map<String, String> getMessageCategoryMap() {
 		Map<String, String> map = new HashMap<>();
