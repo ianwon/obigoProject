@@ -19,6 +19,7 @@ import com.google.android.gcm.server.Sender;
 import com.obigo.obigoproject.pushmessage.dao.PushMessageDao;
 import com.obigo.obigoproject.registrationid.dao.RegistrationidDao;
 import com.obigo.obigoproject.uservehicle.dao.UserVehicleDao;
+import com.obigo.obigoproject.util.obigoUtils;
 import com.obigo.obigoproject.vo.PushMessageVO;
 
 import net.sf.json.JSONArray;
@@ -192,8 +193,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		MultipartFile messageFile = multiRequest.getFile("messageFile");
-		// String saveDir = "/home/ec2-user/obigo/pushmessage/";
-		String saveDir = "c:\\obigo\\pushmessage\\";
+		String saveDir = obigoUtils.getPath() + "pushmessage" + File.separator;
 		File saveDirFile = new File(saveDir);
 
 		if (!saveDirFile.exists()) {
@@ -203,7 +203,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 		if (messageFile.getOriginalFilename() != null && !"".equals(messageFile.getOriginalFilename())) {
 			fileName = System.nanoTime() + messageFile.getOriginalFilename();
 			try {
-				messageFile.transferTo(new File(saveDir + File.separator + fileName));
+				messageFile.transferTo(new File(saveDir + fileName));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
