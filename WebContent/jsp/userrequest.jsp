@@ -8,7 +8,9 @@
 </head>
 <body>
 
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+	<!--header end-->
 
 	<section id="main-content">
 		<section class="wrapper site-min-height">
@@ -18,13 +20,11 @@
 				<div class="panel-body">
 					<div class="adv-table editable-table ">
 						<div class="clearfix"></div>
-
 					</div>
 					<div class="space15"></div>
 
+					<!-- -------------- User Request Table start -------------- -->
 					<div class="table-responsive">
-
-						<!-- User Request Table Start  -->
 						<table class="table table-striped table-hover table-bordered" id="editable-sample">
 							<thead>
 								<tr>
@@ -49,18 +49,20 @@
 										<td><a class="Reject" href="javascript:reject(${k.userRequestNumber }, '${k.userId}');">Reject</a></td>
 									</tr>
 								</c:forEach>
-
 							</tbody>
 						</table>
-						<!-- User Request Table End -->
-
 					</div>
+					<!-- -------------- User Request Table end -------------- -->
 				</div>
 			</section>
 			<!-- page end-->
 		</section>
 	</section>
+	
+	<!--footer start-->
 	<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
+	<!--footer end-->
+	
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="/obigoProject/js/jquery.js"></script>
 	<script src="/obigoProject/js/jquery-ui-1.9.2.custom.min.js"></script>
@@ -90,7 +92,7 @@
 	</script>
 
 	<script type="text/javascript">
-		//유저 요청 수락 함수.
+		//User Request Accept 함수
 		function accept(requestNumber, userId) {
 			if (confirm("정말 수락하시겠습니까??") == true) {
 				$.ajax({
@@ -109,7 +111,8 @@
 			} else
 				return;
 		}
-		//유저 요청 거절 함수
+		
+		//User Request Accept 함수
 		function reject(requestNumber, userId) {
 			if (confirm("정말 거절하시겠습니까??") == true) {
 				$.ajax({

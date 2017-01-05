@@ -10,9 +10,9 @@
 </head>
 <body>
 
-	<!--  header file include -->
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
-
+	<!--header end-->
 
 	<section id="main-content">
 		<section class="wrapper site-min-height">
@@ -32,7 +32,7 @@
 						</div>
 						<div class="space15"></div>
 
-						<!-- Add 클릭시 띄워지는 Modal -->
+						<!-- -------------- Add Vehicle Modal start -------------- -->
 						<div class="modal fade " id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
@@ -72,7 +72,6 @@
 												<input type="text" id="mileage" name="mileage" class="form-control" placeholder="mileage" required="required">
 											</div>
 										</form>
-
 									</div>
 									<div class="modal-footer">
 										<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
@@ -81,10 +80,9 @@
 								</div>
 							</div>
 						</div>
-						<!-- Modal End -->
+						<!-- -------------- Add Vehicle Modal end -------------- -->
 
-
-						<!-- Edit 클릭시 띄워지는 Modal -->
+						<!-- -------------- Edit Vehicle Modal start -------------- -->
 						<div class="modal fade " id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
@@ -93,7 +91,6 @@
 										<h4 class="modal-title">Update Vehicle</h4>
 									</div>
 									<div class="modal-body">
-
 										<form id="form-editvehicle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/updatevehicle" method="POST">
 											<span class="label label-primary">MODEL NAME</span>
 											<input type="text" id="editModelName" name="modelName" class="form-control" placeholder="Model Name" readonly="readonly">
@@ -110,7 +107,6 @@
 											<span class="label label-primary">MILEAGE</span>
 											<input type="text" id="editMileage" name="mileage" class="form-control" placeholder="mileage" readonly="readonly" readonly="readonly">
 										</form>
-
 									</div>
 									<div class="modal-footer">
 										<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
@@ -119,13 +115,10 @@
 								</div>
 							</div>
 						</div>
-						<!-- Edit Modal End -->
-
-
-
+						<!-- -------------- Edit Vehicle Modal end -------------- -->
+						
+						<!-- -------------- Vehicle Table start -------------- -->
 						<div class="table-responsive">
-
-							<!-- Vehicle Table Start -->
 							<table class="table table-striped table-hover table-bordered" id="editable-sample">
 								<thead>
 									<tr>
@@ -141,8 +134,6 @@
 									</tr>
 								</thead>
 								<tbody>
-
-
 									<c:forEach var="vehicle" items="${vehicleList}" begin="0">
 										<tr class="" id="vehicle${vehicle.modelCode}">
 											<td>${vehicle.modelName}</td>
@@ -156,12 +147,10 @@
 											<td><a href="javascript:deleteVehicleTr('${vehicle.modelCode}');">Delete</a></td>
 										</tr>
 									</c:forEach>
-
 								</tbody>
 							</table>
-							<!-- Vehicle Table End -->
-
 						</div>
+						<!-- -------------- Vehicle Table end -------------- -->
 					</div>
 				</div>
 			</section>
@@ -212,9 +201,7 @@
 					$("#vehicle" + modelCode).children().eq(5).text());
 			$("#editMilage").val(
 					$("#vehicle" + modelCode).children().eq(6).text());
-
 			$("#modalEdit").modal("toggle");
-
 		}
 
 		// 삭제 여부를 묻고 AJAX를 통해서 차량을 삭제하는 함수
@@ -261,7 +248,6 @@
 			return checkModelCode;
 		}
 	</script>
-
 
 </body>
 </html>

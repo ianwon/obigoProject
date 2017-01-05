@@ -8,7 +8,9 @@
 </head>
 <body>
 
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+	<!--header end-->
 
 	<section id="container" class="">
 		<!--main content start-->
@@ -26,7 +28,7 @@
 									</a>
 								</div>
 								
-								<!-- -------------- Add User Modal -------------- -->
+								<!-- -------------- Add User Modal start -------------- -->
 								<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -65,8 +67,6 @@
 														</div>
 													</div>
 												</form>
-
-
 											</div>
 											<div class="modal-footer">
 												<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
@@ -77,7 +77,7 @@
 								</div>
 								<!-- -------------- Add User Modal end -------------- -->
 
-								<!-- -------------- Edit User Modal -------------- -->
+								<!-- -------------- Edit User Modal start -------------- -->
 								<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">

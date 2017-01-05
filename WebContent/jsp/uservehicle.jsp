@@ -15,11 +15,12 @@
 </head>
 <body>
 
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+	<!--header end-->
+	
 	<!--main content start-->
 	<section style="position: absolute;" id="main-content">
-
-		<!--widget start-->
 		<!-- page start-->
 		<div class="row state-overview" style="margin-left: 20px; margin-top: 70px">
 			<div class="col-lg-5 col-sm-6">
@@ -35,9 +36,9 @@
 		</div>
 		<div style="width:800px;"></div>
 		<section class="wrapper">
-
 			<br>
 			<div class="row">
+				<!-- ------- 특정 User ID에 등록된 User Vehicle List start ------- -->
 				<c:forEach var="v" items="${vehicleList}" varStatus="status">
 					<div class="col-lg-4" style="width: 400px; margin-top: -70px; margin-bottom: 70px;">
 						<aside class="profile-nav alt green-border">
@@ -47,7 +48,6 @@
 									</a>
 									<h1>${v.modelName}</h1>
 								</div>
-
 								<ul class="nav nav-pills nav-stacked">
 									<li><a href="javascript:;">Color<span class="label label-primary pull-right r-activity">${userVehicleList[status.index].color}</span></a></li>
 									<li><a href="javascript:;">Model Code<span class="label label-info pull-right r-activity">${v.modelCode}</span></a></li>
@@ -56,18 +56,21 @@
 									<li><a href="javascript:;">Vin<span class="label label-success pull-right r-activity">${userVehicleList[status.index].vin}</span></a></li>
 									<li><a href="javascript:;">Mileage<span class="label label-success pull-right r-activity">${v.mileage}</span></a></li>
 								</ul>
-
 							</section>
 						</aside>
 					</div>
 					<c:if test="${status.index mod 3 eq 2}"><br></c:if>
 				</c:forEach>
-				<!--widget end-->
+				<!-- ------- 특정 User ID에 등록된 User Vehicle List end ------- -->
 			</div>
 		</section>
 	</section>
 	<!--main content end-->
+	
+	<!--footer start-->
 	<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
+	<!--footer end-->
+	
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="/obigoProject/js/jquery.js"></script>
 	<script src="/obigoProject/js/bootstrap.min.js"></script>

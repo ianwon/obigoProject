@@ -21,39 +21,57 @@
 </head>
 <body>
 
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
-
+	<!--header end-->
 
 	<section id="container" class="">
 		<!--main content start-->
 		<section id="main-content">
 			<section class="wrapper site-min-height">
-
 				<div class="row">
 					<div class="col-lg-8">
 						<section class="panel">
 							<header class="panel-heading"> Send Pushmessage </header>
 							<div class="panel-body">
 								<div class=" form">
-									<form class="cmxform form-horizontal tasi-form" onsubmit="return check()" enctype="multipart/form-data" id="commentForm" method="post" action="/obigoProject/sendtextmessage">
+									<form class="cmxform form-horizontal tasi-form" onsubmit="return check()" enctype="multipart/form-data" id="commentForm" method="post"
+										action="/obigoProject/sendtextmessage">
 										<div class="form-group ">
-											&nbsp;&nbsp;&nbsp; <label>Category : </label> <select id="selectcategory" name="categoryNumber">
+											<!-- ----- Select Box(Category) start ----- -->
+											&nbsp;&nbsp;&nbsp;
+											<label>Category : </label>
+											<select id="selectcategory" name="categoryNumber">
 												<option value="">Select Category</option>
 												<c:forEach var="c" items="${messagecategory}" begin="0">
 													<option value="${c.categoryNumber}">Category Name : ${c.categoryName}</option>
 												</c:forEach>
-											</select> &nbsp;&nbsp;&nbsp; <label>Location : </label> <select id="selectlocation" name="location">
+											</select> 
+											<!-- ----- Select Box(Category) end ----- -->
+											
+											<!-- ----- Select Box(Location) start ----- -->
+											&nbsp;&nbsp;&nbsp;
+											<label>Location : </label>
+											<select id="selectlocation" name="location">
 												<option value="">Select Location</option>
 												<c:forEach var="l" items="${locationList}" begin="0">
 													<option value="${l.location}">Location : ${l.location}</option>
 												</c:forEach>
-											</select> &nbsp;&nbsp;&nbsp; <label>Model : </label> <select id="selectmodel" name="modelCode">
+											</select> 
+											<!-- ----- Select Box(Location) end ----- -->
+											
+											<!-- ----- Select Box(Model) start ----- -->
+											&nbsp;&nbsp;&nbsp;
+											<label>Model : </label>
+											<select id="selectmodel" name="modelCode">
 												<option value="">Select Model</option>
 												<c:forEach var="m" items="${modelList}" begin="0">
 													<option value="${m.modelCode}">ModelName : ${m.modelName}</option>
 												</c:forEach>
 											</select>
+											<!-- ----- Select Box(Model) end ----- -->
 										</div>
+										
 										<div class="form-group ">
 											<label for="cname" class="control-label col-lg-2">Message Subject (required)</label>
 											<div class="col-lg-10">
@@ -66,7 +84,6 @@
 												<textarea class="form-control " id="ccomment" name="content" required></textarea>
 											</div>
 										</div>
-
 										<div class="form-group">
 											<label class="control-label col-md-2">File Upload</label>
 											<div class="col-md-4">
@@ -74,24 +91,18 @@
 											</div>
 										</div>
 
-
 										<div class="form-group">
 											<div class="col-lg-offset-2 col-lg-10">
 												<button class="btn btn-danger" type="submit">Send</button>
-												<!-- 												<button class="btn btn-default" type="button">Cancel</button> -->
+												<!-- <button class="btn btn-default" type="button">Cancel</button> -->
 											</div>
 										</div>
-
 									</form>
 								</div>
-
 							</div>
 						</section>
 					</div>
 				</div>
-
-
-
 			</section>
 		</section>
 		<!--main content end-->
@@ -99,9 +110,7 @@
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
-
 	</section>
-
 
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="/obigoProject/js/jquery.js"></script>
@@ -112,7 +121,6 @@
 	<script src="/obigoProject/js/respond.min.js"></script>
 
 	<!--this page plugins-->
-
 	<script type="text/javascript" src="/obigoProject/assets/fuelux/js/spinner.min.js"></script>
 	<script type="text/javascript" src="/obigoProject/assets/bootstrap-fileupload/bootstrap-fileupload.js"></script>
 	<script type="text/javascript" src="/obigoProject/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
@@ -137,11 +145,13 @@
 	<script src="/obigoProject/js/advanced-form-components.js"></script>
 
 	<script type="text/javascript">
+		// Select Box에서 Category 과 Location 또는 ModelName이 선택되어 있는지 체크
 		function check() {
 			if ($("#selectcategory").val() == "") {
 				alert("카테고리를 선택해주세요");
 				return false;
-			} else if (($("#selectlocation").val() == "") && $("#selectmodel").val() == "") {
+			} else if (($("#selectlocation").val() == "")
+					&& $("#selectmodel").val() == "") {
 				alert("지역 혹은 모델을 선택해주세요")
 				return false;
 			}
