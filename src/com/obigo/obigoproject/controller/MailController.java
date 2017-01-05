@@ -37,6 +37,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.obigo.obigoproject.log.service.LogService;
 import com.obigo.obigoproject.user.service.UserService;
+import com.obigo.obigoproject.util.obigoUtils;
 import com.obigo.obigoproject.vo.LogVO;
 
 import net.sf.json.JSONObject;
@@ -55,9 +56,7 @@ public class MailController {
 	private String from = "alldevotion@gmail.com";
 	private String subject = "Log Data PDF 파일 보내드립니다.";
 
-	
-	
-	//매월 1일 15일 오전 9시 자동으로 Log기록 pdf파일 이메일 발송
+	// 매월 1일 15일 오전 9시 자동으로 Log기록 pdf파일 이메일 발송
 	// @Scheduled(cron = "*/5 * * * * *")
 	@Scheduled(cron = "00 00 09 1,15 * ?")
 	public void autoEmail() {
@@ -82,7 +81,7 @@ public class MailController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 			String fileName = formatter.format(calendar.getTime()) + "_log.pdf"; // for
 																					// log-time
-			String path = "c:\\obigo\\pdf\\" + fileName;
+			String path = obigoUtils.getPath() + "pdf" + File.separator + fileName;
 
 			// PDF 만들어주는 메서드 호출 및 PDF 파일 첨부
 			if (pdfpage(path)) {
@@ -125,8 +124,7 @@ public class MailController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 			String fileName = formatter.format(calendar.getTime()) + "_log.pdf"; // for
 																					// log-time
-//			String path = "/home/ec2-user/obigo/pdf/" + fileName;
-			String path = "c:\\obigo\\pdf\\" + fileName;
+			String path = obigoUtils.getPath() + "pdf" + File.separator + fileName;
 
 			// PDF 만들어주는 메서드 호출 및 PDF 파일 첨부
 			if (pdfpage(path)) {

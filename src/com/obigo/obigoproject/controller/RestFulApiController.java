@@ -1,5 +1,6 @@
 package com.obigo.obigoproject.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,6 +33,7 @@ import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.usermessage.service.UserMessageService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
+import com.obigo.obigoproject.util.obigoUtils;
 import com.obigo.obigoproject.vehicle.service.VehicleService;
 import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.LogVO;
@@ -83,7 +85,7 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/bundledown", method = { RequestMethod.GET })
 	@ResponseBody
 	public void bundleDown(HttpServletResponse response) {
-		String path = "c:/obigo/bundle/" + bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload();
+		String path = obigoUtils.getPath() + "bundle" + File.separator + bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload();
 		FileInputStream fs = null;
 		try {
 			fs = new FileInputStream(path);
@@ -91,21 +93,17 @@ public class RestFulApiController {
 			fs.read(fileByte);
 			response.setContentType("application/octet-stream");
 			response.setContentLength(fileByte.length);
-			response.setHeader("Content-Disposition",
-					"attachment; fileName=\"" + URLEncoder.encode(bundleService
-							.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload(), "UTF-8")
-							+ "\";");
+			response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload(), "UTF-8") + "\";");
 			response.setHeader("Content-Transfer-Encoding", "binary");
 			response.getOutputStream().write(fileByte);
 		} catch (Exception e1) {
 			try {
-				fs = new FileInputStream("C:/obigo/no_img.gif");
+				fs = new FileInputStream(obigoUtils.getPath() + "no_img.gif");
 				byte[] fileByte = new byte[fs.available()];
 				fs.read(fileByte);
 				response.setContentType("application/octet-stream");
 				response.setContentLength(fileByte.length);
-				response.setHeader("Content-Disposition",
-						"attachment; fileName=\"" + URLEncoder.encode("no_img.gif", "UTF-8") + "\";");
+				response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("no_img.gif", "UTF-8") + "\";");
 				response.setHeader("Content-Transfer-Encoding", "binary");
 				response.getOutputStream().write(fileByte);
 			} catch (FileNotFoundException e) {
@@ -131,64 +129,61 @@ public class RestFulApiController {
 		}
 		JSONObject jobj = new JSONObject();
 		jobj.put("bundleVersion", bundleVersionService.getBundleVersion());
-		jobj.put("bundleFile",
-				bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
+		jobj.put("bundleFile", bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
 		vo.setUrl("/api/bundledown");
 		vo.setBody("null");
 		vo.setReturned(jobj.toString());
 		logService.insertLog(vo);
 	}
 
-	@RequestMapping(value = "/api/bundledownn", method = { RequestMethod.GET })
-	@ResponseBody
-	public void bundleDown22(HttpServletResponse response) {
-		String path = "c:/obigo/vehicle/bfff2677a6680ea95fda98295d464e14c9eb2a6b555c2da35293fe692d58d2b6.png";
-		FileInputStream fs = null;
-		try {
-			fs = new FileInputStream(path);
-			byte[] fileByte = new byte[fs.available()];
-			fs.read(fileByte);
-			response.setContentType("application/octet-stream");
-			response.setContentLength(fileByte.length);
-			response.setHeader("Content-Disposition", "attachment; fileName=\""
-					+ URLEncoder.encode("bfff2677a6680ea95fda98295d464e14c9eb2a6b555c2da35293fe692d58d2b6.png", "UTF-8")
-					+ "\";");
-			response.setHeader("Content-Transfer-Encoding", "binary");
-			response.getOutputStream().write(fileByte);
-		} catch (Exception e1) {
-			try {
-				fs = new FileInputStream("C:/obigo/no_img.gif");
-				byte[] fileByte = new byte[fs.available()];
-				fs.read(fileByte);
-				response.setContentType("application/octet-stream");
-				response.setContentLength(fileByte.length);
-				response.setHeader("Content-Disposition",
-						"attachment; fileName=\"" + URLEncoder.encode("no_img.gif", "UTF-8") + "\";");
-				response.setHeader("Content-Transfer-Encoding", "binary");
-				response.getOutputStream().write(fileByte);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				try {
-					response.getOutputStream().close();
-				} catch (Exception e) {
-					// e.printStackTrace();
-				}
-			}
-
-		} finally {
-			try {
-				response.getOutputStream().close();
-			} catch (Exception e) {
-				// e.printStackTrace();
-			}
-		}
-
-	}
+	// @RequestMapping(value = "/api/bundledownn", method = { RequestMethod.GET })
+	// @ResponseBody
+	// public void bundleDown22(HttpServletResponse response) {
+	// String path = "c:/obigo/vehicle/bfff2677a6680ea95fda98295d464e14c9eb2a6b555c2da35293fe692d58d2b6.png";
+	// FileInputStream fs = null;
+	// try {
+	// fs = new FileInputStream(path);
+	// byte[] fileByte = new byte[fs.available()];
+	// fs.read(fileByte);
+	// response.setContentType("application/octet-stream");
+	// response.setContentLength(fileByte.length);
+	// response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("bfff2677a6680ea95fda98295d464e14c9eb2a6b555c2da35293fe692d58d2b6.png", "UTF-8") +
+	// "\";");
+	// response.setHeader("Content-Transfer-Encoding", "binary");
+	// response.getOutputStream().write(fileByte);
+	// } catch (Exception e1) {
+	// try {
+	// fs = new FileInputStream("C:/obigo/no_img.gif");
+	// byte[] fileByte = new byte[fs.available()];
+	// fs.read(fileByte);
+	// response.setContentType("application/octet-stream");
+	// response.setContentLength(fileByte.length);
+	// response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("no_img.gif", "UTF-8") + "\";");
+	// response.setHeader("Content-Transfer-Encoding", "binary");
+	// response.getOutputStream().write(fileByte);
+	// } catch (FileNotFoundException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// } catch (IOException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// } finally {
+	// try {
+	// response.getOutputStream().close();
+	// } catch (Exception e) {
+	// // e.printStackTrace();
+	// }
+	// }
+	//
+	// } finally {
+	// try {
+	// response.getOutputStream().close();
+	// } catch (Exception e) {
+	// // e.printStackTrace();
+	// }
+	// }
+	//
+	// }
 
 	/**
 	 * Image 받아가시오 ~
@@ -198,7 +193,7 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/image/{select}/{imagename:.+}", method = { RequestMethod.GET })
 	@ResponseBody
 	public void image(@PathVariable String select, @PathVariable String imagename, HttpServletResponse response) {
-		String path = "c:/obigo/" + select + "/";
+		String path = obigoUtils.getPath() + select + File.separator;
 
 		path += imagename;
 		FileInputStream fs = null;
@@ -210,7 +205,7 @@ public class RestFulApiController {
 			response.getOutputStream().write(iconImage);
 		} catch (Exception e1) {
 			try {
-				fs = new FileInputStream("C:/obigo/no_img.gif");
+				fs = new FileInputStream(obigoUtils.getPath() + "no_img.gif");
 				byte[] iconImage = new byte[fs.available()];
 				fs.read(iconImage);
 				response.setContentType("image/jpg");
@@ -277,8 +272,7 @@ public class RestFulApiController {
 	@ResponseBody
 	public String bundleUpdate() {
 		JSONObject jobj = new JSONObject();
-		jobj.put("path",
-				bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
+		jobj.put("path", bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
 
 		vo.setUrl("/api/bundleupdate");
 		vo.setBody("null");
@@ -327,16 +321,14 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * 유저 차량 등록 요청 Api parameter = "userId":유저아이디, "modelCode":차량코드, "color":색상,
-	 * "location":지역, "vin":고유번호
+	 * 유저 차량 등록 요청 Api parameter = "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역, "vin":고유번호
 	 * 
 	 * @return "flag" : 등록 여부
 	 */
 
 	@RequestMapping(value = "/api/userrequest", method = { RequestMethod.POST })
 	@ResponseBody
-	public String insertUserRequest(@RequestBody String data)
-			throws JsonParseException, JsonMappingException, IOException {
+	public String insertUserRequest(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		UserRequestVO vo = mapper.readValue(data, UserRequestVO.class);
 		this.vo.setUrl("/api/userrequest");
@@ -374,13 +366,11 @@ public class RestFulApiController {
 
 	/////////////////////////////////////////////////////////////////////
 	/*
-	 * 로그인시 Registration ID 가져오기(받은 아이디랑 비밀번호로 db에서 정보를 찾고 registrationid에 token
-	 * 값으로 업데이트)
+	 * 로그인시 Registration ID 가져오기(받은 아이디랑 비밀번호로 db에서 정보를 찾고 registrationid에 token 값으로 업데이트)
 	 * 
 	 */
 	@RequestMapping(value = "/api/registrationid", method = RequestMethod.POST)
-	public String insertRegistrationid(@RequestBody String data)
-			throws JsonParseException, JsonMappingException, IOException {
+	public String insertRegistrationid(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
 		try {
