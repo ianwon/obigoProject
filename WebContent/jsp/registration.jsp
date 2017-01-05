@@ -24,7 +24,6 @@
 <body class="login-body">
 
 	<div class="container">
-
 		<form class="form-signin" action="/obigoProject/signup" onsubmit="return check()" method="POST">
 			<h2 class="form-signin-heading">registration now</h2>
 			<div class="login-wrap">
