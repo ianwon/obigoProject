@@ -35,10 +35,14 @@
 </head>
 <body>
 
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+	<!--header end-->
 
+	<!-- Select Box에 현재 년도와 1년전 년도를 표시하기 위함 -->
 	<jsp:useBean id="toYear" class="java.util.Date" />
 	<fmt:formatDate value="${toYear}" pattern="yyyy" var="nowYear" />
+	
 	<section id="container" class="">
 		<!--main content start-->
 
@@ -55,7 +59,7 @@
 								</header>
 								<div class="panel-body">
 									
-									<!-- 사용자 접속 통계의 대상이 되는 년도를 바꾸는 select 박스 -->
+									<!-- ------- 사용자 접속 통계의 대상이 되는 년도를 바꾸는 Select Box start ------- -->
 									<form action="/obigoProject/useranalytics" id="frmSelectYear">
 										<label>검색 년도: </label>&nbsp; &nbsp;
 										<select id="selectYear" name="selectYear" onchange="changeYear()">
@@ -76,8 +80,11 @@
 										</select>
 										<input type="submit" hidden="hidden">
 									</form>
-
+									<!-- ------- 사용자 접속 통계의 대상이 되는 년도를 바꾸는 Select Box end ------- -->
+									
+									<!-- ------- User 접속 통계 start ------- -->
 									<div id="hero-bar" class="graph"></div>
+									<!-- ------- User 접속 통계 end ------- -->
 								</div>
 							</section>
 						</div>
@@ -108,8 +115,6 @@
 						</table>
 					</div>
 				</section>
-
-
 			</section>
 		</section>
 		<!--main content end-->
@@ -145,9 +150,7 @@
 	<script type="text/javascript">
 		var table = null;
 		$(document).ready(
-
 		function() {
-
 			// datatables 라이브러리는 사용하는데 table을 사용하기 위해서 initialize 해주는 작업
 			table = $("#myTable").DataTable({
 				"processing" : true,

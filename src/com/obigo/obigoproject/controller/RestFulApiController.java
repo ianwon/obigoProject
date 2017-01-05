@@ -463,15 +463,15 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/bundleversioncheck", method = RequestMethod.GET)
 	@ResponseBody
 	public String bundleVersioncheck(@RequestParam String bundleVersion) {
-		System.out.println(bundleVersion);
-		System.out.println(bundleVersionService.getBundleVersion());
+		System.out.println("App: "+bundleVersion);
+		System.out.println("Server: "+bundleVersionService.getBundleVersion());
 
 		vo.setUrl("/api/bundleversioncheck");
 		JSONObject jobj = new JSONObject();
 		jobj.put("bundleVersion", bundleVersion);
 		vo.setBody(jobj.toString());
 
-		if (bundleVersion.equals(bundleVersionService.getBundleVersion())) {
+		 if (bundleVersion.equals(bundleVersionService.getBundleVersion())) {
 			vo.setReturned("true");
 			logService.insertLog(vo);
 			return "true";

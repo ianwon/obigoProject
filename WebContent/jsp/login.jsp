@@ -25,7 +25,6 @@
 </head>
 
 <body class="login-body">
-
 	<div class="container">
 		<form class="form-signin" action="/obigoProject/logincheck" onsubmit="return passwordCheck()" method="POST">
 			<h2 class="form-signin-heading">sign in now</h2>

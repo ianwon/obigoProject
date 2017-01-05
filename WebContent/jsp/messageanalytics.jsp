@@ -27,7 +27,9 @@
 </head>
 <body>
 
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+	<!--header end-->
 
 	<section id="container" class="">
 		<section id="main-content">

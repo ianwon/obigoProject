@@ -15,7 +15,11 @@
 </style>
 </head>
 <body>
+	
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+	<!--header end-->
+	
 	<section id="container" class="">
 		<!--main content start-->
 		<section id="main-content">
@@ -112,21 +116,23 @@
 							<!-- -------------- Bundle Select Button start -------------- -->
 							<div class="bundleList">
 								<form action="/obigoProject/resource" id="frmBundleVersion">
+									<!-- Bundle Version Select Box start -->
 									<select id="selectbundle" name="bundleKey" onchange="changeBundleVersion(this)">
 										<option value="">Show all resources</option>
 										<c:forEach var="b" items="${bundleList}" begin="0">
 											<c:choose>
 												<c:when test="${param.bundleKey==b.bundleKey}">
 													<option value="${b.bundleKey}" selected>Bundle [version] : ${b.bundleName} [ ${b.bundleVersion} ]</option>
-<%-- 													<option value="${b.bundleKey}" selected>Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option> --%>
+													<%-- <option value="${b.bundleKey}" selected>Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option> --%>
 												</c:when>
 												<c:otherwise>
 													<option value="${b.bundleKey}">Bundle [version] : ${b.bundleName} [ ${b.bundleVersion} ]</option>
-<%-- 													<option value="${b.bundleKey}">Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option> --%>
+													<%-- <option value="${b.bundleKey}">Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option> --%>
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
 									</select>
+									<!-- Bundle Version Select Box end -->
 									<input type="submit" hidden="hidden">
 								</form>
 							</div>
