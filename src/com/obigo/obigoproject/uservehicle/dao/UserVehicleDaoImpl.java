@@ -54,7 +54,8 @@ public class UserVehicleDaoImpl implements UserVehicleDao {
 	public int getUserVehicleCount() {
 		return sqlSession.selectOne("obigoproject.UserVehicle.selectUserVehicleCount");
 	}
-	
+
+	// 차량 모델별 User가 가지고 있는 수를 카운트해서 가져오는 메소드
 	@Override
 	public List<Map<String, Object>> getCountingByModelName(){
 		return sqlSession.selectList("obigoproject.UserVehicle.selectCountingByModelName");

@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
 		map.put("month", "%");
 		int total = userDao.getMonthUserCount(map);
 		for (int i = 1; i <= 12; i++) {
-			
+
 			if (i < 10) {
 				map.put("month", "0" + i);
 			} else {
@@ -134,6 +134,7 @@ public class UserServiceImpl implements UserService {
 		return list;
 	}
 
+	// 번들 업데이트 수랑 사용자수 최근 8개월치 비교하기 위해 ... 일단 만듬 이름변경 하고 해야함
 	@Override
 	public List<Integer> getMonthUserCount2() { // 번들 업데이트 수랑 사용자수 최근 8개월치 비교하기 위해 ... 일단 만듬 이름변경 하고 해야함
 		List<Integer> list = new ArrayList<>();
