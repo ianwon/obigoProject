@@ -1,5 +1,6 @@
 package com.obigo.obigoproject.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.obigo.obigoproject.util.obigoUtils;
 import com.obigo.obigoproject.vehicle.service.VehicleService;
 import com.obigo.obigoproject.vo.VehicleVO;
 
@@ -103,8 +105,7 @@ public class VehicleController {
 	// 차량 이미지를 보여주기위한 메소드
 	@RequestMapping("/vehicleImage")
 	public void vehicleImage(@RequestParam("modelImage") String modelImage, HttpServletResponse response) {
-		// String path = "/home/ec2-user/obigo/vehicle/";
-		String path = "c:\\obigo\\vehicle\\";
+		String path = obigoUtils.getPath() + "vehicle" + File.separator;
 
 		path += modelImage;
 		FileInputStream fs = null;
@@ -116,7 +117,7 @@ public class VehicleController {
 			response.getOutputStream().write(iconImage);
 		} catch (Exception e1) {
 			try {
-				fs = new FileInputStream("c:\\obigo\\no_img.gif");
+				fs = new FileInputStream(obigoUtils.getPath() + "no_img.gif");
 				byte[] iconImage = new byte[fs.available()];
 				fs.read(iconImage);
 				response.setContentType("image/jpg");
