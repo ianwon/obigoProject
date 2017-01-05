@@ -46,7 +46,7 @@ public class BundleController {
 	 * 
 	 * @return 번들 관리 페이지
 	 */
-	@RequestMapping(value="/insertbundle", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertbundle", method = RequestMethod.POST)
 	public String insertBundle(BundleVO vo, HttpServletRequest request) {
 		bundleService.insertBundle(vo, request);
 		return "redirect:/bundle";
@@ -82,6 +82,11 @@ public class BundleController {
 		}
 	}
 
+	/**
+	 * 입력한 BundleVersion이 Bundle DB에 존재하는지 여부를 확인하는 메소드
+	 * 
+	 * @return 존재: False 미존재: True
+	 */
 	@RequestMapping(value = "/bundleversioncheck", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String bundleversionCheck(@RequestParam("bundleVersion") String bundleVersion) {
@@ -96,6 +101,11 @@ public class BundleController {
 		}
 	}
 
+	/**
+	 * 입력한 BundleKey가 Bundle DB에 존재하는지 여부를 확인하는 메소드
+	 * 
+	 * @return 존재: False 미존재: True
+	 */
 	@RequestMapping(value = "/bundlekeycheck", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String bundlekeyCheck(@RequestParam("bundleKey") String bundleKey) {
