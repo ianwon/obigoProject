@@ -147,7 +147,8 @@ public class RestFulApiController {
 	// fs.read(fileByte);
 	// response.setContentType("application/octet-stream");
 	// response.setContentLength(fileByte.length);
-	// response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("bfff2677a6680ea95fda98295d464e14c9eb2a6b555c2da35293fe692d58d2b6.png", "UTF-8") +
+	// response.setHeader("Content-Disposition", "attachment; fileName=\"" +
+	// URLEncoder.encode("bfff2677a6680ea95fda98295d464e14c9eb2a6b555c2da35293fe692d58d2b6.png", "UTF-8") +
 	// "\";");
 	// response.setHeader("Content-Transfer-Encoding", "binary");
 	// response.getOutputStream().write(fileByte);
@@ -469,15 +470,16 @@ public class RestFulApiController {
 		JSONObject jobj = new JSONObject();
 		jobj.put("bundleVersion", bundleVersion);
 		vo.setBody(jobj.toString());
-		return "true";
-		// if (bundleVersion.equals(bundleVersionService.getBundleVersion())) {
-		// vo.setReturned("true");
-		// logService.insertLog(vo);
-		// return "true";
-		// } else {
-		// vo.setReturned("false");
-		// logService.insertLog(vo);
-		// return "false";
+
+		if (bundleVersion.equals(bundleVersionService.getBundleVersion())) {
+			vo.setReturned("true");
+			logService.insertLog(vo);
+			return "true";
+		} else {
+			vo.setReturned("false");
+			logService.insertLog(vo);
+			return "false";
+		}
 	}
 
 	@RequestMapping(value = "/api/bundleversionupdate", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")

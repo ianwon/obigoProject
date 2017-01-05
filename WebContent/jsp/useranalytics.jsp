@@ -241,34 +241,7 @@
 			$("#hero-bar").empty();
 			$("#head-userid").text("[All]");
 			searchUserId();
-		 	// User 통계 Page가 처음 loading 되었을 때
-// 			if ($("#searchId").val() == "") {
-// 				$.ajax({
-// 					type : "post",
-// 					url : "/obigoProject/countuserlogin",
-// 					dataType : "json",
-// 					data : {
-// 						"userId" : "",
-// 						"selectYear":$('#selectYear option:selected').val()
-// 					},
-// 					success : function(data) {
-// 						$("#hero-bar").empty();
-// 						$("#head-userid").text("[All]");
-// 						searchUserId();
-// 					},
-// 					error : function(e) {
-// 						console.log(e);
-// 					}
-// 				});	
-				 				
 			
-// 				/* setUp(<c:out value="${userAnalytics}" />);
-// 				$("#head-userid").text("[All]");
-// 				searchUserId(); */
-// 			 } else {
-// 				alert("false");
-
-// 			} 
 		});
 
 		function changeYear() {
@@ -373,7 +346,6 @@
 				}
 			});
 
-// 			alert("searchId()");
 			if ($("#searchId").val() == "") {
 				$.ajax({
 					type : "post",
@@ -393,41 +365,6 @@
 					}
 				});
 			}
-
-			/* // table의 row를 클릭했을 때 해당된는 row의 User ID에 대한 Login 통계를 보여주는 함수
-			$("#myTable tbody").on("click", "tr", function() {
-				if ($(this).hasClass("selected")) {
-					alert("1");
-					$(this).removeClass("selected");
-
-				} else {
-					table.$("tr.selected").removeClass("selected");
-					$(this).addClass("selected");
-					alert("2");
-					var userId = $(this).find("td:eq(0)").text();
-
-					// 선택한 User ID의 월별 Login Count를 얻어오는 AJAX
-					$.ajax({
-						type : "post",
-						url : "/obigoProject/countuserlogin",
-						dataType : "json",
-						data : {
-							"userId" : userId
-						},
-						success : function(data) {
-							if (userId != "No data available in table") {
-								$("#hero-bar").empty();
-								$("#head-userid").text("[ID: " + userId + "]");
-								setUp(data);
-							}
-						},
-						error : function(e) {
-							console.log(e);
-						}
-					});
-				}
-			}); */
-
 		}
 
 		// User Login 통계 그래프를 보여주는 함수

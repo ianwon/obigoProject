@@ -27,7 +27,6 @@
 <body class="login-body">
 
 	<div class="container">
-
 		<form class="form-signin" action="/obigoProject/logincheck" onsubmit="return passwordCheck()" method="POST">
 			<h2 class="form-signin-heading">sign in now</h2>
 			<div class="login-wrap">
@@ -41,51 +40,53 @@
 				<div class="registration">
 					Don't have an account yet? <a class="" href="/obigoProject/registration"> Create an account</a>
 				</div>
-
 			</div>
-
-
 		</form>
-
 	</div>
+	
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="/obigoProject/js/jquery.js"></script>
 	<script src="/obigoProject/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		
-	</script>
-
 
 	<script type="text/javascript">
-		
-		// remember me 가 check 되어 있을 때, 다시 로그인시 쿠키에서 해당 ID를 불러온다 
+	
+		// Remember me 가 check 되어 있을 때, 다시 로그인시 쿠키에서 해당 ID를 불러온다 
 		$(document).ready(function() {
 			// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
 			var userInputId = getCookie("adminLoginId");
 			$("input[name='userId']").val(userInputId);
 
-			if ($("input[name='userId']").val() != "") { // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
-				$("#remember-me").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+			// 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+			if ($("input[name='userId']").val() != "") { 
+				// ID 저장하기를 체크 상태로 두기
+				$("#remember-me").attr("checked", true); 
 			}
 
-			$("#remember-me").change(function() { // 체크박스에 변화가 있다면,
-				if ($("#remember-me").is(":checked")) { // ID 저장하기 체크했을 때,
+			// 체크박스에 변화가 있다면,
+			$("#remember-me").change(function() {
+				// ID 저장하기 체크했을 때,
+				if ($("#remember-me").is(":checked")) { 
 					var userInputId = $("input[name='userId']").val();
-					setCookie("adminLoginId", userInputId, 7); // 7일 동안 쿠키 보관
+					// 7일 동안 쿠키 보관
+					setCookie("adminLoginId", userInputId, 7); 
 				} else { // ID 저장하기 체크 해제 시,
 					deleteCookie("adminLoginId");
 				}
 			});
 
-			// ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
-			$("input[name='userId']").keyup(function() { // ID 입력 칸에 ID를 입력할 때,
-				if ($("#remember-me").is(":checked")) { // ID 저장하기를 체크한 상태라면,
+			// ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장
+			 // ID 입력 칸에 ID를 입력할 때,
+			$("input[name='userId']").keyup(function() {
+				// ID 저장하기를 체크한 상태라면,
+				if ($("#remember-me").is(":checked")) { 
 					var userInputId = $("input[name='userId']").val();
-					setCookie("adminLoginId", userInputId, 7); // 7일 동안 쿠키 보관
+					// 7일 동안 쿠키 보관
+					setCookie("adminLoginId", userInputId, 7); 
 				}
 			});
 		});
 
+		// Cookie 생성
 		function setCookie(cookieName, value, exdays) {
 			var exdate = new Date();
 			exdate.setDate(exdate.getDate() + exdays);
@@ -95,6 +96,7 @@
 			document.cookie = cookieName + "=" + cookieValue;
 		}
 
+		// Cookie 삭제
 		function deleteCookie(cookieName) {
 			var expireDate = new Date();
 			expireDate.setDate(expireDate.getDate() - 1);
@@ -102,6 +104,7 @@
 					+ expireDate.toGMTString();
 		}
 
+		// Cookie 검색
 		function getCookie(cookieName) {
 			cookieName = cookieName + '=';
 			var cookieData = document.cookie;
@@ -118,7 +121,7 @@
 		}
 
 		//로그인시 아이디의 존재여부 확인하는 함수
-		//로그인 페이지에서는 사용하고 있지 않다
+		//현재 로그인 페이지에서는 사용하고 있지 않다!!!
 		function idCheck() {
 			$.ajax({
 				type : "post",
@@ -139,6 +142,7 @@
 			});
 		}
 
+		// 로그인 페이지에서 ID/PW 체크해주고 결과를 true/false를 return 해주는 함수
 		function passwordCheck() {
 			$.ajax({
 				type : "post",

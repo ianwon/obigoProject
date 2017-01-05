@@ -69,11 +69,11 @@
 						</header>
 						<div class="adv-table editable-table ">
 							<div class="clearfix"></div>
-
+							<!-- table 자동정렬해주는 javascript 파일에서 어느 항목의 table인지 구분하기 위한 hidden -->
 							<input type="hidden" id="hidden-pushmessage">
 							<div class="space15"></div>
 
-							<!--  Pushmessage Table start -->
+							<!-- -------------- Push Message Table start -------------- -->
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
@@ -84,12 +84,13 @@
 											<th>Send Date</th>
 											<th>Model Name</th>
 											<th>Location</th>
-											<th>Category Number</th>
+											<th>Category Name</th>
 											<th>Delete</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach var="p" items="${pushMessageList}" begin="0">
+											<!-- Catecory Number를 Map의 인덱스로 사용하기 위해서 필요한 변수 -->
 											<c:set var="cnumber" value="category${p.categoryNumber}" />
 											<c:set var="code" value="${p.modelCode}" />
 											<tr class="">
@@ -105,9 +106,8 @@
 										</c:forEach>
 									</tbody>
 								</table>
-
 							</div>
-							<!--  Pushmessage Table end -->
+							<!-- -------------- Push Message Table end -------------- -->
 						</div>
 					</div>
 				</section>
@@ -119,9 +119,7 @@
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
-
 	</section>
-
 
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="/obigoProject/js/jquery.js"></script>
@@ -150,13 +148,14 @@
 			EditableTable.init();
 		});
 	</script>
+	
 	<script type="text/javascript">
 	
 		function changeFrm(option) {
 			document.getElementById("frmSelect").submit();
 		}
 
-		//api 삭제여부를 확인하고 true=삭제 false=취소
+		// Push Message 삭제여부를 확인하고 true=삭제 false=취소
 		function deletePushmessage(data) {
 			if (confirm("정말 삭제하시겠습니까??") == true) { //확인
 				$.ajax({

@@ -46,35 +46,29 @@
 				<input type="password" id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
 				<div class="check-message" id="passwordCheck"></div>
 				<input class="btn btn-lg btn-login btn-block" type="submit" value="SUBMIT">
-
 				<div class="registration">
 					Already Registered. <a class="" href="/obigoProject/login"> Login </a>
 				</div>
-
 			</div>
-
 		</form>
-
 	</div>
 
 	<script type="text/javascript">
+		// 올바른 연락처인지 정규식으로 검증하는 함수
 		function phoneCheck() {
 			var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 	
 			if (!regExp.test($("#phone").val())) {
 				$("#phoneCheck").html("숫자, - 를 포함한 숫자만 입력해 주세요.");
 				$("#phoneCheck").css("color", "red");
-	
 				return false
 			} else {
 				$("#phoneCheck").html("");
 				return true;
-	
 			}
-	
 		}
 	
-		//id체크
+		// 가입 ID가 정규식으로 검증 및 AJAX로 이미 가입된 ID인지 여부 확인
 		function idCheck() {
 			var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
 			if (!idReg.test($("#userId").val())) {
@@ -101,7 +95,8 @@
 				});
 			}
 		}
-		//패스워드 일치 확인
+		
+		// Password 정규식으로 검증 및 두번 입력한 password의 일치 여부 확인
 		function passwordCheck() {
 			var reg_pwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
 			if (!reg_pwd.test($("#password").val())) {
@@ -124,7 +119,7 @@
 			}
 		}
 	
-		//아이디가 사용가능하고 비밀번호가 일치해야 회원가입 가능.(onsubmit="return check()")
+		// ID/PW가 가입 조건에 합당한지 검증하는 함수(onsubmit="return check()")
 		function check() {
 			if ($("#idCheck").html() == "사용가능한 아이디 입니다."
 				&& $("#passwordCheck").html() == "비밀번호가 일치합니다.") {
