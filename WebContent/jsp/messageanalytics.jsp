@@ -35,9 +35,11 @@
 				<div id="container-graph" style="height: 400px;"></div>
 			</section>
 		</section>
+
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
+
 	</section>
 
 
@@ -65,40 +67,41 @@
 	<script src="/obigoProject/js/common-scripts.js"></script>
 
 	<script type="text/javascript">
-		
-	function makeChart(data1) {
-
-			$(function () {
-			    Highcharts.chart('container-graph', {
-			        chart: {
-			            type: 'pie',
-			            options3d: {
-			                enabled: true,
-			                alpha: 45
-			            }
-			        },
-			        title: {
-			            text: 'Push message Analytics'
-			        },
-			        subtitle: {
-			            text: 'Counting of Push message'
-			        },
-			        plotOptions: {
-			            pie: {
-			                innerSize: 100,
-			                depth: 45
-			            }
-			        },
-			        series: [{
-			            name: 'Send message counting',
-			            data: data1
-			        }]
-			    });
+	
+		// 보내주는 Data로 Graph를 만들어 주는 함수
+		function makeChart(data1) {
+			$(function() {
+				Highcharts.chart('container-graph', {
+					chart : {
+						type : 'pie',
+						options3d : {
+							enabled : true,
+							alpha : 45
+						}
+					},
+					title : {
+						text : 'Push message Analytics'
+					},
+					subtitle : {
+						text : 'Counting of Push message'
+					},
+					plotOptions : {
+						pie : {
+							innerSize : 100,
+							depth : 45
+						}
+					},
+					series : [ {
+						name : 'Send message counting',
+						data : data1
+					} ]
+				});
 			});
-
 		}
+
+		// User Vehicle에 등록된 차종의 비율을 그래프를 위한 Data를 AJAX로 얻어와서
+		// Graph만드는 함수의 Parameter로 넘겨준다
 		$(function() {
-			// User Vehicle에 등록된 차종을 그래프로 출력해주는 AJAX
 			$.ajax({
 				type : "post",
 				url : "/obigoProject/getmessageanalytics",

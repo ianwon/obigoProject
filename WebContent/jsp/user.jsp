@@ -8,10 +8,6 @@
 </head>
 <body>
 
-	<%
-		
-	%>
-
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
 
 	<section id="container" class="">
@@ -25,13 +21,12 @@
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
-									<button id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
+									<a id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
 										Add User <i class="fa fa-plus"></i>
-									</button>
+									</a>
 								</div>
-								<!--modal start-->
-								<!-- Add User 눌렀을때 모달창 -->
-								<!-- Modal -->
+								
+								<!-- -------------- Add User Modal -------------- -->
 								<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -80,10 +75,9 @@
 										</div>
 									</div>
 								</div>
-								<!-- modal -->
-								<!--
-								edit눌렀을때 모달창
-								  -->
+								<!-- -------------- Add User Modal end -------------- -->
+
+								<!-- -------------- Edit User Modal -------------- -->
 								<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -120,12 +114,12 @@
 										</div>
 									</div>
 								</div>
-								<!-- Modal End-->
+								<!-- -------------- Edit User Modal end -------------- -->
 							</div>
 							<div class="space15"></div>
-							<div class="table-responsive">
 							
-								<!-- User Table Start  -->
+							<!-- -------------- User Table start -------------- -->
+							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
@@ -133,7 +127,6 @@
 											<th>USERNAME</th>
 											<th>EMAIL</th>
 											<th>PHONE</th>
-											<th>REGISTRATIONID</th>
 											<th>EDIT</th>
 											<th>DELETE</th>
 										</tr>
@@ -145,16 +138,14 @@
 												<td onclick="userVehicle('${u.userId}')">${u.name}</td>
 												<td onclick="userVehicle('${u.userId}')">${u.eMail}</td>
 												<td onclick="userVehicle('${u.userId}')">${u.phone}</td>
-												<td></td>
 												<td><a class="update" href="javascript:update('${u.phone}','${u.eMail}','${u.name}','${u.userId }')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${u.userId}')">Delete</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
-								<!-- User Table End -->
-
 							</div>
+							<!-- -------------- User Table end -------------- -->
 						</div>
 					</div>
 				</section>
@@ -162,16 +153,18 @@
 			</section>
 		</section>
 		<!--main content end-->
+		
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
 	</section>
+	
 	<script type="text/javascript">
 		function userVehicle(userId) {
-			document.location.href = "/obigoProject/userVehicle?userId="
-					+ userId
+			document.location.href = "/obigoProject/userVehicle?userId="+ userId;
 		}
-		//id체크
+
+		// User를 등록해해줄 때, 동일한 ID가 존재하는지 체크
 		function idCheck() {
 			$.ajax({
 				type : "post",
@@ -191,7 +184,7 @@
 				}
 			});
 		}
-		//패스워드 일치 확인
+		// User를 등록해해줄 때, 패스워드 일치 여부 확인
 		function passwordCheck() {
 			if ($("#password") == null || $("#password2") == null) {
 				$("#passwordCheck").html("");
@@ -206,7 +199,8 @@
 				}
 			}
 		}
-		//user삭제
+
+		// User 삭제 버튼 클릭 시 호출 되는 함수
 		function del(data) {
 			if (confirm("삭제 하시겠습니까?") == true) {
 				$.ajax({
@@ -223,8 +217,8 @@
 
 			}
 		}
-		//user수정
-		//수정모달창
+
+		// User 수정 버튼을 클릭 했을 때 Modal을 띄워주는 함수
 		function update(phone, eMail, name, userId) {
 			$("#editphone").val(phone);
 			$("#editeMail").val(eMail);
@@ -232,7 +226,8 @@
 			$("#edituserId").val(userId);
 			$("#editModal").modal();
 		}
-
+		
+		// User를 등록할 때, ID와 PW 검증이 완료 되었다면 등록진행! 만약 조건이 만족되지 않으면 다시 입력 요청
 		function check() {
 			if ($("#idCheck").html() == "사용가능한 아이디 입니다."
 					&& $("#passwordCheck").html() == "비밀번호가 일치합니다.") {

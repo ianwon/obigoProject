@@ -8,10 +8,6 @@
 </head>
 <body>
 
-	<%
-		
-	%>
-
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
 
 	<section id="container" class="">
@@ -25,13 +21,11 @@
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
-									<button id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
-										Add Admin <i class="fa fa-plus"></i>
-									</button>
+									<a id="Add" class="btn btn-success" data-toggle="modal" href="#addModal"> Add Admin <i class="fa fa-plus"></i>
+									</a>
 								</div>
-								<!--modal start-->
-								<!-- Add User 눌렀을때 모달창 -->
-								<!-- Modal -->
+
+								<!-- -------------- Add Admin Modal -------------- -->
 								<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -69,10 +63,7 @@
 															<div id="passwordCheck"></div>
 														</div>
 													</div>
-
 												</form>
-
-
 											</div>
 											<div class="modal-footer">
 												<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
@@ -81,10 +72,9 @@
 										</div>
 									</div>
 								</div>
-								<!-- modal -->
-								<!--
-								edit눌렀을때 모달창
-								  -->
+								<!-- -------------- Add Admin Modal end -------------- -->
+
+								<!-- -------------- Edit Admin Modal start -------------- -->
 								<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -121,11 +111,11 @@
 										</div>
 									</div>
 								</div>
-								<!-- Modal End-->
+								<!-- -------------- Edit Admin Modal end -------------- -->
 							</div>
 							<div class="space15"></div>
-							
-							<!--  Admin User Table start -->
+
+							<!-- -------------- Admin Table start -------------- -->
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
@@ -153,8 +143,8 @@
 										</c:forEach>
 									</tbody>
 								</table>
-
 							</div>
+							<!-- -------------- Admin Table end -------------- -->
 						</div>
 					</div>
 				</section>
@@ -162,16 +152,18 @@
 			</section>
 		</section>
 		<!--main content end-->
+
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
 	</section>
+
 	<script type="text/javascript">
 		function userVehicle(userId) {
-			document.location.href = "/obigoProject/userVehicle?userId="
-					+ userId
+			document.location.href = "/obigoProject/userVehicle?userId="+ userId;
 		}
-		//id체크
+		
+		// Admin을 등록해해줄 때, 동일한 ID가 존재하는지 체크
 		function idCheck() {
 			$.ajax({
 				type : "post",
@@ -191,7 +183,8 @@
 				}
 			});
 		}
-		//패스워드 일치 확인
+		
+		// Admin을 등록해해줄 때, 패스워드 일치 여부 확인
 		function passwordCheck() {
 			if ($("#password") == null || $("#password2") == null) {
 				$("#passwordCheck").html("");
@@ -206,7 +199,8 @@
 				}
 			}
 		}
-		//user삭제
+		
+		// Admin 삭제 버튼 클릭 시 호출 되는 함수
 		function del(data) {
 			if (confirm("삭제 하시겠습니까?") == true) {
 				$.ajax({
@@ -223,8 +217,8 @@
 
 			}
 		}
-		//user수정
-		//수정모달창
+		
+		// Admin 수정 버튼을 클릭 했을 때 Modal을 띄워주는 함수
 		function update(phone, eMail, name, userId) {
 			$("#editphone").val(phone);
 			$("#editeMail").val(eMail);
@@ -233,6 +227,7 @@
 			$("#editModal").modal();
 		}
 
+		// Admin을 등록할 때, ID와 PW 검증이 완료 되었다면 등록진행! 만약 조건이 만족되지 않으면 다시 입력 요청
 		function check() {
 			if ($("#idCheck").html() == "사용가능한 아이디 입니다."
 					&& $("#passwordCheck").html() == "비밀번호가 일치합니다.") {
