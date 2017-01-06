@@ -81,7 +81,7 @@
 										<div class="form-group ">
 											<label for="ccomment" class="control-label col-lg-2">Body (required)</label>
 											<div class="col-lg-10">
-												<textarea class="form-control " maxlength="255" id="ccomment" name="content" required></textarea>
+												<textarea class="form-control " maxlength="500" id="ccomment" name="content" required></textarea>
 											</div>
 										</div>
 										<div class="form-group">
