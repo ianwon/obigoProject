@@ -44,7 +44,7 @@ public class ResourceController {
 	/**
 	 * 리소스 조회 페이지에서 해당 리소스 삭제 버튼 클릭시 리소스 삭제해주는 기능
 	 * 
-	 * @return 리소스 관리 페이지
+	 * @return JSON : 삭제성공 여부를 JSON data로 보내줌
 	 */
 	@RequestMapping("/deleteresource")
 	@ResponseBody
@@ -58,11 +58,5 @@ public class ResourceController {
 			return jobj.toString();
 		}
 	}
-
-	/**
-	 * 리소스 조회 페이지에서 번들 클릭시 해당 번들의 Resource리스트를 보여주는 기능
-	 * 
-	 * @return 리소스 관리 페이지
-	 */
 
 }
