@@ -75,13 +75,13 @@
 										<div class="form-group ">
 											<label for="cname" class="control-label col-lg-2">Message Subject (required)</label>
 											<div class="col-lg-10">
-												<input class=" form-control" id="cname" name="title" minlength="2" type="text" required />
+												<input class=" form-control" id="cname" name="title"  maxlength="20" type="text" required />
 											</div>
 										</div>
 										<div class="form-group ">
 											<label for="ccomment" class="control-label col-lg-2">Body (required)</label>
 											<div class="col-lg-10">
-												<textarea class="form-control " id="ccomment" name="content" required></textarea>
+												<textarea class="form-control " maxlength="255" id="ccomment" name="content" required></textarea>
 											</div>
 										</div>
 										<div class="form-group">
