@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="Mosaddek">
 <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-<link rel="shortcut icon" href="/obigoProject/img/favicon.png">
+<link rel="shortcut icon" type="image/ico" href="/obigoProject/img/favicon.ico">
 
 <title>Header Color Change</title>
 
@@ -44,9 +44,7 @@
 				<i class="fa fa-bars"></i>
 			</div>
 			<!--logo start-->
-			<a href="/obigoProject/dashboard" class="logo">
-				Obigo
-				<span>MAS</span>
+			<a href="/obigoProject/dashboard" class="logo"> Obigo <span>MAS</span>
 			</a>
 			<!--logo end-->
 			<div class="nav notify-row" id="top_menu">
@@ -54,13 +52,10 @@
 				<ul class="nav top-menu">
 
 					<!-- 					notification dropdown start -->
-					<li id="header_notification_bar" class="dropdown">
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-							<i class="fa fa-bell-o"></i>
-							<span class="badge bg-warning">
-								<c:out value="${fn:length(userRequestList)}" />
-							</span>
-						</a>
+					<li id="header_notification_bar" class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"> <i class="fa fa-bell-o"></i> <span class="badge bg-warning"> <c:out
+									value="${fn:length(userRequestList)}" />
+						</span>
+					</a>
 						<ul class="dropdown-menu extended notification">
 							<div class="notify-arrow notify-arrow-yellow"></div>
 							<li>
@@ -73,22 +68,13 @@
 
 							<c:if test="${not empty userRequestList}">
 								<c:forEach var="userRequestList" items="${userRequestList}" begin="0">
-									<li>
-										<a href="#">
-											<span class="label label-danger">
-												<i class="fa fa-bell"></i>
-											</span>
-											${userRequestList.userId} # requested.
-											<span class="small italic"></span>
-										</a>
-									</li>
+									<li><a href="#"> <span class="label label-danger"> <i class="fa fa-bell"></i>
+										</span> ${userRequestList.userId} # requested. <span class="small italic"></span>
+									</a></li>
 								</c:forEach>
-								<li>
-									<a href="/obigoProject/userrequest">See all notifications</a>
-								</li>
+								<li><a href="/obigoProject/userrequest">See all notifications</a></li>
 							</c:if>
-						</ul>
-					</li>
+						</ul></li>
 					<!-- 	notification dropdown end -->
 				</ul>
 			</div>
@@ -96,14 +82,10 @@
 				<ul class="nav pull-right top-menu">
 
 					<!-- user login dropdown start (상단 header 로그인 버튼)-->
-					<li class="dropdown">
-						<a data-toggle="dropdown" class="dropdown-toggle" style="background-color: white;" href="#">
-							<img alt="" src="/obigoProject/img/obigo_logo_small.png">
-							<span class="username" style="color: black;">
-								<c:out value="${sessionScope.LoginOK}" />
-							</span>
-							<b class="caret"></b>
-						</a>
+					<li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" style="background-color: white;" href="#"> <img alt="" src="/obigoProject/img/obigo_logo_small.png"> <span
+							class="username" style="color: black;"> <c:out value="${sessionScope.LoginOK}" />
+						</span> <b class="caret"></b>
+					</a>
 						<ul class="dropdown-menu extended logout">
 							<div class="log-arrow-up"></div>
 							<!-- 우측상단 로그인 표시 버튼 클릭시 뜨는 메뉴  
@@ -111,14 +93,9 @@
                           <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
                           <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li> 
                           -->
-							<li>
-								<a href="/obigoProject/logout">
-									<i class="fa fa-key"></i>
-									Log Out
-								</a>
-							</li>
-						</ul>
-					</li>
+							<li><a href="/obigoProject/logout"> <i class="fa fa-key"></i> Log Out
+							</a></li>
+						</ul></li>
 
 					<!-- user login dropdown end -->
 
@@ -131,127 +108,63 @@
 			<div id="sidebar" class="nav-collapse ">
 				<!-- sidebar menu start-->
 				<ul class="sidebar-menu" id="nav-accordion">
-					<li>
-						<a href="/obigoProject/dashboard">
-							<i class="fa fa-dashboard"></i>
-							<span>Dashboard</span>
-						</a>
-					</li>
+					<li><a href="/obigoProject/dashboard"> <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+					</a></li>
 
-					<li class="sub-menu">
-						<a href="javascript:;">
-							<i class="fa fa-laptop"></i>
-							<span>Users Management</span>
-						</a>
+					<li class="sub-menu"><a href="javascript:;"> <i class="fa fa-laptop"></i> <span>Users Management</span>
+					</a>
 						<ul class="sub">
-							<li>
-								<a href="/obigoProject/adminmanagement">Admin</a>
-							</li>
-							<li>
-								<a href="/obigoProject/usermanagement">User</a>
-							</li>
-						</ul>
-					</li>
+							<li><a href="/obigoProject/adminmanagement">Admin</a></li>
+							<li><a href="/obigoProject/usermanagement">User</a></li>
+						</ul></li>
 
-					<li class="sub-menu">
-						<a href="javascript:;">
-							<i class="fa fa-book"></i>
-							<span>Request Management</span>
-						</a>
+					<li class="sub-menu"><a href="javascript:;"> <i class="fa fa-book"></i> <span>Request Management</span>
+					</a>
 						<ul class="sub">
-							<li>
-								<a href="/obigoProject/userrequest">User Request</a>
-							</li>
-						</ul>
-					</li>
+							<li><a href="/obigoProject/userrequest">User Request</a></li>
+						</ul></li>
 
-					<li class="sub-menu">
-						<a href="javascript:;">
-							<i class="fa fa-cogs"></i>
-							<span>Vehicle Management</span>
-						</a>
+					<li class="sub-menu"><a href="javascript:;"> <i class="fa fa-cogs"></i> <span>Vehicle Management</span>
+					</a>
 						<ul class="sub">
-							<li>
-								<a href="/obigoProject/vehicle">Vehicle</a>
-							</li>
-						</ul>
-					</li>
-					<li class="sub-menu">
-						<a href="javascript:;">
-							<i class="fa fa-tasks"></i>
-							<span>Bundle Management</span>
-						</a>
+							<li><a href="/obigoProject/vehicle">Vehicle</a></li>
+						</ul></li>
+					<li class="sub-menu"><a href="javascript:;"> <i class="fa fa-tasks"></i> <span>Bundle Management</span>
+					</a>
 						<ul class="sub">
-							<li>
-								<a href="/obigoProject/bundle">Bundle</a>
-							</li>
-							<li>
-								<a href="/obigoProject/resource">Resource</a>
-							</li>
-						</ul>
-					</li>
-					<li class="sub-menu">
-						<a href="javascript:;">
-							<i class="fa fa-th"></i>
-							<span>Api Management</span>
-						</a>
+							<li><a href="/obigoProject/bundle">Bundle</a></li>
+							<li><a href="/obigoProject/resource">Resource</a></li>
+						</ul></li>
+					<li class="sub-menu"><a href="javascript:;"> <i class="fa fa-th"></i> <span>Api Management</span>
+					</a>
 						<ul class="sub">
-							<li>
-								<a href="/obigoProject/api">RestFUL Api</a>
-							</li>
-						</ul>
-					</li>
-					<li class="sub-menu">
-						<a href="javascript:;">
-							<i class=" fa fa-envelope"></i>
-							<span>Push Message Management</span>
-						</a>
+							<li><a href="/obigoProject/api">RestFUL Api</a></li>
+						</ul></li>
+					<li class="sub-menu"><a href="javascript:;"> <i class=" fa fa-envelope"></i> <span>Push Message Management</span>
+					</a>
 						<ul class="sub">
-							<li>
-								<a href="/obigoProject/pushmessage">Message Box</a>
-							</li>
-							<li>
-								<a href="/obigoProject/sendmessage">Send Message</a>
-							</li>
-						</ul>
-					</li>
-					<li class="sub-menu">
-						<a href="javascript:;">
-							<i class=" fa fa-list-ol"></i>
-							<span>Logs Management</span>
-						</a>
+							<li><a href="/obigoProject/pushmessage">Message Box</a></li>
+							<li><a href="/obigoProject/sendmessage">Send Message</a></li>
+						</ul></li>
+					<li class="sub-menu"><a href="javascript:;"> <i class=" fa fa-list-ol"></i> <span>Logs Management</span>
+					</a>
 						<ul class="sub">
-							<li>
-								<a href="/obigoProject/log">Log</a>
-							</li>
-						</ul>
-					</li>
-					<li class="sub-menu">
-						<a href="javascript:;">
-							<i class=" fa fa-bar-chart-o"></i>
-							<span>Analytics</span>
-						</a>
+							<li><a href="/obigoProject/log">Log</a></li>
+						</ul></li>
+					<li class="sub-menu"><a href="javascript:;"> <i class=" fa fa-bar-chart-o"></i> <span>Analytics</span>
+					</a>
 						<ul class="sub">
-							<li>
-								<a href="/obigoProject/useranalytics">User</a>
-							</li>
-							<li>
-								<a href="/obigoProject/uvanalytics">User Vehicle</a>
-							</li>
-							<li>
-								<a href="/obigoProject/downanalytics">Down Analytics</a>
-							</li>
-							<li>
-								<a href="/obigoProject/messageanalytics">Message Analytics</a>
-							</li>
-						</ul>
-					</li>
+							<li><a href="/obigoProject/useranalytics">User</a></li>
+							<li><a href="/obigoProject/uvanalytics">User Vehicle</a></li>
+							<li><a href="/obigoProject/downanalytics">Down Analytics</a></li>
+							<li><a href="/obigoProject/messageanalytics">Message Analytics</a></li>
+						</ul></li>
 				</ul>
 				<!-- sidebar menu end-->
 			</div>
 		</aside>
 		<!--sidebar end-->
-		
+
 	</section>
 
 	<!-- js placed at the end of the document so the pages load faster -->

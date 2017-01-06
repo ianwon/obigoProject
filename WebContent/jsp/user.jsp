@@ -164,41 +164,55 @@
 			document.location.href = "/obigoProject/userVehicle?userId="+ userId;
 		}
 
-		// User를 등록해해줄 때, 동일한 ID가 존재하는지 체크
-		function idCheck() {
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/idcheck",
-				dataType : "json",
-				data : {
-					"userId" : $("#userId").val()
-				},
-				success : function(data) {
-					if (data.flag == false) {
-						$("#idCheck").html("이미 존재하는 아이디 입니다.");
+		// 가입 ID가 정규식으로 검증 및 AJAX로 이미 가입된 ID인지 여부 확인
+				function idCheck() {
+					var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
+					if (!idReg.test($("#userId").val())) {
+						$("#idCheck").html("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
 						$("#idCheck").css("color", "red");
 					} else {
-						$("#idCheck").html("사용가능한 아이디 입니다.");
-						$("#idCheck").css("color", "blue");
+			
+						$.ajax({
+							type : "post",
+							url : "/obigoProject/idcheck",
+							dataType : "json",
+							data : {
+								"userId" : $("#userId").val()
+							},
+							success : function(data) {
+								if (data.flag == false) {
+									$("#idCheck").html("이미 존재하는 아이디 입니다.");
+									$("#idCheck").css("color", "red");
+								} else {
+									$("#idCheck").html("사용가능한 아이디 입니다.");
+									$("#idCheck").css("color", "blue");
+								}
+							}
+						});
 					}
 				}
-			});
-		}
-		// User를 등록해해줄 때, 패스워드 일치 여부 확인
-		function passwordCheck() {
-			if ($("#password") == null || $("#password2") == null) {
-				$("#passwordCheck").html("");
-			} else {
-
-				if ($("#password").val() == $("#password2").val()) {
-					$("#passwordCheck").html("비밀번호가 일치합니다.");
-					$("#passwordCheck").css("color", "blue");
-				} else {
-					$("#passwordCheck").html("비밀번호가 틀렸습니다.");
-					$("#passwordCheck").css("color", "red");
+		// Password 정규식으로 검증 및 두번 입력한 password의 일치 여부 확인
+				function passwordCheck() {
+					var reg_pwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+					if (!reg_pwd.test($("#password").val())) {
+						$("#passwordCheck").html("비밀번호는 영문,숫자를 혼합하여 6~20자 이내이어야 합니다.");
+						$("#passwordCheck").css("color", "red");
+					} else {
+			
+						if ($("#password") == null || $("#password2") == null) {
+							$("#passwordCheck").html("");
+						} else {
+			
+							if ($("#password").val() == $("#password2").val()) {
+								$("#passwordCheck").html("비밀번호가 일치합니다.");
+								$("#passwordCheck").css("color", "blue");
+							} else {
+								$("#passwordCheck").html("비밀번호가 틀렸습니다.");
+								$("#passwordCheck").css("color", "red");
+							}
+						}
+					}
 				}
-			}
-		}
 
 		// User 삭제 버튼 클릭 시 호출 되는 함수
 		function del(data) {

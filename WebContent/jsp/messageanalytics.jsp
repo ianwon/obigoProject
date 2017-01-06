@@ -7,7 +7,6 @@
 <meta name="description" content="">
 <meta name="author" content="Mosaddek">
 <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-<link rel="shortcut icon" href="img/favicon.png">
 <title>Message Analytics</title>
 <!-- Bootstrap core CSS -->
 <link href="/obigoProject/css/bootstrap.min.css" rel="stylesheet">
