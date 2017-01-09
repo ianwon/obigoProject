@@ -42,7 +42,8 @@
 									</div>
 									<div class="modal-body">
 
-										<form id="form-addvehicle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/insertvehicle" onsubmit="return addVehicleCheck();" method="POST">
+										<form id="form-addvehicle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/insertvehicle"
+											onsubmit="return (addVehicleCheck() && sizeCheck('model_Image','detail_Image'));" method="POST">
 											<div class="form-group">
 												<span class="label label-primary">MODEL NAME</span>
 												<input type="text" id="modelName" name="modelName" class="form-control" placeholder="Model Name" autofocus required="required">
@@ -203,6 +204,17 @@
 	</script>
 
 	<script type="text/javascript">
+		// input file size 제한
+		function sizeCheck(name, name2) {
+			var size = document.getElementById(name).files[0].size;
+			var size2 = document.getElementById(name2).files[0].size;
+			if (size > 100000000 || size2 > 100000000) {
+				alert("100000000byte 이하의 파일만 가능합니다.")
+				return false;
+			} else {
+				return true;
+			}
+		}
 		// Edit Modal 폼을 띄울때 해당 되는 데이터를 Modal에 넣어주는 함수
 		function callEditModal(modelCode) {
 			$("#editModelName").val(
@@ -232,7 +244,7 @@
 			}
 
 		}
-		
+
 		// 삭제 여부를 묻고 AJAX를 통해서 차량을 삭제하는 함수
 		function deleteVehicleTr(modelCode) {
 			if (confirm("삭제 하시겠습니까?") == true) {
@@ -273,6 +285,8 @@
 							checkModelCode = false;
 						}
 					} else {
+
+						checkModelCode = false;
 						// 동일한 Model Code가 이미 DB에 존재하므로 자동차를 등록할 수 없다
 						alert("동일한 Model Code가 이미 존재합니다!");
 
