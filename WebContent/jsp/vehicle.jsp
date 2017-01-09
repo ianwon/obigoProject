@@ -92,20 +92,34 @@
 									</div>
 									<div class="modal-body">
 										<form id="form-editvehicle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/updatevehicle" method="POST">
-											<span class="label label-primary">MODEL NAME</span>
-											<input type="text" id="editModelName" name="modelName" class="form-control" placeholder="Model Name" readonly="readonly">
-											<span class="label label-primary">MODEL CODE</span>
-											<input type="text" id="editModelCode" name="modelCode" class="form-control" placeholder="Model Code" readonly="readonly">
-											<span class="label label-primary">MODEL IMAGE</span>
-											<input type="file" id="editModelImage" name="model_Image" class="form-control" placeholder="Model Image">
-											<span class="label label-primary">DETAIL IMAGE</span>
-											<input type="file" id="editDetailImage" name="detail_Image" class="form-control" placeholder="Detail Image">
-											<span class="label label-primary">ENGINE</span>
-											<input type="text" id="editEngine" name="engine" class="form-control" placeholder="Engine" required="required" readonly="readonly">
-											<span class="label label-primary">MODEL YEAR</span>
-											<input type="number" id="editModelYear" name="modelYear" class="form-control" min="1900" max="2099" step="1" value="2016" readonly="readonly">
-											<span class="label label-primary">MILEAGE</span>
-											<input type="text" id="editMileage" name="mileage" class="form-control" placeholder="mileage" readonly="readonly" readonly="readonly">
+											<div class="form-group">
+												<span class="label label-primary">MODEL NAME</span>
+												<input type="text" id="editModelName" name="modelName" class="form-control" placeholder="Model Name" readonly="readonly">
+											</div>
+											<div class="form-group">
+												<span class="label label-primary">MODEL CODE</span>
+												<input type="text" id="editModelCode" name="modelCode" class="form-control" placeholder="Model Code" readonly="readonly">
+											</div>
+											<div class="form-group">
+												<span class="label label-primary">MODEL IMAGE</span>
+												<input type="file" id="editModelImage" name="model_Image" class="form-control" placeholder="Model Image">
+											</div>
+											<div class="form-group">
+												<span class="label label-primary">DETAIL IMAGE</span>
+												<input type="file" id="editDetailImage" name="detail_Image" class="form-control" placeholder="Detail Image">
+											</div>
+											<div class="form-group">
+												<span class="label label-primary">ENGINE</span>
+												<input type="text" id="editEngine" name="engine" class="form-control" placeholder="Engine" required="required" readonly="readonly">
+											</div>
+											<div class="form-group">
+												<span class="label label-primary">MODEL YEAR</span>
+												<input type="number" id="editModelYear" name="modelYear" class="form-control" min="1900" max="2099" step="1" value="2016" readonly="readonly">
+											</div>
+											<div class="form-group">
+												<span class="label label-primary">MILEAGE</span>
+												<input type="text" id="editMileage" name="mileage" class="form-control" placeholder="mileage" readonly="readonly" readonly="readonly">
+											</div>
 										</form>
 									</div>
 									<div class="modal-footer">
@@ -116,7 +130,7 @@
 							</div>
 						</div>
 						<!-- -------------- Edit Vehicle Modal end -------------- -->
-						
+
 						<!-- -------------- Vehicle Table start -------------- -->
 						<div class="table-responsive">
 							<table class="table table-striped table-hover table-bordered" id="editable-sample">
@@ -143,7 +157,7 @@
 											<td>${vehicle.engine}</td>
 											<td>${vehicle.modelYear}</td>
 											<td>${vehicle.mileage}</td>
-											<td><a data-toggle="modal" href="javascript:callEditModal('${vehicle.modelCode}');">Edit</a></td>
+											<td><a href="javascript:callEditModal('${vehicle.modelCode}');">Edit</a></td>
 											<td><a href="javascript:deleteVehicleTr('${vehicle.modelCode}');">Delete</a></td>
 										</tr>
 									</c:forEach>
@@ -199,11 +213,26 @@
 					$("#vehicle" + modelCode).children().eq(4).text());
 			$("#editModelYear").val(
 					$("#vehicle" + modelCode).children().eq(5).text());
-			$("#editMilage").val(
+			$("#editMileage").val(
 					$("#vehicle" + modelCode).children().eq(6).text());
 			$("#modalEdit").modal("toggle");
 		}
 
+		// input에 입력된 값으로 공백이 존재하는지 체크
+		function spaceCheck(frm) {
+			var f = frm.val();
+			var pattern = /\s/;
+
+			if (f.match(pattern)) {
+				alert("Model Code에 공백이 있으면 안됩니다!");
+				frm.focus();
+				return false;
+			} else {
+				return true;
+			}
+
+		}
+		
 		// 삭제 여부를 묻고 AJAX를 통해서 차량을 삭제하는 함수
 		function deleteVehicleTr(modelCode) {
 			if (confirm("삭제 하시겠습니까?") == true) {
@@ -236,8 +265,13 @@
 				},
 				success : function(data) {
 					if (data.flag == true) {
-						// 동일한 Model Code가 DB에 존재하지 않으므로 자동차를 등록할 수 있다
-						checkModelCode = true;
+						// Model Code에 공백이 존재하는지 체크
+						if (spaceCheck($("#modelCode")) == true) {
+							// 동일한 Model Code가 DB에 존재하지 않으므로 자동차를 등록할 수 있다
+							checkModelCode = true;
+						} else {
+							checkModelCode = false;
+						}
 					} else {
 						// 동일한 Model Code가 이미 DB에 존재하므로 자동차를 등록할 수 없다
 						alert("동일한 Model Code가 이미 존재합니다!");
