@@ -203,6 +203,7 @@
 					$("#vehicle" + modelCode).children().eq(6).text());
 			$("#modalEdit").modal("toggle");
 		}
+
 		// 삭제 여부를 묻고 AJAX를 통해서 차량을 삭제하는 함수
 		function deleteVehicleTr(modelCode) {
 			if (confirm("삭제 하시겠습니까?") == true) {
@@ -221,6 +222,7 @@
 				return;
 			}
 		}
+
 		// 차량 등록 폼에서 AJAX로 Model Code 비교후 등록을 수행하는 함수
 		function addVehicleCheck() {
 			var checkModelCode = false;
@@ -239,6 +241,7 @@
 					} else {
 						// 동일한 Model Code가 이미 DB에 존재하므로 자동차를 등록할 수 없다
 						alert("동일한 Model Code가 이미 존재합니다!");
+
 					}
 				}
 			});

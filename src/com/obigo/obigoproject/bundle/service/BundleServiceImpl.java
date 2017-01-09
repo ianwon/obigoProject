@@ -83,16 +83,7 @@ public class BundleServiceImpl implements BundleService {
 			saveDirFile.mkdirs();
 		}
 		String fileName = null;
-		if (bundleFile.getOriginalFilename() != null && !"".equals(bundleFile.getOriginalFilename())) {
-			fileName = System.nanoTime() + bundleFile.getOriginalFilename();
-			try {
-				bundleFile.transferTo(new File(saveDir + File.separator + fileName));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			vo.setFileUpload(fileName);
-		}
-
+		 
 		return vo;
 	}
 
