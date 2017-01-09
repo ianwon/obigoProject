@@ -517,15 +517,16 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/errorlog/{url}", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public void errorLog(@PathVariable String url, @RequestBody String body) {
-		System.out.println(url);
-		System.out.println(body);
 		JSONObject jobj = JSONObject.fromObject(body);
-		System.out.println(jobj);
-		// LogVO vo = new LogVO();
-		// vo.setUrl(url);
-		// vo.setBody(body);
-		// vo.setReturned(returned);
-		// logService.insertLog(vo);
+		JSONObject jobj2 = new JSONObject();
+		jobj2.put("url", "/api/" + url);
+		jobj2.put("id", jobj.get("body"));
+
+		LogVO vo = new LogVO();
+		vo.setUrl("/api/errorlog");
+		vo.setBody(jobj2.toString());
+		vo.setReturned(jobj.getString("returned"));
+		logService.insertLog(vo);
 	}
 
 }
