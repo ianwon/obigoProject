@@ -88,7 +88,7 @@ public class RestFulApiController {
 	public void bundleDown(HttpServletResponse response) {
 		String path = obigoUtils.getPath() + "bundle" + File.separator + bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload();
 		FileInputStream fs = null;
-		
+
 		// Bundle을 response를 통해서 전송하는 과정
 		try {
 			fs = new FileInputStream(path);
@@ -130,7 +130,7 @@ public class RestFulApiController {
 				// e.printStackTrace();
 			}
 		}
-		
+
 		// Log 정보를 등록하는 과정
 		JSONObject jobj = new JSONObject();
 		jobj.put("bundleVersion", bundleVersionService.getBundleVersion());
@@ -153,7 +153,7 @@ public class RestFulApiController {
 
 		path += imagename;
 		FileInputStream fs = null;
-		
+
 		// Image File을 response를 통해서 전송하는 과정
 		try {
 			fs = new FileInputStream(path);
@@ -163,7 +163,7 @@ public class RestFulApiController {
 			response.getOutputStream().write(iconImage);
 		} catch (Exception e1) {
 			try {
-				
+
 				// 해당 Image가 존재하지 않을 경우, 대체 Image를 전송
 				fs = new FileInputStream(obigoUtils.getPath() + "no_img.gif");
 				byte[] iconImage = new byte[fs.available()];
@@ -191,7 +191,7 @@ public class RestFulApiController {
 				// e.printStackTrace();
 			}
 		}
-		
+
 		// Log 정보를 등록하는 과정
 		JSONObject jobj = new JSONObject();
 		jobj.put("select", select);
@@ -203,8 +203,7 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * Bundle Version을 체크하는 Api 
-	 * parameter = "bundleVersion":번들버전
+	 * Bundle Version을 체크하는 Api parameter = "bundleVersion":번들버전
 	 * 
 	 * @return "flag" : 결과
 	 */
@@ -216,7 +215,7 @@ public class RestFulApiController {
 			jobj.put("flag", true);
 		else
 			jobj.put("flag", false);
-		
+
 		// Log 정보를 등록하는 과정
 		JSONObject bodyJobj = new JSONObject();
 		bodyJobj.put("bundleVersion", bundleVersion);
@@ -224,13 +223,12 @@ public class RestFulApiController {
 		vo.setBody(bodyJobj.toString());
 		vo.setReturned(jobj.toString());
 		logService.insertLog(vo);
-		
+
 		return jobj.toString();
 	}
 
 	/**
-	 * Bundle Update Api
-	 * Bundle update를 할 수 있도록 해당하는 Version의 Bundle File을 download할 수 있도록  path를 return한다
+	 * Bundle Update Api Bundle update를 할 수 있도록 해당하는 Version의 Bundle File을 download할 수 있도록 path를 return한다
 	 * 
 	 * @return "bundle" : 번들 주소값
 	 */
@@ -245,13 +243,12 @@ public class RestFulApiController {
 		vo.setBody("null");
 		vo.setReturned(jobj.toString());
 		logService.insertLog(vo);
-		
+
 		return jobj.toString();
 	}
 
 	/**
-	 * 유저 차량 정보 리스트 Api 
-	 * parameter = "userId" : 유저아이디
+	 * 유저 차량 정보 리스트 Api parameter = "userId" : 유저아이디
 	 * 
 	 * @return "userVehicleList":유저 차량 리스트
 	 */
@@ -260,7 +257,7 @@ public class RestFulApiController {
 	public String userVehicle(@PathVariable String userId) {
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(androiduservehicleService.getAndroidUserVehicleListByUserid(userId));
-		
+
 		// Log 정보를 등록하는 과정
 		JSONObject jobj = new JSONObject();
 		jobj.put("userId", userId);
@@ -268,13 +265,12 @@ public class RestFulApiController {
 		vo.setBody(jobj.toString());
 		vo.setReturned(jsonArray.toString());
 		logService.insertLog(vo);
-		
+
 		return jsonArray.toString();
 	}
 
 	/**
-	 * 유저 차량 정보 Api 
-	 * parameter = "modelCode":차량코드
+	 * 유저 차량 정보 Api parameter = "modelCode":차량코드
 	 * 
 	 * @return "userVehicle" : 유저 차량 정보
 	 */
@@ -295,9 +291,7 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * 유저 차량 등록 요청 Api
-	 * parameter = "data":UserRequestVO Class 정보를 담고 있는 JSON data 로서 아래의 정보를 담고있다   
-	 * "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역, "vin":고유번호
+	 * 유저 차량 등록 요청 Api parameter = "data":UserRequestVO Class 정보를 담고 있는 JSON data 로서 아래의 정보를 담고있다 "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역, "vin":고유번호
 	 * 
 	 * @return "flag" : 등록 여부
 	 */
@@ -306,28 +300,27 @@ public class RestFulApiController {
 	public String insertUserRequest(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		UserRequestVO vo = mapper.readValue(data, UserRequestVO.class);
-		
+
 		this.vo.setUrl("/api/userrequest");
 		this.vo.setBody("null");
-		
+
 		if (userRequestService.insertUserRequest(vo) == true) {
 			// Log 정보를 등록하는 과정
 			this.vo.setReturned("true");
 			logService.insertLog(this.vo);
-			
+
 			return "true";
 		} else {
 			// Log 정보를 등록하는 과정
 			this.vo.setReturned("false");
 			logService.insertLog(this.vo);
-			
+
 			return "false";
 		}
 	}
 
 	/**
-	 * 유저 푸시메시지 리스트 요청 Api
-	 * parameter = "userId":유저아이디, "index":페이지번호
+	 * 유저 푸시메시지 리스트 요청 Api parameter = "userId":유저아이디, "index":페이지번호
 	 * 
 	 * @return "messageList" : 메시지 리스트
 	 */
@@ -336,7 +329,7 @@ public class RestFulApiController {
 	public String getMessageList(@PathVariable String userId) {
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(pushMessageService.getPushMessageList(userId));
-		
+
 		// Log 정보를 등록하는 과정
 		JSONObject jobj = new JSONObject();
 		jobj.put("userId", userId);
@@ -344,16 +337,14 @@ public class RestFulApiController {
 		vo.setBody(jobj.toString());
 		vo.setReturned(jsonArray.toString());
 		logService.insertLog(vo);
-		
+
 		return jsonArray.toString();
 	}
 
 	/**
-	 * 로그인시 Registration ID 등록 Api
-	 * function = 받은 아이디랑 비밀번호로 db에서 정보를 찾고 registrationid에 token 값으로 업데이트
-	 * parameter = "data":RegistrationidVO 
+	 * 로그인시 Registration ID 등록 Api function = 받은 아이디랑 비밀번호로 db에서 정보를 찾고 registrationid에 token 값으로 업데이트 parameter = "data":RegistrationidVO
 	 * 
-	 * @return true/false : Registraionid 등록 성공 여부 
+	 * @return true/false : Registraionid 등록 성공 여부
 	 */
 	@RequestMapping(value = "/api/registrationid", method = RequestMethod.POST)
 	public String insertRegistrationid(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
@@ -375,28 +366,27 @@ public class RestFulApiController {
 	/**
 	 * 등록된 차량 List 정보를 보내주는 Api
 	 * 
-	 * @return JSON Array : 차량정보들을 JSON Data로 보내줌 
+	 * @return JSON Array : 차량정보들을 JSON Data로 보내줌
 	 */
 	@RequestMapping(value = "/api/vehicle", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String getVehicleList() {
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(vehicleService.getVehicleList());
-		
+
 		// Log 정보를 등록하는 과정
 		vo.setUrl("/api/vehicle");
 		vo.setBody("null");
 		vo.setReturned(jsonArray.toString());
 		logService.insertLog(vo);
-		
+
 		return jsonArray.toString();
 	}
 
 	/**
-	 * 해당 User ID의 정보를 보내주는 Api
-	 * parameter = "userId":user의 ID 
+	 * 해당 User ID의 정보를 보내주는 Api parameter = "userId":user의 ID
 	 * 
-	 * @return UsersVO : User의 정보를 담고 있는 VO 
+	 * @return UsersVO : User의 정보를 담고 있는 VO
 	 */
 	@RequestMapping(value = "/api/user/{userId}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -419,15 +409,14 @@ public class RestFulApiController {
 		vo.setBody(bodyJobj.toString());
 		vo.setReturned(jobj.toString());
 		logService.insertLog(vo);
-		
+
 		return jobj.toString();
 	}
 
 	/**
-	 * Login Api
-	 * parameter = "userId":user의 ID, "password":user의 Password
+	 * Login Api parameter = "userId":user의 ID, "password":user의 Password
 	 * 
-	 * @return true/false : 입력한 ID/Password 정보가 일치하는지 여부 
+	 * @return true/false : 입력한 ID/Password 정보가 일치하는지 여부
 	 */
 	@RequestMapping(value = "/api/login", method = RequestMethod.GET)
 	@ResponseBody
@@ -442,22 +431,21 @@ public class RestFulApiController {
 			// Log 정보를 등록하는 과정
 			vo.setReturned("false");
 			logService.insertLog(vo);
-			
+
 			return "false";
 		} else {
 			// Log 정보를 등록하는 과정
 			vo.setReturned("true");
 			logService.insertLog(vo);
-			
+
 			return "true";
 		}
 	}
 
 	/**
-	 * Logout Api
-	 * parameter = "registrationId":Login할 때 부여받았던 Registration ID
+	 * Logout Api parameter = "registrationId":Login할 때 부여받았던 Registration ID
 	 * 
-	 * @return true/false : Registration ID의 삭제 성공 여부 
+	 * @return true/false : Registration ID의 삭제 성공 여부
 	 */
 	@RequestMapping(value = "/api/logout", method = RequestMethod.DELETE)
 	public String logout(@RequestParam String registrationId) {
@@ -471,21 +459,19 @@ public class RestFulApiController {
 			// Log 정보를 등록하는 과정
 			vo.setReturned("false");
 			logService.insertLog(vo);
-			
+
 			return "false";
 		} else {
 			// Log 정보를 등록하는 과정
 			vo.setReturned("true");
 			logService.insertLog(vo);
-			
+
 			return "true";
 		}
 	}
 
 	/**
-	 * Bundle Version Check Api
-	 * function = App에 설치된 Bundle과 Server에서 적용하고자 하는 Bundle의 Version이 동일한지 체크하는 Api
-	 * parameter = "bundleVersion":App에 설치된 Bundle Version
+	 * Bundle Version Check Api function = App에 설치된 Bundle과 Server에서 적용하고자 하는 Bundle의 Version이 동일한지 체크하는 Api parameter = "bundleVersion":App에 설치된 Bundle Version
 	 * 
 	 * @return true/false : App과 Server에서 요구하는 Bundle Version이 동일한지 유무에 따라 true/false return
 	 */
@@ -498,17 +484,17 @@ public class RestFulApiController {
 		jobj.put("bundleVersion", bundleVersion);
 		vo.setBody(jobj.toString());
 
-		 if (bundleVersion.equals(bundleVersionService.getBundleVersion())) {
+		if (bundleVersion.equals(bundleVersionService.getBundleVersion())) {
 			// Log 정보를 등록하는 과정
 			vo.setReturned("true");
 			logService.insertLog(vo);
-			
+
 			return "true";
 		} else {
 			// Log 정보를 등록하는 과정
 			vo.setReturned("false");
 			logService.insertLog(vo);
-			
+
 			return "false";
 		}
 	}
@@ -525,8 +511,18 @@ public class RestFulApiController {
 		vo.setBody("null");
 		vo.setReturned(jsonarray.toString());
 		logService.insertLog(vo);
-		
+
 		return jsonarray.toString();
+	}
+
+	@RequestMapping(value = "/api/errorlog/{url}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public void errorLog(@PathVariable String url, @RequestParam("body") String body, @RequestParam("returned") String returned) {
+		LogVO vo = new LogVO();
+		vo.setUrl(url);
+		vo.setBody(body);
+		vo.setReturned(returned);
+		logService.insertLog(vo);
 	}
 
 }

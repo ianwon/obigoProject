@@ -22,59 +22,6 @@
 					<div class="panel-body">
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
-								<div class="btn-group">
-									<a id="Add" class="btn btn-success" data-toggle="modal" href="#addModal"> Add Admin <i class="fa fa-plus"></i>
-									</a>
-								</div>
-
-								<!-- -------------- Add Admin Modal -------------- -->
-								<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-												<h4 class="modal-title">Add Admin</h4>
-											</div>
-											<div class="modal-body">
-												<form id="form-registration" class="form-signin" action="/obigoProject/insertuser" onsubmit="return check()" method="POST">
-													<div class="login-wrap">
-														<div class="form-group">
-															<span class="label label-primary">NAME</span>
-															<input type="text" name="name" id="name" class="form-control" placeholder="Full Name" autofocus required="required">
-														</div>
-														<div class="form-group">
-															<span class="label label-primary">E-MAIL</span>
-															<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
-														</div>
-														<div class="form-group">
-															<span class="label label-primary">PHONE</span>
-															<input type="text" name="phone" class="form-control" placeholder="phone" autofocus required="required">
-														</div>
-														<div class="form-group">
-															<span class="label label-primary">ADMIN ID</span>
-															<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
-															<div id="idCheck"></div>
-														</div>
-														<div class="form-group">
-															<span class="label label-primary">PASSWORD</span>
-															<input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
-														</div>
-														<div class="form-group">
-															<span class="label label-primary">PASSWORD</span>
-															<input type="password" id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
-															<div id="passwordCheck"></div>
-														</div>
-													</div>
-												</form>
-											</div>
-											<div class="modal-footer">
-												<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-												<input class="btn btn-success" type="submit" form="form-registration" value="Registration">
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- -------------- Add Admin Modal end -------------- -->
 
 								<!-- -------------- Edit Admin Modal start -------------- -->
 								<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -191,7 +138,6 @@
 			if ($("#password") == null || $("#password2") == null) {
 				$("#passwordCheck").html("");
 			} else {
-
 				if ($("#password").val() == $("#password2").val()) {
 					$("#passwordCheck").html("비밀번호가 일치합니다.");
 					$("#passwordCheck").css("color", "blue");
@@ -216,7 +162,6 @@
 						location.reload();
 					}
 				});
-
 			}
 		}
 		
@@ -228,7 +173,6 @@
 			$("#edituserId").val(userId);
 			$("#editModal").modal();
 		}
-
 		// Admin을 등록할 때, ID와 PW 검증이 완료 되었다면 등록진행! 만약 조건이 만족되지 않으면 다시 입력 요청
 		function check() {
 			if ($("#idCheck").html() == "사용가능한 아이디 입니다."
@@ -238,7 +182,6 @@
 				alert("아이디와 비밀번호를 확인해 주세요");
 				return false;
 			}
-
 		}
 	</script>
 
