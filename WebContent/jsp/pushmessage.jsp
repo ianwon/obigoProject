@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Push Message</title>
+<style type="text/css">
+td {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+</style>
 </head>
 <body>
 
@@ -77,12 +84,12 @@
 
 							<!-- -------------- Push Message Table start -------------- -->
 							<div class="table-responsive">
-								<table class="table table-striped table-hover table-bordered" id="editable-sample">
+								<table style="table-layout: fixed; word-break: break-all;" class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
 											<th>Title</th>
 											<th>Upload File</th>
-											<th>Content</th>
+											<th style="width: 500px;">Content</th>
 											<th>Send Date</th>
 											<th>Model Name</th>
 											<th>Location</th>
@@ -150,9 +157,8 @@
 			EditableTable.init();
 		});
 	</script>
-	
+
 	<script type="text/javascript">
-	
 		function changeFrm(option) {
 			document.getElementById("frmSelect").submit();
 		}

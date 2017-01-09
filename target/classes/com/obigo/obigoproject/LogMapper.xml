@@ -27,21 +27,21 @@
 
 	<select id="selectLog" resultMap="LogResultMap">
 		<![CDATA[
-			select * from Log ORDER BY DATE_TIME DESC
+			SELECT TO_CHAR(DATE_TIME,'yyyy/mm/dd hh24:mi:ss')DATE_TIME, BODY, URL, RETURN FROM LOG ORDER BY DATE_TIME DESC
 		]]>
 	</select>
 
 	<select id="selectLogByUrl" parameterType="java.lang.String"
 		resultMap="LogResultMap">
 		<![CDATA[
-			select * from Log where url=#{url}
+			select TO_CHAR(DATE_TIME,'yyyy/mm/dd hh24:mi:ss')DATE_TIME, BODY, URL, RETURN from Log where url=#{url}
 		]]>
 	</select>
 
 	<select id="selectLogCount" resultType="java.lang.Integer">
 		select count(*) from log
 	</select>
-	
+
 	<select id="selectUserMonthLogCount" parameterType="hashmap"
 		resultType="java.lang.Integer">
 	<![CDATA[
@@ -49,13 +49,15 @@
 		]]>
 	</select>
 
-	<select id="selectMonthLogCount" parameterType="hashmap" resultType="java.lang.Integer">
+	<select id="selectMonthLogCount" parameterType="hashmap"
+		resultType="java.lang.Integer">
 		<![CDATA[
 		select count(*) from log where url like #{url} and date_time like #{year}||'/'||#{month}||'/%'
 		]]>
 	</select>
-	
-	<select id="selectBundleUpdateCount" parameterType="hashmap" resultType="java.lang.Integer">
+
+	<select id="selectBundleUpdateCount" parameterType="hashmap"
+		resultType="java.lang.Integer">
 	<![CDATA[
 	select count(*) from log where url like '%bundleupdate' and date_time like #{year}||'/'||#{month}||'/%'
 	]]>

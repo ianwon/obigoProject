@@ -35,7 +35,7 @@
 							<header class="panel-heading"> Send Pushmessage </header>
 							<div class="panel-body">
 								<div class=" form">
-									<form class="cmxform form-horizontal tasi-form" onsubmit="return check()" enctype="multipart/form-data" id="commentForm" method="post"
+									<form class="cmxform form-horizontal tasi-form" onsubmit="return (check() && sizeCheck('messageFile'));" enctype="multipart/form-data" id="commentForm" method="post"
 										action="/obigoProject/sendtextmessage">
 										<div class="form-group ">
 											<!-- ----- Select Box(Category) start ----- -->
@@ -46,9 +46,9 @@
 												<c:forEach var="c" items="${messagecategory}" begin="0">
 													<option value="${c.categoryNumber}">Category Name : ${c.categoryName}</option>
 												</c:forEach>
-											</select> 
+											</select>
 											<!-- ----- Select Box(Category) end ----- -->
-											
+
 											<!-- ----- Select Box(Location) start ----- -->
 											&nbsp;&nbsp;&nbsp;
 											<label>Location : </label>
@@ -57,9 +57,9 @@
 												<c:forEach var="l" items="${locationList}" begin="0">
 													<option value="${l.location}">Location : ${l.location}</option>
 												</c:forEach>
-											</select> 
+											</select>
 											<!-- ----- Select Box(Location) end ----- -->
-											
+
 											<!-- ----- Select Box(Model) start ----- -->
 											&nbsp;&nbsp;&nbsp;
 											<label>Model : </label>
@@ -71,11 +71,11 @@
 											</select>
 											<!-- ----- Select Box(Model) end ----- -->
 										</div>
-										
+
 										<div class="form-group ">
 											<label for="cname" class="control-label col-lg-2">Message Subject (required)</label>
 											<div class="col-lg-10">
-												<input class=" form-control" id="cname" name="title"  maxlength="20" type="text" required />
+												<input class=" form-control" id="cname" name="title" maxlength="20" type="text" required />
 											</div>
 										</div>
 										<div class="form-group ">
@@ -87,7 +87,7 @@
 										<div class="form-group">
 											<label class="control-label col-md-2">File Upload</label>
 											<div class="col-md-4">
-												<input type="file" class="default" name="messageFile" />
+												<input type="file" id="messageFile" class="default" name="messageFile" />
 											</div>
 										</div>
 
@@ -150,12 +150,18 @@
 			if ($("#selectcategory").val() == "") {
 				alert("카테고리를 선택해주세요");
 				return false;
-			} else if (($("#selectlocation").val() == "")
-					&& $("#selectmodel").val() == "") {
-				alert("지역 혹은 모델을 선택해주세요")
-				return false;
 			}
 			return true;
+		}
+
+		function sizeCheck(name) {
+			var size = document.getElementById(name).files[0].size;
+			if (size > 100000000) {
+				alert("100000000byte 이하의 파일만 가능합니다.")
+				return false;
+			} else {
+				return true;
+			}
 		}
 	</script>
 
