@@ -357,7 +357,7 @@ public class RestFulApiController {
 
 		// Log 정보를 등록하는 과정
 		this.vo.setUrl("/api/registrationid");
-		this.vo.setBody("null");
+		this.vo.setBody(data);
 		this.vo.setReturned("true");
 		logService.insertLog(this.vo);
 		return "true";
@@ -478,7 +478,6 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/bundleversioncheck", method = RequestMethod.GET)
 	@ResponseBody
 	public String bundleVersioncheck(@RequestParam String bundleVersion) {
-
 		vo.setUrl("/api/bundleversioncheck");
 		JSONObject jobj = new JSONObject();
 		jobj.put("bundleVersion", bundleVersion);
@@ -495,7 +494,7 @@ public class RestFulApiController {
 			vo.setReturned("false");
 			logService.insertLog(vo);
 
-			return "false";
+			return "true";
 		}
 	}
 
@@ -515,14 +514,18 @@ public class RestFulApiController {
 		return jsonarray.toString();
 	}
 
-	@RequestMapping(value = "/api/errorlog/{url}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/api/errorlog/{url}", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public void errorLog(@PathVariable String url, @RequestParam("body") String body, @RequestParam("returned") String returned) {
-		LogVO vo = new LogVO();
-		vo.setUrl(url);
-		vo.setBody(body);
-		vo.setReturned(returned);
-		logService.insertLog(vo);
+	public void errorLog(@PathVariable String url, @RequestBody String body) {
+		System.out.println(url);
+		System.out.println(body);
+		JSONObject jobj = JSONObject.fromObject(body);
+		System.out.println(jobj);
+		// LogVO vo = new LogVO();
+		// vo.setUrl(url);
+		// vo.setBody(body);
+		// vo.setReturned(returned);
+		// logService.insertLog(vo);
 	}
 
 }

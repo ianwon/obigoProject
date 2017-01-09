@@ -7,19 +7,17 @@
 <title>Resource Management Page</title>
 
 <style type="text/css">
-.bundleList{
+.bundleList {
 	margin-top: 20px;
-
 }
-
 </style>
 </head>
 <body>
-	
+
 	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
 	<!--header end-->
-	
+
 	<section id="container" class="">
 		<!--main content start-->
 		<section id="main-content">
@@ -31,12 +29,10 @@
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
-									<a id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
-										Add Resource
-										<i class="fa fa-plus"></i>
+									<a id="Add" class="btn btn-success" data-toggle="modal" href="#addModal"> Add Resource <i class="fa fa-plus"></i>
 									</a>
 								</div>
-								
+
 								<!-- -------------- Add Resource Modal start -------------- -->
 								<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
@@ -46,7 +42,7 @@
 												<h4 class="modal-title">Add Resource</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-addresource" enctype="multipart/form-data" action="/obigoProject/insertresource" class="form-signin" onsubmit="return addresource()" method="POST">
+												<form id="form-addresource" enctype="multipart/form-data" action="/obigoProject/insertresource" class="form-signin" onsubmit="return (addresource() && sizeCheck('resourcePath'));" method="POST">
 													<div class="login-wrap">
 														<div class="form-group">
 															<span class="label label-primary">Resource Name</span>
@@ -54,7 +50,7 @@
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Resource File</span>
-															<input type="file" name="resourcePath" class="form-control" autofocus required="required">
+															<input type="file" id="resourcePath" name="resourcePath" class="form-control" autofocus required="required">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Resource Version</span>
@@ -70,7 +66,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<!-- -------------- Edit Resource Modal start -------------- -->
 								<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
@@ -80,7 +76,7 @@
 												<h4 class="modal-title">Update Resource</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-update" class="form-signin" action="/obigoProject/updateresource" method="POST">
+												<form id="form-update" class="form-signin" action="/obigoProject/updateresource" onsubmit="return sizeCheck('editpath')" method="POST">
 													<div class="login-wrap">
 														<div class="form-group">
 															<input type="hidden" name="resourceNumber" id="editresourcenumber" class="form-control" autofocus>
@@ -112,7 +108,7 @@
 							<!-- table 자동정렬해주는 javascript 파일에서 어느 항목의 table인지 구분하기 위한 hidden -->
 							<input type="hidden" id="hidden-resource">
 							<div class="space15"></div>
-							
+
 							<!-- -------------- Bundle Select Button start -------------- -->
 							<div class="bundleList">
 								<form action="/obigoProject/resource" id="frmBundleVersion">
@@ -137,7 +133,7 @@
 								</form>
 							</div>
 							<!-- -------------- Bundle Select Button end -------------- -->
-							
+
 							<!-- -------------- Resource Table start -------------- -->
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
@@ -173,13 +169,24 @@
 			</section>
 		</section>
 		<!--main content end-->
-		
+
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
 	</section>
-	
+
 	<script type="text/javascript">
+	
+		function sizeCheck(name) {
+			var size = document.getElementById(name).files[0].size;
+			if (size > 100000000) {
+				alert("100000000byte 이하의 파일만 가능합니다.")
+				return false;
+			} else {
+				return true;
+			}
+		}
+	
 		// Add Resource
 		function addresource() {
 			var select = $("#selectbundle").val();
@@ -190,9 +197,10 @@
 				var text = "";
 				text += "<input type='hidden' name='bundleKey' value=" + select + ">";
 				$("#form-addresource").append(text);
+				return true;
 			}
 		}
-		
+	
 		// Edit Resource Modal을 띄워주는 함수
 		function update(resourceNumber, resourceName, path, resourceVersion) {
 			$("#editresourcenumber").val(resourceNumber);
@@ -200,7 +208,7 @@
 			$("#editresourceversion").val(resourceVersion);
 			$("#editModal").modal();
 		}
-
+	
 		// Resource 삭제여부 확인후 삭제 수행
 		function resdel(data) {
 			if (confirm("선택한 리소스를 삭제하시겠습니까?") == true) {
@@ -212,7 +220,7 @@
 					data : {
 						"resourceNumber" : data
 					},
-
+	
 					success : function(resource) {
 						if (resource.flag == true) {
 							alert("삭제되었습니다.");
@@ -223,7 +231,7 @@
 				})
 			}
 		}
-		
+	
 		// Select Box에서 Bundle을 선택했을 때 해당 번들의 Resource를 보여주는 함수
 		function changeBundleVersion(option) {
 			document.getElementById("frmBundleVersion").submit();
