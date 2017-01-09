@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,12 +72,16 @@ public class UserController {
 	@RequestMapping(value = "/updateuser", method = RequestMethod.POST)
 	public String updateUser(UsersVO vo) {
 		userService.updateUser(vo);
-		return "redirect:/users";
+		if (userService.getUser(vo.getUserId()).getRoleName().equals("ADMIN"))
+			return "redirect:/adminmanagement";
+		else
+			return "redirect:/usermanagement";
+
 	}
 
 	/**
 	 * 유저 삭제 메서드
-	 *  
+	 * 
 	 * @return null : AJAX의 delete 요청에 대한 응답으로 아무 의미 없는 data를 보내줌
 	 */
 	@RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
@@ -89,8 +92,7 @@ public class UserController {
 	}
 
 	/**
-	 * 유저 차량 등록 요청 수락하는 메서드
-	 * function=유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저 요청을 DB에서 제거 결과를 해당 유저 에게 Pushmessage로 발송해야함
+	 * 유저 차량 등록 요청 수락하는 메서드 function=유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저 요청을 DB에서 제거 결과를 해당 유저 에게 Pushmessage로 발송해야함
 	 * 
 	 * @return JSON : AJAX의 요청에 대한 응답으로 아무 의미 없는 data를 보내줌
 	 */
@@ -111,8 +113,7 @@ public class UserController {
 	}
 
 	/**
-	 * 유저 요청을 거절하는 메서드
-	 * function=유저 요청 거절 버튼을 클릭 후 유저 요청을 DB에서 제거 그리고 유저에게 Push message 보내줌
+	 * 유저 요청을 거절하는 메서드 function=유저 요청 거절 버튼을 클릭 후 유저 요청을 DB에서 제거 그리고 유저에게 Push message 보내줌
 	 * 
 	 * @return JSON : AJAX의 요청에 대한 응답으로 아무 의미 없는 data를 보내줌
 	 */
@@ -131,8 +132,7 @@ public class UserController {
 	}
 
 	/**
-	 * 회원가입 폼에서 아이디 중복 확인 버튼 클릭시 수행하는 메서드
-	 * parameter = "userId":User ID
+	 * 회원가입 폼에서 아이디 중복 확인 버튼 클릭시 수행하는 메서드 parameter = "userId":User ID
 	 * 
 	 * @return JSON : 유저의 동일 ID 존재하는지 여부
 	 */
@@ -166,8 +166,7 @@ public class UserController {
 	}
 
 	/**
-	 * 로그인시 아이디와 비밀번호 체크하는 메서드
-	 * function=성공시 세션 생성해줘야함.
+	 * 로그인시 아이디와 비밀번호 체크하는 메서드 function=성공시 세션 생성해줘야함.
 	 * 
 	 * @return 메인페이지/로그인페이지
 	 */
@@ -208,7 +207,7 @@ public class UserController {
 	/**
 	 * Analytics에서 User Vehicle에 등록된 Model 종류별로 등록된 차량의 대수의 정보를 전달하는 메서드
 	 * 
-	 * @return JSON Array : 유저 차량 종류별 사용 대수 정보 
+	 * @return JSON Array : 유저 차량 종류별 사용 대수 정보
 	 */
 	@RequestMapping(value = "/countingbymodel", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -263,21 +262,21 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/countuserlogin", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String countUserLogin(@RequestParam String userId,@RequestParam String selectYear) {
+	public String countUserLogin(@RequestParam String userId, @RequestParam String selectYear) {
 		JSONArray jArray = new JSONArray();
 		List<Integer> list = null;
 		Calendar cal = Calendar.getInstance();
-		
+
 		if (selectYear == null) {
 			selectYear = String.valueOf(cal.get(Calendar.YEAR));
 		}
-		
+
 		selectYear = selectYear.substring(2);
-		
+
 		// User Login 통계 그래프 출력할 때, 검색 Input text에 아무것도 입력하지 않았을 경우에 대한 처리
 		if (userId == null || "".equals(userId) || "No data available in table".equals(userId)) {
 			// 전체 Login 횟수에 대한 통계 값을 가져오는 메서드
-			list = logService.getMonthLogCount("%login%",selectYear);
+			list = logService.getMonthLogCount("%login%", selectYear);
 		} else {
 			// 특정 User ID에 대한 매달 Login 횟수에 대한 통계 값을 가져오는 메서드
 			list = logService.getUserMonthLogCount(selectYear, "%login%", "%" + "\"userid\":\"" + userId + "\"%");
