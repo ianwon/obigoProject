@@ -253,9 +253,13 @@
 		// Text에 입력한 문자열을 포함하는 User ID의 List를 테이블로 보여준다.
 		function searchUserId() {
 
-			if (table) { // Check if table object exists and needs to be flushed
-				table.destroy(); // For new version use table.destroy();
-				$('#myTable').empty(); // empty in case the columns change
+			// Check if table object exists and needs to be flushed
+			if (table) { 
+				// For new version use table.destroy();
+				table.destroy(); 
+				// empty in case the columns change
+				// table thead에 값이 출력되지 않아서 아래줄을 주석처리 했더니 잘 나옴
+				//$('#myTable').empty(); 
 			}
 
 			// datatables 라이브러리는 사용하는데 table을 사용하기 위해서 initialize 해주는 작업
