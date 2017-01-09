@@ -45,7 +45,7 @@
 	</select>
 	<select id="selectPushMessageList" resultMap="PushMessageResultMap">
 		<![CDATA[
-			select * from push_message order by send_date desc
+			select MESSAGE_NUMBER, TITLE, CONTENT, to_char(SEND_DATE, 'yyyy/mm/dd hh24:mi:ss') SEND_DATE, UPLOAD_FILE, MODEL_CODE, LOCATION, CATEGORY_NUMBER from push_message order by send_date desc
 		]]>
 	</select>
 	<select id="selectPushMessageListByCategory" parameterType="java.lang.Integer"
