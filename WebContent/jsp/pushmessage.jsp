@@ -27,11 +27,47 @@ td {
 				<section class="panel">
 					<header class="panel-heading"> PushMessage </header>
 					<div class="panel-body">
+						<!-- -------------- Push Message Modal start -------------- -->
+						<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title">Select Message</h4>
+									</div>
+									<div class="modal-body">
+										<form class="form-signin" id="form-message">
+											<div class="login-wrap">
+												<div class="form-group">
+													<span class="label label-primary">TITLE</span>
+													<input type="text" name="messageTitle" id="messageTitle" class="form-control" disabled="disabled">
+												</div>
+												<div class="form-group">
+													<span class="label label-primary">CONTENT</span>
+													<textarea name="content" id="content" class="form-control" placeholder="Response To Send" rows="15" cols="45" disabled="disabled" style="font-size: 11px; text-align: left;"></textarea>
+												</div>
+												<div class="form-group">
+													<span class="label label-primary">SEND DATE</span>
+													<input type="text" name="sendDate" id="sendDate" class="form-control" disabled="disabled">
+												</div>
+												<div class="form-group">
+													<span class="label label-primary">MESSAGE CATEGORY</span>
+													<input type="text" name="messageCategory" id="messageCategory" class="form-control" disabled="disabled">
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- -------------- Push Message Modal end -------------- -->
 						<header>
 							<div class="panel">
 								<form action="/obigoProject/pushmessage" id="frmSelect">
-									<label>Category : </label>
-									<select id="selectcategory" name="categoryNumber" onchange="changeFrm(this)">
+									<label>Category : </label> <select id="selectcategory" name="categoryNumber" onchange="changeFrm(this)">
 										<option value="">Select Category</option>
 										<c:forEach var="mcl" items="${messageCategoryList}" begin="0">
 											<c:choose>
@@ -43,9 +79,7 @@ td {
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
-									</select>
-									<label>Location : </label>
-									<select id="selectlocation" name="location" onchange="changeFrm(this)">
+									</select> <label>Location : </label> <select id="selectlocation" name="location" onchange="changeFrm(this)">
 										<option value="">Select Location</option>
 										<c:forEach var="ll" items="${locationList}" begin="0">
 											<c:choose>
@@ -57,9 +91,7 @@ td {
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
-									</select>
-									<label>Model : </label>
-									<select id="selectmodel" name="modelCode" onchange="changeFrm(this)">
+									</select> <label>Model : </label> <select id="selectmodel" name="modelCode" onchange="changeFrm(this)">
 										<option value="">Select Model</option>
 										<c:forEach var="ml" items="${modelList}" begin="0">
 											<c:choose>
@@ -98,18 +130,18 @@ td {
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="p" items="${pushMessageList}" begin="0">
+										<c:forEach var="p" items="${pushMessageList}" begin="0" varStatus="status">
 											<!-- Catecory Number를 Map의 인덱스로 사용하기 위해서 필요한 변수 -->
 											<c:set var="cnumber" value="category${p.categoryNumber}" />
 											<c:set var="code" value="${p.modelCode}" />
 											<tr class="">
-												<td class="center">${p.title}</td>
-												<td class="center">${p.uploadFile}</td>
-												<td class="center">${p.content}</td>
-												<td class="center">${p.sendDate}</td>
-												<td class="center"><c:out value="${vehicleMap[code]}" /></td>
-												<td class="center">${p.location}</td>
-												<td class="center"><c:out value="${messageCategoryMap[cnumber]}" /></td>
+												<td class="center" id="title${status.index}" onclick="showModal(${status.index})">${p.title}</td>
+												<td class="center" onclick="showModal(${status.index})">${p.uploadFile}</td>
+												<td class="center" id="content${status.index}" onclick="showModal(${status.index})">${p.content}</td>
+												<td class="center" id="sendDate${status.index}" onclick="showModal(${status.index})">${p.sendDate}</td>
+												<td class="center" onclick="showModal(${status.index})"><c:out value="${vehicleMap[code]}" /></td>
+												<td class="center" onclick="showModal(${status.index})">${p.location}</td>
+												<td class="center" id="messageCategory${status.index}" onclick="showModal(${status.index})"><c:out value="${messageCategoryMap[cnumber]}" /></td>
 												<td><a class="Delete" href="javascript:deletePushmessage(${p.messageNumber});">Delete</a></td>
 											</tr>
 										</c:forEach>
@@ -159,10 +191,18 @@ td {
 	</script>
 
 	<script type="text/javascript">
+		function showModal(status) {
+			$("#messageTitle").val($("#title" + status).text());
+			$("#content").val($("#content" + status).text());
+			$("#sendDate").val($("#sendDate" + status).text());
+			$("#messageCategory").val($("#messageCategory" + status).text());
+			$("#myModal").modal();
+		}
+	
 		function changeFrm(option) {
 			document.getElementById("frmSelect").submit();
 		}
-
+	
 		// Push Message 삭제여부를 확인하고 true=삭제 false=취소
 		function deletePushmessage(data) {
 			if (confirm("정말 삭제하시겠습니까??") == true) { //확인
