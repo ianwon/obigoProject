@@ -42,7 +42,8 @@
 												<h4 class="modal-title">Add Resource</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-addresource" enctype="multipart/form-data" action="/obigoProject/insertresource" class="form-signin" onsubmit="return (addresource() && sizeCheck('resourcePath'));" method="POST">
+												<form id="form-addresource" enctype="multipart/form-data" action="/obigoProject/insertresource" class="form-signin" onsubmit="return (addresource() && sizeCheck('resourcePath'));"
+													method="POST">
 													<div class="login-wrap">
 														<div class="form-group">
 															<span class="label label-primary">Resource Name</span>
@@ -56,6 +57,7 @@
 															<span class="label label-primary">Resource Version</span>
 															<input type="text" name="resourceVersion" class="form-control" placeholder="ResourceVersion" autofocus required="required">
 														</div>
+														<input type="hidden" name="bundleKey" id="bundleKey">
 													</div>
 												</form>
 											</div>
@@ -76,7 +78,7 @@
 												<h4 class="modal-title">Update Resource</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-update" class="form-signin" action="/obigoProject/updateresource" onsubmit="return sizeCheck('editpath')" method="POST">
+												<form id="form-update" class="form-signin" action="/obigoProject/updateresource" onsubmit="return sizeCheck('editpath','editBundleKey')" method="POST">
 													<div class="login-wrap">
 														<div class="form-group">
 															<input type="hidden" name="resourceNumber" id="editresourcenumber" class="form-control" autofocus>
@@ -177,7 +179,7 @@
 
 	<script type="text/javascript">
 	
-		function sizeCheck(name) {
+		function sizeCheck(name, where) {
 			var size = document.getElementById(name).files[0].size;
 			if (size > 100000000) {
 				alert("100000000byte 이하의 파일만 가능합니다.")
@@ -194,9 +196,7 @@
 				alert("번들을 선택해주세요");
 				return false;
 			} else {
-				var text = "";
-				text += "<input type='hidden' name='bundleKey' value=" + select + ">";
-				$("#form-addresource").append(text);
+				$("#bundleKey").val(select);
 				return true;
 			}
 		}
