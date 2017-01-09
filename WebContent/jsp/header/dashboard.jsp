@@ -54,13 +54,11 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-xs-6">
-										<img id="weather-icon" style="width: 100px; height: 80px;" src="http://openweathermap.org/img/w/01d.png"><br>
-										<span id="weather-city">Seoul</span>
+										<img id="weather-icon" style="width: 100px; height: 80px;" src="http://openweathermap.org/img/w/01d.png"><br> <span id="weather-city">Seoul</span>
 									</div>
 									<div class="col-xs-6">
 										<div class="degree">
-											<span id="weather-temp">24</span>
-											°
+											<span id="weather-temp">24</span> °
 										</div>
 									</div>
 								</div>
@@ -70,18 +68,13 @@
 						<footer class="weather-category">
 							<ul>
 								<li class="active">
-									<h5>humidity</h5>
-									<span id="weather-humidity">56</span>
-									%
+									<h5>humidity</h5> <span id="weather-humidity">56</span> %
 								</li>
 								<li>
-									<h5>description</h5>
-									<span id="weather-description">Sky is Clear</span>
+									<h5>description</h5> <span id="weather-description">Sky is Clear</span>
 								</li>
 								<li>
-									<h5>winds</h5>
-									<span id="weather-windspeed">10</span>
-									m/s
+									<h5>winds</h5> <span id="weather-windspeed">10</span> m/s
 								</li>
 							</ul>
 						</footer>
@@ -95,30 +88,17 @@
 
 			<!-- 월별 Login 통계 Start -->
 			<div class="border-head">
-				<h3><%=Calendar.getInstance().get(Calendar.YEAR)%>
-					Graph
+				<h3><%=Calendar.getInstance().get(Calendar.YEAR)%>&nbsp; User Registration Graph
 				</h3>
 			</div>
 			<div class="custom-bar-chart">
 				<ul class="y-axis">
-					<li>
-						<span>100</span>
-					</li>
-					<li>
-						<span>80</span>
-					</li>
-					<li>
-						<span>60</span>
-					</li>
-					<li>
-						<span>40</span>
-					</li>
-					<li>
-						<span>20</span>
-					</li>
-					<li>
-						<span>0</span>
-					</li>
+					<li><span>100</span></li>
+					<li><span>80</span></li>
+					<li><span>60</span></li>
+					<li><span>40</span></li>
+					<li><span>20</span></li>
+					<li><span>0</span></li>
 				</ul>
 				<div class="bar">
 					<div class="title">JAN</div>

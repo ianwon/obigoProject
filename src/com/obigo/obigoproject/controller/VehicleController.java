@@ -1,5 +1,6 @@
 package com.obigo.obigoproject.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.obigo.obigoproject.util.obigoUtils;
 import com.obigo.obigoproject.vehicle.service.VehicleService;
 import com.obigo.obigoproject.vo.VehicleVO;
 
@@ -39,9 +41,10 @@ public class VehicleController {
 	}
 
 	/**
-	 * 자동차 등록폼에서 자동차 등록 버튼 클릭시 동일한 Model Code가 존재하는지 AJAX로 확인
+	 * 동일한 Model Code가 체크하는 Api
+	 * parameter = "modelCode":차량의 model code
 	 * 
-	 * @return 자동차 등록 페이지
+	 * @return true/false : 동일한 Model Code가 존재하는지 여부
 	 */
 	@RequestMapping(value = "/checkmodelcode", method = RequestMethod.POST)
 	@ResponseBody
@@ -72,9 +75,10 @@ public class VehicleController {
 	}
 
 	/**
-	 * 특정 자동차 정보 가져오기
+	 * 특정 차량 정보 가져오는 메서드
+	 * parameter = "modelCode":차량의 model code
 	 * 
-	 * @return 특정 차량 정보
+	 * @return JSON : Vehicle VO를 JSON data로 return
 	 */
 	@RequestMapping(value = "/selectvehicle", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -86,9 +90,10 @@ public class VehicleController {
 	}
 
 	/**
-	 * 자동차 삭제 버튼 클릭시 확인후 차량 데이터 삭제
+	 * 차량 정보를 삭제하는 메서드
+	 * parameter = "modelCode":차량의 model code
 	 * 
-	 * @return 자동차 관리 페이지
+	 * @return true/false : 차량 정보 삭제 성공 여부
 	 */
 	@RequestMapping("/deletevehicle")
 	@ResponseBody
@@ -100,11 +105,15 @@ public class VehicleController {
 		return jobj.toString();
 	}
 
-	// 차량 이미지를 보여주기위한 메소드
+	/**
+	 * 차량 이미지를 보여주기위한 메소드
+	 * parameter = "modelImage":차량의 Image file name
+	 * 
+	 * @return HttpServletResponse : Image를 response에 담아서 보내줌
+	 */
 	@RequestMapping("/vehicleImage")
 	public void vehicleImage(@RequestParam("modelImage") String modelImage, HttpServletResponse response) {
-		// String path = "/home/ec2-user/obigo/vehicle/";
-		String path = "c:\\obigo\\vehicle\\";
+		String path = obigoUtils.getPath() + "vehicle" + File.separator;
 
 		path += modelImage;
 		FileInputStream fs = null;
@@ -116,7 +125,7 @@ public class VehicleController {
 			response.getOutputStream().write(iconImage);
 		} catch (Exception e1) {
 			try {
-				fs = new FileInputStream("c:\\obigo\\no_img.gif");
+				fs = new FileInputStream(obigoUtils.getPath() + "no_img.gif");
 				byte[] iconImage = new byte[fs.available()];
 				fs.read(iconImage);
 				response.setContentType("image/jpg");

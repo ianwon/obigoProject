@@ -8,11 +8,9 @@
 </head>
 <body>
 
-	<%
-		
-	%>
-
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+	<!--header end-->
 
 	<section id="container" class="">
 		<!--main content start-->
@@ -25,13 +23,12 @@
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
-									<button id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
+									<a id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
 										Add User <i class="fa fa-plus"></i>
-									</button>
+									</a>
 								</div>
-								<!--modal start-->
-								<!-- Add User 눌렀을때 모달창 -->
-								<!-- Modal -->
+								
+								<!-- -------------- Add User Modal start -------------- -->
 								<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -70,8 +67,6 @@
 														</div>
 													</div>
 												</form>
-
-
 											</div>
 											<div class="modal-footer">
 												<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
@@ -80,10 +75,9 @@
 										</div>
 									</div>
 								</div>
-								<!-- modal -->
-								<!--
-								edit눌렀을때 모달창
-								  -->
+								<!-- -------------- Add User Modal end -------------- -->
+
+								<!-- -------------- Edit User Modal start -------------- -->
 								<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -120,12 +114,12 @@
 										</div>
 									</div>
 								</div>
-								<!-- Modal End-->
+								<!-- -------------- Edit User Modal end -------------- -->
 							</div>
 							<div class="space15"></div>
-							<div class="table-responsive">
 							
-								<!-- User Table Start  -->
+							<!-- -------------- User Table start -------------- -->
+							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
@@ -133,7 +127,6 @@
 											<th>USERNAME</th>
 											<th>EMAIL</th>
 											<th>PHONE</th>
-											<th>REGISTRATIONID</th>
 											<th>EDIT</th>
 											<th>DELETE</th>
 										</tr>
@@ -145,16 +138,14 @@
 												<td onclick="userVehicle('${u.userId}')">${u.name}</td>
 												<td onclick="userVehicle('${u.userId}')">${u.eMail}</td>
 												<td onclick="userVehicle('${u.userId}')">${u.phone}</td>
-												<td></td>
 												<td><a class="update" href="javascript:update('${u.phone}','${u.eMail}','${u.name}','${u.userId }')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${u.userId}')">Delete</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
-								<!-- User Table End -->
-
 							</div>
+							<!-- -------------- User Table end -------------- -->
 						</div>
 					</div>
 				</section>
@@ -162,51 +153,68 @@
 			</section>
 		</section>
 		<!--main content end-->
+		
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
 	</section>
+	
 	<script type="text/javascript">
 		function userVehicle(userId) {
-			document.location.href = "/obigoProject/userVehicle?userId="
-					+ userId
+			document.location.href = "/obigoProject/userVehicle?userId="+ userId;
 		}
-		//id체크
-		function idCheck() {
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/idcheck",
-				dataType : "json",
-				data : {
-					"userId" : $("#userId").val()
-				},
-				success : function(data) {
-					if (data.flag == false) {
-						$("#idCheck").html("이미 존재하는 아이디 입니다.");
+
+		// 가입 ID가 정규식으로 검증 및 AJAX로 이미 가입된 ID인지 여부 확인
+				function idCheck() {
+					var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
+					if (!idReg.test($("#userId").val())) {
+						$("#idCheck").html("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
 						$("#idCheck").css("color", "red");
 					} else {
-						$("#idCheck").html("사용가능한 아이디 입니다.");
-						$("#idCheck").css("color", "blue");
+			
+						$.ajax({
+							type : "post",
+							url : "/obigoProject/idcheck",
+							dataType : "json",
+							data : {
+								"userId" : $("#userId").val()
+							},
+							success : function(data) {
+								if (data.flag == false) {
+									$("#idCheck").html("이미 존재하는 아이디 입니다.");
+									$("#idCheck").css("color", "red");
+								} else {
+									$("#idCheck").html("사용가능한 아이디 입니다.");
+									$("#idCheck").css("color", "blue");
+								}
+							}
+						});
 					}
 				}
-			});
-		}
-		//패스워드 일치 확인
-		function passwordCheck() {
-			if ($("#password") == null || $("#password2") == null) {
-				$("#passwordCheck").html("");
-			} else {
-
-				if ($("#password").val() == $("#password2").val()) {
-					$("#passwordCheck").html("비밀번호가 일치합니다.");
-					$("#passwordCheck").css("color", "blue");
-				} else {
-					$("#passwordCheck").html("비밀번호가 틀렸습니다.");
-					$("#passwordCheck").css("color", "red");
+		// Password 정규식으로 검증 및 두번 입력한 password의 일치 여부 확인
+				function passwordCheck() {
+					var reg_pwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+					if (!reg_pwd.test($("#password").val())) {
+						$("#passwordCheck").html("비밀번호는 영문,숫자를 혼합하여 6~20자 이내이어야 합니다.");
+						$("#passwordCheck").css("color", "red");
+					} else {
+			
+						if ($("#password") == null || $("#password2") == null) {
+							$("#passwordCheck").html("");
+						} else {
+			
+							if ($("#password").val() == $("#password2").val()) {
+								$("#passwordCheck").html("비밀번호가 일치합니다.");
+								$("#passwordCheck").css("color", "blue");
+							} else {
+								$("#passwordCheck").html("비밀번호가 틀렸습니다.");
+								$("#passwordCheck").css("color", "red");
+							}
+						}
+					}
 				}
-			}
-		}
-		//user삭제
+
+		// User 삭제 버튼 클릭 시 호출 되는 함수
 		function del(data) {
 			if (confirm("삭제 하시겠습니까?") == true) {
 				$.ajax({
@@ -223,8 +231,8 @@
 
 			}
 		}
-		//user수정
-		//수정모달창
+
+		// User 수정 버튼을 클릭 했을 때 Modal을 띄워주는 함수
 		function update(phone, eMail, name, userId) {
 			$("#editphone").val(phone);
 			$("#editeMail").val(eMail);
@@ -232,7 +240,8 @@
 			$("#edituserId").val(userId);
 			$("#editModal").modal();
 		}
-
+		
+		// User를 등록할 때, ID와 PW 검증이 완료 되었다면 등록진행! 만약 조건이 만족되지 않으면 다시 입력 요청
 		function check() {
 			if ($("#idCheck").html() == "사용가능한 아이디 입니다."
 					&& $("#passwordCheck").html() == "비밀번호가 일치합니다.") {

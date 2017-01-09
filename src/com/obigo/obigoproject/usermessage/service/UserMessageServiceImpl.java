@@ -40,6 +40,7 @@ public class UserMessageServiceImpl implements UserMessageService {
 			return false;
 	}
 
+	// 특정 유저의 Message List를 가져오는 메소드
 	@Override
 	public List<UserMessageVO> getUserMessageList(String userId) {
 		return userMessageDao.getUserMessageListByUserId(userId);

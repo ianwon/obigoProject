@@ -7,7 +7,11 @@
 <title>Bundle Management Page</title>
 </head>
 <body>
+	
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+	<!--header end-->
+
 	<section id="container" class="">
 		<!--main content start-->
 		<section id="main-content">
@@ -22,13 +26,12 @@
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
-									<button id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
+									<a id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
 										Add Bundle <i class="fa fa-plus"></i>
-									</button>
+									</a>
 								</div>
-								<!--modal start-->
-								<!-- Add Bundle 눌렀을때 모달창 -->
-								<!-- Modal -->
+								
+								<!-- -------------- Add Bundle Modal start -------------- -->
 								<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -72,10 +75,9 @@
 										</div>
 									</div>
 								</div>
-								<!-- modal -->
-								<!--
-								edit눌렀을때 모달창
-								  -->
+								<!-- -------------- Add Bundle Modal end -------------- -->
+								
+								<!-- -------------- Edit Bundle Modal start -------------- -->
 								<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -104,12 +106,13 @@
 										</div>
 									</div>
 								</div>
-								<!-- Modal End -->
+								<!-- -------------- Edit Bundle Modal end -------------- -->
 							</div>
+							<!-- table 자동정렬해주는 javascript 파일에서 어느 항목의 table인지 구분하기 위한 hidden --> 
 							<input type="hidden" id="hidden-bundle">
 							<div class="space15"></div>
 							
-							<!-- Bundle Table start -->
+							<!-- -------------- Bundle Table start -------------- -->
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
@@ -139,22 +142,23 @@
 										</c:forEach>
 									</tbody>
 								</table>
-
 							</div>
+							<!-- -------------- Bundle Table end -------------- -->
 						</div>
 					</div>
 				</section>
 				<!-- page end-->
 			</section>
 		</section>
-		<!-- modal -->
 		<!--main content end-->
+		
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
 	</section>
+	
 	<script type="text/javascript">
-		//번들version 체크
+		// Bundle version 체크
 		function bundleversionCheck() {
 			$.ajax({
 				type : "post",
@@ -174,7 +178,8 @@
 				}
 			})
 		}
-		//번들key 체크
+		
+		// Bundle key 체크
 		function bundlekeyCheck() {
 			$.ajax({
 				type : "post",
@@ -194,7 +199,8 @@
 				}
 			})
 		}
-		//번들삭제
+		
+		// Bundle 삭제
 		function del(data) {
 			if (confirm("삭제 하시겠습니까?") == true) {
 				$.ajax({
@@ -214,14 +220,15 @@
 
 			}
 		}
-		//번들수정
-		//수정모달창
+		
+		// Bundle 수정 Modal을 띄워주는 함수
 		function update(bundleName, bundleVersion) {
 			$("#editbundlename").val(bundleName);
 			$("#editbundleversion").val(bundleVersion);
 			$("#editModal").modal();
 		}
 
+		// Bundle의 version과 key가 등록가능한 조건을 만족하는지 여부를 체크한 후 등록 진행
 		function check() {
 			if ($("#bundleversioncheck").html() == "등록가능한 버전 입니다."
 					&& $("#bundlekeycheck").html() == "등록가능한 키 입니다.") {
@@ -232,6 +239,7 @@
 			}
 		}
 
+		// 선택한 Bundle version을 app에 적용하는 함수
 		function apply(data) {
 			if (confirm("선택한 버전을 적용하시겠습니까?") == true) {
 				$.ajax({
@@ -249,57 +257,6 @@
 			}
 		}
 
-		/* function resdel(data) {
-			if (confirm("선택한 리소스를 삭제하시겠습니까?") == true) {
-				$.ajax({
-					type : "post",
-					url : "/obigoProject/deleteresource",
-					dataType : "json",
-					async : false,
-					data : {
-						"resourceNumber" : data
-					},
-					success : function(resource) {
-						if (resource.flag == true) {
-							alert("삭제되었습니다.");
-							location.reload();
-						}
-						else
-							alert("삭제를 실패하였습니다.");
-					}
-				})
-			}
-		} */
-
-		/* 	function resource(data) {
-				var test;
-				$.ajax({
-					type : "post",
-					url : "/obigoProject/selectresource",
-					dataType : "json",
-					async : false,
-					data : {
-						"bundleKey" : data
-					},
-					success : function(resource) {
-						test = resource.resourceList;
-						$("#resourceModal").modal();
-						var text = "";
-						$.each(test, function(index, resource) {
-							text += "<tr class=''>";
-							text += "<td>" + resource.bundleKey + "</td>";
-							text += "<td>" + resource.path + "</td>";
-							text += "<td>" + resource.resourceName + "</td>";
-							text += "<td>" + resource.resourceVersion + "</td>";
-							text += "<td><a href=javascript:resupdate(" + resource + ")>Edit</a></td>";
-							text += "<td><a href=javascript:resdel(" + resource.resourceNumber + ")>Delete</a></td>";
-							text += "</tr>";
-						});
-						href = "javascript:accept('${b.bundleVersion}')"
-						$("#resource_table").html(text);
-					}
-				});
-			} */
 	</script>
 
 	<!-- js placed at the end of the document so the pages load faster -->

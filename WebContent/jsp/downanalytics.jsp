@@ -2,13 +2,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="Mosaddek">
 <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-<link rel="shortcut icon" href="img/favicon.png">
+
 <title>Insert title here</title>
+
 <!-- Bootstrap core CSS -->
 <link href="/obigoProject/css/bootstrap.min.css" rel="stylesheet">
 <link href="/obigoProject/css/bootstrap-reset.css" rel="stylesheet">
@@ -24,7 +26,9 @@
 </head>
 <body>
 
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+	<!--header end-->
 
 	<section id="container" class="">
 		<!--main content start-->
@@ -76,8 +80,9 @@
 
 	<script>
 		var Script = setUp(${bundleUpdateList},${userCountList},${period})	
-			//morris chart
-	function setUp(bundle,user,period){
+		
+		//morris chart - 8개월 전부터 현재까지의 User의 숫자와 Bundle Update 숫자를 비교해주는 Graph
+		function setUp(bundle,user,period){
 			$(function() {
 				// data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type
 				var tax_data = [

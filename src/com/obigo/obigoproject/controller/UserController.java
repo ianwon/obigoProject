@@ -1,5 +1,7 @@
 package com.obigo.obigoproject.controller;
 
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.log.service.LogService;
+import com.obigo.obigoproject.pushmessage.service.PushMessageService;
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
@@ -33,6 +36,8 @@ public class UserController {
 	UserRequestService userRequestService;
 	@Autowired
 	LogService logService;
+	@Autowired
+	PushMessageService pushmessageService;
 
 	/**
 	 * 회원가입 등록폼을 통해 유저정보를 전달받으면 유저를 등록하고 로그인 페이지로 이동
@@ -72,9 +77,9 @@ public class UserController {
 	}
 
 	/**
-	 * 유저 삭제 버튼을 클릭후 확인을 클릭하면 해당 유저의 정보를 삭제 결과를 해당 유저 에게 Pushmessage로 발송해야함
-	 * 
-	 * @return 유저관리페이지
+	 * 유저 삭제 메서드
+	 *  
+	 * @return null : AJAX의 delete 요청에 대한 응답으로 아무 의미 없는 data를 보내줌
 	 */
 	@RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
 	@ResponseBody
@@ -84,36 +89,52 @@ public class UserController {
 	}
 
 	/**
-	 * 유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저 요청을 DB에서 제거 결과를 해당 유저 에게 Pushmessage로 발송해야함
+	 * 유저 차량 등록 요청 수락하는 메서드
+	 * function=유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저 요청을 DB에서 제거 결과를 해당 유저 에게 Pushmessage로 발송해야함
 	 * 
-	 * @return 유저요청페이지
+	 * @return JSON : AJAX의 요청에 대한 응답으로 아무 의미 없는 data를 보내줌
 	 */
 	@RequestMapping(value = "/acceptrequest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber) {
-		userRequestService.acceptUserRequest(userRequestNumber);
+	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber, @RequestParam("userId") String userId, @RequestParam("flag") String flag) {
+
+		try {
+			if (userRequestService.acceptUserRequest(userRequestNumber))
+				pushmessageService.sendUserReqeustPushMessage(userId, flag);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		JSONObject jobj = new JSONObject();
-		/// 푸시메시지 알아서 날려////
+
 		return jobj.toString();
 	}
 
 	/**
-	 * 유저 요청 거절 버튼을 클릭 후 유저 요청을 DB에서 제거
+	 * 유저 요청을 거절하는 메서드
+	 * function=유저 요청 거절 버튼을 클릭 후 유저 요청을 DB에서 제거 그리고 유저에게 Push message 보내줌
 	 * 
-	 * @return 유저요청페이지
+	 * @return JSON : AJAX의 요청에 대한 응답으로 아무 의미 없는 data를 보내줌
 	 */
 	@RequestMapping(value = "/rejectrequest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String rejectRequest(@RequestParam("userRequestNumber") int userRequestNumber) {
-		userRequestService.deleteUserRequest(userRequestNumber);
+	public String rejectRequest(@RequestParam("userRequestNumber") int userRequestNumber, @RequestParam("userId") String userId, @RequestParam("flag") String flag) {
+		try {
+			if (userRequestService.deleteUserRequest(userRequestNumber))
+				pushmessageService.sendUserReqeustPushMessage(userId, flag);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		JSONObject jobj = new JSONObject();
 		return jobj.toString();
 	}
 
 	/**
-	 * 회원가입 폼에서 아이디 중복 확인 버튼 클릭시 수행
+	 * 회원가입 폼에서 아이디 중복 확인 버튼 클릭시 수행하는 메서드
+	 * parameter = "userId":User ID
 	 * 
-	 * @return 회원가입 폼
+	 * @return JSON : 유저의 동일 ID 존재하는지 여부
 	 */
 	@RequestMapping(value = "/idcheck", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -125,9 +146,9 @@ public class UserController {
 	}
 
 	/**
-	 * 회원가입 폼에서 아이디 중복 확인 버튼 클릭시 수행
+	 * 유저의 ID/PW 가 일치하는지 체크하는 메서드
 	 * 
-	 * @return 회원가입 폼
+	 * @return JSON : ID와 PW가 DB에 등록된 유저의 ID/PW 정보와 일치하는지 체크
 	 */
 	@RequestMapping(value = "/passwordcheck", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -145,9 +166,10 @@ public class UserController {
 	}
 
 	/**
-	 * 로그인시 아이디와 비밀번호 체크 // 성공시 세션 생성해줘야함.
+	 * 로그인시 아이디와 비밀번호 체크하는 메서드
+	 * function=성공시 세션 생성해줘야함.
 	 * 
-	 * @return 메인페이지
+	 * @return 메인페이지/로그인페이지
 	 */
 	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
 	public String login(@RequestParam String userId, @RequestParam String password, HttpSession session) {
@@ -161,7 +183,7 @@ public class UserController {
 	}
 
 	/**
-	 * 로그인, 회원가입 페이지를 제외한 모든 페이지에서 로그아웃 수행
+	 * 로그인, 회원가입 페이지를 제외한 모든 페이지에서 로그아웃 수행하는 메서드
 	 * 
 	 * @return 로그인 페이지
 	 */
@@ -184,9 +206,9 @@ public class UserController {
 
 	////////////// Analytics에서 User Vehicle에 대한 통계 ///////////////////////////
 	/**
-	 * Analytics에서 User Vehicle에 등록된 Model 종류별로 등록된 차량의 대수의 정보를 전달
+	 * Analytics에서 User Vehicle에 등록된 Model 종류별로 등록된 차량의 대수의 정보를 전달하는 메서드
 	 * 
-	 * @return Analytics 페이지
+	 * @return JSON Array : 유저 차량 종류별 사용 대수 정보 
 	 */
 	@RequestMapping(value = "/countingbymodel", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -199,7 +221,7 @@ public class UserController {
 		for (int i = 0; i < list.size(); i++) {
 			jObj.put("name", list.get(i).get("MODEL_NAME"));
 			jObj.put("y", list.get(i).get("COUNTING"));
-//			jObj.put("code", list.get(i).get("MODEL_CODE"));
+			// jObj.put("code", list.get(i).get("MODEL_CODE"));
 			jArray.add(i, jObj);
 		}
 		return jArray.toString();
@@ -207,9 +229,9 @@ public class UserController {
 
 	////////////// Analytics에서 User에 대한 통계 ///////////////////////////
 	/**
-	 * Analytics > User에서 검색한 ID에 해당하는 User List를 전달
+	 * Analytics > User에서 검색한 ID에 해당하는 User List를 전달하는 메서드
 	 * 
-	 * @return Analytics > User 페이지
+	 * @return JSON : 검색대상에 해당하는 유저들의 정보 List
 	 */
 	@RequestMapping(value = "/loginuserlist", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -217,7 +239,7 @@ public class UserController {
 		JSONArray jArray = new JSONArray();
 		JSONObject jObj = new JSONObject();
 
-		// userId가 null 또는 ""일 경우, 실시간 User  ID를 검색해서 보여주는 테이블에 
+		// userId가 null 또는 ""일 경우, 실시간 User ID를 검색해서 보여주는 테이블에
 		// 아무 User List도 보여주지 않기 위함
 		if (userId != null && !"".equals(userId)) {
 
@@ -230,30 +252,36 @@ public class UserController {
 		}
 		jObj.put("data", jArray);
 		return jObj.toString();
-		
+
 	}
 
 	////////////// Analytics에서 User에 대한 통계 ///////////////////////////
 	/**
-	 * Analytics > User에서 선택된 User ID의 매달 User Login Count를 배열로 전달
+	 * Analytics > User에서 선택된 User ID의 매달 User Login Count를 배열로 전달하는 메서드
 	 * 
-	 * @return Analytics > User 페이지
+	 * @return JSON Array : 유저들의 로그인 통계 데이터
 	 */
 	@RequestMapping(value = "/countuserlogin", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String countUserLogin(@RequestParam String userId) {
+	public String countUserLogin(@RequestParam String userId,@RequestParam String selectYear) {
 		JSONArray jArray = new JSONArray();
 		List<Integer> list = null;
-
+		Calendar cal = Calendar.getInstance();
+		
+		if (selectYear == null) {
+			selectYear = String.valueOf(cal.get(Calendar.YEAR));
+		}
+		
+		selectYear = selectYear.substring(2);
+		
 		// User Login 통계 그래프 출력할 때, 검색 Input text에 아무것도 입력하지 않았을 경우에 대한 처리
 		if (userId == null || "".equals(userId) || "No data available in table".equals(userId)) {
 			// 전체 Login 횟수에 대한 통계 값을 가져오는 메서드
-			list = logService.getMonthLogCount("%login%");
+			list = logService.getMonthLogCount("%login%",selectYear);
 		} else {
 			// 특정 User ID에 대한 매달 Login 횟수에 대한 통계 값을 가져오는 메서드
-			list = logService.getUserMonthLogCount("%login%", "%" + "\"userid\":\"" + userId + "\"%");
+			list = logService.getUserMonthLogCount(selectYear, "%login%", "%" + "\"userid\":\"" + userId + "\"%");
 		}
-		// list = logService.getUserMonthLogCount("%login%", "%" + "\"userid\":\"" + userId + "\"%");
 
 		if (list != null) {
 			for (Integer i : list) {

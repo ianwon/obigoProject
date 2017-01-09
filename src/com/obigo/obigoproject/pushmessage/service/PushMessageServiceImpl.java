@@ -2,7 +2,6 @@ package com.obigo.obigoproject.pushmessage.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +19,7 @@ import com.google.android.gcm.server.Sender;
 import com.obigo.obigoproject.pushmessage.dao.PushMessageDao;
 import com.obigo.obigoproject.registrationid.dao.RegistrationidDao;
 import com.obigo.obigoproject.uservehicle.dao.UserVehicleDao;
-import com.obigo.obigoproject.vo.BundleVO;
+import com.obigo.obigoproject.util.obigoUtils;
 import com.obigo.obigoproject.vo.PushMessageVO;
 
 import net.sf.json.JSONArray;
@@ -83,6 +82,12 @@ public class PushMessageServiceImpl implements PushMessageService {
 		return pushMessageDao.getPushMessageList();
 	}
 
+	// 특정 PUSHMESSAGE를 가지고오는 메소드
+	@Override
+	public List<PushMessageVO> getPushMessageListBy(String by, String select) {
+		return pushMessageDao.getPushMessageListBy(by, select);
+	}
+
 	// 특정 카테고리의 PUSHMESSAGE를 가지고오는 메소드
 	@Override
 	public List<PushMessageVO> getPushMessageListByCategory(int categoryNumber) {
@@ -98,9 +103,14 @@ public class PushMessageServiceImpl implements PushMessageService {
 	// GCM 서버로 푸시 메시지 전송
 	@Override
 	public boolean sendPushMessageToGcm(PushMessageVO vo, HttpServletRequest request) throws IllegalArgumentException, IOException {
-		pushMessageDao.insertPushMessage(createFile(vo, request));
+		if (((MultipartHttpServletRequest) request).getFile("messageFile") != null)
+			pushMessageDao.insertPushMessage(createFile(vo, request));
+		else
+			pushMessageDao.insertPushMessage(vo);
+
 		PushMessageVO pushmessage = pushMessageDao.getPushMessage();
 		List<String> userIdList = uservehicleDao.getUserId(pushmessage);
+
 		for (String userId : userIdList) {
 			List<String> registrationidList = registrationidDao.getRegistrationidListByuserId(userId);
 			String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1); // 메시지
@@ -111,12 +121,46 @@ public class PushMessageServiceImpl implements PushMessageService {
 			String simpleApiKey = "AIzaSyAugaUfy_TbAFpMsr91f4_M8cTvePi0now";
 			Sender sender = new Sender(simpleApiKey);
 			try {
-				Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE).timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("title", vo.getTitle()).build();
+				Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE).timeToLive(LIVE_TIME).addData("content", vo.getContent()).addData("upload", vo.getUploadFile()).addData("title", vo.getTitle()).build();
 				MulticastResult result1 = sender.send(message, registrationidList, RETRY);
 			} catch (IllegalArgumentException e) {
 
 			}
 		}
+
+		return true;
+	}
+
+	@Override
+	public boolean sendUserReqeustPushMessage(String userId, String flag) throws IOException {
+
+		List<String> registrationidList = registrationidDao.getRegistrationidListByuserId(userId);
+
+		String content = null;
+		String title = null;
+
+		title = "<<Vehicle registration : " + userId + ">>";
+		if ("accept".equals(flag)) {
+			content = "Your request Accepted";
+		} else {
+			content = "Your request Rejected";
+		}
+		String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1); // 메시지
+		// 고유
+		boolean SHOW_ON_IDLE = false; // 옙 활성화 상태일때 보여줄것인지
+		int LIVE_TIME = 1; // 옙 비활성화 상태일때 FCM가 메시지를 유효화하는 시간
+		int RETRY = 2; // 메시지 전송실패시 재시도 횟수
+		String simpleApiKey = "AIzaSyAugaUfy_TbAFpMsr91f4_M8cTvePi0now";
+		Sender sender = new Sender(simpleApiKey);
+		try {
+			Message message = new Message.Builder().collapseKey(MESSAGE_ID).delayWhileIdle(SHOW_ON_IDLE).timeToLive(LIVE_TIME).addData("content", content).addData("title", title).build();
+			MulticastResult result = sender.send(message, registrationidList, RETRY);
+
+		} catch (IllegalArgumentException e) {
+
+			return false;
+		}
+
 		return true;
 	}
 
@@ -149,8 +193,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		MultipartFile messageFile = multiRequest.getFile("messageFile");
-		// String saveDir = "/home/ec2-user/obigo/pushmessage/";
-		String saveDir = "c:\\obigo\\pushmessage\\";
+		String saveDir = obigoUtils.getPath() + "pushmessage" + File.separator;
 		File saveDirFile = new File(saveDir);
 
 		if (!saveDirFile.exists()) {
@@ -160,7 +203,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 		if (messageFile.getOriginalFilename() != null && !"".equals(messageFile.getOriginalFilename())) {
 			fileName = System.nanoTime() + messageFile.getOriginalFilename();
 			try {
-				messageFile.transferTo(new File(saveDir + File.separator + fileName));
+				messageFile.transferTo(new File(saveDir + fileName));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

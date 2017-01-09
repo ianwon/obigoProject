@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.obigo.obigoproject.util.obigoUtils;
 import com.obigo.obigoproject.vehicle.dao.VehicleDao;
 import com.obigo.obigoproject.vo.VehicleVO;
 
@@ -81,8 +82,7 @@ public class VehicleServiceImpl implements VehicleService {
 		MultipartFile imageFile = multiRequest.getFile("model_Image");
 		MultipartFile detailFile = multiRequest.getFile("detail_Image");
 
-//		String imagePath = "/home/ec2-user/obigo/vehicle/";
-		String imagePath = "c:\\obigo\\vehicle\\";
+		String imagePath = obigoUtils.getPath()+"vehicle\\";
 		File imageDir = new File(imagePath);
 		if (!imageDir.exists())
 			imageDir.mkdirs();

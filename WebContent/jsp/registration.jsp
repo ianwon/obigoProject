@@ -7,7 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="Mosaddek">
 <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-<link rel="shortcut icon" href="img/favicon.png">
+<link rel="shortcut icon" href="/obigoProject/img/favicon.ico">
 <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 <title>Registration</title>
 
@@ -24,7 +24,6 @@
 <body class="login-body">
 
 	<div class="container">
-
 		<form class="form-signin" action="/obigoProject/signup" onsubmit="return check()" method="POST">
 			<h2 class="form-signin-heading">registration now</h2>
 			<div class="login-wrap">
@@ -46,71 +45,80 @@
 				<input type="password" id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
 				<div class="check-message" id="passwordCheck"></div>
 				<input class="btn btn-lg btn-login btn-block" type="submit" value="SUBMIT">
-
 				<div class="registration">
 					Already Registered. <a class="" href="/obigoProject/login"> Login </a>
 				</div>
-
 			</div>
-
 		</form>
-
 	</div>
 
 	<script type="text/javascript">
+		// 올바른 연락처인지 정규식으로 검증하는 함수
 		function phoneCheck() {
 			var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 	
 			if (!regExp.test($("#phone").val())) {
 				$("#phoneCheck").html("숫자, - 를 포함한 숫자만 입력해 주세요.");
 				$("#phoneCheck").css("color", "red");
-	
 				return false
 			} else {
 				$("#phoneCheck").html("");
 				return true;
-	
 			}
-	
 		}
 	
-		//id체크
+		// 가입 ID가 정규식으로 검증 및 AJAX로 이미 가입된 ID인지 여부 확인
 		function idCheck() {
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/idcheck",
-				dataType : "json",
-				data : {
-					"userId" : $("#userId").val()
-				},
-				success : function(data) {
-					if (data.flag == false) {
-						$("#idCheck").html("이미 존재하는 아이디 입니다.");
-						$("#idCheck").css("color", "red");
-					} else {
-						$("#idCheck").html("사용가능한 아이디 입니다.");
-						$("#idCheck").css("color", "blue");
-					}
-				}
-			});
-		}
-		//패스워드 일치 확인
-		function passwordCheck() {
-			if ($("#password") == null || $("#password2") == null) {
-				$("#passwordCheck").html("");
+			var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
+			if (!idReg.test($("#userId").val())) {
+				$("#idCheck").html("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
+				$("#idCheck").css("color", "red");
 			} else {
 	
-				if ($("#password").val() == $("#password2").val()) {
-					$("#passwordCheck").html("비밀번호가 일치합니다.");
-					$("#passwordCheck").css("color", "blue");
+				$.ajax({
+					type : "post",
+					url : "/obigoProject/idcheck",
+					dataType : "json",
+					data : {
+						"userId" : $("#userId").val()
+					},
+					success : function(data) {
+						if (data.flag == false) {
+							$("#idCheck").html("이미 존재하는 아이디 입니다.");
+							$("#idCheck").css("color", "red");
+						} else {
+							$("#idCheck").html("사용가능한 아이디 입니다.");
+							$("#idCheck").css("color", "blue");
+						}
+					}
+				});
+			}
+		}
+		
+		// Password 정규식으로 검증 및 두번 입력한 password의 일치 여부 확인
+		function passwordCheck() {
+			var reg_pwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+			if (!reg_pwd.test($("#password").val())) {
+				$("#passwordCheck").html("비밀번호는 영문,숫자를 혼합하여 6~20자 이내이어야 합니다.");
+				$("#passwordCheck").css("color", "red");
+			} else {
+	
+				if ($("#password") == null || $("#password2") == null) {
+					$("#passwordCheck").html("");
 				} else {
-					$("#passwordCheck").html("비밀번호가 틀렸습니다.");
-					$("#passwordCheck").css("color", "red");
+	
+					if ($("#password").val() == $("#password2").val()) {
+						$("#passwordCheck").html("비밀번호가 일치합니다.");
+						$("#passwordCheck").css("color", "blue");
+					} else {
+						$("#passwordCheck").html("비밀번호가 틀렸습니다.");
+						$("#passwordCheck").css("color", "red");
+					}
 				}
 			}
 		}
 	
-		//아이디가 사용가능하고 비밀번호가 일치해야 회원가입 가능.(onsubmit="return check()")
+		// ID/PW가 가입 조건에 합당한지 검증하는 함수(onsubmit="return check()")
 		function check() {
 			if ($("#idCheck").html() == "사용가능한 아이디 입니다."
 				&& $("#passwordCheck").html() == "비밀번호가 일치합니다.") {

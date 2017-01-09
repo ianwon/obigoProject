@@ -36,13 +36,6 @@ public class LogServiceImpl implements LogService {
 			return false;
 	}
 
-	// 미구현
-	@Override
-	public boolean sendEmail(List<LogVO> list) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	@Override
 	public List<LogVO> getLogList() {
 		return logDao.getLogList();
@@ -53,31 +46,38 @@ public class LogServiceImpl implements LogService {
 		return logDao.getLogListByUrl(url);
 	}
 
+	// 월단위 특정 Log 카운트 하는 메소드
 	@Override
-	public List<Integer> getMonthLogCount(String url) {
+	public List<Integer> getMonthLogCount(String url, String year) {
 		List<Integer> list = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
-		Calendar cal = Calendar.getInstance();
-		map.put("year", cal.get(Calendar.YEAR) - 2000);
-		map.put("url", url);
 
+		map.put("year", year);
+		map.put("url", url);
 		for (int i = 1; i <= 12; i++) {
-			map.put("month", i);
+			if (i < 10)
+				map.put("month", "0" + i);
+			else
+				map.put("month", "" + i);
+
 			list.add(logDao.getMonthLogCount(map));
 		}
 		return list;
 	}
 
-	public List<Integer> getUserMonthLogCount(String url, String userId) {
+	// 월단위 특정 User의 특정 Log 카운트 하는 메소드
+	public List<Integer> getUserMonthLogCount(String selectYear, String url, String userId) {
 		List<Integer> list = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
-		Calendar cal = Calendar.getInstance();
-		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
+		map.put("year", selectYear);
 		map.put("url", url);
 		map.put("body", userId);
 
 		for (int i = 1; i <= 12; i++) {
-			map.put("month", i);
+			if (i < 10)
+				map.put("month", "0" + i);
+			else
+				map.put("month", i + "");
 			list.add(logDao.getUserMonthLogCount(map));
 		}
 		return list;
@@ -88,7 +88,7 @@ public class LogServiceImpl implements LogService {
 		Map<String, Object> map = new HashMap<>();
 		Calendar cal = Calendar.getInstance();
 		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
-		int month = cal.get(Calendar.MONTH)+1;
+		int month = cal.get(Calendar.MONTH) + 1;
 		for (int i = 0; i < 8; i++) {
 			if (month == 0) {
 				map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000 - 1));

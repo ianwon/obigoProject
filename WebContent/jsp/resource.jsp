@@ -15,7 +15,11 @@
 </style>
 </head>
 <body>
+	
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+	<!--header end-->
+	
 	<section id="container" class="">
 		<!--main content start-->
 		<section id="main-content">
@@ -27,14 +31,13 @@
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
-									<button id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
+									<a id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
 										Add Resource
 										<i class="fa fa-plus"></i>
-									</button>
+									</a>
 								</div>
-								<!--modal start-->
-								<!-- Add Resource 눌렀을때 모달창 -->
-								<!-- Modal -->
+								
+								<!-- -------------- Add Resource Modal start -------------- -->
 								<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -67,10 +70,8 @@
 										</div>
 									</div>
 								</div>
-								<!-- modal -->
-								<!--
-								edit눌렀을때 모달창
-								  -->
+								
+								<!-- -------------- Edit Resource Modal start -------------- -->
 								<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -106,34 +107,39 @@
 										</div>
 									</div>
 								</div>
-								<!-- Modal End -->
+								<!-- -------------- Edit Resource Modal end -------------- -->
 							</div>
-
+							<!-- table 자동정렬해주는 javascript 파일에서 어느 항목의 table인지 구분하기 위한 hidden -->
 							<input type="hidden" id="hidden-resource">
 							<div class="space15"></div>
+							
+							<!-- -------------- Bundle Select Button start -------------- -->
 							<div class="bundleList">
 								<form action="/obigoProject/resource" id="frmBundleVersion">
+									<!-- Bundle Version Select Box start -->
 									<select id="selectbundle" name="bundleKey" onchange="changeBundleVersion(this)">
 										<option value="">Show all resources</option>
 										<c:forEach var="b" items="${bundleList}" begin="0">
 											<c:choose>
 												<c:when test="${param.bundleKey==b.bundleKey}">
 													<option value="${b.bundleKey}" selected>Bundle [version] : ${b.bundleName} [ ${b.bundleVersion} ]</option>
-<%-- 													<option value="${b.bundleKey}" selected>Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option> --%>
+													<%-- <option value="${b.bundleKey}" selected>Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option> --%>
 												</c:when>
 												<c:otherwise>
 													<option value="${b.bundleKey}">Bundle [version] : ${b.bundleName} [ ${b.bundleVersion} ]</option>
-<%-- 													<option value="${b.bundleKey}">Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option> --%>
+													<%-- <option value="${b.bundleKey}">Bundle Name : ${b.bundleName}, Bundle Version : ${b.bundleVersion}</option> --%>
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
 									</select>
+									<!-- Bundle Version Select Box end -->
 									<input type="submit" hidden="hidden">
 								</form>
 							</div>
+							<!-- -------------- Bundle Select Button end -------------- -->
+							
+							<!-- -------------- Resource Table start -------------- -->
 							<div class="table-responsive">
-
-								<!-- Resource Table Start  -->
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
@@ -158,8 +164,8 @@
 										</c:forEach>
 									</tbody>
 								</table>
-								<!-- Resource Table End -->
 							</div>
+							<!-- -------------- Resource Table end -------------- -->
 						</div>
 					</div>
 				</section>
@@ -167,12 +173,14 @@
 			</section>
 		</section>
 		<!--main content end-->
+		
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
 	</section>
+	
 	<script type="text/javascript">
-		//추가모달창
+		// Add Resource
 		function addresource() {
 			var select = $("#selectbundle").val();
 			if (select == "") {
@@ -184,7 +192,8 @@
 				$("#form-addresource").append(text);
 			}
 		}
-		//수정모달창
+		
+		// Edit Resource Modal을 띄워주는 함수
 		function update(resourceNumber, resourceName, path, resourceVersion) {
 			$("#editresourcenumber").val(resourceNumber);
 			$("#editresourcename").val(resourceName);
@@ -192,6 +201,7 @@
 			$("#editModal").modal();
 		}
 
+		// Resource 삭제여부 확인후 삭제 수행
 		function resdel(data) {
 			if (confirm("선택한 리소스를 삭제하시겠습니까?") == true) {
 				$.ajax({
@@ -212,6 +222,11 @@
 					}
 				})
 			}
+		}
+		
+		// Select Box에서 Bundle을 선택했을 때 해당 번들의 Resource를 보여주는 함수
+		function changeBundleVersion(option) {
+			document.getElementById("frmBundleVersion").submit();
 		}
 	</script>
 
@@ -237,13 +252,6 @@
 	<script src="/obigoProject/js/editable-table.js"></script>
 
 	<!-- END JAVASCRIPTS -->
-
-	<script type="text/javascript">
-		function changeBundleVersion(option) {
-			document.getElementById("frmBundleVersion").submit();
-		}
-	</script>
-
 
 	<script>
 		jQuery(document).ready(function() {

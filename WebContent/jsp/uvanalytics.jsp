@@ -7,7 +7,6 @@
 <meta name="description" content="">
 <meta name="author" content="Mosaddek">
 <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-<link rel="shortcut icon" href="img/favicon.png">
 <title>Insert title here</title>
 <!-- Bootstrap core CSS -->
 <link href="/obigoProject/css/bootstrap.min.css" rel="stylesheet">
@@ -27,14 +26,18 @@
 </head>
 <body>
 
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+	<!--header end-->
 
 	<section id="container" class="">
 		<section id="main-content">
 			<section class="wrapper site-min-height">
+				<!-- User Vehicle에 등록된 Model 비율 통계 Graph -->
 				<div id="container-graph" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
 			</section>
 		</section>
+		
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
@@ -65,10 +68,10 @@
 	<script src="/obigoProject/js/common-scripts.js"></script>
 
 	<script type="text/javascript">
+		
+		// AJAX로 얻어온 Data를 기반으로 Graph를 생성하는 함수 
 		function makeChart(data1) {
-
-			Highcharts
-					.chart(
+			Highcharts.chart(
 							'container-graph',
 							{
 								chart : {
@@ -103,10 +106,10 @@
 									data : data1
 								} ]
 							});
-
 		}
+		
+		// User Vehicle에 등록된 차종 비율 Data를 AJAX로 얻어오는 함수
 		$(function() {
-			// User Vehicle에 등록된 차종을 그래프로 출력해주는 AJAX
 			$.ajax({
 				type : "post",
 				url : "/obigoProject/countingbymodel",

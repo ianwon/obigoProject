@@ -17,6 +17,8 @@ public interface PushMessageDao {
 	// 전체 PUSHMESSAGE를 가지고오는 메소드
 	public List<PushMessageVO> getPushMessageList();
 
+	public List<PushMessageVO> getPushMessageListBy(String by, String select);
+
 	// 특정 아이디의 pushmessage를 인덱싱하여 가지고오는 메소드
 	public List<PushMessageVO> getPushMessageList(String userId);
 

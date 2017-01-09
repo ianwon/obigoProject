@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import com.obigo.obigoproject.api.dao.ApiDao;
 import com.obigo.obigoproject.vo.ApiVO;
 
+/*
+ * API Dao Class를 통해 API 정보에 접근 하기위한
+ * Service Class  
+ */
 @Service("apiService")
 public class ApiServiceImpl implements ApiService {
 	@Autowired
@@ -43,11 +47,13 @@ public class ApiServiceImpl implements ApiService {
 		}
 	}
 
+	// 전체 API 가져오는 메소드
 	@Override
 	public List<ApiVO> getApiList() {
 		return apiDao.getApiList();
 	}
 
+	// 특정 API를 가져오는 메소드
 	@Override
 	public ApiVO getApi(String apiName) {
 		return apiDao.getApi(apiName);

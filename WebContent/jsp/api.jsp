@@ -8,8 +8,10 @@
 </head>
 <body>
 
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
-
+	<!--header end-->
+	
 	<section id="container" class="">
 		<!--main content start-->
 		<section id="main-content">
@@ -26,9 +28,7 @@
 									</a>
 								</div>
 
-								<!--modal start-->
-								<!-- ---------------insert modal start--------------- -->
-								<!-- Modal -->
+								<!-- -------------- Add Api Modal start -------------- -->
 								<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -57,12 +57,9 @@
 										</div>
 									</div>
 								</div>
-								<!-- modal -->
-								<!-- ---------------insert modal start--------------- -->
+								<!-- -------------- Add Api Modal end -------------- -->
 
-
-								<!-- ---------------edit modal start--------------- -->
-								<!-- Modal -->
+								<!-- -------------- Edit Api Modal start -------------- -->
 								<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -91,12 +88,11 @@
 										</div>
 									</div>
 								</div>
-								<!-- Modal -->
-								<!-- ---------------edit modal end--------------- -->
+								<!-- -------------- Edit Api Modal end -------------- -->
 							</div>
-							
-							<!-- api table start -->
 							<div class="space15"></div>
+
+							<!-- -------------- Api Table start -------------- -->
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
@@ -119,9 +115,8 @@
 										</c:forEach>
 									</tbody>
 								</table>
-
 							</div>
-							<!-- api table end -->
+							<!-- -------------- Api Table end -------------- -->
 						</div>
 					</div>
 				</section>
@@ -133,9 +128,7 @@
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
-
 	</section>
-
 
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="/obigoProject/js/jquery.js"></script>
@@ -166,7 +159,7 @@
 	</script>
 
 	<script type="text/javascript">
-		//apiName의 존재 여부를 확인
+		// Api Name의 존재 여부를 확인
 		function check() {
 			var apiNameCheck = false;
 			$.ajax({
@@ -189,14 +182,14 @@
 			return apiNameCheck;
 		}
 
-		//editModal을 띄워주기 위함 함수
+		// Edit Modal을 띄워주기 위함 함수
 		function editModal(apiName, responseToSend) {
 			$("#editApiName").val(apiName);
 			$("#editResponseToSend").val(responseToSend);
 			$("#editModal").modal();
 		}
 
-		//api 삭제여부를 확인하고 true=삭제 false=취소
+		// Api 삭제여부를 확인하고 true=삭제 false=취소
 		function deleteApi(data) {
 			if (confirm("정말 삭제하시겠습니까??") == true) { //확인
 				$.ajax({

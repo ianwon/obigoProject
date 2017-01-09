@@ -3,20 +3,26 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+td {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+</style>
 <meta charset="UTF-8">
 <title>Log</title>
 </head>
 <body>
 
+	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
+	<!--header end-->
 
 	<section id="container" class="">
 		<!--main content start-->
-
 		<section id="main-content">
-
 			<section class="wrapper site-min-height">
-
 				<!-- page start-->
 				<section class="panel">
 					<header class="panel-heading"> Log </header>
@@ -27,24 +33,65 @@
 									<a class="btn btn-success" data-toggle="modal" href="javascript:deleteLog();"> Delete All Log <i class="fa fa-minus"></i>
 									</a>
 								</div>
-
+								
+								<!-- -------------- Log Modal start -------------- -->
+								<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h4 class="modal-title">Returned Api</h4>
+											</div>
+											<div class="modal-body">
+												<form class="form-signin" id="form-insertapi" action="/obigoProject/insertapi" onsubmit="return check();" method="POST">
+													<div class="login-wrap">
+														<div class="form-group">
+															<span class="label label-primary">URL</span>
+															<input type="text" name="apiUrl" id="apiUrl" class="form-control" disabled="disabled">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">BODY</span>
+															<input type="text" name="apiBody" id="apiBody" class="form-control" disabled="disabled">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">RETRUNED</span>
+															<textarea name="returned" id="returned" class="form-control" placeholder="Response To Send" rows="15" cols="45" disabled="disabled"
+																style="font-size: 11px; text-align: left;"></textarea>
+														</div>
+													</div>
+												</form>
+											</div>
+											<div class="modal-footer">
+												<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- -------------- Log Modal end -------------- -->
+								
+								<!-- -------------- PDF 관련 Dropdown Button start -------------- -->
 								<div class="btn-group pull-right">
 									<button class="btn dropdown-toggle" data-toggle="dropdown">
-										PDF flie <i class="fa fa-angle-down"></i>
+										PDF flie
+										<i class="fa fa-angle-down"></i>
 									</button>
 									<ul class="dropdown-menu pull-right">
-										<li><a href="/obigoProject/viewpdf" target="_blank">View on PDF</a></li>
+										<li>
+											<a href="/obigoProject/viewpdf" target="_blank">View on PDF</a>
+										</li>
 										<!--                            <li><a href="/obigoProject/pdfmail">Send an Email to Admin</a></li> -->
-										<li><a a href='javascript:void(0);' onclick="mailToAdmin();">Send an Email to Admin</a></li>
+										<li>
+											<a href='javascript:void(0);' onclick="mailToAdmin();">Send an Email to Admin</a>
+										</li>
 									</ul>
 								</div>
+								<!-- -------------- PDF 관련 Dropdown Button end -------------- -->
 							</div>
-
+							<!-- table 자동정렬해주는 javascript 파일에서 어느 항목의 table인지 구분하기 위한 hidden -->
 							<input type="hidden" id="hidden-log">
-
 							<div class="space15"></div>
 
-							<!--  Log Table start -->
+							<!-- -------------- Log Table start -------------- -->
 							<div class="table-responsive">
 								<table style="table-layout: fixed; word-break: break-all;" class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
@@ -56,21 +103,18 @@
 										</tr>
 									</thead>
 									<tbody>
-
-										<c:forEach var="l" items="${logList}" begin="0">
+										<c:forEach var="l" items="${logList}" begin="0" varStatus="status">
 											<tr class="">
-												<td>${l.url}</td>
-												<td class="center">${l.body}</td>
-												<td class="center">${l.dateTime}</td>
-												<td class="center">${l.returned}</td>
+												<td id="url${status.index}" onclick="javascript:showModal(${status.index});">${l.url}</td>
+												<td id="body${status.index}" class="center" onclick="javascript:showModal(${status.index});">${l.body}</td>
+												<td class="center" onclick="javascript:showModal(${status.index});">${l.dateTime}</td>
+												<td id="returned${status.index}" class="center" onclick="javascript:showModal(${status.index});">${l.returned}</td>
 											</tr>
 										</c:forEach>
-
 									</tbody>
 								</table>
-
 							</div>
-							<!-- api table end -->
+							<!-- -------------- Log Table end -------------- -->
 						</div>
 					</div>
 				</section>
@@ -82,9 +126,7 @@
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
-
 	</section>
-
 
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="/obigoProject/js/jquery.js"></script>
@@ -115,7 +157,16 @@
 	</script>
 
 	<script type="text/javascript">
-		//api 삭제여부를 확인하고 true=삭제 false=취소
+	
+		// Log 테이블의 한 row를 클릭시 해당 Log를 Modal로 자세히 볼 수 있다 
+		function showModal(status) {
+			$("#apiUrl").val($("#url" + status).text());
+			$("#apiBody").val($("#body" + status).text());
+			$("#returned").val($("#returned" + status).text());
+			$("#myModal").modal();
+		}
+	
+		// Log 삭제여부를 확인하고 true=삭제 false=취소
 		function deleteLog() {
 			if (confirm("전체 로그를 정말 삭제하시겠습니까?") == true) { //확인
 				$.ajax({
@@ -131,9 +182,9 @@
 				return;
 			}
 		}
-
+	
+		// Admin mail 주소로 Email 발송 true=성공, false=실패 
 		function mailToAdmin() {
-
 			$.ajax({
 				type : "post",
 				url : "/obigoProject/pdfmail",
@@ -147,7 +198,7 @@
 						alert("Send email fail");
 				}
 			});
-
+	
 		}
 	</script>
 

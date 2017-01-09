@@ -11,7 +11,6 @@
 <meta name="author" content="Mosaddek">
 <meta name="keyword"
    content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-<link rel="shortcut icon" href="/obigoProject/img/favicon.png">
 
 <title>Header Color Change</title>
 
