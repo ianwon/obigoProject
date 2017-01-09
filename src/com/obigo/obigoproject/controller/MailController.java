@@ -124,8 +124,13 @@ public class MailController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 			String fileName = formatter.format(calendar.getTime()) + "_log.pdf"; // for
 																					// log-time
+			String saveDir = obigoUtils.getPath() + "pdf" + File.separator;
+			File saveDirFile = new File(saveDir);
 			String path = obigoUtils.getPath() + "pdf" + File.separator + fileName;
 
+			if (!saveDirFile.exists()) {
+				saveDirFile.mkdirs();
+			}
 			// PDF 만들어주는 메서드 호출 및 PDF 파일 첨부
 			if (pdfpage(path)) {
 				MimeBodyPart attachPart = new MimeBodyPart();
@@ -153,12 +158,12 @@ public class MailController {
 	// PDF 파일을 생성해주는 메서드
 	public boolean pdfpage(String path) throws IOException, DocumentException {
 		// Document 생성
-		Document document = new Document(PageSize.A4, 50, 50, 50, 50); // 용지 및
+		Document document = new Document(PageSize.B4, 10, 10, 10, 10); // 용지 및
 																		// 여백 설정
 
 		// 한글 폰트 설정
 		BaseFont bfKorean = BaseFont.createFont("HYGoThic-Medium", "UniKS-UCS2-H", BaseFont.NOT_EMBEDDED);
-		Font fontKorean = new Font(bfKorean, 10, Font.NORMAL);
+		Font fontKorean = new Font(bfKorean, 8, Font.NORMAL);
 
 		// Log리스트
 		List<LogVO> list = logService.getLogList();
@@ -190,7 +195,7 @@ public class MailController {
 		table.setWidthPercentage(100.0f);
 
 		// Column의 넓이를 조절
-		table.setWidths(new float[] { 1.0f, 2.0f, 3.0f, 2.0f });
+		table.setWidths(new float[] { 1.0f, 2.0f, 3.0f, 1.7f });
 		table.setSpacingBefore(10);
 
 		// define font for table header row
