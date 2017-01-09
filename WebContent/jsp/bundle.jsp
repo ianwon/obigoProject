@@ -7,7 +7,7 @@
 <title>Bundle Management Page</title>
 </head>
 <body>
-	
+
 	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
 	<!--header end-->
@@ -26,11 +26,10 @@
 						<div class="adv-table editable-table ">
 							<div class="clearfix">
 								<div class="btn-group">
-									<a id="Add" class="btn btn-success" data-toggle="modal" href="#addModal">
-										Add Bundle <i class="fa fa-plus"></i>
+									<a id="Add" class="btn btn-success" data-toggle="modal" href="#addModal"> Add Bundle <i class="fa fa-plus"></i>
 									</a>
 								</div>
-								
+
 								<!-- -------------- Add Bundle Modal start -------------- -->
 								<div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
@@ -40,7 +39,7 @@
 												<h4 class="modal-title">Add Bundle</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-addbundle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/insertbundle" onsubmit="return check()" method="POST">
+												<form id="form-addbundle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/insertbundle" onsubmit="return (check() && sizeCheck('bundleFile'));" method="POST">
 													<div class="login-wrap">
 														<div class="form-group">
 															<span class="label label-primary">Bundle Name</span>
@@ -48,13 +47,12 @@
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Bundle Version</span>
-															<input type="text" name="bundleVersion" id="bundleversion" class="form-control" onkeyup="bundleversionCheck()" placeholder="BundleVersion" autofocus
-																required="required">
+															<input type="text" name="bundleVersion" id="bundleversion" class="form-control" onkeyup="bundleversionCheck()" placeholder="BundleVersion" autofocus required="required">
 															<div id=bundleversioncheck></div>
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Bundle File</span>
-															<input type="file" name="bundleFile" class="form-control" autofocus required="required">
+															<input type="file" id="bundleFile" name="bundleFile" class="form-control" autofocus required="required">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Developer</span>
@@ -76,7 +74,7 @@
 									</div>
 								</div>
 								<!-- -------------- Add Bundle Modal end -------------- -->
-								
+
 								<!-- -------------- Edit Bundle Modal start -------------- -->
 								<div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
@@ -108,10 +106,10 @@
 								</div>
 								<!-- -------------- Edit Bundle Modal end -------------- -->
 							</div>
-							<!-- table 자동정렬해주는 javascript 파일에서 어느 항목의 table인지 구분하기 위한 hidden --> 
+							<!-- table 자동정렬해주는 javascript 파일에서 어느 항목의 table인지 구분하기 위한 hidden -->
 							<input type="hidden" id="hidden-bundle">
 							<div class="space15"></div>
-							
+
 							<!-- -------------- Bundle Table start -------------- -->
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
@@ -151,13 +149,23 @@
 			</section>
 		</section>
 		<!--main content end-->
-		
+
 		<!--footer start-->
 		<jsp:include page="/jsp/header/footer.jsp"></jsp:include>
 		<!--footer end-->
 	</section>
-	
+
 	<script type="text/javascript">
+		function sizeCheck(name) {
+			var size = document.getElementById(name).files[0].size;
+			if (size > 100000000) {
+				alert("100000000byte 이하의 파일만 가능합니다.")
+				return false;
+			} else {
+				return true;
+			}
+		}
+	
 		// Bundle version 체크
 		function bundleversionCheck() {
 			$.ajax({
@@ -178,7 +186,7 @@
 				}
 			})
 		}
-		
+	
 		// Bundle key 체크
 		function bundlekeyCheck() {
 			$.ajax({
@@ -199,7 +207,7 @@
 				}
 			})
 		}
-		
+	
 		// Bundle 삭제
 		function del(data) {
 			if (confirm("삭제 하시겠습니까?") == true) {
@@ -217,28 +225,28 @@
 							alert("삭제할 수 없습니다");
 					}
 				});
-
+	
 			}
 		}
-		
+	
 		// Bundle 수정 Modal을 띄워주는 함수
 		function update(bundleName, bundleVersion) {
 			$("#editbundlename").val(bundleName);
 			$("#editbundleversion").val(bundleVersion);
 			$("#editModal").modal();
 		}
-
+	
 		// Bundle의 version과 key가 등록가능한 조건을 만족하는지 여부를 체크한 후 등록 진행
 		function check() {
 			if ($("#bundleversioncheck").html() == "등록가능한 버전 입니다."
-					&& $("#bundlekeycheck").html() == "등록가능한 키 입니다.") {
+				&& $("#bundlekeycheck").html() == "등록가능한 키 입니다.") {
 				return true;
 			} else {
 				alert("버전과 키를 확인해 주세요;");
 				return false;
 			}
 		}
-
+	
 		// 선택한 Bundle version을 app에 적용하는 함수
 		function apply(data) {
 			if (confirm("선택한 버전을 적용하시겠습니까?") == true) {
@@ -253,10 +261,9 @@
 						location.reload();
 					}
 				});
-
+	
 			}
 		}
-
 	</script>
 
 	<!-- js placed at the end of the document so the pages load faster -->
