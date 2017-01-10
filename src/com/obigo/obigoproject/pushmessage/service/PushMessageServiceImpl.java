@@ -179,7 +179,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 	public JSONArray getCategoryName() {
 		JSONArray jArray = new JSONArray();
 		JSONObject jobj = new JSONObject();
-		List<Map<String, Integer>> list = pushMessageDao.getCategoryName();
+		List<Map<String, Object>> list = pushMessageDao.getCategoryName();
 
 		for (int i = 0; i < list.size(); i++) {
 			jobj.put("name", list.get(i).get("CATEGORY_NAME"));
