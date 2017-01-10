@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" type="image/ico" href="/obigoProject/img/favicon.ico">
+
 <style type="text/css">
 td {
 	white-space: nowrap;
