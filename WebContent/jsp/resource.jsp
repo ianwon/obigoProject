@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" type="image/ico" href="/obigoProject/img/favicon.ico">
 <title>Resource Management Page</title>
 
 <style type="text/css">

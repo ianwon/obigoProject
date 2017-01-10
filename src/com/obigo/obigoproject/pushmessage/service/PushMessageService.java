@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.obigo.obigoproject.vo.PushMessageVO;
 
+import net.sf.json.JSONArray;
+
 public interface PushMessageService {
 
 	// PUSHMESSAGE 등록
@@ -41,5 +43,5 @@ public interface PushMessageService {
 
 	public PushMessageVO getPushMessage();
 
-	public List<HashMap> getCategoryName();
+	public JSONArray getCategoryName();
 }

@@ -27,6 +27,6 @@ public interface PushMessageDao {
 
 	public PushMessageVO getPushMessage();
 
-	public List<Map<String, Integer>> getCategoryName();
+	public List<Map<String, Object>> getCategoryName();
 
 }

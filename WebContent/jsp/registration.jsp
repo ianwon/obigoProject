@@ -7,8 +7,8 @@
 <meta name="description" content="">
 <meta name="author" content="Mosaddek">
 <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-<link rel="shortcut icon" href="/obigoProject/img/favicon.ico">
 <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+<link rel="shortcut icon" type="image/ico" href="/obigoProject/img/favicon.ico">
 <title>Registration</title>
 
 <!-- Bootstrap core CSS -->

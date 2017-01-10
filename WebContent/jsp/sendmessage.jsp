@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" type="image/ico" href="/obigoProject/img/favicon.ico">
+
 <title>Insert title here</title>
 
 <link rel="stylesheet" type="text/css" href="/obigoProject/assets/bootstrap-fileupload/bootstrap-fileupload.css" />

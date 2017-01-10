@@ -7,6 +7,8 @@
 <meta name="description" content="">
 <meta name="author" content="Mosaddek">
 <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+<link rel="shortcut icon" type="image/ico" href="/obigoProject/img/favicon.ico">
+
 <title>Insert title here</title>
 <!-- Bootstrap core CSS -->
 <link href="/obigoProject/css/bootstrap.min.css" rel="stylesheet">
