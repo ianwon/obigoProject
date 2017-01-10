@@ -33,7 +33,7 @@ td {
 									<a class="btn btn-success" data-toggle="modal" href="javascript:deleteLog();"> Delete All Log <i class="fa fa-minus"></i>
 									</a>
 								</div>
-								
+
 								<!-- -------------- Log Modal start -------------- -->
 								<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
@@ -55,8 +55,7 @@ td {
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">RETRUNED</span>
-															<textarea name="returned" id="returned" class="form-control" placeholder="Response To Send" rows="15" cols="45" disabled="disabled"
-																style="font-size: 11px; text-align: left;"></textarea>
+															<textarea name="returned" id="returned" class="form-control" placeholder="Response To Send" rows="15" cols="45" disabled="disabled" style="font-size: 11px; text-align: left;"></textarea>
 														</div>
 													</div>
 												</form>
@@ -68,21 +67,16 @@ td {
 									</div>
 								</div>
 								<!-- -------------- Log Modal end -------------- -->
-								
+
 								<!-- -------------- PDF 관련 Dropdown Button start -------------- -->
 								<div class="btn-group pull-right">
 									<button class="btn dropdown-toggle" data-toggle="dropdown">
-										PDF flie
-										<i class="fa fa-angle-down"></i>
+										PDF flie <i class="fa fa-angle-down"></i>
 									</button>
 									<ul class="dropdown-menu pull-right">
-										<li>
-											<a href="/obigoProject/viewpdf" target="_blank">View on PDF</a>
-										</li>
+										<li><a href="/obigoProject/viewpdf" target="_blank">View on PDF</a></li>
 										<!--                            <li><a href="/obigoProject/pdfmail">Send an Email to Admin</a></li> -->
-										<li>
-											<a href='javascript:void(0);' onclick="mailToAdmin();">Send an Email to Admin</a>
-										</li>
+										<li><a href='javascript:void(0);' onclick="mailToAdmin();">Send an Email to Admin</a></li>
 									</ul>
 								</div>
 								<!-- -------------- PDF 관련 Dropdown Button end -------------- -->
@@ -104,11 +98,19 @@ td {
 									</thead>
 									<tbody>
 										<c:forEach var="l" items="${logList}" begin="0" varStatus="status">
-											<tr class="">
-												<td id="url${status.index}" onclick="javascript:showModal(${status.index});">${l.url}</td>
-												<td id="body${status.index}" class="center" onclick="javascript:showModal(${status.index});">${l.body}</td>
-												<td class="center" onclick="javascript:showModal(${status.index});">${l.dateTime}</td>
-												<td id="returned${status.index}" class="center" onclick="javascript:showModal(${status.index});">${l.returned}</td>
+											<c:set var="error" value="${l.url}" />
+											<c:choose>
+												<c:when test="${error eq '/api/errorlog' }">
+													<tr class="" style="color: red">
+												</c:when>
+												<c:otherwise>
+													<tr class="">
+												</c:otherwise>
+											</c:choose>
+											<td id="url${status.index}" onclick="javascript:showModal(${status.index});">${l.url}</td>
+											<td id="body${status.index}" class="center" onclick="javascript:showModal(${status.index});">${l.body}</td>
+											<td class="center" onclick="javascript:showModal(${status.index});">${l.dateTime}</td>
+											<td id="returned${status.index}" class="center" onclick="javascript:showModal(${status.index});">${l.returned}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
