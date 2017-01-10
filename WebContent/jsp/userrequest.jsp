@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" type="image/ico" href="/obigoProject/img/favicon.ico">
+
 <title>User Request</title>
 </head>
 <body>
