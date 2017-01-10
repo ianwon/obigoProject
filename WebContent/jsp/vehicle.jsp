@@ -27,8 +27,7 @@
 							<div class="btn-group">
 
 								<!-- Vehicle Add 버튼 -->
-								<a class="btn btn-success" data-toggle="modal" href="#modalAdd"> Add Vehicle <i class="fa fa-plus"></i>
-								</a>
+								<a class="btn btn-success" data-toggle="modal" href="#modalAdd"> Add Vehicle <i class="fa fa-plus"></i></a>
 
 							</div>
 						</div>

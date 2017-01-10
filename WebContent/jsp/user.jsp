@@ -47,15 +47,15 @@
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">E-MAIL</span>
-															<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
+															<input type="email" name="eMail" class="form-control" placeholder="Email" required="required">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">PHONE</span>
-															<input type="text" name="phone" class="form-control" placeholder="phone" autofocus required="required">
+															<input type="text" name="phone" class="form-control" placeholder="phone" required="required">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">USER ID</span>
-															<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
+															<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" required="required">
 															<div id="idCheck"></div>
 														</div>
 														<div class="form-group">
