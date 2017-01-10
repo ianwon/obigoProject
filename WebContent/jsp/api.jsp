@@ -6,6 +6,14 @@
 <meta charset="UTF-8">
 <link rel="shortcut icon" type="image/ico" href="/obigoProject/img/favicon.ico">
 <title>Api</title>
+
+<style type="text/css">
+td {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+</style>
 </head>
 <body>
 
@@ -42,7 +50,7 @@
 													<div class="login-wrap">
 														<div class="form-group">
 															<span class="label label-primary">API NAME</span>
-															<input type="text" name="apiName" id="insertApiName" class="form-control" placeholder="API NAME" autofocus required="required">
+															<input type="text" name="apiName" id="insertApiName" maxlength="40" class="form-control" placeholder="API NAME" autofocus required="required">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">RESPONSE TO SEND</span>
@@ -73,7 +81,7 @@
 													<div class="login-wrap">
 														<div class="form-group">
 															<span class="label label-primary">API NAME</span>
-															<input type="text" name="ApiName" id="editApiName" class="form-control" placeholder="API NAME" autofocus required="required" readonly="readonly">
+															<input type="text" name="ApiName" id="editApiName" class="form-control" placeholder="API NAME" required="required" readonly="readonly">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">RESPONSE TO SEND</span>
@@ -105,11 +113,11 @@
 												<div class="login-wrap">
 													<div class="form-group">
 														<span class="label label-primary">API NAME</span>
-														<input type="text" name="apiName" id="apiName" class="form-control" disabled="disabled">
+														<input type="text" name="apiName" id="apiName" class="form-control" readonly="readonly">
 													</div>
 													<div class="form-group">
 														<span class="label label-primary">RESPONSE TO SEND</span>
-														<textarea name="Response" id="response" class="form-control" placeholder="Response To Send" rows="15" cols="45" disabled="disabled" style="font-size: 11px; text-align: left;"></textarea>
+														<textarea name="Response" id="response" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly" style="font-size: 11px; text-align: left;"></textarea>
 													</div>
 												</div>
 											</form>
@@ -123,13 +131,13 @@
 							<!-- ------------------Show Api Modal end--------------- -->
 							<!-- -------------- Api Table start -------------- -->
 							<div class="table-responsive">
-								<table class="table table-striped table-hover table-bordered" id="editable-sample">
+								<table class="table table-striped table-hover table-bordered" id="editable-sample" style="table-layout: fixed; word-break: break-all;" >
 									<thead>
 										<tr>
-											<th>Api Name</th>
+											<th style="width: 300px;">Api Name</th>
 											<th>Response To Send</th>
-											<th>Edit</th>
-											<th>Delete</th>
+											<th style="width: 150px;">Edit</th>
+											<th style="width: 150px;">Delete</th>
 										</tr>
 									</thead>
 									<tbody>
