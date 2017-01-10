@@ -16,8 +16,11 @@ public class RegistrationidServiceImpl implements RegistrationidService {
 	@Override
 	public boolean insertRegistrationid(RegistrationidVO vo) {
 		int resultCount = 0;
-
-		resultCount = registrationidDao.insertRegistrationid(vo);
+		if (registrationidDao.selectRegistrationidCount(vo.getRegistrationId()) == 0) {
+			resultCount = registrationidDao.insertRegistrationid(vo);
+		} else {
+			resultCount = registrationidDao.updateRegistrationid(vo);
+		}
 
 		if (resultCount == 1)
 			return true;

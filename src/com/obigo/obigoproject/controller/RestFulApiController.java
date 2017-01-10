@@ -350,17 +350,15 @@ public class RestFulApiController {
 	public String insertRegistrationid(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
-		try {
-			registrationidService.insertRegistrationid(vo);
-		} catch (Exception e) {
-		}
+		boolean a = registrationidService.insertRegistrationid(vo);
 
 		// Log 정보를 등록하는 과정
 		this.vo.setUrl("/api/registrationid");
 		this.vo.setBody(data);
-		this.vo.setReturned("true");
+		this.vo.setReturned(a + "");
 		logService.insertLog(this.vo);
-		return "true";
+
+		return a + "";
 	}
 
 	/**
@@ -494,7 +492,7 @@ public class RestFulApiController {
 			vo.setReturned("false");
 			logService.insertLog(vo);
 
-			return "true";
+			return "false";
 		}
 	}
 

@@ -15,7 +15,7 @@ public class RegistrationidDaoImpl implements RegistrationidDao {
 
 	@Override
 	public int insertRegistrationid(RegistrationidVO vo) {
-		return sqlSession.insert("obigoproject.Registrationid.insertRegistrationid",vo);
+		return sqlSession.insert("obigoproject.Registrationid.insertRegistrationid", vo);
 	}
 
 	@Override
@@ -31,6 +31,16 @@ public class RegistrationidDaoImpl implements RegistrationidDao {
 	@Override
 	public int deleteRegistrationid(String registrationId) {
 		return sqlSession.delete("obigoproject.Registrationid.deleteRegistrationid", registrationId);
+	}
+
+	@Override
+	public int selectRegistrationidCount(String registrationId) {
+		return sqlSession.selectOne("obigoproject.Registrationid.selectRegistrationid", registrationId);
+	}
+
+	@Override
+	public int updateRegistrationid(RegistrationidVO vo) {
+		return sqlSession.update("obigoproject.Registrationid.updateRegistrationid", vo);
 	}
 
 }

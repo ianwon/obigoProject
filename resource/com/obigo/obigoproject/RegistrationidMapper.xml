@@ -35,4 +35,17 @@
     delete from registrationid where registration_id=#{registrationId}
 	]]>
 	</delete>
+
+	<select id="selectRegistrationid" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+     <![CDATA[
+     select count(*) from registrationid where registration_id=#{registrationId}
+	]]>
+	</select>
+	<update id="updateRegistrationid" parameterType="Registrationid">
+     <![CDATA[
+     update registrationid set user_id=#{userId} where registration_id=#{registrationId}
+	]]>
+	</update>
+
 </mapper>
