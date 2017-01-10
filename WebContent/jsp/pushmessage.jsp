@@ -42,19 +42,19 @@ td {
 											<div class="login-wrap">
 												<div class="form-group">
 													<span class="label label-primary">TITLE</span>
-													<input type="text" name="messageTitle" id="messageTitle" class="form-control" disabled="disabled">
+													<input type="text" name="messageTitle" id="messageTitle" class="form-control" readonly="readonly">
 												</div>
 												<div class="form-group">
 													<span class="label label-primary">CONTENT</span>
-													<textarea name="content" id="content" class="form-control" placeholder="Response To Send" rows="15" cols="45" disabled="disabled" style="font-size: 11px; text-align: left;"></textarea>
+													<textarea name="content" id="content" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly" style="font-size: 11px; text-align: left;"></textarea>
 												</div>
 												<div class="form-group">
 													<span class="label label-primary">SEND DATE</span>
-													<input type="text" name="sendDate" id="sendDate" class="form-control" disabled="disabled">
+													<input type="text" name="sendDate" id="sendDate" class="form-control" readonly="readonly">
 												</div>
 												<div class="form-group">
 													<span class="label label-primary">MESSAGE CATEGORY</span>
-													<input type="text" name="messageCategory" id="messageCategory" class="form-control" disabled="disabled">
+													<input type="text" name="messageCategory" id="messageCategory" class="form-control" readonly="readonly">
 												</div>
 											</div>
 										</form>

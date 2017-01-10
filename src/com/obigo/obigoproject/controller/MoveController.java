@@ -335,12 +335,15 @@ public class MoveController {
 		List<UserVehicleVO> userVehicleList = userVehicleService.getUserVehicleList(userId);
 		model.addAttribute("userVehicleList", userVehicleList);
 		List<VehicleVO> vehicleList = new ArrayList<>();
+		List<VehicleVO> vehicleModelList=vehicleService.getVehicleList();
+		
 		for (int i = 0; i < userVehicleList.size(); i++) {
 			vehicleList.add(vehicleService.getVehicle(userVehicleList.get(i).getModelCode()));
 		}
 
 		model.addAttribute("vehicleList", vehicleList);
-
+		model.addAttribute("vehicleModelList", vehicleModelList);
+		
 		return "/jsp/uservehicle";
 
 	}

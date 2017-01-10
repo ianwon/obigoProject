@@ -48,16 +48,16 @@
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Bundle Version</span>
-															<input type="text" name="bundleVersion" id="bundleversion" class="form-control" onkeyup="bundleversionCheck()" placeholder="BundleVersion" autofocus required="required">
+															<input type="text" name="bundleVersion" id="bundleversion" class="form-control" onkeyup="bundleversionCheck()" placeholder="BundleVersion" required="required">
 															<div id=bundleversioncheck></div>
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Bundle File</span>
-															<input type="file" id="bundleFile" name="bundleFile" class="form-control" autofocus required="required">
+															<input type="file" id="bundleFile" name="bundleFile" class="form-control" required="required">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Developer</span>
-															<input type="text" name="developer" class="form-control" placeholder="Developer" autofocus required="required">
+															<input type="text" name="developer" class="form-control" placeholder="Developer" required="required">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Bundle Key</span>
@@ -93,7 +93,7 @@
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Bundle Version</span>
-															<input type="text" name="bundleVersion" id="editbundleversion" class="form-control" autofocus readonly="readonly" value="${bundleVersion}">
+															<input type="text" name="bundleVersion" id="editbundleversion" class="form-control" readonly="readonly" value="${bundleVersion}">
 														</div>
 													</div>
 												</form>
