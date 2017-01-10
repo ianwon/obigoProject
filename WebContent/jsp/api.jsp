@@ -12,7 +12,7 @@
 	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
 	<!--header end-->
-	
+
 	<section id="container" class="">
 		<!--main content start-->
 		<section id="main-content">
@@ -92,7 +92,35 @@
 								<!-- -------------- Edit Api Modal end -------------- -->
 							</div>
 							<div class="space15"></div>
-
+							<!-- ------------------Show Api Modal start--------------- -->
+							<div class="modal fade " id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h4 class="modal-title">Detail Api</h4>
+										</div>
+										<div class="modal-body">
+											<form class="form-signin" id="form-insertapi" action="/obigoProject/insertapi" onsubmit="return check();" method="POST">
+												<div class="login-wrap">
+													<div class="form-group">
+														<span class="label label-primary">API NAME</span>
+														<input type="text" name="apiName" id="apiName" class="form-control" disabled="disabled">
+													</div>
+													<div class="form-group">
+														<span class="label label-primary">RESPONSE TO SEND</span>
+														<textarea name="Response" id="response" class="form-control" placeholder="Response To Send" rows="15" cols="45" disabled="disabled" style="font-size: 11px; text-align: left;"></textarea>
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ------------------Show Api Modal end--------------- -->
 							<!-- -------------- Api Table start -------------- -->
 							<div class="table-responsive">
 								<table class="table table-striped table-hover table-bordered" id="editable-sample">
@@ -106,10 +134,10 @@
 									</thead>
 									<tbody>
 
-										<c:forEach var="a" items="${apiList}" begin="0">
+										<c:forEach var="a" items="${apiList}" begin="0" varStatus="status">
 											<tr class="">
-												<td>${a.apiName}</td>
-												<td class="center">${a.responseToSend}</td>
+												<td id="api${status.index}" onclick="javascript:showModal(${status.index});">${a.apiName}</td>
+												<td id="responseToSend${status.index}" class="center" onclick="javascript:showModal(${status.index});">${a.responseToSend}</td>
 												<td><a class="Edit" href="javascript:editModal('${a.apiName}','${a.responseToSend}');">Edit</a></td>
 												<td><a class="Delete" href="javascript:deleteApi(${a.apiName});">Delete</a></td>
 											</tr>
@@ -182,14 +210,20 @@
 			});
 			return apiNameCheck;
 		}
-
+		// show Modal을 띄워주기 위함 함수
+		function showModal(status) {
+			$("#apiName").val($("#api" + status).text());
+			$("#response").val($("#responseToSend" + status).text());
+			$("#showModal").modal();
+		}
+	
 		// Edit Modal을 띄워주기 위함 함수
 		function editModal(apiName, responseToSend) {
 			$("#editApiName").val(apiName);
 			$("#editResponseToSend").val(responseToSend);
 			$("#editModal").modal();
 		}
-
+	
 		// Api 삭제여부를 확인하고 true=삭제 false=취소
 		function deleteApi(data) {
 			if (confirm("정말 삭제하시겠습니까??") == true) { //확인
