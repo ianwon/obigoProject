@@ -199,8 +199,9 @@ public class UserController {
 	 * @return 유저 차량 관리 페이지
 	 */
 	@RequestMapping(value = "/insertuservehicle", method = RequestMethod.POST)
-	public String insertUserVehicle(@RequestParam UserVehicleVO vo) {
-		return null;
+	public String insertUserVehicle(UserVehicleVO vo) {
+		userVehicleService.insertUserVehicle(vo);
+		return "redirect:/userVehicle?userId="+vo.getUserId();
 	}
 
 	////////////// Analytics에서 User Vehicle에 대한 통계 ///////////////////////////

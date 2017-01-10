@@ -52,11 +52,11 @@
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Resource File</span>
-															<input type="file" id="resourcePath" name="resourcePath" class="form-control" autofocus required="required">
+															<input type="file" id="resourcePath" name="resourcePath" class="form-control" required="required">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Resource Version</span>
-															<input type="text" name="resourceVersion" class="form-control" placeholder="ResourceVersion" autofocus required="required">
+															<input type="text" name="resourceVersion" class="form-control" placeholder="ResourceVersion" required="required">
 														</div>
 														<input type="hidden" name="bundleKey" id="bundleKey">
 													</div>
@@ -86,15 +86,15 @@
 															<span class="label label-primary">Resource Name</span>
 														</div>
 														<div class="form-group">
-															<input type="text" name="resourceName" id="editresourcename" class="form-control" autofocus required>
+															<input type="text" name="resourceName" id="editresourcename" class="form-control" required>
 															<span class="label label-primary">Resource File</span>
 														</div>
 														<div class="form-group">
-															<input type="file" name="path" id="editpath" class="form-control" autofocus required>
+															<input type="file" name="path" id="editpath" class="form-control" required>
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Resource Version</span>
-															<input type="text" name="resourceVersion" id="editresourceversion" class="form-control" autofocus required>
+															<input type="text" name="resourceVersion" id="editresourceversion" class="form-control" required>
 														</div>
 													</div>
 												</form>

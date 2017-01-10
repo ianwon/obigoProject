@@ -31,13 +31,13 @@
 				<span class="label label-primary">NAME</span>
 				<input type="text" name="name" id="name" class="form-control" placeholder="Full Name" autofocus required="required">
 				<span class="label label-primary">E-MAIL</span>
-				<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
+				<input type="email" name="eMail" class="form-control" placeholder="Email" required="required">
 				<span class="label label-primary">PHONE</span>
-				<input type="text" id="phone" name="phone" class="form-control" placeholder="phone ex) 010-1234-5678" onkeyup="phoneCheck()" autofocus required="required">
+				<input type="text" id="phone" name="phone" class="form-control" placeholder="phone ex) 010-1234-5678" onkeyup="phoneCheck()" required="required">
 				<div class="check-message" id="phoneCheck"></div>
 				<p>Enter your account details below</p>
 				<span class="label label-primary">USER ID</span>
-				<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
+				<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" required="required">
 				<div class="check-message" id="idCheck"></div>
 				<span class="label label-primary">PASSWORD</span>
 				<input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
