@@ -78,7 +78,7 @@ public class PushMessageController {
 	@RequestMapping(value = "/getmessageanalytics", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String getMessageAnalytics() {
-		JSONArray jArray = (JSONArray) pushMessageService.getCategoryName();
+		JSONArray jArray = pushMessageService.getCategoryName();
 		return jArray.toString();
 	}
 

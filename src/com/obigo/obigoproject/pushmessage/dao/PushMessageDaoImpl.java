@@ -51,7 +51,7 @@ public class PushMessageDaoImpl implements PushMessageDao {
 	}
 
 	@Override
-	public List<Map<String, Integer>> getCategoryName() {
+	public List<Map<String, Object>> getCategoryName() {
 		return sqlSession.selectList("obigoproject.PushMessage.groupByCategoryName");
 	}
 
