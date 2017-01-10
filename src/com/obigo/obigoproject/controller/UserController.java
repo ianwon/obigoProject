@@ -309,4 +309,19 @@ public class UserController {
 	public String deleteUserVehicle(@RequestParam int userVehicleNumber) {
 		return null;
 	}
+
+	/**
+	 * 유저의 ID/PW 가 일치하는지 체크하는 메서드
+	 * 
+	 * @return JSON : ID와 PW가 DB에 등록된 유저의 ID/PW 정보와 일치하는지 체크
+	 */
+	@RequestMapping(value = "/checkvinnumber", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String checkVinNumber(@RequestParam("vin") String vin) {
+		JSONObject jobj = new JSONObject();
+		jobj.put("flag", userVehicleService.checkVinNumber(vin));
+
+		return jobj.toString();
+	}
+
 }

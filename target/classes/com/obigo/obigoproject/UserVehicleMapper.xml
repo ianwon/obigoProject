@@ -56,7 +56,8 @@
 	</select>
 
 	<select id="selectLocation" resultMap="UserVehicleResultMap">
-		SELECT DISTINCT LOCATION FROM
+		SELECT DISTINCT LOCATION
+		FROM
 		USER_VEHICLE
 	</select>
 
@@ -70,7 +71,8 @@
 		SELECT DISTINCT USER_ID FROM USER_VEHICLE
 		<choose>
 			<when test="location!=null and modelCode!=null">
-				WHERE location=#{location} and MODEL_CODE=#{modelCode}
+				WHERE location=#{location} and
+				MODEL_CODE=#{modelCode}
 			</when>
 			<when test="location!=null">
 				WHERE location=#{location}
@@ -92,6 +94,12 @@
 		where
 		t.model_code=v.model_code
 	</select>
+
+	<select id="checkVinNumber" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*) from user_vehicle where vin=#{vin}
+	</select>
+
 
 
 </mapper>

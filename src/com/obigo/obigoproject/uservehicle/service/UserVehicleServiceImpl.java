@@ -73,4 +73,13 @@ public class UserVehicleServiceImpl implements UserVehicleService {
 		return userVehicleDao.getCountingByModelName();
 	}
 
+	@Override
+	public boolean checkVinNumber(String vin) {
+		// 1 이면 이미존재 false 0이면 없는 vin넘버이기 때문에 true
+		if (userVehicleDao.checkVinNumber(vin) == 1)
+			return false;
+		else
+			return true;
+	}
+
 }
