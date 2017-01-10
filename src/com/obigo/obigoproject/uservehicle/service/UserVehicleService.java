@@ -18,13 +18,14 @@ public interface UserVehicleService {
 
 	// 안드로이드에서 상세보기를 할때 차량의 정보를 가져오기 위함
 	public UserVehicleVO getUserVehicle(int userVehicleNumber);
-	
+
 	public List<String> getLocation();
-	
-	public List<String>	getUserId(PushMessageVO vo);
-	
+
+	public List<String> getUserId(PushMessageVO vo);
+
 	public int getUserVehicleCount();
-	
+
 	public List<Map<String, Object>> getCountingByModelName();
-	
+
+	public boolean checkVinNumber(String vin);
 }
