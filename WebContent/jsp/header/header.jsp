@@ -153,9 +153,9 @@
 					<li class="sub-menu"><a href="javascript:;"> <i class=" fa fa-bar-chart-o"></i> <span>Analytics</span>
 					</a>
 						<ul class="sub">
-							<li><a href="/obigoProject/useranalytics">User</a></li>
-							<li><a href="/obigoProject/uvanalytics">User Vehicle</a></li>
-							<li><a href="/obigoProject/downanalytics">Down Analytics</a></li>
+							<li><a href="/obigoProject/useranalytics">User Access Analytics</a></li>
+							<li><a href="/obigoProject/uvanalytics">User Vehicle Analytics</a></li>
+							<li><a href="/obigoProject/downanalytics">Bundle Update Analytics</a></li>
 							<li><a href="/obigoProject/messageanalytics">Message Analytics</a></li>
 						</ul></li>
 				</ul>

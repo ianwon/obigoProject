@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <link rel="shortcut icon" type="image/ico" href="/obigoProject/img/favicon.ico">
 
-<title>Insert title here</title>
+<title>Send Message</title>
 
 <link rel="stylesheet" type="text/css" href="/obigoProject/assets/bootstrap-fileupload/bootstrap-fileupload.css" />
 <link rel="stylesheet" type="text/css" href="/obigoProject/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
