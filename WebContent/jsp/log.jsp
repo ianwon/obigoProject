@@ -49,15 +49,15 @@ td {
 													<div class="login-wrap">
 														<div class="form-group">
 															<span class="label label-primary">URL</span>
-															<input type="text" name="apiUrl" id="apiUrl" class="form-control" disabled="disabled">
+															<input type="text" name="apiUrl" id="apiUrl" class="form-control" readonly="readonly" >
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">BODY</span>
-															<input type="text" name="apiBody" id="apiBody" class="form-control" disabled="disabled">
+															<input type="text" name="apiBody" id="apiBody" class="form-control" readonly="readonly">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">RETRUNED</span>
-															<textarea name="returned" id="returned" class="form-control" placeholder="Response To Send" rows="15" cols="45" disabled="disabled" style="font-size: 11px; text-align: left;"></textarea>
+															<textarea name="returned" id="returned" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly" style="font-size: 11px; text-align: left;"></textarea>
 														</div>
 													</div>
 												</form>
@@ -109,10 +109,10 @@ td {
 													<tr class="">
 												</c:otherwise>
 											</c:choose>
-											<td id="url${status.index}" onclick="javascript:showModal(${status.index});">${l.url}</td>
-											<td id="body${status.index}" class="center" onclick="javascript:showModal(${status.index});">${l.body}</td>
-											<td class="center" onclick="javascript:showModal(${status.index});">${l.dateTime}</td>
-											<td id="returned${status.index}" class="center" onclick="javascript:showModal(${status.index});">${l.returned}</td>
+											<td id="url${status.index}" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.url}</td>
+											<td id="body${status.index}" class="center" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.body}</td>
+											<td class="center" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.dateTime}</td>
+											<td id="returned${status.index}" class="center" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.returned}</td>
 											</tr>
 										</c:forEach>
 									</tbody>

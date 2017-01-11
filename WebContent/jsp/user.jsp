@@ -47,15 +47,15 @@
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">E-MAIL</span>
-															<input type="email" name="eMail" class="form-control" placeholder="Email" autofocus required="required">
+															<input type="email" name="eMail" class="form-control" placeholder="Email" required="required">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">PHONE</span>
-															<input type="text" name="phone" class="form-control" placeholder="phone" autofocus required="required">
+															<input type="text" name="phone" class="form-control" placeholder="phone" required="required">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">USER ID</span>
-															<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" autofocus required="required">
+															<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" required="required">
 															<div id="idCheck"></div>
 														</div>
 														<div class="form-group">
@@ -136,10 +136,10 @@
 									<tbody>
 										<c:forEach var="u" items="${userList}" begin="0">
 											<tr class="">
-												<td onclick="userVehicle('${u.userId}')">${u.userId}</td>
-												<td onclick="userVehicle('${u.userId}')">${u.name}</td>
-												<td onclick="userVehicle('${u.userId}')">${u.eMail}</td>
-												<td onclick="userVehicle('${u.userId}')">${u.phone}</td>
+												<td onclick="userVehicle('${u.userId}')" style="cursor:pointer;">${u.userId}</td>
+												<td onclick="userVehicle('${u.userId}')" style="cursor:pointer;">${u.name}</td>
+												<td onclick="userVehicle('${u.userId}')" style="cursor:pointer;">${u.eMail}</td>
+												<td onclick="userVehicle('${u.userId}')" style="cursor:pointer;">${u.phone}</td>
 												<td><a class="update" href="javascript:update('${u.phone}','${u.eMail}','${u.name}','${u.userId }')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${u.userId}')">Delete</a></td>
 											</tr>

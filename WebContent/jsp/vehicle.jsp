@@ -27,8 +27,7 @@
 							<div class="btn-group">
 
 								<!-- Vehicle Add 버튼 -->
-								<a class="btn btn-success" data-toggle="modal" href="#modalAdd"> Add Vehicle <i class="fa fa-plus"></i>
-								</a>
+								<a class="btn btn-success" data-toggle="modal" href="#modalAdd"> Add Vehicle <i class="fa fa-plus"></i></a>
 
 							</div>
 						</div>
@@ -235,10 +234,11 @@
 		// input에 입력된 값으로 공백이 존재하는지 체크
 		function spaceCheck(frm) {
 			var f = frm.val();
-			var pattern = /\s/;
+			var pattern = /[\s~!@\#$%<>^&*\()\-=+_\’]/;
+			
 
 			if (f.match(pattern)) {
-				alert("Model Code에 공백이 있으면 안됩니다!");
+				alert("Model Code에 공백 또는 특수문자가 포함되면 안됩니다!");
 				frm.focus();
 				return false;
 			} else {

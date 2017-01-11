@@ -37,11 +37,11 @@
 													<div class="login-wrap">
 														<div class="form-group">
 															<span class="label label-primary">ADMIN ID</span>
-															<input type="text" name="userId" id="edituserId" class="form-control" autofocus readonly="readonly" value="${userId}">
+															<input type="text" name="userId" id="edituserId" class="form-control" readonly="readonly" value="${userId}">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">NAME</span>
-															<input type="text" name="name" id="editname" class="form-control" autofocus placeholder="Full Name" readonly="readonly" value="${userName}">
+															<input type="text" name="name" id="editname" class="form-control" placeholder="Full Name" readonly="readonly" value="${userName}">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">EMAIL</span>
@@ -49,7 +49,7 @@
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">PHONE</span>
-															<input type="text" name="phone" id="editphone" class="form-control" placeholder="phone" autofocus required="required">
+															<input type="text" name="phone" id="editphone" class="form-control" placeholder="phone" required="required">
 														</div>
 													</div>
 												</form>
