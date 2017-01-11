@@ -38,7 +38,8 @@
 
 
 				<div class="btn-group">
-					<a style="border-color: #6CCAC9; background-color: #6CCAC9;" id="Add" class="btn btn-success" data-toggle="modal" href="/obigoProject/usermanagement"> Back <i class="fa fa-arrow-circle-left"></i></a>
+					<a style="border-color: #6CCAC9; background-color: #6CCAC9;" id="Add" class="btn btn-success" data-toggle="modal" href="/obigoProject/usermanagement"> Back <i
+							class="fa fa-arrow-circle-left"></i></a>
 				</div>
 				<div class="btn-group">
 					<a style="border-color: #6CCAC9; background-color: #6CCAC9;" id="Add" class="btn btn-success" data-toggle="modal" href="#addModal"> Add Vehicle <i class="fa fa-plus"></i></a>
@@ -70,8 +71,8 @@
 											<!-- 											<input type="text" name="modelCode" class="form-control" placeholder="Model Code" required="required"> -->
 										</div>
 										<div class="form-group">
-											<span class="label label-primary">Color</span><br> 
-											<select name="color" required="required">
+											<span class="label label-primary">Color</span>
+											<br> <select name="color" required="required">
 												<option value="">Choose your color....</option>
 												<option value="Red">Red</option>
 												<option value="Blue">Blue</option>
@@ -80,8 +81,8 @@
 											</select>
 										</div>
 										<div class="form-group">
-											<span class="label label-primary">Location</span><br> 
-											<select name="location" required="required">
+											<span class="label label-primary">Location</span>
+											<br> <select name="location" required="required">
 												<option value="">Choose your location....</option>
 												<option value="서울">서울</option>
 												<option value="경기">경기</option>
@@ -192,16 +193,41 @@
 	<script src="/obigoProject/js/easy-pie-chart.js"></script>
 	<script src="/obigoProject/js/count.js"></script>
 	<script type="text/javascript">
-	function checkVIN(){
-		var regex = /[(0-9)]{10}/;
-		
-		if(!regex.test($("#vin").val())){
-			alert("VIN은 숫자 10자리이어야 합니다!");
-			return false;
-		}else{
-			return true;
+		function checkVIN() {
+			var regex = /^[0-9]{10}$/;
+			var vin = $("#vin").val();
+			var flag = false;
+
+			$.ajax({
+				type : "post",
+				url : "/obigoProject/checkvinnumber",
+				dataType : "json",
+				async : false,
+				data : {
+					"vin" : vin
+				},
+				async : false,
+				success : function(data) {
+					if (data.flag == true) {
+						flag = true;
+					} else {
+						flag = false;
+					}
+				}
+			});
+
+			if (flag == true) {
+				if (!regex.test(vin)) {
+					alert("VIN은 숫자 10자리이어야 합니다!");
+					return false;
+				} else {
+					return true;
+				}
+			} else {
+				alert("동일한 VIN이 이미 존재합니다!!");
+				return false;
+			}
 		}
-	}
 	</script>
 </body>
 </html>

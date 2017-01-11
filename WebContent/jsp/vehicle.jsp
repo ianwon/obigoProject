@@ -67,7 +67,7 @@
 											</div>
 											<div class="form-group">
 												<span class="label label-primary">MODEL YEAR</span>
-												<input type="number" id="modelYear" name="modelYear" class="form-control" min="1900" max="2099" step="1" value="2016" />
+												<input type="number" id="modelYear" name="modelYear" class="form-control" min="1900" max="2099" step="1" value="2017" />
 											</div>
 											<div class="form-group">
 												<span class="label label-primary">MILEAGE</span>
@@ -104,15 +104,15 @@
 											</div>
 											<div class="form-group">
 												<span class="label label-primary">MODEL IMAGE</span>
-												<input type="file" id="editModelImage" name="model_Image" class="form-control" placeholder="Model Image">
+												<input type="file" id="editModelImage" name="model_Image" class="form-control" required="required" placeholder="Model Image">
 											</div>
 											<div class="form-group">
 												<span class="label label-primary">DETAIL IMAGE</span>
-												<input type="file" id="editDetailImage" name="detail_Image" class="form-control" placeholder="Detail Image">
+												<input type="file" id="editDetailImage" name="detail_Image" class="form-control" required="required" placeholder="Detail Image">
 											</div>
 											<div class="form-group">
 												<span class="label label-primary">ENGINE</span>
-												<input type="text" id="editEngine" name="engine" class="form-control" placeholder="Engine" required="required" readonly="readonly">
+												<input type="text" id="editEngine" name="engine" class="form-control" placeholder="Engine" readonly="readonly">
 											</div>
 											<div class="form-group">
 												<span class="label label-primary">MODEL YEAR</span>

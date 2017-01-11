@@ -9,7 +9,7 @@
 <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 <link rel="shortcut icon" type="image/ico" href="/obigoProject/img/favicon.ico">
 
-<title>Insert title here</title>
+<title>User Vehicle Analytics</title>
 <!-- Bootstrap core CSS -->
 <link href="/obigoProject/css/bootstrap.min.css" rel="stylesheet">
 <link href="/obigoProject/css/bootstrap-reset.css" rel="stylesheet">
@@ -83,7 +83,7 @@
 									type : 'pie'
 								},
 								title : {
-									text : 'Registered Car Model Ratio'
+									text : 'User Vehicle Analytics'
 								},
 								tooltip : {
 									pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
