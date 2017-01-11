@@ -144,8 +144,8 @@ td {
 
 										<c:forEach var="a" items="${apiList}" begin="0" varStatus="status">
 											<tr class="">
-												<td id="api${status.index}" onclick="javascript:showModal(${status.index});">${a.apiName}</td>
-												<td id="responseToSend${status.index}" class="center" onclick="javascript:showModal(${status.index});">${a.responseToSend}</td>
+												<td id="api${status.index}" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${a.apiName}</td>
+												<td id="responseToSend${status.index}" class="center" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${a.responseToSend}</td>
 												<td><a class="Edit" href="javascript:editModal('${a.apiName}','${a.responseToSend}');">Edit</a></td>
 												<td><a class="Delete" href="javascript:deleteApi(${a.apiName});">Delete</a></td>
 											</tr>
