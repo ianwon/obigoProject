@@ -136,10 +136,10 @@
 									<tbody>
 										<c:forEach var="u" items="${userList}" begin="0">
 											<tr class="">
-												<td onclick="userVehicle('${u.userId}')">${u.userId}</td>
-												<td onclick="userVehicle('${u.userId}')">${u.name}</td>
-												<td onclick="userVehicle('${u.userId}')">${u.eMail}</td>
-												<td onclick="userVehicle('${u.userId}')">${u.phone}</td>
+												<td onclick="userVehicle('${u.userId}')" style="cursor:pointer;">${u.userId}</td>
+												<td onclick="userVehicle('${u.userId}')" style="cursor:pointer;">${u.name}</td>
+												<td onclick="userVehicle('${u.userId}')" style="cursor:pointer;">${u.eMail}</td>
+												<td onclick="userVehicle('${u.userId}')" style="cursor:pointer;">${u.phone}</td>
 												<td><a class="update" href="javascript:update('${u.phone}','${u.eMail}','${u.name}','${u.userId }')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${u.userId}')">Delete</a></td>
 											</tr>

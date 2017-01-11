@@ -38,6 +38,9 @@
 
 
 				<div class="btn-group">
+					<a style="border-color: #6CCAC9; background-color: #6CCAC9;" id="Add" class="btn btn-success" data-toggle="modal" href="/obigoProject/usermanagement"> Back <i class="fa fa-arrow-circle-left"></i></a>
+				</div>
+				<div class="btn-group">
 					<a style="border-color: #6CCAC9; background-color: #6CCAC9;" id="Add" class="btn btn-success" data-toggle="modal" href="#addModal"> Add Vehicle <i class="fa fa-plus"></i></a>
 				</div>
 
@@ -50,15 +53,15 @@
 								<h4 class="modal-title">Add User Vehicle</h4>
 							</div>
 							<div class="modal-body">
-								<form id="form-uservehicle" class="form-signin" action="/obigoProject/insertuservehicle" onsubmit="return check()" method="POST">
+								<form id="form-uservehicle" class="form-signin" action="/obigoProject/insertuservehicle" onsubmit="return checkVIN()" method="POST">
 									<div class="login-wrap">
 										<div class="form-group">
 											<span class="label label-primary">User ID</span>
 											<input type="text" name="userId" id="userId" value="${param.userId}" class="form-control" placeholder="User ID" required="required" readonly="readonly">
 										</div>
 										<div class="form-group">
-											<span class="label label-primary">Model Name</span><br>
-											<select name="modelCode" required="required">
+											<span class="label label-primary">Model Name</span>
+											<br> <select name="modelCode" required="required">
 												<option value="">Choose your model...</option>
 												<c:forEach var="vml" items="${vehicleModelList}" begin="0">
 													<option value="${vml.modelCode}">${vml.modelName}</option>
@@ -67,21 +70,40 @@
 											<!-- 											<input type="text" name="modelCode" class="form-control" placeholder="Model Code" required="required"> -->
 										</div>
 										<div class="form-group">
-											<span class="label label-primary">Color</span>
-											<input type="text" name="color" class="form-control" placeholder="Color" required="required">
+											<span class="label label-primary">Color</span><br> 
+											<select name="color" required="required">
+												<option value="">Choose your color....</option>
+												<option value="Red">Red</option>
+												<option value="Blue">Blue</option>
+												<option value="Black">Black</option>
+												<option value="White">White</option>
+											</select>
 										</div>
 										<div class="form-group">
-											<span class="label label-primary">Location</span>
-											<input type="text" name="location" id="location" class="form-control" placeholder="Location" required="required">
+											<span class="label label-primary">Location</span><br> 
+											<select name="location" required="required">
+												<option value="">Choose your location....</option>
+												<option value="서울">서울</option>
+												<option value="경기">경기</option>
+												<option value="강원">강원</option>
+												<option value="충남">충남</option>
+												<option value="충북">충북</option>
+												<option value="경남">경남</option>
+												<option value="경북">경북</option>
+												<option value="전남">전남</option>
+												<option value="전북">전북</option>
+												<option value="인천">인천</option>
+												<option value="대전">대전</option>
+												<option value="대구">대구</option>
+												<option value="부산">부산</option>
+												<option value="제주">제주</option>
+											</select>
 										</div>
 										<div class="form-group">
 											<span class="label label-primary">VIN</span>
 											<input type="text" name="vin" id="vin" class="form-control" placeholder="VIN" required="required">
 										</div>
-										<div class="form-group">
-											<span class="label label-primary">Active DTC Count</span>
-											<input type="text" name="activeDtcCount" class="form-control" placeholder="Active DTC Count" value="0">
-										</div>
+										<input type="hidden" name="activeDtcCount" class="form-control" value="0">
 										<input type="hidden" name="userVehicleNumber" class="form-control" value="0">
 									</div>
 								</form>
@@ -169,5 +191,17 @@
 	<script src="/obigoProject/js/sparkline-chart.js"></script>
 	<script src="/obigoProject/js/easy-pie-chart.js"></script>
 	<script src="/obigoProject/js/count.js"></script>
+	<script type="text/javascript">
+	function checkVIN(){
+		var regex = /[(0-9)]{10}/;
+		
+		if(!regex.test($("#vin").val())){
+			alert("VIN은 숫자 10자리이어야 합니다!");
+			return false;
+		}else{
+			return true;
+		}
+	}
+	</script>
 </body>
 </html>
