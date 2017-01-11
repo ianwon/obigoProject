@@ -137,13 +137,13 @@ td {
 											<c:set var="cnumber" value="category${p.categoryNumber}" />
 											<c:set var="code" value="${p.modelCode}" />
 											<tr class="">
-												<td class="center" id="title${status.index}" onclick="showModal(${status.index})">${p.title}</td>
-												<td class="center" onclick="showModal(${status.index})">${p.uploadFile}</td>
-												<td class="center" id="content${status.index}" onclick="showModal(${status.index})">${p.content}</td>
-												<td class="center" id="sendDate${status.index}" onclick="showModal(${status.index})">${p.sendDate}</td>
-												<td class="center" onclick="showModal(${status.index})"><c:out value="${vehicleMap[code]}" /></td>
-												<td class="center" onclick="showModal(${status.index})">${p.location}</td>
-												<td class="center" id="messageCategory${status.index}" onclick="showModal(${status.index})"><c:out value="${messageCategoryMap[cnumber]}" /></td>
+												<td class="center" id="title${status.index}" onclick="showModal(${status.index})" style="cursor:pointer;">${p.title}</td>
+												<td class="center" onclick="showModal(${status.index})" style="cursor:pointer;">${p.uploadFile}</td>
+												<td class="center" id="content${status.index}" onclick="showModal(${status.index})" style="cursor:pointer;">${p.content}</td>
+												<td class="center" id="sendDate${status.index}" onclick="showModal(${status.index})" style="cursor:pointer;">${p.sendDate}</td>
+												<td class="center" onclick="showModal(${status.index})" style="cursor:pointer;"><c:out value="${vehicleMap[code]}" /></td>
+												<td class="center" onclick="showModal(${status.index})" style="cursor:pointer;">${p.location}</td>
+												<td class="center" id="messageCategory${status.index}" onclick="showModal(${status.index})" style="cursor:pointer;"><c:out value="${messageCategoryMap[cnumber]}" /></td>
 												<td><a class="Delete" href="javascript:deletePushmessage(${p.messageNumber});">Delete</a></td>
 											</tr>
 										</c:forEach>
