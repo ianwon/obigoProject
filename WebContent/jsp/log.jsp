@@ -109,10 +109,10 @@ td {
 													<tr class="">
 												</c:otherwise>
 											</c:choose>
-											<td id="url${status.index}" onclick="javascript:showModal(${status.index});">${l.url}</td>
-											<td id="body${status.index}" class="center" onclick="javascript:showModal(${status.index});">${l.body}</td>
-											<td class="center" onclick="javascript:showModal(${status.index});">${l.dateTime}</td>
-											<td id="returned${status.index}" class="center" onclick="javascript:showModal(${status.index});">${l.returned}</td>
+											<td id="url${status.index}" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.url}</td>
+											<td id="body${status.index}" class="center" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.body}</td>
+											<td class="center" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.dateTime}</td>
+											<td id="returned${status.index}" class="center" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.returned}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
