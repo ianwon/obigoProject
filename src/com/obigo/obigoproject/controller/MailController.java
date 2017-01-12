@@ -53,7 +53,6 @@ public class MailController {
 	@Autowired
 	JavaMailSender mailSender;
 
-	private String from = "alldevotion@gmail.com";
 	private String subject = "Log Data PDF 파일 보내드립니다.";
 
 	// 매월 1일 15일 오전 9시 자동으로 Log기록 pdf파일 이메일 발송
@@ -66,8 +65,8 @@ public class MailController {
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setTo("inthelord@hanmail.net");
-			messageHelper.setFrom(from);
+			messageHelper.setTo(obigoUtils.sendTo);
+			messageHelper.setFrom(obigoUtils.sendFrom);
 			messageHelper.setSubject(subject); // 메일제목은 생략이 가능하다
 
 			MimeBodyPart bodypart = new MimeBodyPart();
@@ -81,7 +80,7 @@ public class MailController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 			String fileName = formatter.format(calendar.getTime()) + "_log.pdf"; // for
 																					// log-time
-			String path = obigoUtils.getPath() + "pdf" + File.separator + fileName;
+			String path = obigoUtils.path + "pdf" + File.separator + fileName;
 
 			// PDF 만들어주는 메서드 호출 및 PDF 파일 첨부
 			if (pdfpage(path)) {
@@ -107,9 +106,9 @@ public class MailController {
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setTo("inthelord@hanmail.net");
+			messageHelper.setTo(obigoUtils.sendTo);
 			// messageHelper.setText("PDF 파일 첨부되었습니다.");
-			messageHelper.setFrom(from);
+			messageHelper.setFrom(obigoUtils.sendFrom);
 			messageHelper.setSubject(subject); // 메일제목은 생략이 가능하다
 			// messageHelper.addInline("table.pdf", new FileDataSource("c:/pdftest/table.pdf"));
 
@@ -124,9 +123,9 @@ public class MailController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 			String fileName = formatter.format(calendar.getTime()) + "_log.pdf"; // for
 																					// log-time
-			String saveDir = obigoUtils.getPath() + "pdf" + File.separator;
+			String saveDir = obigoUtils.path+ "pdf" + File.separator;
 			File saveDirFile = new File(saveDir);
-			String path = obigoUtils.getPath() + "pdf" + File.separator + fileName;
+			String path = obigoUtils.path + "pdf" + File.separator + fileName;
 
 			if (!saveDirFile.exists()) {
 				saveDirFile.mkdirs();
