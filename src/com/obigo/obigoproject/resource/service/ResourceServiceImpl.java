@@ -42,7 +42,7 @@ public class ResourceServiceImpl implements ResourceService {
 
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		MultipartFile resourceFile = multiRequest.getFile("resourcePath");
-		String saveDir = obigoUtils.getPath() + "resource" + File.separator;
+		String saveDir = obigoUtils.path + "resource" + File.separator;
 		File saveDirFile = new File(saveDir);
 
 		if (!saveDirFile.exists()) {

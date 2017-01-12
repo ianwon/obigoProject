@@ -1,11 +1,10 @@
 package com.obigo.obigoproject.util;
 
 public class obigoUtils {
-	 static String path = "c:\\obigo\\";
-//	static String path = "/home/ec2-user/obigo/";
+	public static String path = "c:\\obigo\\";
+//	public static String path = "/home/ec2-user/obigo/";
 
-	public static String getPath() {
-		return path;
-	}
+	public static String sendFrom = "alldevotion@gmail.com";
+	public static String sendTo = "inthelord@hanmail.net";
 
 }
