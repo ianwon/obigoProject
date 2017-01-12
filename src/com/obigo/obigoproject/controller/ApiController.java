@@ -50,7 +50,6 @@ public class ApiController {
 	@RequestMapping(value = "/deleteapi", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String deleteApi(@RequestParam("apiName") String apiName) {
-		System.out.println(apiName);
 		apiService.deleteApi(apiName);
 		JSONObject jobj = new JSONObject();
 
@@ -66,6 +65,8 @@ public class ApiController {
 	@ResponseBody
 	public String apiNameCheck(@RequestParam("apiName") String apiName) {
 		JSONObject jobj = new JSONObject();
+
+		apiName = apiName.trim();
 
 		// getApi 메소드를 통해 apiName이 있으면 not null 임으로 false return
 		// null일 경우는 존재하지 않기때문에 true return

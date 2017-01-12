@@ -74,7 +74,6 @@
 											<th>USERNAME</th>
 											<th>EMAIL</th>
 											<th>PHONE</th>
-											<th>REGISTRATIONID</th>
 											<th>EDIT</th>
 											<th>DELETE</th>
 										</tr>
@@ -86,7 +85,6 @@
 												<td>${u.name}</td>
 												<td>${u.eMail}</td>
 												<td>${u.phone}</td>
-												<td></td>
 												<td><a class="update" href="javascript:update('${u.phone}','${u.eMail}','${u.name}','${u.userId }')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${u.userId}')">Delete</a></td>
 											</tr>

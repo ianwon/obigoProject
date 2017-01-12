@@ -91,7 +91,9 @@ public class BundleController {
 	@ResponseBody
 	public String bundleversionCheck(@RequestParam("bundleVersion") String bundleVersion) {
 		JSONObject jobj = new JSONObject();
+		bundleVersion=bundleVersion.trim();
 		BundleVO vo = bundleService.getBundleBybundleVersion(bundleVersion);
+		
 		if (vo != null) {
 			jobj.put("flag", false);
 			return jobj.toString();
@@ -110,7 +112,9 @@ public class BundleController {
 	@ResponseBody
 	public String bundlekeyCheck(@RequestParam("bundleKey") String bundleKey) {
 		JSONObject jobj = new JSONObject();
+		bundleKey=bundleKey.trim();
 		BundleVO vo = bundleService.getBundleBybundleKey(bundleKey);
+		
 		if (vo != null) {
 			jobj.put("flag", false);
 			return jobj.toString();
