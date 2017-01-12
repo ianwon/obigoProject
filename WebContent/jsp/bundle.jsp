@@ -40,7 +40,8 @@
 												<h4 class="modal-title">Add Bundle</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-addbundle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/insertbundle" onsubmit="return (check() && sizeCheck('bundleFile'));" method="POST">
+												<form id="form-addbundle" enctype="multipart/form-data" class="form-signin" action="/obigoProject/insertbundle" onsubmit="return (check() && sizeCheck('bundleFile'));"
+													method="POST">
 													<div class="login-wrap">
 														<div class="form-group">
 															<span class="label label-primary">Bundle Name</span>
@@ -156,116 +157,6 @@
 		<!--footer end-->
 	</section>
 
-	<script type="text/javascript">
-		function sizeCheck(name) {
-			var size = document.getElementById(name).files[0].size;
-			if (size > 100000000) {
-				alert("100000000byte 이하의 파일만 가능합니다.")
-				return false;
-			} else {
-				return true;
-			}
-		}
-	
-		// Bundle version 체크
-		function bundleversionCheck() {
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/bundleversioncheck",
-				dataType : "json",
-				data : {
-					"bundleVersion" : $("#bundleversion").val()
-				},
-				success : function(data) {
-					if (data.flag == false) {
-						$("#bundleversioncheck").html("이미 존재하는 버전 입니다.");
-						$("#bundleversioncheck").css("color", "red");
-					} else {
-						$("#bundleversioncheck").html("등록가능한 버전 입니다.");
-						$("#bundleversioncheck").css("color", "blue");
-					}
-				}
-			})
-		}
-	
-		// Bundle key 체크
-		function bundlekeyCheck() {
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/bundlekeycheck",
-				dataType : "json",
-				data : {
-					"bundleKey" : $("#bundlekey").val()
-				},
-				success : function(data) {
-					if (data.flag == false) {
-						$("#bundlekeycheck").html("이미 존재하는 키 입니다.");
-						$("#bundlekeycheck").css("color", "red");
-					} else {
-						$("#bundlekeycheck").html("등록가능한 키 입니다.");
-						$("#bundlekeycheck").css("color", "blue");
-					}
-				}
-			})
-		}
-	
-		// Bundle 삭제
-		function del(data) {
-			if (confirm("삭제 하시겠습니까?") == true) {
-				$.ajax({
-					type : "post",
-					url : "/obigoProject/deletebundle",
-					dataType : "json",
-					data : {
-						"bundleVersion" : data
-					},
-					success : function(data) {
-						if (data.flag == true)
-							location.reload();
-						else
-							alert("삭제할 수 없습니다");
-					}
-				});
-	
-			}
-		}
-	
-		// Bundle 수정 Modal을 띄워주는 함수
-		function update(bundleName, bundleVersion) {
-			$("#editbundlename").val(bundleName);
-			$("#editbundleversion").val(bundleVersion);
-			$("#editModal").modal();
-		}
-	
-		// Bundle의 version과 key가 등록가능한 조건을 만족하는지 여부를 체크한 후 등록 진행
-		function check() {
-			if ($("#bundleversioncheck").html() == "등록가능한 버전 입니다."
-				&& $("#bundlekeycheck").html() == "등록가능한 키 입니다.") {
-				return true;
-			} else {
-				alert("버전과 키를 확인해 주세요;");
-				return false;
-			}
-		}
-	
-		// 선택한 Bundle version을 app에 적용하는 함수
-		function apply(data) {
-			if (confirm("선택한 버전을 적용하시겠습니까?") == true) {
-				$.ajax({
-					type : "post",
-					url : "/obigoProject/applybundle",
-					dataType : "json",
-					data : {
-						"bundleVersion" : data
-					},
-					success : function(data) {
-						location.reload();
-					}
-				});
-	
-			}
-		}
-	</script>
 
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="/obigoProject/js/jquery.js"></script>
@@ -293,6 +184,135 @@
 		jQuery(document).ready(function() {
 			EditableTable.init();
 		});
+	</script>
+
+	<script type="text/javascript">
+		// input type="text" 또는 textarea의 양쪽 끝 공백을 제거해주는 함수
+		$('#form-addbundle').submit(function() {
+			$(this).find('input:text').each(function() {
+				$(this).val($.trim($(this).val()));
+			});
+		});
+
+		function sizeCheck(name) {
+			var size = document.getElementById(name).files[0].size;
+			if (size > 100000000) {
+				alert("100000000byte 이하의 파일만 가능합니다.")
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		// Bundle version 체크
+		function bundleversionCheck() {
+
+			var bundleVersion = $("#bundleversion").val();
+
+			// 공백인 상태로 다른 input으로 focus가 옮겨갈 경우 아무런 상태메시지도 보여주지 않는다
+			if (bundleVersion != "") {
+				$.ajax({
+					type : "post",
+					url : "/obigoProject/bundleversioncheck",
+					dataType : "json",
+					data : {
+						"bundleVersion" : $("#bundleversion").val()
+					},
+					success : function(data) {
+						if (data.flag == false) {
+							$("#bundleversioncheck").html("이미 존재하는 버전 입니다.");
+							$("#bundleversioncheck").css("color", "red");
+						} else {
+							$("#bundleversioncheck").html("등록가능한 버전 입니다.");
+							$("#bundleversioncheck").css("color", "blue");
+						}
+					}
+				});
+			}
+		}
+
+		// Bundle key 체크
+		function bundlekeyCheck() {
+			var bundleKey = $("#bundlekey").val();
+
+			// 공백인 상태로 다른 input으로 focus가 옮겨갈 경우 아무런 상태메시지도 보여주지 않는다
+			if (bundleKey != "") {
+				$.ajax({
+					type : "post",
+					url : "/obigoProject/bundlekeycheck",
+					dataType : "json",
+					data : {
+						"bundleKey" : $("#bundlekey").val()
+					},
+					success : function(data) {
+						if (data.flag == false) {
+							$("#bundlekeycheck").html("이미 존재하는 키 입니다.");
+							$("#bundlekeycheck").css("color", "red");
+						} else {
+							$("#bundlekeycheck").html("등록가능한 키 입니다.");
+							$("#bundlekeycheck").css("color", "blue");
+						}
+					}
+				});
+			}
+		}
+
+		// Bundle 삭제
+		function del(data) {
+			if (confirm("삭제 하시겠습니까?") == true) {
+				$.ajax({
+					type : "post",
+					url : "/obigoProject/deletebundle",
+					dataType : "json",
+					data : {
+						"bundleVersion" : data
+					},
+					success : function(data) {
+						if (data.flag == true)
+							location.reload();
+						else
+							alert("삭제할 수 없습니다");
+					}
+				});
+
+			}
+		}
+
+		// Bundle 수정 Modal을 띄워주는 함수
+		function update(bundleName, bundleVersion) {
+			$("#editbundlename").val(bundleName);
+			$("#editbundleversion").val(bundleVersion);
+			$("#editModal").modal();
+		}
+
+		// Bundle의 version과 key가 등록가능한 조건을 만족하는지 여부를 체크한 후 등록 진행
+		function check() {
+			if ($("#bundleversioncheck").html() == "등록가능한 버전 입니다."
+					&& $("#bundlekeycheck").html() == "등록가능한 키 입니다.") {
+				return true;
+			} else {
+				alert("버전과 키를 확인해 주세요;");
+				return false;
+			}
+		}
+
+		// 선택한 Bundle version을 app에 적용하는 함수
+		function apply(data) {
+			if (confirm("선택한 버전을 적용하시겠습니까?") == true) {
+				$.ajax({
+					type : "post",
+					url : "/obigoProject/applybundle",
+					dataType : "json",
+					data : {
+						"bundleVersion" : data
+					},
+					success : function(data) {
+						location.reload();
+					}
+				});
+
+			}
+		}
 	</script>
 
 

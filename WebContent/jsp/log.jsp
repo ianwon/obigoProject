@@ -56,6 +56,10 @@ td {
 															<input type="text" name="apiBody" id="apiBody" class="form-control" readonly="readonly">
 														</div>
 														<div class="form-group">
+															<span class="label label-primary">Date Time</span>
+															<input type="text" name="apiDateTime" id="apiDateTime" class="form-control" readonly="readonly">
+														</div>
+														<div class="form-group">
 															<span class="label label-primary">RETRUNED</span>
 															<textarea name="returned" id="returned" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly" style="font-size: 11px; text-align: left;"></textarea>
 														</div>
@@ -111,7 +115,7 @@ td {
 											</c:choose>
 											<td id="url${status.index}" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.url}</td>
 											<td id="body${status.index}" class="center" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.body}</td>
-											<td class="center" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.dateTime}</td>
+											<td id="datetime${status.index}" class="center" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.dateTime}</td>
 											<td id="returned${status.index}" class="center" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${l.returned}</td>
 											</tr>
 										</c:forEach>
@@ -166,6 +170,7 @@ td {
 		function showModal(status) {
 			$("#apiUrl").val($("#url" + status).text());
 			$("#apiBody").val($("#body" + status).text());
+			$("#apiDateTime").val($("#datetime" + status).text());
 			$("#returned").val($("#returned" + status).text());
 			$("#myModal").modal();
 		}
