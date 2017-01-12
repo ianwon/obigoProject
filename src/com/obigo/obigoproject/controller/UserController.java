@@ -1,24 +1,31 @@
 package com.obigo.obigoproject.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.obigo.obigoproject.log.service.LogService;
 import com.obigo.obigoproject.pushmessage.service.PushMessageService;
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
+import com.obigo.obigoproject.util.obigoUtils;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.obigo.obigoproject.vo.UsersVO;
 
@@ -323,6 +330,48 @@ public class UserController {
 		jobj.put("flag", userVehicleService.checkVinNumber(vin));
 
 		return jobj.toString();
+	}
+	
+	/**
+	 * 캡쳐된 화면 서버 저장
+	 * 
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/imageCreate.ajax", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String createImage(HttpServletRequest request) throws Exception {
+		String binaryData = request.getParameter("imgSrc");
+		FileOutputStream stream = null;
+		ModelAndView mav = new ModelAndView();
+		String fileName = null;
+		try {
+			if (binaryData == null || binaryData == "") {
+				throw new Exception();
+			}
+			binaryData = binaryData.replaceAll("data:image/png;base64,", "");
+			binaryData = binaryData.replaceAll("imgSrc=", "");
+			byte[] file = Base64.decodeBase64(binaryData);
+			fileName = UUID.randomUUID().toString();
+			String saveDir = obigoUtils.getPath() + File.separator + "analytics" + File.separator;
+			File saveDirFile = new File(saveDir);
+			if (!saveDirFile.exists()) {
+				saveDirFile.mkdirs();
+			}
+
+			stream = new FileOutputStream(saveDir + fileName + ".png");
+			stream.write(file);
+			stream.close();
+			System.out.println("파일 작성 완료");
+		} catch (Exception e) {
+			System.out.println("파일이 정상적으로 넘어오지 않았습니다");
+			return fileName;
+		} finally {
+			stream.close();
+		}
+		return fileName;
+
 	}
 
 }
