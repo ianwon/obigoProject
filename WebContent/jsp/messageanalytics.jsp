@@ -35,7 +35,19 @@
 	<section id="container" class="">
 		<section id="main-content">
 			<section class="wrapper site-min-height">
-				<div id="container-graph" style="height: 400px;"></div>
+				<section id="mysection" class="panel" style="width: 800px; margin-left: auto; margin-right: auto;">
+					<div class="panel-body">
+						<!-- -------------- 통계 캡처 이미지 Email 발송 Button start -------------- -->
+						<div class="btn-group pull-right">
+							<button class="btn dropdown-toggle" style="color: white; border-color: #FF6C60; background-color: #FF6C60;" onclick="capture();">
+								Email
+								<i class="fa fa-envelope"></i>
+							</button>
+						</div>
+						<!-- -------------- 통계 캡처 이미지 Email 발송 Button end -------------- -->
+						<div id="container-graph" style="height: 400px;"></div>
+					</div>
+				</section>
 			</section>
 		</section>
 
@@ -69,8 +81,10 @@
 	<!--common script for all pages-->
 	<script src="/obigoProject/js/common-scripts.js"></script>
 
+	<!-- 이미지 캡처 -->
+	<script src="/obigoProject/js/html2canvas.js"></script>
+
 	<script type="text/javascript">
-	
 		// 보내주는 Data로 Graph를 만들어 주는 함수
 		function makeChart(data1) {
 			$(function() {
@@ -85,15 +99,13 @@
 					title : {
 						text : 'Push message Analytics'
 					},
-					subtitle : {
-						text : 'Counting of Push message'
-					},
 					plotOptions : {
 						pie : {
 							innerSize : 100,
 							depth : 45
 						}
 					},
+					exporting : false,
 					series : [ {
 						name : 'Send message counting',
 						data : data1
@@ -117,6 +129,39 @@
 				}
 			});
 		});
+
+		// 통계 그래프를 캡쳐한 이미지를 관리자 이메일로 전송하는 함수
+		function capture() {
+			if (confirm("이메일을 전송하시겠습니까?") == true) {
+				html2canvas($("#mysection"), {
+					onrendered : function(canvas) {
+						document.body.appendChild(canvas);
+						//alert(canvas.toDataURL("image/png"));
+						var img = canvas.toDataURL("image/png")
+
+						$.ajax({
+							type : "post",
+							data : {
+								"imgSrc" : img,
+							},
+							url : "/obigoProject/emailanalytics",
+							error : function(a, b, c) {
+								alert("fail!!");
+							},
+							success : function(data) {
+								if (data.flag == true) {
+									alert("이메일 보내기 성공");
+								} else {
+									alert("이메일 보내기 실패");
+								}
+							}
+						});
+					}
+				});
+			}else{
+				return;
+			}
+		}
 	</script>
 
 </body>
