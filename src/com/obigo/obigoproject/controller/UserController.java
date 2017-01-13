@@ -1,24 +1,40 @@
 package com.obigo.obigoproject.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.obigo.obigoproject.log.service.LogService;
 import com.obigo.obigoproject.pushmessage.service.PushMessageService;
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
+import com.obigo.obigoproject.util.obigoUtils;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.obigo.obigoproject.vo.UsersVO;
 
@@ -37,6 +53,8 @@ public class UserController {
 	LogService logService;
 	@Autowired
 	PushMessageService pushmessageService;
+	@Autowired
+	JavaMailSender mailSender;
 
 	/**
 	 * 회원가입 등록폼을 통해 유저정보를 전달받으면 유저를 등록하고 로그인 페이지로 이동
@@ -201,7 +219,7 @@ public class UserController {
 	@RequestMapping(value = "/insertuservehicle", method = RequestMethod.POST)
 	public String insertUserVehicle(UserVehicleVO vo) {
 		userVehicleService.insertUserVehicle(vo);
-		return "redirect:/userVehicle?userId="+vo.getUserId();
+		return "redirect:/userVehicle?userId=" + vo.getUserId();
 	}
 
 	////////////// Analytics에서 User Vehicle에 대한 통계 ///////////////////////////
@@ -323,6 +341,103 @@ public class UserController {
 		jobj.put("flag", userVehicleService.checkVinNumber(vin));
 
 		return jobj.toString();
+	}
+
+	/**
+	 * 캡쳐된 화면 서버 저장
+	 * 
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/imageCreate.ajax", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String createImage(HttpServletRequest request) throws Exception {
+		String binaryData = request.getParameter("imgSrc");
+		FileOutputStream stream = null;
+		ModelAndView mav = new ModelAndView();
+		String fileName = null;
+		JSONObject jobj = new JSONObject();
+
+		try {
+			if (binaryData == null || binaryData == "") {
+				throw new Exception();
+			}
+			binaryData = binaryData.replaceAll("data:image/png;base64,", "");
+			binaryData = binaryData.replaceAll("imgSrc=", "");
+			byte[] file = Base64.decodeBase64(binaryData);
+			fileName = UUID.randomUUID().toString();
+			String saveDir = obigoUtils.path + File.separator + "analytics" + File.separator;
+			File saveDirFile = new File(saveDir);
+			if (!saveDirFile.exists()) {
+				saveDirFile.mkdirs();
+			}
+
+			stream = new FileOutputStream(saveDir + fileName + ".png");
+			stream.write(file);
+			stream.close();
+			System.out.println("파일 작성 완료");
+
+			// 관리자에게 통계 그래프 캡쳐한 이미지 파일 첨부하여 이메일 보내기
+			sendMail(fileName + ".png");
+			jobj.put("flag", true);
+
+		} catch (Exception e) {
+			System.out.println("파일이 정상적으로 넘어오지 않았습니다");
+			jobj.put("flag", false);
+			return jobj.toString();
+		} finally {
+			stream.close();
+		}
+		return jobj.toString();
+
+	}
+
+	public void sendMail(String fileName) {
+		Calendar calendar1 = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		// 보내는 분의 이메일 주소
+		// String from = obigoUtils.getSendFrom();
+		// 이메일 제목
+		String subject = "Analytics 파일 보내드립니다.";
+
+		System.out.println("스케줄 실행 : " + dateFormat.format(calendar1.getTime()));
+
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			messageHelper.setTo(obigoUtils.sendTo);
+			messageHelper.setFrom(obigoUtils.sendFrom);
+			messageHelper.setSubject(subject); // 메일제목은 생략이 가능하다
+			// messageHelper.addInline("table.pdf", new FileDataSource("c:/pdftest/table.pdf"));
+
+			MimeBodyPart bodypart = new MimeBodyPart();
+			bodypart.setContent("통계 이미지 파일 첨부되었습니다.", "text/html;charset=euc-kr");
+
+			Multipart multipart = new MimeMultipart();
+			multipart.addBodyPart(bodypart);
+
+			String saveDir = obigoUtils.path + "analytics" + File.separator;
+			File saveDirFile = new File(saveDir);
+			String path = obigoUtils.path + "analytics" + File.separator + fileName;
+
+			if (!saveDirFile.exists()) {
+				saveDirFile.mkdirs();
+			}
+			MimeBodyPart attachPart = new MimeBodyPart();
+			// attachPart.setDataHandler(new
+			// DataHandler(attachment,"text/xml"));
+			attachPart.setDataHandler(new DataHandler(new FileDataSource(new File(path))));
+			attachPart.setFileName(fileName); // 파일명
+			multipart.addBodyPart(attachPart);
+			message.setContent(multipart);
+			mailSender.send(message);
+			// mailSender.send(message);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

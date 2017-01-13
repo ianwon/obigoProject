@@ -117,7 +117,8 @@ td {
 													</div>
 													<div class="form-group">
 														<span class="label label-primary">RESPONSE TO SEND</span>
-														<textarea name="Response" id="response" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly" style="font-size: 11px; text-align: left;"></textarea>
+														<textarea name="Response" id="response" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly"
+															style="font-size: 11px; text-align: left;"></textarea>
 													</div>
 												</div>
 											</form>
@@ -131,7 +132,7 @@ td {
 							<!-- ------------------Show Api Modal end--------------- -->
 							<!-- -------------- Api Table start -------------- -->
 							<div class="table-responsive">
-								<table class="table table-striped table-hover table-bordered" id="editable-sample" style="table-layout: fixed; word-break: break-all;" >
+								<table class="table table-striped table-hover table-bordered" id="editable-sample" style="table-layout: fixed; word-break: break-all;">
 									<thead>
 										<tr>
 											<th style="width: 300px;">Api Name</th>
@@ -144,8 +145,8 @@ td {
 
 										<c:forEach var="a" items="${apiList}" begin="0" varStatus="status">
 											<tr class="">
-												<td id="api${status.index}" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${a.apiName}</td>
-												<td id="responseToSend${status.index}" class="center" onclick="javascript:showModal(${status.index});" style="cursor:pointer;">${a.responseToSend}</td>
+												<td id="api${status.index}" onclick="javascript:showModal(${status.index});" style="cursor: pointer;">${a.apiName}</td>
+												<td id="responseToSend${status.index}" class="center" onclick="javascript:showModal(${status.index});" style="cursor: pointer;">${a.responseToSend}</td>
 												<td><a class="Edit" href="javascript:editModal('${a.apiName}','${a.responseToSend}');">Edit</a></td>
 												<td><a class="Delete" href="javascript:deleteApi(${a.apiName});">Delete</a></td>
 											</tr>
@@ -196,6 +197,19 @@ td {
 	</script>
 
 	<script type="text/javascript">
+	
+		// input type="text" 또는 textarea의 양쪽 끝 공백을 제거해주는 함수
+		$('#form-insertapi').submit(function(){
+		      $(this).find('input:text').each(function(){
+		            $(this).val($.trim($(this).val()));
+		      });
+		      
+		      $(this).find('textarea').each(function(){
+		            $(this).val($.trim($(this).val()));
+		      });
+		});
+	
+	
 		// Api Name의 존재 여부를 확인
 		function check() {
 			var apiNameCheck = false;

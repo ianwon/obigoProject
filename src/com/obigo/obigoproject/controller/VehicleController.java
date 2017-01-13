@@ -113,7 +113,7 @@ public class VehicleController {
 	 */
 	@RequestMapping("/vehicleImage")
 	public void vehicleImage(@RequestParam("modelImage") String modelImage, HttpServletResponse response) {
-		String path = obigoUtils.getPath() + "vehicle" + File.separator;
+		String path = obigoUtils.path + "vehicle" + File.separator;
 
 		path += modelImage;
 		FileInputStream fs = null;
@@ -125,7 +125,7 @@ public class VehicleController {
 			response.getOutputStream().write(iconImage);
 		} catch (Exception e1) {
 			try {
-				fs = new FileInputStream(obigoUtils.getPath() + "no_img.gif");
+				fs = new FileInputStream(obigoUtils.path + "no_img.gif");
 				byte[] iconImage = new byte[fs.available()];
 				fs.read(iconImage);
 				response.setContentType("image/jpg");

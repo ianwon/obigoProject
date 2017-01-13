@@ -193,7 +193,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		MultipartFile messageFile = multiRequest.getFile("messageFile");
-		String saveDir = obigoUtils.getPath() + "pushmessage" + File.separator;
+		String saveDir = obigoUtils.path+ "pushmessage" + File.separator;
 		File saveDirFile = new File(saveDir);
 
 		if (!saveDirFile.exists()) {

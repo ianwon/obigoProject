@@ -9,7 +9,7 @@
 <meta name="author" content="Mosaddek">
 <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 <link rel="shortcut icon" type="image/ico" href="/obigoProject/img/favicon.ico">
-<title>Insert title here</title>
+<title>Bundle Update Analytics</title>
 
 <!-- Bootstrap core CSS -->
 <link href="/obigoProject/css/bootstrap.min.css" rel="stylesheet">
@@ -39,7 +39,7 @@
 						<!-- page start-->
 						<div class="col-lg-6" style="width: 1500px">
 							<section class="panel">
-								<header class="panel-heading">사용자 인원통계와 번들 업데이트 횟수</header>
+								<header class="panel-heading">Bundle Update Analytics</header>
 								<div class="panel-body">
 									<div id="hero-graph" class="graph"></div>
 								</div>

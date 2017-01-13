@@ -12,7 +12,7 @@
 <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 <link rel="shortcut icon" type="image/ico" href="/obigoProject/img/favicon.ico">
 
-<title>Insert title here</title>
+<title>User Access Analytics</title>
 <!-- Bootstrap core CSS -->
 <link href="/obigoProject/css/bootstrap.min.css" rel="stylesheet">
 <link href="/obigoProject/css/bootstrap-reset.css" rel="stylesheet">
@@ -26,6 +26,7 @@
 <link href="/obigoProject/css/style-responsive.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet" />
 <!--     <link href="/obigoProject/assets/morris.js-0.4.3/morris.css" rel="stylesheet" /> -->
+
 
 <style type="text/css">
 #myTable_wrapper {
@@ -57,9 +58,16 @@
 								<header class="panel-heading">
 									사용자 접속 통계
 									<span id="head-userid"></span>
+									<!-- -------------- 통계 캡처 이미지 관련 Dropdown Button start -------------- -->
+									<div class="btn-group pull-right">
+										<button class="btn dropdown-toggle" style="color: white; border-color: #6CCAC9; background-color: #6CCAC9;" data-toggle="dropdown" onclick="capture();">
+											Email 
+											<i class="fa fa-envelope"></i>
+										</button>
+									</div>
+									<!-- -------------- 통계 캡처 이미지 관련 Dropdown Button end -------------- -->
 								</header>
 								<div class="panel-body">
-
 									<!-- ------- 사용자 접속 통계의 대상이 되는 년도를 바꾸는 Select Box start ------- -->
 									<form action="/obigoProject/useranalytics" id="frmSelectYear">
 										<label>검색 년도: </label>
@@ -79,6 +87,7 @@
 												</c:otherwise>
 											</c:choose>
 										</select>
+										<input type="hidden" name="imgSrc" id="imgSrc" />
 										<input type="submit" hidden="hidden">
 									</form>
 									<!-- ------- 사용자 접속 통계의 대상이 되는 년도를 바꾸는 Select Box end ------- -->
@@ -144,28 +153,27 @@
 
 	<!--common script for all pages-->
 	<script src="/obigoProject/js/common-scripts.js"></script>
-
+	<script src="/obigoProject/js/html2canvas.js"></script>
 	<!-- script for this page only-->
 	<!-- 		<script src="/obigoProject/js/morris-script.js"></script> -->
 
 	<script type="text/javascript">
 		var table = null;
-		$(document).ready(
-		function() {
+		$(document).ready(function() {
 			// User Search Table 생성해주는 함수 호출
 			createTable();
 			// User를 검색하고 그래프를 생성해주는 함수
 			searchUserId();
-			
+
 		});
 
 		// select dropdown 버튼에서 년도를 선택했을 때 호출되는 함수
 		function changeYear() {
 			document.getElementById("frmSelectYear").submit();
 		}
-		
+
 		// Table을 생성하는 함수
-		function createTable(){
+		function createTable() {
 			// datatables 라이브러리는 사용하는데 table을 사용하기 위해서 initialize 해주는 작업
 			table = $("#myTable").DataTable({
 				"processing" : true,
@@ -206,94 +214,107 @@
 			});
 
 			// table의 row를 클릭했을 때 해당된는 row의 User ID에 대한 Login 통계를 보여주는 함수
-			$("#myTable tbody").on("click", "tr", function() {
-				// 선택이 해제되었을 때 전체 User에 대한 통계를 보여줌
-				if ($(this).hasClass("selected")) {
-					$(this).removeClass("selected");
+			$("#myTable tbody")
+					.on(
+							"click",
+							"tr",
+							function() {
+								// 선택이 해제되었을 때 전체 User에 대한 통계를 보여줌
+								if ($(this).hasClass("selected")) {
+									$(this).removeClass("selected");
 
-					$.ajax({
-						type : "post",
-						url : "/obigoProject/countuserlogin",
-						dataType : "json",
-						async:false,
-						data : {
-							"userId" : "",
-							"selectYear":$('#selectYear option:selected').val()
-						},
-						success : function(data) {
-							setUp(data,"");
-						},
-						error : function(e) {
-							console.log(e);
-						}
-					});
+									$
+											.ajax({
+												type : "post",
+												url : "/obigoProject/countuserlogin",
+												dataType : "json",
+												async : false,
+												data : {
+													"userId" : "",
+													"selectYear" : $(
+															'#selectYear option:selected')
+															.val()
+												},
+												success : function(data) {
+													setUp(data, "");
+												},
+												error : function(e) {
+													console.log(e);
+												}
+											});
 
-				}
-				// 선택할 때, 해당 ID에 대한 통계를 보여줌
-				else {
-					table.$("tr.selected").removeClass("selected");
-					$(this).addClass("selected");
-					var userId = $(this).find("td:eq(0)").text();
+								}
+								// 선택할 때, 해당 ID에 대한 통계를 보여줌
+								else {
+									table.$("tr.selected").removeClass(
+											"selected");
+									$(this).addClass("selected");
+									var userId = $(this).find("td:eq(0)")
+											.text();
 
-					// 선택한 User ID의 월별 Login Count를 얻어오는 AJAX
-					$.ajax({
-						type : "post",
-						url : "/obigoProject/countuserlogin",
-						dataType : "json",
-						async:false,
-						data : {
-							"userId" : userId,
-							"selectYear":$('#selectYear option:selected').val()
-						},
-						success : function(data) {
-							if (userId != "No data available in table") {
-								setUp(data, userId);
-							}
-						},
-						error : function(e) {
-							console.log(e);
-						}
-					});
-				}
-			});
+									// 선택한 User ID의 월별 Login Count를 얻어오는 AJAX
+									$
+											.ajax({
+												type : "post",
+												url : "/obigoProject/countuserlogin",
+												dataType : "json",
+												async : false,
+												data : {
+													"userId" : userId,
+													"selectYear" : $(
+															'#selectYear option:selected')
+															.val()
+												},
+												success : function(data) {
+													if (userId != "No data available in table") {
+														setUp(data, userId);
+													}
+												},
+												error : function(e) {
+													console.log(e);
+												}
+											});
+								}
+							});
 		}
 
 		// Text에 입력한 문자열을 포함하는 User ID의 List를 테이블로 보여준다.
 		function searchUserId() {
 			var mytable = null;
-		    var header =null;
-		    var row = null;
-		    var cell = null;
-			var cellName=["User ID", "Password", "Name", "Email", "Phone", "Role Name", "Date"];
-				
-			if (table) { 
-				table.destroy(); 
-				$('#myTable').empty(); 
-				
+			var header = null;
+			var row = null;
+			var cell = null;
+			var cellName = [ "User ID", "Password", "Name", "Email", "Phone",
+					"Role Name", "Date" ];
+
+			if (table) {
+				table.destroy();
+				$('#myTable').empty();
+
 				// table을 비우고 새롭게 thead를 채워주는 과정
 				mytable = document.getElementById("myTable");
 				header = mytable.createTHead();
 				row = header.insertRow(0);
-				for(var i=0;i<7;i++){
+				for (var i = 0; i < 7; i++) {
 					cell = row.insertCell(i);
-				    cell.innerHTML = cellName[i];
+					cell.innerHTML = cellName[i];
 				}
 			}
-			
+
 			createTable();
-			
+
 			if ($("#searchId").val() == "") {
 				$.ajax({
 					type : "post",
 					url : "/obigoProject/countuserlogin",
 					dataType : "json",
-					async:false,
+					async : false,
 					data : {
 						"userId" : "",
-						"selectYear":$('#selectYear option:selected').val()
+						"selectYear" : $('#selectYear option:selected').val()
 					},
 					success : function(data) {
-						setUp(data,"");
+						setUp(data, "");
 					},
 					error : function(e) {
 						console.log(e);
@@ -304,15 +325,14 @@
 
 		// User Login 통계 그래프를 보여주는 함수
 		function setUp(data, userId) {
-			
-			if(userId==""){
+			if (userId == "") {
 				$("#hero-bar").empty();
 				$("#head-userid").text("[All]");
-			}else {
+			} else {
 				$("#hero-bar").empty();
 				$("#head-userid").text("[ID: " + userId + "]");
 			}
-			
+
 			$(function() {
 				Morris.Bar({
 					element : 'hero-bar',
@@ -363,7 +383,38 @@
 					barColors : [ '#6883a3' ]
 				});
 			});
-		};
+		}
+
+		function capture() {
+			html2canvas($("#morris"), {
+				onrendered : function(canvas) {
+					document.body.appendChild(canvas);
+					//alert(canvas.toDataURL("image/png"));
+					var img = canvas.toDataURL("image/png")
+					$("#imgSrc").val(img);
+
+					$.ajax({
+						type : "post",
+						data : {
+							"imgSrc" : $("#imgSrc").val(),
+						},
+						url : "/obigoProject/imageCreate.ajax",
+						error : function(a, b, c) {
+							alert("fail!!");
+						},
+						success : function(data) {
+							alert(data.flag);
+							if (data.flag == true) {
+								alert("이메일 보내기 성공");
+							} else {
+								alert("이메일 보내기 실패");
+							}
+
+						}
+					});
+				}
+			});
+		}
 	</script>
 </body>
 </html>

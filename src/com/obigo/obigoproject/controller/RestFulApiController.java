@@ -86,7 +86,7 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/bundledown", method = { RequestMethod.GET })
 	@ResponseBody
 	public void bundleDown(HttpServletResponse response) {
-		String path = obigoUtils.getPath() + "bundle" + File.separator + bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload();
+		String path = obigoUtils.path + "bundle" + File.separator + bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload();
 		FileInputStream fs = null;
 
 		// Bundle을 response를 통해서 전송하는 과정
@@ -101,7 +101,7 @@ public class RestFulApiController {
 			response.getOutputStream().write(fileByte);
 		} catch (Exception e1) {
 			try {
-				fs = new FileInputStream(obigoUtils.getPath() + "no_img.gif");
+				fs = new FileInputStream(obigoUtils.path + "no_img.gif");
 				byte[] fileByte = new byte[fs.available()];
 				fs.read(fileByte);
 				response.setContentType("application/octet-stream");
@@ -149,7 +149,7 @@ public class RestFulApiController {
 	@RequestMapping(value = "/api/image/{select}/{imagename:.+}", method = { RequestMethod.GET })
 	@ResponseBody
 	public void image(@PathVariable String select, @PathVariable String imagename, HttpServletResponse response) {
-		String path = obigoUtils.getPath() + select + File.separator;
+		String path = obigoUtils.path + select + File.separator;
 
 		path += imagename;
 		FileInputStream fs = null;
@@ -165,7 +165,7 @@ public class RestFulApiController {
 			try {
 
 				// 해당 Image가 존재하지 않을 경우, 대체 Image를 전송
-				fs = new FileInputStream(obigoUtils.getPath() + "no_img.gif");
+				fs = new FileInputStream(obigoUtils.path + "no_img.gif");
 				byte[] iconImage = new byte[fs.available()];
 				fs.read(iconImage);
 				response.setContentType("image/jpg");
