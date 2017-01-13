@@ -5,13 +5,23 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -74,6 +84,8 @@ public class RestFulApiController {
 	AndroidUserVehicleService androiduservehicleService;
 	@Autowired
 	RegistrationidService registrationidService;
+	@Autowired
+	JavaMailSender mailSender;
 
 	// Log를 기록하기 위해서 로그 정보를 저장하는 VO 객체
 	LogVO vo = new LogVO();
@@ -291,7 +303,8 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * 유저 차량 등록 요청 Api parameter = "data":UserRequestVO Class 정보를 담고 있는 JSON data 로서 아래의 정보를 담고있다 "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역, "vin":고유번호
+	 * 유저 차량 등록 요청 Api parameter = "data":UserRequestVO Class 정보를 담고 있는 JSON data 로서 아래의 정보를 담고있다 "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역,
+	 * "vin":고유번호
 	 * 
 	 * @return "flag" : 등록 여부
 	 */
@@ -437,6 +450,82 @@ public class RestFulApiController {
 			logService.insertLog(vo);
 
 			return "true";
+		}
+	}
+
+	/**
+	 * ID/PW 찾기 Api parameter = "name":user의 name, "email":user의 email 주소
+	 * 
+	 * @return true/false : 입력한 name/email 정보 일치 여부 및 email이 성공적으로 전송될 경우
+	 */
+	@RequestMapping(value = "/api/find", method = RequestMethod.GET)
+	@ResponseBody
+	public String findIDPW(@RequestParam String name, @RequestParam String email) {
+		UsersVO userVO = null;
+
+		vo.setUrl("/api/find");
+		JSONObject jobj = new JSONObject();
+		jobj.put("name", name);
+		jobj.put("email", email);
+		vo.setBody(jobj.toString());
+
+		userVO = userService.findIDPW(name, email);
+		
+		// 해당 ID/email 정보와 동일한 user가 존재하고 Email이 성공적으로 전송될 경우 true
+		// 그렇지 않을 경우 false를 return한다
+		if (userVO != null && sendMail(userVO)) {
+			// Log 정보를 등록하는 과정
+			vo.setReturned("true");
+			logService.insertLog(vo);
+			
+			return "true";
+		} else {
+			// Log 정보를 등록하는 과정
+			vo.setReturned("false");
+			logService.insertLog(vo);
+
+			return "false";
+		}
+	}
+	
+	/**
+	 * Email 전송 Api parameter = "UsersVO": User의 VO
+	 * 
+	 * @return true/false : email이 성공적으로 전송될 경우
+	 */
+	public boolean sendMail(UsersVO userVO) {
+		Calendar calendar1 = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String subject = userVO.getName() + "님의 ID/PW를 알려드립니다!";
+
+		System.out.println("스케줄 실행 : " + dateFormat.format(calendar1.getTime()));
+
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			messageHelper.setTo(userVO.geteMail());
+			messageHelper.setFrom(obigoUtils.sendFrom);
+			messageHelper.setSubject(subject); // 메일제목은 생략이 가능하다
+
+			MimeBodyPart bodypart = new MimeBodyPart();
+			StringBuilder mailBody = new StringBuilder();
+			mailBody.append("===== " + userVO.getName() + "님 =====<br>");
+			mailBody.append("[User ID : " + userVO.getUserId() + "]<br>");
+			mailBody.append("[User PW: " + userVO.getPassword() + "]");
+
+			bodypart.setContent(mailBody.toString(), "text/html;charset=euc-kr");
+
+			Multipart multipart = new MimeMultipart();
+			multipart.addBodyPart(bodypart);
+
+			message.setContent(multipart);
+			mailSender.send(message);
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 

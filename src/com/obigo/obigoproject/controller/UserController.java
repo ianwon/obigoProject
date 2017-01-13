@@ -350,7 +350,7 @@ public class UserController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/imageCreate.ajax", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/emailanalytics", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String createImage(HttpServletRequest request) throws Exception {
 		String binaryData = request.getParameter("imgSrc");

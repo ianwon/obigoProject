@@ -215,7 +215,6 @@ public class MoveController {
 			model.addAttribute("resourceList", resourcelist);
 		}
 
-
 		return "/jsp/resource";
 
 	}
@@ -310,13 +309,14 @@ public class MoveController {
 	 * @return 로그 관리 페이지
 	 */
 	@RequestMapping("/log")
-	public String moveLog(Model model) {
+	public String moveLog(@RequestParam("page") int page, Model model) {
 		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
 
-		List<LogVO> list = logService.getLogList();
+		List<LogVO> list = logService.getLogListPaging(page);
 		model.addAttribute("logList", list);
+		model.addAttribute("pageList", logService.getPageList(page));
 		return "/jsp/log";
 	}
 
@@ -335,15 +335,15 @@ public class MoveController {
 		List<UserVehicleVO> userVehicleList = userVehicleService.getUserVehicleList(userId);
 		model.addAttribute("userVehicleList", userVehicleList);
 		List<VehicleVO> vehicleList = new ArrayList<>();
-		List<VehicleVO> vehicleModelList=vehicleService.getVehicleList();
-		
+		List<VehicleVO> vehicleModelList = vehicleService.getVehicleList();
+
 		for (int i = 0; i < userVehicleList.size(); i++) {
 			vehicleList.add(vehicleService.getVehicle(userVehicleList.get(i).getModelCode()));
 		}
 
 		model.addAttribute("vehicleList", vehicleList);
 		model.addAttribute("vehicleModelList", vehicleModelList);
-		
+
 		return "/jsp/uservehicle";
 
 	}

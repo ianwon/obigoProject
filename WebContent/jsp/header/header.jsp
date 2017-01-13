@@ -148,7 +148,7 @@
 					<li class="sub-menu"><a href="javascript:;"> <i class=" fa fa-list-ol"></i> <span>Logs Management</span>
 					</a>
 						<ul class="sub">
-							<li><a href="/obigoProject/log">Log</a></li>
+							<li><a href="/obigoProject/log?page=1">Log</a></li>
 						</ul></li>
 					<li class="sub-menu"><a href="javascript:;"> <i class=" fa fa-bar-chart-o"></i> <span>Analytics</span>
 					</a>
