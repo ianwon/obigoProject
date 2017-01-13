@@ -63,4 +63,9 @@ public class LogDaoImpl implements LogDao {
 		return sqlSession.selectOne("obigoproject.Log.selectBundleUpdateCount", map);
 	}
 
+	@Override
+	public List<LogVO> getLogListPaging(Map<String,Integer> map) {
+		return sqlSession.selectList("obigoproject.Log.selectLogListPaging", map);
+	}
+
 }
