@@ -60,6 +60,10 @@
 		select * from Users where id = #{userId}
 	</select>
 
+	<select id="selectIDPW" parameterType="hashmap" resultMap="UsersResultMap">
+		select * from Users where name = #{name} and email=#{email} and role_name='USER'
+	</select>
+
 	<select id="selectRegistrationIdByLocation" parameterType="java.lang.String"
 		resultType="java.lang.String">
    <![CDATA[SELECT U.REGISTRATION_ID FROM USERS U JOIN USER_VEHICLE UV ON U.ID = UV.USER_ID WHERE UV.LOCATION =#{location}]]>

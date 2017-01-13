@@ -37,5 +37,8 @@ public interface UserService {
 	public List<Integer> getMonthUserCount();
 	
 	public List<Integer> getMonthUserCount2();
+	
+	// 사용자가 ID/PW를 찾고자 할 때 요청한 이름과 email 주소를 검증후, email 주소로 ID/PW를 전송 
+	public UsersVO findIDPW(String name, String email);
 
 }

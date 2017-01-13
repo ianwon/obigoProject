@@ -38,8 +38,18 @@
 					<div class="row">
 						<!-- page start-->
 						<div class="col-lg-6" style="width: 1500px">
-							<section class="panel">
-								<header class="panel-heading">Bundle Update Analytics</header>
+							<section id="mysection" class="panel">
+								<header class="panel-heading">
+									Bundle Update Analytics
+									<!-- -------------- 통계 캡처 이미지 Email 발송 Button start -------------- -->
+									<div class="btn-group pull-right">
+										<button class="btn dropdown-toggle" style="color: white; border-color: #FF6C60; background-color: #FF6C60;" onclick="capture();">
+											Email
+											<i class="fa fa-envelope"></i>
+										</button>
+									</div>
+									<!-- -------------- 통계 캡처 이미지 Email 발송 Button end -------------- -->
+								</header>
 								<div class="panel-body">
 									<div id="hero-graph" class="graph"></div>
 								</div>
@@ -75,11 +85,11 @@
 	<!--common script for all pages-->
 	<script src="/obigoProject/js/common-scripts.js"></script>
 
-	<!-- script for this page only-->
-	<!-- 		<script src="/obigoProject/js/morris-script.js"></script> -->
+	<!-- 이미지 캡처 -->
+	<script src="/obigoProject/js/html2canvas.js"></script>
 
 	<script>
-		var Script = setUp(${bundleUpdateList},${userCountList},${period})	
+		var Script = setUp(${bundleUpdateList},${userCountList},${period});	
 		
 		//morris chart - 8개월 전부터 현재까지의 User의 숫자와 Bundle Update 숫자를 비교해주는 Graph
 		function setUp(bundle,user,period){
@@ -137,7 +147,41 @@
 					lineColors : [ '#8075c4', '#6883a3' ]
 				});
 			});
-		};
+		}
+		
+		// 통계 그래프를 캡쳐한 이미지를 관리자 이메일로 전송하는 함수
+		function capture() {
+			if (confirm("이메일을 전송하시겠습니까?") == true) {
+			html2canvas($("#mysection"), {
+				onrendered : function(canvas) {
+					document.body.appendChild(canvas);
+					//alert(canvas.toDataURL("image/png"));
+					var img = canvas.toDataURL("image/png")
+
+					$.ajax({
+						type : "post",
+						data : {
+							"imgSrc" : img,
+						},
+						url : "/obigoProject/emailanalytics",
+						error : function(a, b, c) {
+							alert("fail!!");
+						},
+						success : function(data) {
+							if (data.flag == true) {
+								alert("이메일 보내기 성공");
+							} else {
+								alert("이메일 보내기 실패");
+							}
+						}
+					});
+				}
+			});
+			} else {
+				return;
+			}
+		}
+		
 	</script>
 
 

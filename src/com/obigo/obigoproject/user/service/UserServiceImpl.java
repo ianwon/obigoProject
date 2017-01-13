@@ -153,4 +153,13 @@ public class UserServiceImpl implements UserService {
 		}
 		return list;
 	}
+	
+	@Override
+	public UsersVO findIDPW(String name, String email){
+		Map<String, String> map=new HashMap<>();
+		map.put("name", name);
+		map.put("email", email);
+		
+		return userDao.findIDPW(map);
+	}
 }

@@ -102,4 +102,45 @@ public class LogServiceImpl implements LogService {
 		return list;
 	}
 
+	static int pageSize = 15;
+
+	@Override
+	public List<LogVO> getLogListPaging(int page) {
+		int logCount = logDao.getLogCount();
+		Map<String, Integer> map = new HashMap<>();
+		map.put("endNum", pageSize * page);
+		map.put("startNum", map.get("endNum") - pageSize + 1);
+		if (logCount < map.get("startNum"))
+			map.put("startNum", logCount);
+		return logDao.getLogListPaging(map);
+	}
+
+	@Override
+	public List<Integer> getPageList(int page) {
+		List<Integer> list = new ArrayList<>();
+		int logCount = logDao.getLogCount();
+		int start = 0;
+		int endNum = 0;
+
+		if (logCount % pageSize > 0)
+			endNum = (logCount / pageSize) + 1;
+		else
+			endNum = logCount / pageSize;
+
+		if (page < 6) {
+			start = 1;
+		} else {
+			if (endNum - 9 < page)
+				start = endNum - 9;
+			else
+				start = page - 5;
+		}
+
+		for (int i = 0; i < 10; i++) {
+			list.add(start++);
+		}
+
+		return list;
+	}
+
 }
