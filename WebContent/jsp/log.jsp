@@ -130,7 +130,7 @@ td {
 
 				<div class="text-center">
 					<ul class="pagination">
-						<li><a href="javascript:frontButton()">«</a></li>
+						<li><a href="javascript:frontButton('${endPageNum}')">«</a></li>
 						<c:forEach var="l" items="${pageList}" begin="0" varStatus="status">
 							<li id="page${status.index}" value="${l}"><a href="javascript:movePage('${l}')">${l}</a></li>
 						</c:forEach>
@@ -215,11 +215,16 @@ td {
 			document.location.href = "/obigoProject/log?page=" + page;
 		}
 	
-		function frontButton() {
+		function frontButton(endNum) {
 			var val = $("#page0").val() - 10;
 			if (val < 1)
 				val = 1;
 			$("#page0").val(val);
+			if (endNum < 10) {
+				for (var i = 0; i < endNum; i++) {
+					document.getElementById("page" + i).innerHTML = "<a href='javascript:movePage(" + (i + 1) + ")'>" + (i + 1) + "</a>"
+				}
+			}
 			document.getElementById("page0").innerHTML = "<a href='javascript:movePage(" + val + ")'>" + val + "</a>"
 			document.getElementById("page1").innerHTML = "<a href='javascript:movePage(" + (val + 1) + ")'>" + (val + 1) + "</a>"
 			document.getElementById("page2").innerHTML = "<a href='javascript:movePage(" + (val + 2) + ")'>" + (val + 2) + "</a>"
