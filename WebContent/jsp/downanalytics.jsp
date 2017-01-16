@@ -143,7 +143,7 @@
 					data : tax_data,
 					xkey : 'period',
 					ykeys : [ 'USERS', 'BUNDLE UPDATE' ],
-					labels : [ 'users', 'budle update' ],
+					labels : [ 'users', 'bundle update' ],
 					lineColors : [ '#8075c4', '#6883a3' ]
 				});
 			});
@@ -165,7 +165,7 @@
 						},
 						url : "/obigoProject/emailanalytics",
 						error : function(a, b, c) {
-							alert("fail!!");
+							alert("이메일 보내기 실패");
 						},
 						success : function(data) {
 							if (data.flag == true) {

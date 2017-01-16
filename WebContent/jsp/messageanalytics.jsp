@@ -146,7 +146,7 @@
 							},
 							url : "/obigoProject/emailanalytics",
 							error : function(a, b, c) {
-								alert("fail!!");
+								alert("이메일 보내기 실패");
 							},
 							success : function(data) {
 								if (data.flag == true) {
