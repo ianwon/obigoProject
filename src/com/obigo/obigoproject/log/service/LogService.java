@@ -28,4 +28,6 @@ public interface LogService {
 	public List<LogVO> getLogListPaging(int page);
 	
 	public List<Integer> getPageList(int page);
+	
+	public int getEndPageNum();
 }

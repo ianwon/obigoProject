@@ -317,6 +317,7 @@ public class MoveController {
 		List<LogVO> list = logService.getLogListPaging(page);
 		model.addAttribute("logList", list);
 		model.addAttribute("pageList", logService.getPageList(page));
+		model.addAttribute("endPageNum", logService.getEndPageNum());
 		return "/jsp/log";
 	}
 
