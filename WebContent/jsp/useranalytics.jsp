@@ -56,7 +56,7 @@
 						<div class="col-lg-6" style="width: 1500px;">
 							<section class="panel">
 								<header class="panel-heading">
-									사용자 접속 통계
+									User Access Analytics &nbsp;
 									<span id="head-userid"></span>
 									<!-- -------------- 통계 캡처 이미지 Email 발송 Button start -------------- -->
 									<div class="btn-group pull-right">
@@ -70,20 +70,20 @@
 								<div class="panel-body">
 									<!-- ------- 사용자 접속 통계의 대상이 되는 년도를 바꾸는 Select Box start ------- -->
 									<form action="/obigoProject/useranalytics" id="frmSelectYear">
-										<label>검색 년도: </label>
+										<label>Year : </label>
 										&nbsp; &nbsp; <select id="selectYear" name="selectYear" onchange="changeYear()">
 											<c:choose>
 												<c:when test="${param.selectYear==nowYear}">
-													<option value="${nowYear}" selected>${nowYear}년</option>
-													<option value="${nowYear-1}">${nowYear-1}년</option>
+													<option value="${nowYear}" selected>${nowYear}</option>
+													<option value="${nowYear-1}">${nowYear-1}</option>
 												</c:when>
 												<c:when test="${param.selectYear==nowYear-1}">
-													<option value="${nowYear}">${nowYear}년</option>
-													<option value="${nowYear-1}" selected>${nowYear-1}년</option>
+													<option value="${nowYear}">${nowYear}</option>
+													<option value="${nowYear-1}" selected>${nowYear-1}</option>
 												</c:when>
 												<c:otherwise>
-													<option value="${nowYear}" selected>${nowYear}년</option>
-													<option value="${nowYear-1}">${nowYear-1}년</option>
+													<option value="${nowYear}" selected>${nowYear}</option>
+													<option value="${nowYear-1}">${nowYear-1}</option>
 												</c:otherwise>
 											</c:choose>
 										</select>
@@ -319,10 +319,10 @@
 		function setUp(data, userId) {
 			if (userId == "") {
 				$("#hero-bar").empty();
-				$("#head-userid").text("[All]");
+				$("#head-userid").text("[ All ]");
 			} else {
 				$("#hero-bar").empty();
-				$("#head-userid").text("[ID: " + userId + "]");
+				$("#head-userid").text("[ ID: " + userId + " ]");
 			}
 
 			$(function() {
