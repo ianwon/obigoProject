@@ -32,7 +32,7 @@
 	</select>
 	<select id="selectLogListPaging" resultMap="LogResultMap">
 		<![CDATA[
-			select * from (select ROWNUM as rnum, l.* from (select * from log order by date_time desc)l) where rnum between #{startNum} and #{endNum} order by rnum
+			select TO_CHAR(DATE_TIME,'yyyy/mm/dd hh24:mi:ss')DATE_TIME, BODY, URL, RETURN from (select ROWNUM as rnum, l.* from (select * from log order by date_time desc)l) where rnum between #{startNum} and #{endNum} order by rnum
 		]]>
 	</select>
 

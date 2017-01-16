@@ -213,25 +213,34 @@ td {
 		// Api Name의 존재 여부를 확인
 		function check() {
 			var apiNameCheck = false;
-			$.ajax({
-				type : "post",
-				url : "/obigoProject/apinamecheck",
-				dataType : "json",
-				async : false,
-				data : {
-					"apiName" : $("#insertApiName").val()
-				},
-				success : function(data) {
-					if (data.flag === false) {
-						alert("존재하는 Api Name입니다.");
-					} else {
-						alert("Api 생성에 성공하였습니다.");
-						apiNameCheck = true;
+			var str_space = /\s/;  // 공백체크
+			
+		    if(str_space.test($("#insertApiName").val())) { //공백 체크
+		        alert("해당 항목에는 공백을 사용할수 없습니다");
+		        apiNameCheck = false;
+		    }
+		    else{
+				$.ajax({
+					type : "post",
+					url : "/obigoProject/apinamecheck",
+					dataType : "json",
+					async : false,
+					data : {
+						"apiName" : $("#insertApiName").val()
+					},
+					success : function(data) {
+						if (data.flag === false) {
+							alert("존재하는 Api Name입니다.");
+						} else {
+							alert("Api 생성에 성공하였습니다.");
+							apiNameCheck = true;
+						}
 					}
-				}
-			});
+				});
+		    }
 			return apiNameCheck;
 		}
+		
 		// show Modal을 띄워주기 위함 함수
 		function showModal(status) {
 			$("#apiName").val($("#api" + status).text());
