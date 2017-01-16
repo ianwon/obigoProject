@@ -143,4 +143,15 @@ public class LogServiceImpl implements LogService {
 		return list;
 	}
 
+	@Override
+	public int getEndPageNum() {
+		int count = logDao.getLogCount();
+		int endPageNum = 0;
+		if (count / pageSize == 0)
+			endPageNum = count / pageSize;
+		else
+			endPageNum = (count / pageSize) + 1;
+		return endPageNum;
+	}
+
 }
