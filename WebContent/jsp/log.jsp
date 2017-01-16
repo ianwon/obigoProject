@@ -93,7 +93,7 @@ td {
 						<!-- -------------- Log Table start -------------- -->
 						<div class="panel-body">
 							<section id="flip-scroll">
-								<table class="table table-bordered table-striped table-condensed cf">
+								<table class="table table-bordered table-striped table-condensed cf" style="table-layout: fixed; word-break: break-all;">
 									<thead class="cf">
 										<tr>
 											<th>Url</th>
