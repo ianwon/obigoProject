@@ -136,8 +136,15 @@ public class LogServiceImpl implements LogService {
 				start = page - 5;
 		}
 
-		for (int i = 0; i < 10; i++) {
-			list.add(start++);
+		if (endNum > 9) {
+			if (endNum - 4 < page)
+				start = endNum - 9;
+			for (int i = 0; i < 10; i++) {
+				list.add(start++);
+			}
+		} else {
+			for (int i = 0; i < endNum; i++)
+				list.add((i++) + 1);
 		}
 
 		return list;
