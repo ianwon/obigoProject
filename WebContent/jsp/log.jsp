@@ -134,7 +134,7 @@ td {
 						<c:forEach var="l" items="${pageList}" begin="0" varStatus="status">
 							<li id="page${status.index}" value="${l}"><a href="javascript:movePage('${l}')">${l}</a></li>
 						</c:forEach>
-						<li><a href="javascript:backButton()">»</a></li>
+						<li><a href="javascript:backButton('${endPageNum}')">»</a></li>
 					</ul>
 				</div>
 			</section>
@@ -231,21 +231,33 @@ td {
 			document.getElementById("page8").innerHTML = "<a href='javascript:movePage(" + (val + 8) + ")'>" + (val + 8) + "</a>"
 			document.getElementById("page9").innerHTML = "<a href='javascript:movePage(" + (val + 9) + ")'>" + (val + 9) + "</a>"
 		}
-		function backButton() {
+		function backButton(endNum) {
 			var val = $("#page0").val() + 10;
-			if (val < 1)
-				val = 1;
-			$("#page0").val(val);
-			document.getElementById("page0").innerHTML = "<a href='javascript:movePage(" + val + ")'>" + val + "</a>"
-			document.getElementById("page1").innerHTML = "<a href='javascript:movePage(" + (val + 1) + ")'>" + (val + 1) + "</a>"
-			document.getElementById("page2").innerHTML = "<a href='javascript:movePage(" + (val + 2) + ")'>" + (val + 2) + "</a>"
-			document.getElementById("page3").innerHTML = "<a href='javascript:movePage(" + (val + 3) + ")'>" + (val + 3) + "</a>"
-			document.getElementById("page4").innerHTML = "<a href='javascript:movePage(" + (val + 4) + ")'>" + (val + 4) + "</a>"
-			document.getElementById("page5").innerHTML = "<a href='javascript:movePage(" + (val + 5) + ")'>" + (val + 5) + "</a>"
-			document.getElementById("page6").innerHTML = "<a href='javascript:movePage(" + (val + 6) + ")'>" + (val + 6) + "</a>"
-			document.getElementById("page7").innerHTML = "<a href='javascript:movePage(" + (val + 7) + ")'>" + (val + 7) + "</a>"
-			document.getElementById("page8").innerHTML = "<a href='javascript:movePage(" + (val + 8) + ")'>" + (val + 8) + "</a>"
-			document.getElementById("page9").innerHTML = "<a href='javascript:movePage(" + (val + 9) + ")'>" + (val + 9) + "</a>"
+			if (val > endNum - 9) {
+				$("#page0").val(endNum - 9);
+				document.getElementById("page0").innerHTML = "<a href='javascript:movePage(" + (endNum - 9) + ")'>" + (endNum - 9) + "</a>"
+				document.getElementById("page1").innerHTML = "<a href='javascript:movePage(" + (endNum - 8) + ")'>" + (endNum - 8) + "</a>"
+				document.getElementById("page2").innerHTML = "<a href='javascript:movePage(" + (endNum - 7) + ")'>" + (endNum - 7) + "</a>"
+				document.getElementById("page3").innerHTML = "<a href='javascript:movePage(" + (endNum - 6) + ")'>" + (endNum - 6) + "</a>"
+				document.getElementById("page4").innerHTML = "<a href='javascript:movePage(" + (endNum - 5) + ")'>" + (endNum - 5) + "</a>"
+				document.getElementById("page5").innerHTML = "<a href='javascript:movePage(" + (endNum - 4) + ")'>" + (endNum - 4) + "</a>"
+				document.getElementById("page6").innerHTML = "<a href='javascript:movePage(" + (endNum - 3) + ")'>" + (endNum - 3) + "</a>"
+				document.getElementById("page7").innerHTML = "<a href='javascript:movePage(" + (endNum - 2) + ")'>" + (endNum - 2) + "</a>"
+				document.getElementById("page8").innerHTML = "<a href='javascript:movePage(" + (endNum - 1) + ")'>" + (endNum - 1) + "</a>"
+				document.getElementById("page9").innerHTML = "<a href='javascript:movePage(" + (endNum) + ")'>" + (endNum) + "</a>"
+			} else {
+				$("#page0").val(val);
+				document.getElementById("page0").innerHTML = "<a href='javascript:movePage(" + val + ")'>" + val + "</a>"
+				document.getElementById("page1").innerHTML = "<a href='javascript:movePage(" + (val + 1) + ")'>" + (val + 1) + "</a>"
+				document.getElementById("page2").innerHTML = "<a href='javascript:movePage(" + (val + 2) + ")'>" + (val + 2) + "</a>"
+				document.getElementById("page3").innerHTML = "<a href='javascript:movePage(" + (val + 3) + ")'>" + (val + 3) + "</a>"
+				document.getElementById("page4").innerHTML = "<a href='javascript:movePage(" + (val + 4) + ")'>" + (val + 4) + "</a>"
+				document.getElementById("page5").innerHTML = "<a href='javascript:movePage(" + (val + 5) + ")'>" + (val + 5) + "</a>"
+				document.getElementById("page6").innerHTML = "<a href='javascript:movePage(" + (val + 6) + ")'>" + (val + 6) + "</a>"
+				document.getElementById("page7").innerHTML = "<a href='javascript:movePage(" + (val + 7) + ")'>" + (val + 7) + "</a>"
+				document.getElementById("page8").innerHTML = "<a href='javascript:movePage(" + (val + 8) + ")'>" + (val + 8) + "</a>"
+				document.getElementById("page9").innerHTML = "<a href='javascript:movePage(" + (val + 9) + ")'>" + (val + 9) + "</a>"
+			}
 		}
 	</script>
 
