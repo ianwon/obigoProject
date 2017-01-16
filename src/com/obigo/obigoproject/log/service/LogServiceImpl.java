@@ -130,7 +130,7 @@ public class LogServiceImpl implements LogService {
 		if (page < 6) {
 			start = 1;
 		} else {
-			if (endNum - 9 < page)
+			if (endNum - 4 < page)
 				start = endNum - 9;
 			else
 				start = page - 5;
