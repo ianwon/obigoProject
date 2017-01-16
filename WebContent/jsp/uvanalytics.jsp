@@ -101,6 +101,9 @@
 								title : {
 									text : 'User Vehicle Analytics'
 								},
+								credits:{
+									enabled:false
+								},
 								tooltip : {
 									pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
 								},
