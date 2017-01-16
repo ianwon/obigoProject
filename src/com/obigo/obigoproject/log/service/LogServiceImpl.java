@@ -144,7 +144,7 @@ public class LogServiceImpl implements LogService {
 			}
 		} else {
 			for (int i = 0; i < endNum; i++)
-				list.add((i++) + 1);
+				list.add(i + 1);
 		}
 
 		return list;
