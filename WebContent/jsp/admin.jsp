@@ -33,7 +33,7 @@
 												<h4 class="modal-title">Update Admin</h4>
 											</div>
 											<div class="modal-body">
-												<form id="form-update" class="form-signin" action="/obigoProject/updateuser" method="POST">
+												<form id="form-update" class="form-signin" onsubmit="return checkUpdate()" action="/obigoProject/updateuser" method="POST">
 													<div class="login-wrap">
 														<div class="form-group">
 															<span class="label label-primary">ADMIN ID</span>
@@ -44,8 +44,12 @@
 															<input type="text" name="name" id="editname" class="form-control" placeholder="Full Name" readonly="readonly" value="${userName}">
 														</div>
 														<div class="form-group">
+															<span class="label label-primary">Password</span>
+															<input type="text" name="password" id="editpassword" class="form-control" autofocus="autofocus" placeholder="Password" required="required">
+														</div>
+														<div class="form-group">
 															<span class="label label-primary">EMAIL</span>
-															<input type="email" name="eMail" id="editeMail" class="form-control" placeholder="Email" autofocus required="required">
+															<input type="email" name="eMail" id="editeMail" class="form-control" placeholder="Email" required="required">
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">PHONE</span>
@@ -85,7 +89,7 @@
 												<td>${u.name}</td>
 												<td>${u.eMail}</td>
 												<td>${u.phone}</td>
-												<td><a class="update" href="javascript:update('${u.phone}','${u.eMail}','${u.name}','${u.userId }')">Edit</a></td>
+												<td><a class="update" href="javascript:update('${u.phone}','${u.eMail}','${u.name}','${u.userId }', '${u.password}')">Edit</a></td>
 												<td><a class="del" href="javascript:del('${u.userId}')">Delete</a></td>
 											</tr>
 										</c:forEach>
@@ -147,6 +151,17 @@
 			}
 		}
 		
+		// Admin 정보를 update할 때 password가 조건에 맞는지 체크후 submit 여부 결정
+		function checkUpdate() {
+			var reg_pwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+			if (!reg_pwd.test($("#editpassword").val())) {
+				alert("비밀번호는 영문,숫자를 혼합하여 6~20자 이내이어야 합니다.");
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
 		// Admin 삭제 버튼 클릭 시 호출 되는 함수
 		function del(data) {
 			if (confirm("삭제 하시겠습니까?") == true) {
@@ -165,10 +180,11 @@
 		}
 		
 		// Admin 수정 버튼을 클릭 했을 때 Modal을 띄워주는 함수
-		function update(phone, eMail, name, userId) {
+		function update(phone, eMail, name, userId, password) {
 			$("#editphone").val(phone);
 			$("#editeMail").val(eMail);
 			$("#editname").val(name);
+			$("#editpassword").val(password);
 			$("#edituserId").val(userId);
 			$("#editModal").modal();
 		}
