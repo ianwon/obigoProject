@@ -210,7 +210,7 @@ public class RestFulApiController {
 		jobj.put("imagename", imagename);
 		vo.setUrl("/api/image");
 		vo.setBody(jobj.toString());
-		vo.setReturned("null");
+		vo.setReturned("/api/image/" + select + "/" + imagename);
 		logService.insertLog(vo);
 	}
 
@@ -315,7 +315,7 @@ public class RestFulApiController {
 		UserRequestVO vo = mapper.readValue(data, UserRequestVO.class);
 
 		this.vo.setUrl("/api/userrequest");
-		this.vo.setBody("null");
+		this.vo.setBody(data);
 
 		if (userRequestService.insertUserRequest(vo) == true) {
 			// Log 정보를 등록하는 과정
@@ -379,15 +379,18 @@ public class RestFulApiController {
 	 * 
 	 * @return JSON Array : 차량정보들을 JSON Data로 보내줌
 	 */
-	@RequestMapping(value = "/api/vehicle", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/api/vehicle/{userId}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String getVehicleList() {
+	public String getVehicleList(@PathVariable String userId) {
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(vehicleService.getVehicleList());
 
+		JSONObject jobj = new JSONObject();
+		jobj.put("userId", userId);
+		
 		// Log 정보를 등록하는 과정
 		vo.setUrl("/api/vehicle");
-		vo.setBody("null");
+		vo.setBody(jobj.toString());
 		vo.setReturned(jsonArray.toString());
 		logService.insertLog(vo);
 
