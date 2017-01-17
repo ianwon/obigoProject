@@ -632,6 +632,11 @@ public class RestFulApiController {
 		return jsonarray.toString();
 	}
 
+	/**
+	 * Error Log Api parameter = "url":Error가 발생한 URL  
+	 * 
+	 * @return 
+	 */
 	@RequestMapping(value = "/api/errorlog/{url}", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public void errorLog(@PathVariable String url, @RequestBody String body) {
