@@ -379,7 +379,7 @@ public class RestFulApiController {
 	 * 
 	 * @return JSON Array : 차량정보들을 JSON Data로 보내줌
 	 */
-	@RequestMapping(value = "/api/vehicle", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/api/vehicle/{userId}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String getVehicleList(@PathVariable String userId) {
 		JSONArray jsonArray = new JSONArray();
