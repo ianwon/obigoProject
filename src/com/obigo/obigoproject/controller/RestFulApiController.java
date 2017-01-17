@@ -495,13 +495,14 @@ public class RestFulApiController {
 	 */
 	@RequestMapping(value = "/api/passwordupdate", method = RequestMethod.PUT)
 	@ResponseBody
-	public String updatePassword(@RequestParam String userid, @RequestParam String password) {
+	public String updatePassword(@RequestParam String userid, @RequestParam String password, @RequestParam String newpassword) {
 		JSONObject jobj = new JSONObject();
 		jobj.put("userid", userid);
 		jobj.put("password", password);
+		jobj.put("newpassword", newpassword);
 		vo.setBody(jobj.toString());
 		
-		if (userService.updatePassword(userid, password) == true) {
+		if (userService.updatePassword(userid, password, newpassword) == true) {
 			vo.setReturned("true");
 			logService.insertLog(vo);
 			
@@ -608,7 +609,7 @@ public class RestFulApiController {
 			vo.setReturned("false");
 			logService.insertLog(vo);
 
-			return "false";
+			return "true";
 		}
 	}
 
