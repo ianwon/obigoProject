@@ -162,4 +162,19 @@ public class UserServiceImpl implements UserService {
 		
 		return userDao.findIDPW(map);
 	}
+
+	@Override
+	public boolean updatePassword(String userId, String password) {
+		Map<String, String> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("password", "password");
+		
+		int resultcount = userDao.updatePassword(map);
+		if (resultcount == 1)
+			return true;
+		else
+			return false;
+	}
+
+
 }
