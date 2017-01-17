@@ -489,33 +489,6 @@ public class RestFulApiController {
 	}
 	
 	/**
-	 * PW 변경 Api parameter = "userId":user의 ID, "password":user의 Password
-	 * 
-	 * @return true/false : 비밀번호 변경 성공 실패 여부
-	 */
-	@RequestMapping(value = "/api/passwordupdate", method = RequestMethod.PUT)
-	@ResponseBody
-	public String updatePassword(@RequestParam String userid, @RequestParam String password) {
-		JSONObject jobj = new JSONObject();
-		jobj.put("userid", userid);
-		jobj.put("password", password);
-		vo.setBody(jobj.toString());
-		
-		if (userService.updatePassword(userid, password) == true) {
-			vo.setReturned("true");
-			logService.insertLog(vo);
-			
-			return "true";
-		} else {
-			vo.setReturned("false");
-			logService.insertLog(vo);
-			
-			return "false";
-		}
-	}
-	
-	
-	/**
 	 * Email 전송 Api parameter = "UsersVO": User의 VO
 	 * 
 	 * @return true/false : email이 성공적으로 전송될 경우

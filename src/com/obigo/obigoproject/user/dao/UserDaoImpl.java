@@ -80,12 +80,4 @@ public class UserDaoImpl implements UserDao {
 		return sqlsession.selectOne("obigoproject.User.selectIDPW", map);
 	}
 
-	// 사용자가 비밀번호를 변경
-	@Override
-	public int updatePassword(Map<String, String> map) {
-		return sqlsession.update("obigoproject.User.updatePassword", map);
-	}
-
-
-
 }
