@@ -99,6 +99,9 @@
 					title : {
 						text : 'Push message Analytics'
 					},
+					credits:{
+						enabled:false
+					},
 					plotOptions : {
 						pie : {
 							innerSize : 100,
