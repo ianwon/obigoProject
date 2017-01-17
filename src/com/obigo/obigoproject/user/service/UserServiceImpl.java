@@ -164,10 +164,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean updatePassword(String userId, String password) {
+	public boolean updatePassword(String userId, String password, String newpassword) {
 		Map<String, String> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("password", "password");
+		map.put("newpassword", newpassword);
 		
 		int resultcount = userDao.updatePassword(map);
 		if (resultcount == 1)

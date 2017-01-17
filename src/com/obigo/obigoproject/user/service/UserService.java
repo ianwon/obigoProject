@@ -41,6 +41,6 @@ public interface UserService {
 	public UsersVO findIDPW(String name, String email);
 
 	// 사용자가 비밀번호를 변경
-	public boolean updatePassword(String userId, String password);
+	public boolean updatePassword(String userId, String password, String newpassword);
 
 }
