@@ -1,7 +1,6 @@
 package com.obigo.obigoproject.user.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.obigo.obigoproject.vo.UsersVO;
 
@@ -40,5 +39,8 @@ public interface UserService {
 	
 	// 사용자가 ID/PW를 찾고자 할 때 요청한 이름과 email 주소를 검증후, email 주소로 ID/PW를 전송 
 	public UsersVO findIDPW(String name, String email);
+
+	// 사용자가 비밀번호를 변경
+	public boolean updatePassword(String userId, String password);
 
 }
