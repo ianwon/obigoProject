@@ -28,7 +28,7 @@ public class LogServiceImpl implements LogService {
 
 	@Override
 	public boolean deleteAllLog() {
-		int count = logDao.getLogCount();
+		int count = logDao.getLogCount(null);
 		int result = logDao.deleteAllLog();
 		if (result == count)
 			return true;
@@ -102,23 +102,27 @@ public class LogServiceImpl implements LogService {
 		return list;
 	}
 
-	static int pageSize = 15;
+	static int pageSize = 13;
 
 	@Override
-	public List<LogVO> getLogListPaging(int page) {
-		int logCount = logDao.getLogCount();
-		Map<String, Integer> map = new HashMap<>();
+	public List<LogVO> getLogListPaging(int page, String query) {
+		int logCount = logDao.getLogCount(query);
+		
+		Map<String, Object> map = new HashMap<>();
 		map.put("endNum", pageSize * page);
-		map.put("startNum", map.get("endNum") - pageSize + 1);
-		if (logCount < map.get("startNum"))
+		map.put("startNum", (Integer)(map.get("endNum")) - pageSize + 1);
+		map.put("query", query);
+		
+		if (logCount < (Integer)map.get("startNum"))
 			map.put("startNum", logCount);
 		return logDao.getLogListPaging(map);
 	}
 
 	@Override
-	public List<Integer> getPageList(int page) {
+	public List<Integer> getPageList(int page, String query) {
 		List<Integer> list = new ArrayList<>();
-		int logCount = logDao.getLogCount();
+		
+		int logCount = logDao.getLogCount(query);
 		int start = 0;
 		int endNum = 0;
 
@@ -151,8 +155,8 @@ public class LogServiceImpl implements LogService {
 	}
 
 	@Override
-	public int getEndPageNum() {
-		int count = logDao.getLogCount();
+	public int getEndPageNum(String query) {
+		int count = logDao.getLogCount(query);
 		int endPageNum = 0;
 		if (count / pageSize == 0)
 			endPageNum = count / pageSize;

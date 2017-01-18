@@ -15,7 +15,8 @@ td {
 #loading {
 	border: 0;
 	display: none;
-	text-align: center; filter : alpha( opacity = 60);
+	text-align: center;
+	filter: alpha(opacity = 60);
 	opacity: alpha*0.6;
 	filter: alpha(opacity = 60);
 }
@@ -33,7 +34,7 @@ td {
 	<div id="loading">
 		<img src="/obigoProject/img/loading.gif" />
 	</div>
-	
+
 	<section id="container" class="">
 		<!--main content start-->
 		<section id="main-content">
@@ -148,19 +149,29 @@ td {
 				<!-- page end-->
 
 				<div class="text-center">
+					<!-- -------- log 검색 start -------- -->
+					<form id="searchlog-frm" action="/obigoProject/log" method="get">
+						<input name="page" type="hidden" value="1">
+						<input name="query" type="text">
+						<button type="submit">Search</button>
+					</form>
+					<!-- -------- log 검색 end -------- -->
+					
+					<!-- -------- log table paging start -------- -->
 					<ul class="pagination">
 						<li>
-							<a href="javascript:frontButton('${endPageNum}')">«</a>
+							<a href="javascript:frontButton('${endPageNum}', '${param.query}')">«</a>
 						</li>
 						<c:forEach var="l" items="${pageList}" begin="0" varStatus="status">
 							<li id="page${status.index}" value="${l}">
-								<a href="javascript:movePage('${l}')">${l}</a>
+								<a href="javascript:movePage('${l}', '${param.query}')">${l}</a>
 							</li>
 						</c:forEach>
 						<li>
-							<a href="javascript:backButton('${endPageNum}')">»</a>
+							<a href="javascript:backButton('${endPageNum}', ${param.query})">»</a>
 						</li>
 					</ul>
+					<!-- -------- log table paging end -------- -->
 				</div>
 			</section>
 		</section>
@@ -189,6 +200,7 @@ td {
 	<script src="/obigoProject/js/pulstate.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
+	
 	
 		// Log 테이블의 한 row를 클릭시 해당 Log를 Modal로 자세히 볼 수 있다 
 		function showModal(status) {
@@ -247,55 +259,48 @@ td {
 	
 		}
 	
-		function movePage(page) {
+		function movePage(page,query) {
+			if(query==null)
 			document.location.href = "/obigoProject/log?page=" + page;
+			else
+			document.location.href = "/obigoProject/log?page=" + page+"&query="+query;
+				
 		}
 	
-		function frontButton(endNum) {
+		function frontButton(endNum,query) {
 			if (endNum > 9) {
 				var val = $("#page0").val() - 10;
 				if (val < 1)
 					val = 1;
 				$("#page0").val(val);
-				document.getElementById("page0").innerHTML = "<a href='javascript:movePage(" + val + ")'>" + val + "</a>"
-				document.getElementById("page1").innerHTML = "<a href='javascript:movePage(" + (val + 1) + ")'>" + (val + 1) + "</a>"
-				document.getElementById("page2").innerHTML = "<a href='javascript:movePage(" + (val + 2) + ")'>" + (val + 2) + "</a>"
-				document.getElementById("page3").innerHTML = "<a href='javascript:movePage(" + (val + 3) + ")'>" + (val + 3) + "</a>"
-				document.getElementById("page4").innerHTML = "<a href='javascript:movePage(" + (val + 4) + ")'>" + (val + 4) + "</a>"
-				document.getElementById("page5").innerHTML = "<a href='javascript:movePage(" + (val + 5) + ")'>" + (val + 5) + "</a>"
-				document.getElementById("page6").innerHTML = "<a href='javascript:movePage(" + (val + 6) + ")'>" + (val + 6) + "</a>"
-				document.getElementById("page7").innerHTML = "<a href='javascript:movePage(" + (val + 7) + ")'>" + (val + 7) + "</a>"
-				document.getElementById("page8").innerHTML = "<a href='javascript:movePage(" + (val + 8) + ")'>" + (val + 8) + "</a>"
-				document.getElementById("page9").innerHTML = "<a href='javascript:movePage(" + (val + 9) + ")'>" + (val + 9) + "</a>"
+				
+				for(var i=0;i<10;i++){
+					
+				document.getElementById("page"+i).innerHTML = "<a href=\"javascript:movePage(" + (val +i)+", '"+query+"')\">" +( val+i) + "</a>"
+					
+				}
+				
 			}
 		}
-		function backButton(endNum) {
+		function backButton(endNum,query) {
 			if (endNum > 9) {
 				var val = $("#page0").val() + 10;
 				if (val > endNum - 9) {
 					$("#page0").val(endNum - 9);
-					document.getElementById("page0").innerHTML = "<a href='javascript:movePage(" + (endNum - 9) + ")'>" + (endNum - 9) + "</a>"
-					document.getElementById("page1").innerHTML = "<a href='javascript:movePage(" + (endNum - 8) + ")'>" + (endNum - 8) + "</a>"
-					document.getElementById("page2").innerHTML = "<a href='javascript:movePage(" + (endNum - 7) + ")'>" + (endNum - 7) + "</a>"
-					document.getElementById("page3").innerHTML = "<a href='javascript:movePage(" + (endNum - 6) + ")'>" + (endNum - 6) + "</a>"
-					document.getElementById("page4").innerHTML = "<a href='javascript:movePage(" + (endNum - 5) + ")'>" + (endNum - 5) + "</a>"
-					document.getElementById("page5").innerHTML = "<a href='javascript:movePage(" + (endNum - 4) + ")'>" + (endNum - 4) + "</a>"
-					document.getElementById("page6").innerHTML = "<a href='javascript:movePage(" + (endNum - 3) + ")'>" + (endNum - 3) + "</a>"
-					document.getElementById("page7").innerHTML = "<a href='javascript:movePage(" + (endNum - 2) + ")'>" + (endNum - 2) + "</a>"
-					document.getElementById("page8").innerHTML = "<a href='javascript:movePage(" + (endNum - 1) + ")'>" + (endNum - 1) + "</a>"
-					document.getElementById("page9").innerHTML = "<a href='javascript:movePage(" + (endNum) + ")'>" + (endNum) + "</a>"
+					
+					for(var i=9;i>=0;i--){
+						
+						document.getElementById("page"+i).innerHTML = "<a href=\"javascript:movePage(" +  (endNum - i) +", '"+query+"')\">" + (endNum - i)  + "</a>"
+							
+						}
+					
 				} else {
 					$("#page0").val(val);
-					document.getElementById("page0").innerHTML = "<a href='javascript:movePage(" + val + ")'>" + val + "</a>"
-					document.getElementById("page1").innerHTML = "<a href='javascript:movePage(" + (val + 1) + ")'>" + (val + 1) + "</a>"
-					document.getElementById("page2").innerHTML = "<a href='javascript:movePage(" + (val + 2) + ")'>" + (val + 2) + "</a>"
-					document.getElementById("page3").innerHTML = "<a href='javascript:movePage(" + (val + 3) + ")'>" + (val + 3) + "</a>"
-					document.getElementById("page4").innerHTML = "<a href='javascript:movePage(" + (val + 4) + ")'>" + (val + 4) + "</a>"
-					document.getElementById("page5").innerHTML = "<a href='javascript:movePage(" + (val + 5) + ")'>" + (val + 5) + "</a>"
-					document.getElementById("page6").innerHTML = "<a href='javascript:movePage(" + (val + 6) + ")'>" + (val + 6) + "</a>"
-					document.getElementById("page7").innerHTML = "<a href='javascript:movePage(" + (val + 7) + ")'>" + (val + 7) + "</a>"
-					document.getElementById("page8").innerHTML = "<a href='javascript:movePage(" + (val + 8) + ")'>" + (val + 8) + "</a>"
-					document.getElementById("page9").innerHTML = "<a href='javascript:movePage(" + (val + 9) + ")'>" + (val + 9) + "</a>"
+					
+					for(var i=0;i<10;i++){
+						document.getElementById("page"+i).innerHTML = "<a href=\"javascript:movePage(" + (val +i)+", '"+query+"')\">" +( val+i) + "</a>"
+					}
+					
 				}
 			}
 		}
