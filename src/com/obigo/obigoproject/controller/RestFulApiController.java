@@ -210,7 +210,7 @@ public class RestFulApiController {
 		jobj.put("imagename", imagename);
 		vo.setUrl("/api/image");
 		vo.setBody(jobj.toString());
-		vo.setReturned("null");
+		vo.setReturned("/api/image/" + select + "/" + imagename);
 		logService.insertLog(vo);
 	}
 
@@ -315,7 +315,7 @@ public class RestFulApiController {
 		UserRequestVO vo = mapper.readValue(data, UserRequestVO.class);
 
 		this.vo.setUrl("/api/userrequest");
-		this.vo.setBody("null");
+		this.vo.setBody(data);
 
 		if (userRequestService.insertUserRequest(vo) == true) {
 			// Log 정보를 등록하는 과정
@@ -379,15 +379,18 @@ public class RestFulApiController {
 	 * 
 	 * @return JSON Array : 차량정보들을 JSON Data로 보내줌
 	 */
-	@RequestMapping(value = "/api/vehicle", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/api/vehicle/{userId}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String getVehicleList() {
+	public String getVehicleList(@PathVariable String userId) {
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.addAll(vehicleService.getVehicleList());
 
+		JSONObject jobj = new JSONObject();
+		jobj.put("userId", userId);
+		
 		// Log 정보를 등록하는 과정
 		vo.setUrl("/api/vehicle");
-		vo.setBody("null");
+		vo.setBody(jobj.toString());
 		vo.setReturned(jsonArray.toString());
 		logService.insertLog(vo);
 
@@ -489,6 +492,34 @@ public class RestFulApiController {
 	}
 	
 	/**
+	 * PW 변경 Api parameter = "userId":user의 ID, "password":user의 Password
+	 * 
+	 * @return true/false : 비밀번호 변경 성공 실패 여부
+	 */
+	@RequestMapping(value = "/api/passwordupdate", method = RequestMethod.PUT)
+	@ResponseBody
+	public String updatePassword(@RequestParam String userid, @RequestParam String password, @RequestParam String newpassword) {
+		JSONObject jobj = new JSONObject();
+		jobj.put("userid", userid);
+		jobj.put("password", password);
+		jobj.put("newpassword", newpassword);
+		vo.setBody(jobj.toString());
+		
+		if (userService.updatePassword(userid, password, newpassword) == true) {
+			vo.setReturned("true");
+			logService.insertLog(vo);
+			
+			return "true";
+		} else {
+			vo.setReturned("false");
+			logService.insertLog(vo);
+			
+			return "false";
+		}
+	}
+	
+	
+	/**
 	 * Email 전송 Api parameter = "UsersVO": User의 VO
 	 * 
 	 * @return true/false : email이 성공적으로 전송될 경우
@@ -581,7 +612,7 @@ public class RestFulApiController {
 			vo.setReturned("false");
 			logService.insertLog(vo);
 
-			return "false";
+			return "true";
 		}
 	}
 
@@ -601,6 +632,11 @@ public class RestFulApiController {
 		return jsonarray.toString();
 	}
 
+	/**
+	 * Error Log Api parameter = "url":Error가 발생한 URL  
+	 * 
+	 * @return 
+	 */
 	@RequestMapping(value = "/api/errorlog/{url}", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public void errorLog(@PathVariable String url, @RequestBody String body) {
