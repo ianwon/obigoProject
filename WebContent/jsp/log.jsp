@@ -11,6 +11,14 @@ td {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
+
+#loading {
+	border: 0;
+	display: none;
+	text-align: center; filter : alpha( opacity = 60);
+	opacity: alpha*0.6;
+	filter: alpha(opacity = 60);
+}
 </style>
 <meta charset="UTF-8">
 <title>Log</title>
@@ -21,6 +29,11 @@ td {
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
 	<!--header end-->
 
+	<!-- 메일 전송하는 동안 띄워줄 이미지 -->
+	<div id="loading">
+		<img src="/obigoProject/img/loading.gif" />
+	</div>
+	
 	<section id="container" class="">
 		<!--main content start-->
 		<section id="main-content">
@@ -60,7 +73,8 @@ td {
 													</div>
 													<div class="form-group">
 														<span class="label label-primary">RETRUNED</span>
-														<textarea name="returned" id="returned" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly" style="font-size: 11px; text-align: left;"></textarea>
+														<textarea name="returned" id="returned" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly"
+															style="font-size: 11px; text-align: left;"></textarea>
 													</div>
 												</div>
 											</form>
@@ -76,12 +90,17 @@ td {
 							<!-- -------------- PDF 관련 Dropdown Button start -------------- -->
 							<div class="btn-group pull-right">
 								<button class="btn dropdown-toggle" data-toggle="dropdown">
-									PDF flie <i class="fa fa-angle-down"></i>
+									PDF flie
+									<i class="fa fa-angle-down"></i>
 								</button>
 								<ul class="dropdown-menu pull-right">
-									<li><a href="/obigoProject/viewpdf" target="_blank">View on PDF</a></li>
+									<li>
+										<a href="/obigoProject/viewpdf" target="_blank">View on PDF</a>
+									</li>
 									<!--                            <li><a href="/obigoProject/pdfmail">Send an Email to Admin</a></li> -->
-									<li><a href='javascript:void(0);' onclick="mailToAdmin();">Send an Email to Admin</a></li>
+									<li>
+										<a href='javascript:void(0);' onclick="mailToAdmin();">Send an Email to Admin</a>
+									</li>
 								</ul>
 							</div>
 							<!-- -------------- PDF 관련 Dropdown Button end -------------- -->
@@ -93,7 +112,7 @@ td {
 						<!-- -------------- Log Table start -------------- -->
 						<div class="panel-body">
 							<section id="flip-scroll">
-								<table class="table table-bordered table-striped table-condensed cf" style="table-layout: fixed; word-break: break-all;">
+								<table id="target" class="table table-bordered table-striped table-condensed cf" style="table-layout: fixed; word-break: break-all;">
 									<thead class="cf">
 										<tr>
 											<th>Url</th>
@@ -130,11 +149,17 @@ td {
 
 				<div class="text-center">
 					<ul class="pagination">
-						<li><a href="javascript:frontButton('${endPageNum}')">«</a></li>
+						<li>
+							<a href="javascript:frontButton('${endPageNum}')">«</a>
+						</li>
 						<c:forEach var="l" items="${pageList}" begin="0" varStatus="status">
-							<li id="page${status.index}" value="${l}"><a href="javascript:movePage('${l}')">${l}</a></li>
+							<li id="page${status.index}" value="${l}">
+								<a href="javascript:movePage('${l}')">${l}</a>
+							</li>
 						</c:forEach>
-						<li><a href="javascript:backButton('${endPageNum}')">»</a></li>
+						<li>
+							<a href="javascript:backButton('${endPageNum}')">»</a>
+						</li>
 					</ul>
 				</div>
 			</section>
@@ -162,8 +187,6 @@ td {
 	<!--script for this page only-->
 	<script src="/obigoProject/js/gritter.js" type="text/javascript"></script>
 	<script src="/obigoProject/js/pulstate.js" type="text/javascript"></script>
-
-	<!-- END JAVASCRIPTS -->
 
 	<script type="text/javascript">
 	
@@ -203,10 +226,23 @@ td {
 				data : {},
 				success : function(data) {
 					if (data.flag == true)
-						alert("Send email success");
+						alert("이메일 보내기 성공");
 					else
-						alert("Send email fail");
-				}
+						alert("이메일 보내기 실패");
+				},
+				beforeSend: function() {
+					//통신을 시작할때 처리
+					$('#loading').css('position', 'absolute');
+					$('#loading').css('left', $('#target').offset().left);
+					$('#loading').css('top', $('#target').offset().top);
+					$('#loading').css('width', $('#target').css('width'));
+					$('#loading').css('height', $('#target').css('height'));
+					$('#loading').show().fadeIn('fast');
+					}
+					, complete: function() {
+					//통신이 완료된 후 처리
+					$('#loading').fadeOut();
+					}
 			});
 	
 		}

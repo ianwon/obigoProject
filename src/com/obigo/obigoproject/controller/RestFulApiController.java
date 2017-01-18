@@ -496,10 +496,12 @@ public class RestFulApiController {
 	 * 
 	 * @return true/false : 비밀번호 변경 성공 실패 여부
 	 */
-	@RequestMapping(value = "/api/passwordupdate", method = RequestMethod.PUT)
+	@RequestMapping(value = "/api/passwordmodify", method = RequestMethod.PUT)
 	@ResponseBody
 	public String updatePassword(@RequestParam String userid, @RequestParam String password, @RequestParam String newpassword) {
 		JSONObject jobj = new JSONObject();
+		System.out.println(userid+", "+password+", "+newpassword);
+		vo.setUrl("/api/passwordmodify");
 		jobj.put("userid", userid);
 		jobj.put("password", password);
 		jobj.put("newpassword", newpassword);

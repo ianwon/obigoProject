@@ -25,18 +25,33 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts-3d.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<style type="text/css">
+#loading {
+	border: 0;
+	display: none;
+	text-align: center;
+	filter: alpha(opacity = 60);
+	opacity: alpha*0.6;
+	z-index: 5;
+}
+</style>
 </head>
 <body>
 
 	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
 	<!--header end-->
+	
+	<!-- 메일 전송하는 동안 띄워줄 이미지 -->
+	<div id="loading">
+		<img style="width: 380px; height: 380px;" src="/obigoProject/img/loading.gif" />
+	</div>
 
 	<section id="container" class="">
 		<section id="main-content">
 			<section class="wrapper site-min-height">
 				<section id="mysection" class="panel" style="width: 800px; margin-left: auto; margin-right: auto;">
-					<div class="panel-body">
+					<div id="target" class="panel-body">
 						<!-- -------------- 통계 캡처 이미지 Email 발송 Button start -------------- -->
 						<div class="btn-group pull-right">
 							<button class="btn dropdown-toggle" style="color: white; border-color: #FF6C60; background-color: #FF6C60;" onclick="capture();">
@@ -157,6 +172,23 @@
 								} else {
 									alert("이메일 보내기 실패");
 								}
+							},
+							beforeSend : function() {
+								//통신을 시작할때 처리
+								$('#loading').css('position', 'absolute');
+								$('#loading').css('left',
+										$('#target').offset().left);
+								$('#loading').css('top',
+										$('#target').offset().top);
+								$('#loading').css('width',
+										$('#target').css('width'));
+								$('#loading').css('height',
+										$('#target').css('height'));
+								$('#loading').show().fadeIn('fast');
+							},
+							complete : function() {
+								//통신이 완료된 후 처리
+								$('#loading').fadeOut();
 							}
 						});
 					}
