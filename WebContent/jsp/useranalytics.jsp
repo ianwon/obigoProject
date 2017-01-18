@@ -25,13 +25,21 @@
 <link href="/obigoProject/css/style.css" rel="stylesheet">
 <link href="/obigoProject/css/style-responsive.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet" />
-<!--     <link href="/obigoProject/assets/morris.js-0.4.3/morris.css" rel="stylesheet" /> -->
 
 
 <style type="text/css">
 #myTable_wrapper {
 	margin-left: 0px;
 	width: 80%;
+}
+
+#loading {
+	border: 0;
+	display: none;
+	text-align: center;
+	filter: alpha(opacity = 60);
+	opacity: alpha*0.6;
+	z-index: 5;
 }
 </style>
 </head>
@@ -44,6 +52,11 @@
 	<!-- Select Box에 현재 년도와 1년전 년도를 표시하기 위함 -->
 	<jsp:useBean id="toYear" class="java.util.Date" />
 	<fmt:formatDate value="${toYear}" pattern="yyyy" var="nowYear" />
+
+	<!-- 메일 전송하는 동안 띄워줄 이미지 -->
+	<div id="loading">
+		<img src="/obigoProject/img/loading.gif" />
+	</div>
 
 	<section id="container" class="">
 		<!--main content start-->
@@ -67,7 +80,7 @@
 									</div>
 									<!-- -------------- 통계 캡처 이미지 Email 발송 Button end -------------- -->
 								</header>
-								<div class="panel-body">
+								<div class="panel-body" id="target">
 									<!-- ------- 사용자 접속 통계의 대상이 되는 년도를 바꾸는 Select Box start ------- -->
 									<form action="/obigoProject/useranalytics" id="frmSelectYear">
 										<label>Year : </label>
@@ -213,61 +226,68 @@
 			});
 
 			// table의 row를 클릭했을 때 해당된는 row의 User ID에 대한 Login 통계를 보여주는 함수
-			$("#myTable tbody").on("click","tr",function() {
-					// 선택이 해제되었을 때 전체 User에 대한 통계를 보여줌
-					if ($(this).hasClass("selected")) {
-						$(this).removeClass("selected");
+			$("#myTable tbody")
+					.on(
+							"click",
+							"tr",
+							function() {
+								// 선택이 해제되었을 때 전체 User에 대한 통계를 보여줌
+								if ($(this).hasClass("selected")) {
+									$(this).removeClass("selected");
 
-						$.ajax({
-							type : "post",
-							url : "/obigoProject/countuserlogin",
-							dataType : "json",
-							async : false,
-							data : {
-								"userId" : "",
-								"selectYear" : $(
-										'#selectYear option:selected')
-										.val()
-							},
-							success : function(data) {
-								setUp(data, "");
-							},
-							error : function(e) {
-								console.log(e);
-							}
-						});
+									$
+											.ajax({
+												type : "post",
+												url : "/obigoProject/countuserlogin",
+												dataType : "json",
+												async : false,
+												data : {
+													"userId" : "",
+													"selectYear" : $(
+															'#selectYear option:selected')
+															.val()
+												},
+												success : function(data) {
+													setUp(data, "");
+												},
+												error : function(e) {
+													console.log(e);
+												}
+											});
 
-					}
-					// 선택할 때, 해당 ID에 대한 통계를 보여줌
-					else {
-						table.$("tr.selected").removeClass(
-								"selected");
-						$(this).addClass("selected");
-						var userId = $(this).find("td:eq(0)").text();
-
-						// 선택한 User ID의 월별 Login Count를 얻어오는 AJAX
-						$.ajax({
-							type : "post",
-							url : "/obigoProject/countuserlogin",
-							dataType : "json",
-							async : false,
-							data : {
-								"userId" : userId,
-								"selectYear" : $(
-										'#selectYear option:selected')
-										.val()
-							},
-							success : function(data) {
-								if (userId != "No data available in table") {
-									setUp(data, userId);
 								}
-							},
-							error : function(e) {
-								console.log(e);
-							}
-						});
-					}
-				});
+								// 선택할 때, 해당 ID에 대한 통계를 보여줌
+								else {
+									table.$("tr.selected").removeClass(
+											"selected");
+									$(this).addClass("selected");
+									var userId = $(this).find("td:eq(0)")
+											.text();
+
+									// 선택한 User ID의 월별 Login Count를 얻어오는 AJAX
+									$
+											.ajax({
+												type : "post",
+												url : "/obigoProject/countuserlogin",
+												dataType : "json",
+												async : false,
+												data : {
+													"userId" : userId,
+													"selectYear" : $(
+															'#selectYear option:selected')
+															.val()
+												},
+												success : function(data) {
+													if (userId != "No data available in table") {
+														setUp(data, userId);
+													}
+												},
+												error : function(e) {
+													console.log(e);
+												}
+											});
+								}
+							});
 		}
 
 		// Text에 입력한 문자열을 포함하는 User ID의 List를 테이블로 보여준다.
@@ -377,6 +397,7 @@
 			});
 		}
 
+		// 통계 캡쳐 및 이메일 전송
 		function capture() {
 			if (confirm("이메일을 전송하시겠습니까?") == true) {
 				html2canvas($("#morris"), {
@@ -400,6 +421,23 @@
 								} else {
 									alert("이메일 보내기 실패");
 								}
+							},
+							beforeSend : function() {
+								//통신을 시작할때 처리
+								$('#loading').css('position', 'absolute');
+								$('#loading').css('left',
+										$('#target').offset().left);
+								$('#loading').css('top',
+										$('#target').offset().top);
+								$('#loading').css('width',
+										$('#target').css('width'));
+								$('#loading').css('height',
+										$('#target').css('height'));
+								$('#loading').show().fadeIn('fast');
+							},
+							complete : function() {
+								//통신이 완료된 후 처리
+								$('#loading').fadeOut();
 							}
 						});
 					}

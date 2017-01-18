@@ -22,13 +22,29 @@
 <!-- Custom styles for this template -->
 <link href="/obigoProject/css/style.css" rel="stylesheet">
 <link href="/obigoProject/css/style-responsive.css" rel="stylesheet" />
-<!--     <link href="/obigoProject/assets/morris.js-0.4.3/morris.css" rel="stylesheet" /> -->
+<style type="text/css">
+#loading {
+	border: 0;
+	display: none;
+	text-align: center;
+	filter: alpha(opacity = 60);
+	opacity: alpha*0.6;
+	z-index: 5;
+}
+
+</style>
+
 </head>
 <body>
 
 	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
 	<!--header end-->
+	
+	<!-- 메일 전송하는 동안 띄워줄 이미지 -->
+	<div id="loading">
+		<img src="/obigoProject/img/loading.gif" />
+	</div>
 
 	<section id="container" class="">
 		<!--main content start-->
@@ -37,7 +53,7 @@
 				<div id="morris">
 					<div class="row">
 						<!-- page start-->
-						<div class="col-lg-6" style="width: 1500px">
+						<div id="target" class="col-lg-6" style="width: 1500px">
 							<section id="mysection" class="panel">
 								<header class="panel-heading">
 									Bundle Update Analytics
@@ -173,6 +189,23 @@
 							} else {
 								alert("이메일 보내기 실패");
 							}
+						},
+						beforeSend : function() {
+							//통신을 시작할때 처리
+							$('#loading').css('position', 'absolute');
+							$('#loading').css('left',
+									$('#target').offset().left);
+							$('#loading').css('top',
+									$('#target').offset().top);
+							$('#loading').css('width',
+									$('#target').css('width'));
+							$('#loading').css('height',
+									$('#target').css('height'));
+							$('#loading').show().fadeIn('fast');
+						},
+						complete : function() {
+							//통신이 완료된 후 처리
+							$('#loading').fadeOut();
 						}
 					});
 				}

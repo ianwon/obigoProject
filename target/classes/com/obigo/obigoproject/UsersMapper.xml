@@ -34,7 +34,7 @@
 		update users set
 		password = #{newpassword} 
 		where
-		id = #{userid} and password = #{password}
+		id = #{userId} and password = #{password}
 	</update>
 
 

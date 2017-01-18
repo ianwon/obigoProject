@@ -8,11 +8,11 @@
 <title>Admin Management Page</title>
 </head>
 <body>
-	
+
 	<!--header start-->
 	<jsp:include page="/jsp/header/header.jsp"></jsp:include>
 	<!--header end-->
-	
+
 	<section id="container" class="">
 		<!--main content start-->
 		<section id="main-content">
@@ -112,9 +112,9 @@
 
 	<script type="text/javascript">
 		function userVehicle(userId) {
-			document.location.href = "/obigoProject/userVehicle?userId="+ userId;
+			document.location.href = "/obigoProject/userVehicle?userId=" + userId;
 		}
-		
+	
 		// Admin을 등록해해줄 때, 동일한 ID가 존재하는지 체크
 		function idCheck() {
 			$.ajax({
@@ -135,7 +135,7 @@
 				}
 			});
 		}
-		
+	
 		// Admin을 등록해해줄 때, 패스워드 일치 여부 확인
 		function passwordCheck() {
 			if ($("#password") == null || $("#password2") == null) {
@@ -150,7 +150,7 @@
 				}
 			}
 		}
-		
+	
 		// Admin 정보를 update할 때 password가 조건에 맞는지 체크후 submit 여부 결정
 		function checkUpdate() {
 			var reg_pwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
@@ -161,7 +161,7 @@
 				return true;
 			}
 		}
-		
+	
 		// Admin 삭제 버튼 클릭 시 호출 되는 함수
 		function del(data) {
 			if (confirm("삭제 하시겠습니까?") == true) {
@@ -173,12 +173,15 @@
 						"userId" : data
 					},
 					success : function(data) {
-						location.reload();
+						if (data != false)
+							location.reload()
+						else
+							alert("삭제할 수 없습니다.")
 					}
 				});
 			}
 		}
-		
+	
 		// Admin 수정 버튼을 클릭 했을 때 Modal을 띄워주는 함수
 		function update(phone, eMail, name, userId, password) {
 			$("#editphone").val(phone);
@@ -191,7 +194,7 @@
 		// Admin을 등록할 때, ID와 PW 검증이 완료 되었다면 등록진행! 만약 조건이 만족되지 않으면 다시 입력 요청
 		function check() {
 			if ($("#idCheck").html() == "사용가능한 아이디 입니다."
-					&& $("#passwordCheck").html() == "비밀번호가 일치합니다.") {
+				&& $("#passwordCheck").html() == "비밀번호가 일치합니다.") {
 				return true;
 			} else {
 				alert("아이디와 비밀번호를 확인해 주세요");
