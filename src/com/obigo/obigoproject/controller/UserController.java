@@ -104,19 +104,24 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteUser(String userId) {
-		userService.deleteUser(userId);
+	public String deleteUser(String userId, HttpSession session) {
+		if (session.getAttribute("LoginOK").equals(userId))
+			return "false";
+		else
+			userService.deleteUser(userId);
 		return null;
 	}
 
 	/**
-	 * 유저 차량 등록 요청 수락하는 메서드 function=유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저 요청을 DB에서 제거 결과를 해당 유저 에게 Pushmessage로 발송해야함
+	 * 유저 차량 등록 요청 수락하는 메서드 function=유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저
+	 * 요청을 DB에서 제거 결과를 해당 유저 에게 Pushmessage로 발송해야함
 	 * 
 	 * @return JSON : AJAX의 요청에 대한 응답으로 아무 의미 없는 data를 보내줌
 	 */
 	@RequestMapping(value = "/acceptrequest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber, @RequestParam("userId") String userId, @RequestParam("flag") String flag) {
+	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber,
+			@RequestParam("userId") String userId, @RequestParam("flag") String flag) {
 
 		try {
 			if (userRequestService.acceptUserRequest(userRequestNumber))
@@ -131,13 +136,15 @@ public class UserController {
 	}
 
 	/**
-	 * 유저 요청을 거절하는 메서드 function=유저 요청 거절 버튼을 클릭 후 유저 요청을 DB에서 제거 그리고 유저에게 Push message 보내줌
+	 * 유저 요청을 거절하는 메서드 function=유저 요청 거절 버튼을 클릭 후 유저 요청을 DB에서 제거 그리고 유저에게 Push
+	 * message 보내줌
 	 * 
 	 * @return JSON : AJAX의 요청에 대한 응답으로 아무 의미 없는 data를 보내줌
 	 */
 	@RequestMapping(value = "/rejectrequest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String rejectRequest(@RequestParam("userRequestNumber") int userRequestNumber, @RequestParam("userId") String userId, @RequestParam("flag") String flag) {
+	public String rejectRequest(@RequestParam("userRequestNumber") int userRequestNumber,
+			@RequestParam("userId") String userId, @RequestParam("flag") String flag) {
 		try {
 			if (userRequestService.deleteUserRequest(userRequestNumber))
 				pushmessageService.sendUserReqeustPushMessage(userId, flag);
@@ -410,7 +417,8 @@ public class UserController {
 			messageHelper.setTo(obigoUtils.sendTo);
 			messageHelper.setFrom(obigoUtils.sendFrom);
 			messageHelper.setSubject(subject); // 메일제목은 생략이 가능하다
-			// messageHelper.addInline("table.pdf", new FileDataSource("c:/pdftest/table.pdf"));
+			// messageHelper.addInline("table.pdf", new
+			// FileDataSource("c:/pdftest/table.pdf"));
 
 			MimeBodyPart bodypart = new MimeBodyPart();
 			bodypart.setContent("통계 이미지 파일 첨부되었습니다.", "text/html;charset=euc-kr");
