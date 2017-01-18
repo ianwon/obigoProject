@@ -54,7 +54,7 @@
 					<input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
 				</div>
 				<div class="form-group">
-					<span class="label label-primary">PASSWORD</span>
+					<span class="label label-primary">RE-TYPE PASSWORD</span>
 					<input type="password" id="password2" class="form-control" placeholder="Re-type Password" onkeyup="passwordCheck()" required="required">
 					<div class="check-message" id="passwordCheck"></div>
 				</div>

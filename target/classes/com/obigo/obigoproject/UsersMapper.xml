@@ -25,9 +25,16 @@
 
 	<update id="updateUser" parameterType="Users">
 		update users set
-		name=#{name},email=#{eMail},phone=#{phone}
+		password=#{password},name=#{name},email=#{eMail},phone=#{phone}
 		where
 		id=#{userId}
+	</update>
+	
+	<update id="updatePassword" parameterType = "hashmap">
+		update users set
+		password = #{newpassword} 
+		where
+		id = #{userid} and password = #{password}
 	</update>
 
 
