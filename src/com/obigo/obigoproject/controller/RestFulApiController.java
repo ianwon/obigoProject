@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -303,8 +304,7 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * 유저 차량 등록 요청 Api parameter = "data":UserRequestVO Class 정보를 담고 있는 JSON data 로서 아래의 정보를 담고있다 "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역,
-	 * "vin":고유번호
+	 * 유저 차량 등록 요청 Api parameter = "data":UserRequestVO Class 정보를 담고 있는 JSON data 로서 아래의 정보를 담고있다 "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역, "vin":고유번호
 	 * 
 	 * @return "flag" : 등록 여부
 	 */
@@ -387,7 +387,7 @@ public class RestFulApiController {
 
 		JSONObject jobj = new JSONObject();
 		jobj.put("userId", userId);
-		
+
 		// Log 정보를 등록하는 과정
 		vo.setUrl("/api/vehicle");
 		vo.setBody(jobj.toString());
@@ -472,25 +472,20 @@ public class RestFulApiController {
 		jobj.put("email", email);
 		vo.setBody(jobj.toString());
 
-		userVO = userService.findIDPW(name, email);
-		
-		// 해당 ID/email 정보와 동일한 user가 존재하고 Email이 성공적으로 전송될 경우 true
-		// 그렇지 않을 경우 false를 return한다
-		if (userVO != null && sendMail(userVO)) {
-			// Log 정보를 등록하는 과정
-			vo.setReturned("true");
-			logService.insertLog(vo);
-			
-			return "true";
-		} else {
-			// Log 정보를 등록하는 과정
+		List<UsersVO> list = userService.findIDPW(name, email);
+
+		if (!(list.isEmpty()) && sendMail(list)) {
 			vo.setReturned("false");
 			logService.insertLog(vo);
-
 			return "false";
+		} else {
+			vo.setReturned("true");
+			logService.insertLog(vo);
+
+			return "true";
 		}
 	}
-	
+
 	/**
 	 * PW 변경 Api parameter = "userId":user의 ID, "password":user의 Password
 	 * 
@@ -500,60 +495,62 @@ public class RestFulApiController {
 	@ResponseBody
 	public String updatePassword(@RequestParam String userid, @RequestParam String password, @RequestParam String newpassword) {
 		JSONObject jobj = new JSONObject();
-		System.out.println(userid+", "+password+", "+newpassword);
+		System.out.println(userid + ", " + password + ", " + newpassword);
 		vo.setUrl("/api/passwordmodify");
 		jobj.put("userid", userid);
 		jobj.put("password", password);
 		jobj.put("newpassword", newpassword);
 		vo.setBody(jobj.toString());
-		
+
 		if (userService.updatePassword(userid, password, newpassword) == true) {
 			vo.setReturned("true");
 			logService.insertLog(vo);
-			
+
 			return "true";
 		} else {
 			vo.setReturned("false");
 			logService.insertLog(vo);
-			
+
 			return "false";
 		}
 	}
-	
-	
+
 	/**
 	 * Email 전송 Api parameter = "UsersVO": User의 VO
 	 * 
 	 * @return true/false : email이 성공적으로 전송될 경우
 	 */
-	public boolean sendMail(UsersVO userVO) {
-		Calendar calendar1 = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		String subject = userVO.getName() + "님의 ID/PW를 알려드립니다!";
-
-		System.out.println("스케줄 실행 : " + dateFormat.format(calendar1.getTime()));
+	public boolean sendMail(List<UsersVO> list) {
 
 		try {
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			messageHelper.setTo(userVO.geteMail());
-			messageHelper.setFrom(obigoUtils.sendFrom);
-			messageHelper.setSubject(subject); // 메일제목은 생략이 가능하다
+			for (int i = 0; i < list.size(); i++) {
+				Calendar calendar1 = Calendar.getInstance();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-			MimeBodyPart bodypart = new MimeBodyPart();
-			StringBuilder mailBody = new StringBuilder();
-			mailBody.append("===== " + userVO.getName() + "님 =====<br>");
-			mailBody.append("[User ID : " + userVO.getUserId() + "]<br>");
-			mailBody.append("[User PW: " + userVO.getPassword() + "]");
+				String subject = list.get(i).getName() + "님의 ID/PW를 알려드립니다!";
 
-			bodypart.setContent(mailBody.toString(), "text/html;charset=euc-kr");
+				System.out.println("스케줄 실행 : " + dateFormat.format(calendar1.getTime()));
 
-			Multipart multipart = new MimeMultipart();
-			multipart.addBodyPart(bodypart);
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+				messageHelper.setTo(list.get(i).geteMail());
+				messageHelper.setFrom(obigoUtils.sendFrom);
+				messageHelper.setSubject(subject); // 메일제목은 생략이 가능하다
 
-			message.setContent(multipart);
-			mailSender.send(message);
+				MimeBodyPart bodypart = new MimeBodyPart();
+				StringBuilder mailBody = new StringBuilder();
+				mailBody.append("===== " + list.get(i).getName() + "님 =====<br>");
+				mailBody.append("[User ID : " + list.get(i).getUserId() + "]<br>");
+				mailBody.append("[User PW: " + list.get(i).getPassword() + "]");
+
+				bodypart.setContent(mailBody.toString(), "text/html;charset=euc-kr");
+
+				Multipart multipart = new MimeMultipart();
+				multipart.addBodyPart(bodypart);
+
+				message.setContent(multipart);
+				mailSender.send(message);
+			}
 			return true;
 
 		} catch (Exception e) {
@@ -614,7 +611,7 @@ public class RestFulApiController {
 			vo.setReturned("false");
 			logService.insertLog(vo);
 
-			return "true";
+			return "false";
 		}
 	}
 
@@ -635,9 +632,9 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * Error Log Api parameter = "url":Error가 발생한 URL  
+	 * Error Log Api parameter = "url":Error가 발생한 URL
 	 * 
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping(value = "/api/errorlog/{url}", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody

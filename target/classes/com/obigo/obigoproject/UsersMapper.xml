@@ -29,10 +29,10 @@
 		where
 		id=#{userId}
 	</update>
-	
-	<update id="updatePassword" parameterType = "hashmap">
+
+	<update id="updatePassword" parameterType="hashmap">
 		update users set
-		password = #{newpassword} 
+		password = #{newpassword}
 		where
 		id = #{userId} and password = #{password}
 	</update>
@@ -54,11 +54,13 @@
 		BY NAME ASC
 	</select>
 	<select id="selectUserList" resultMap="UsersResultMap">
-		select * from Users where role_name = 'USER' ORDER
+		select * from Users where
+		role_name = 'USER' ORDER
 		BY NAME ASC
 	</select>
 	<select id="selectAdminList" resultMap="UsersResultMap">
-		select * from Users where role_name = 'ADMIN' ORDER
+		select * from Users where
+		role_name = 'ADMIN' ORDER
 		BY NAME ASC
 	</select>
 
@@ -68,7 +70,8 @@
 	</select>
 
 	<select id="selectIDPW" parameterType="hashmap" resultMap="UsersResultMap">
-		select * from Users where name = #{name} and email=#{email} and role_name='USER'
+		select * from Users where name=#{name} and email=#{email} and
+		role_name='USER'
 	</select>
 
 	<select id="selectRegistrationIdByLocation" parameterType="java.lang.String"
@@ -80,17 +83,18 @@
 		resultType="java.lang.String">
    <![CDATA[SELECT U.REGISTRATION_ID FROM USERS U JOIN USER_VEHICLE UV ON U.ID = UV.USER_ID WHERE UV.MODEL_CODE = #{modelCode}]]>
 	</select>
-	
-	<select id="selectUserCount" 	resultType="java.lang.Integer">
+
+	<select id="selectUserCount" resultType="java.lang.Integer">
 	<![CDATA[ select count(*) from Users where role_name='USER' ]]>
 	</select>
 
 	<select id="selectLoginUserList" resultMap="UsersResultMap">
 	<![CDATA[ select * from users where id like #{userId} and role_name='USER']]>
 	</select>
-	
-	<select id="selectMonthUserCount" parameterType="hashmap" resultType="java.lang.Integer">
+
+	<select id="selectMonthUserCount" parameterType="hashmap"
+		resultType="java.lang.Integer">
 	<![CDATA[ select count(*) from users where cdate like #{year}||'/'||#{month}||'/%' and role_name='USER' ]]>
 	</select>
-	
+
 </mapper>
