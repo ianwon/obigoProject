@@ -41,8 +41,7 @@ public class VehicleController {
 	}
 
 	/**
-	 * 동일한 Model Code가 체크하는 Api
-	 * parameter = "modelCode":차량의 model code
+	 * 동일한 Model Code가 체크하는 Api parameter = "modelCode":차량의 model code
 	 * 
 	 * @return true/false : 동일한 Model Code가 존재하는지 여부
 	 */
@@ -75,8 +74,7 @@ public class VehicleController {
 	}
 
 	/**
-	 * 특정 차량 정보 가져오는 메서드
-	 * parameter = "modelCode":차량의 model code
+	 * 특정 차량 정보 가져오는 메서드 parameter = "modelCode":차량의 model code
 	 * 
 	 * @return JSON : Vehicle VO를 JSON data로 return
 	 */
@@ -90,8 +88,7 @@ public class VehicleController {
 	}
 
 	/**
-	 * 차량 정보를 삭제하는 메서드
-	 * parameter = "modelCode":차량의 model code
+	 * 차량 정보를 삭제하는 메서드 parameter = "modelCode":차량의 model code
 	 * 
 	 * @return true/false : 차량 정보 삭제 성공 여부
 	 */
@@ -106,8 +103,7 @@ public class VehicleController {
 	}
 
 	/**
-	 * 차량 이미지를 보여주기위한 메소드
-	 * parameter = "modelImage":차량의 Image file name
+	 * 차량 이미지를 보여주기위한 메소드 parameter = "modelImage":차량의 Image file name
 	 * 
 	 * @return HttpServletResponse : Image를 response에 담아서 보내줌
 	 */
