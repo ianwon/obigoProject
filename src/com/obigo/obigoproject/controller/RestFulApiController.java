@@ -304,7 +304,8 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * 유저 차량 등록 요청 Api parameter = "data":UserRequestVO Class 정보를 담고 있는 JSON data 로서 아래의 정보를 담고있다 "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역, "vin":고유번호
+	 * 유저 차량 등록 요청 Api parameter = "data":UserRequestVO Class 정보를 담고 있는 JSON data 로서 아래의 정보를 담고있다 "userId":유저아이디, "modelCode":차량코드, "color":색상, "location":지역,
+	 * "vin":고유번호
 	 * 
 	 * @return "flag" : 등록 여부
 	 */
@@ -475,14 +476,14 @@ public class RestFulApiController {
 		List<UsersVO> list = userService.findIDPW(name, email);
 
 		if (!(list.isEmpty()) && sendMail(list)) {
-			vo.setReturned("false");
-			logService.insertLog(vo);
-			return "false";
-		} else {
 			vo.setReturned("true");
 			logService.insertLog(vo);
-
 			return "true";
+		} else {
+			vo.setReturned("false");
+			logService.insertLog(vo);
+
+			return "false";
 		}
 	}
 
@@ -523,26 +524,27 @@ public class RestFulApiController {
 	public boolean sendMail(List<UsersVO> list) {
 
 		try {
-			for (int i = 0; i < list.size(); i++) {
+
 				Calendar calendar1 = Calendar.getInstance();
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-				String subject = list.get(i).getName() + "님의 ID/PW를 알려드립니다!";
+				String subject = list.get(0).getName() + "님의 ID/PW를 알려드립니다!";
 
 				System.out.println("스케줄 실행 : " + dateFormat.format(calendar1.getTime()));
 
 				MimeMessage message = mailSender.createMimeMessage();
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-				messageHelper.setTo(list.get(i).geteMail());
+				messageHelper.setTo(list.get(0).geteMail());
 				messageHelper.setFrom(obigoUtils.sendFrom);
 				messageHelper.setSubject(subject); // 메일제목은 생략이 가능하다
 
 				MimeBodyPart bodypart = new MimeBodyPart();
 				StringBuilder mailBody = new StringBuilder();
-				mailBody.append("===== " + list.get(i).getName() + "님 =====<br>");
+				mailBody.append("===== " + list.get(0).getName() + "님 =====<br>");
+				for (int i = 0; i < list.size(); i++) {
 				mailBody.append("[User ID : " + list.get(i).getUserId() + "]<br>");
-				mailBody.append("[User PW: " + list.get(i).getPassword() + "]");
-
+				mailBody.append("[User PW: " + list.get(i).getPassword() + "]<br><br>");
+			}
 				bodypart.setContent(mailBody.toString(), "text/html;charset=euc-kr");
 
 				Multipart multipart = new MimeMultipart();
@@ -550,7 +552,6 @@ public class RestFulApiController {
 
 				message.setContent(multipart);
 				mailSender.send(message);
-			}
 			return true;
 
 		} catch (Exception e) {
