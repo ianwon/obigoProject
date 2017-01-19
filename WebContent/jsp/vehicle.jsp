@@ -55,11 +55,11 @@
 											</div>
 											<div class="form-group">
 												<span class="label label-primary">MODEL IMAGE</span>
-												<input type="file" id="model_Image" name="model_Image" class="form-control" placeholder="Model Image" autofocus required="required">
+												<input type="file" id="model_Image" name="model_Image" class="form-control" placeholder="Model Image" autofocus required="required" accept="image/*">
 											</div>
 											<div class="form-group">
 												<span class="label label-primary">DETAIL IMAGE</span>
-												<input type="file" id="detail_Image" name="detail_Image" class="form-control" placeholder="Detail Image" autofocus required="required">
+												<input type="file" id="detail_Image" name="detail_Image" class="form-control" placeholder="Detail Image" autofocus required="required" accept="image/*">
 											</div>
 											<div class="form-group">
 												<span class="label label-primary">ENGINE</span>
@@ -104,11 +104,11 @@
 											</div>
 											<div class="form-group">
 												<span class="label label-primary">MODEL IMAGE</span>
-												<input type="file" id="editModelImage" name="model_Image" class="form-control" required="required" placeholder="Model Image">
+												<input type="file" id="editModelImage" name="model_Image" class="form-control" required="required" placeholder="Model Image" accept="image/*">
 											</div>
 											<div class="form-group">
 												<span class="label label-primary">DETAIL IMAGE</span>
-												<input type="file" id="editDetailImage" name="detail_Image" class="form-control" required="required" placeholder="Detail Image">
+												<input type="file" id="editDetailImage" name="detail_Image" class="form-control" required="required" placeholder="Detail Image" accept="image/*">
 											</div>
 											<div class="form-group">
 												<span class="label label-primary">ENGINE</span>
@@ -234,7 +234,7 @@
 		// input에 입력된 값으로 공백이 존재하는지 체크
 		function spaceCheck(frm) {
 			var f = frm.val();
-			var pattern = /[\s~!@\#$%<>^&*\()\-=+_\’]/;
+			var pattern = /[\s~!@\#$%<>^&*\()\-=+\’]/;
 			
 
 			if (f.match(pattern)) {

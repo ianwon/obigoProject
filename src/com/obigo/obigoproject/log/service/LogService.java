@@ -25,9 +25,9 @@ public interface LogService {
 	// 번들 업데이트 로그의 횟수 추출
 	public List<Integer> getBundleUpdateCount();
 
-	public List<LogVO> getLogListPaging(int page);
+	public List<LogVO> getLogListPaging(int page, String query);
 	
-	public List<Integer> getPageList(int page);
+	public List<Integer> getPageList(int page,String query);
 	
-	public int getEndPageNum();
+	public int getEndPageNum(String query);
 }

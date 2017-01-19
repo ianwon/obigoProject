@@ -1,5 +1,6 @@
 package com.obigo.obigoproject.log.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,8 +44,10 @@ public class LogDaoImpl implements LogDao {
 
 	// 통계치를 위한 전체 Log의 수를 가져오기 위한 메소드
 	@Override
-	public int getLogCount() {
-		return sqlSession.selectOne("obigoproject.Log.selectLogCount");
+	public int getLogCount(String query) {
+		Map<String, String> map = new HashMap<>();
+		map.put("query", query);
+		return sqlSession.selectOne("obigoproject.Log.selectLogCount", map);
 	}
 
 	@Override
@@ -64,7 +67,7 @@ public class LogDaoImpl implements LogDao {
 	}
 
 	@Override
-	public List<LogVO> getLogListPaging(Map<String,Integer> map) {
+	public List<LogVO> getLogListPaging(Map<String, Object> map) {
 		return sqlSession.selectList("obigoproject.Log.selectLogListPaging", map);
 	}
 

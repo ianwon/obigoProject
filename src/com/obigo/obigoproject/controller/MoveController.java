@@ -309,15 +309,22 @@ public class MoveController {
 	 * @return 로그 관리 페이지
 	 */
 	@RequestMapping("/log")
-	public String moveLog(@RequestParam("page") int page, Model model) {
+	public String moveLog(@RequestParam("page") int page, Model model, HttpServletRequest request) {
 		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
 
-		List<LogVO> list = logService.getLogListPaging(page);
+		String query=request.getParameter("query");
+
+		if(query!=null){
+			query="%"+query+"%";
+		}
+		
+		List<LogVO> list = logService.getLogListPaging(page,query);
+		
 		model.addAttribute("logList", list);
-		model.addAttribute("pageList", logService.getPageList(page));
-		model.addAttribute("endPageNum", logService.getEndPageNum());
+		model.addAttribute("pageList", logService.getPageList(page,query));
+		model.addAttribute("endPageNum", logService.getEndPageNum(query));
 		return "/jsp/log";
 	}
 
