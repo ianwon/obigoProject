@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.api.service.ApiService;
 import com.obigo.obigoproject.bundle.service.BundleService;
@@ -32,14 +31,11 @@ import com.obigo.obigoproject.vehicle.service.VehicleService;
 import com.obigo.obigoproject.vo.ApiVO;
 import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.LogVO;
-import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.ResourceVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.obigo.obigoproject.vo.UsersVO;
 import com.obigo.obigoproject.vo.VehicleVO;
-
-import net.sf.json.JSONArray;
 
 @Controller
 public class MoveController {
@@ -314,16 +310,16 @@ public class MoveController {
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
 
-		String query=request.getParameter("query");
+		String query = request.getParameter("query");
 
-		if(query!=null){
-			query="%"+query+"%";
+		if (query != null) {
+			query = "%" + query + "%";
 		}
-		
-		List<LogVO> list = logService.getLogListPaging(page,query);
-		
+
+		List<LogVO> list = logService.getLogListPaging(page, query);
+
 		model.addAttribute("logList", list);
-		model.addAttribute("pageList", logService.getPageList(page,query));
+		model.addAttribute("pageList", logService.getPageList(page, query));
 		model.addAttribute("endPageNum", logService.getEndPageNum(query));
 		return "/jsp/log";
 	}

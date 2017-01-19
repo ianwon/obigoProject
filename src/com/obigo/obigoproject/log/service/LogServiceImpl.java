@@ -91,10 +91,13 @@ public class LogServiceImpl implements LogService {
 		int month = cal.get(Calendar.MONTH) + 1;
 		for (int i = 0; i < 8; i++) {
 			if (month == 0) {
-				map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000 - 1));
+				map.put("year", ((int) map.get("year") - 1));
 				month = 12;
 			}
-			map.put("month", month);
+			if (month < 10)
+				map.put("month", "0" + month);
+			else
+				map.put("month", "" + month);
 			list.add(logDao.getBundleUpdateCount(map));
 			month--;
 		}
@@ -107,13 +110,13 @@ public class LogServiceImpl implements LogService {
 	@Override
 	public List<LogVO> getLogListPaging(int page, String query) {
 		int logCount = logDao.getLogCount(query);
-		
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("endNum", pageSize * page);
-		map.put("startNum", (Integer)(map.get("endNum")) - pageSize + 1);
+		map.put("startNum", (Integer) (map.get("endNum")) - pageSize + 1);
 		map.put("query", query);
-		
-		if (logCount < (Integer)map.get("startNum"))
+
+		if (logCount < (Integer) map.get("startNum"))
 			map.put("startNum", logCount);
 		return logDao.getLogListPaging(map);
 	}
@@ -121,7 +124,7 @@ public class LogServiceImpl implements LogService {
 	@Override
 	public List<Integer> getPageList(int page, String query) {
 		List<Integer> list = new ArrayList<>();
-		
+
 		int logCount = logDao.getLogCount(query);
 		int start = 0;
 		int endNum = 0;
