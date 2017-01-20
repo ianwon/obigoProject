@@ -122,13 +122,11 @@ public class UserServiceImpl implements UserService {
 		map.put("month", "%");
 		int total = userDao.getMonthUserCount(map);
 		for (int i = 1; i <= 12; i++) {
-
 			if (i < 10) {
 				map.put("month", "0" + i);
 			} else {
 				map.put("month", i + "");
 			}
-
 			list.add((int) (((float) userDao.getMonthUserCount(map) / total) * 100));
 		}
 		return list;
@@ -144,22 +142,26 @@ public class UserServiceImpl implements UserService {
 		int month = cal.get(Calendar.MONTH) + 1;
 		for (int i = 0; i < 8; i++) {
 			if (month == 0) {
-				map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000 - 1));
+				map.put("year", ((int) map.get("year") - 1));
 				month = 12;
 			}
-			map.put("month", month);
+			if (month < 10) {
+				map.put("month", "0" + month);
+			} else {
+				map.put("month", month + "");
+			}
 			list.add(userDao.getMonthUserCount(map));
 			month--;
 		}
 		return list;
 	}
-	
+
 	@Override
-	public UsersVO findIDPW(String name, String email){
-		Map<String, String> map=new HashMap<>();
+	public List<UsersVO> findIDPW(String name, String email) {
+		Map<String, String> map = new HashMap<>();
 		map.put("name", name);
 		map.put("email", email);
-		
+
 		return userDao.findIDPW(map);
 	}
 
@@ -169,13 +171,12 @@ public class UserServiceImpl implements UserService {
 		map.put("userId", userId);
 		map.put("password", password);
 		map.put("newpassword", newpassword);
-		
+
 		int resultcount = userDao.updatePassword(map);
 		if (resultcount == 1)
 			return true;
 		else
 			return false;
 	}
-
 
 }
