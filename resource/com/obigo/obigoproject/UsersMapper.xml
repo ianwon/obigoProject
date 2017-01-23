@@ -94,7 +94,7 @@
 
 	<select id="selectMonthUserCount" parameterType="hashmap"
 		resultType="java.lang.Integer">
-	<![CDATA[ select count(*) from users where cdate like #{year} || '/' || #{month} || '/%' and role_name='USER' ]]>
+	<![CDATA[ select count(*) from (select to_char(cdate, 'yymm') cdate, role_name from users) where cdate like #{date} and role_name = 'USER' ]]>
 	</select>
 
 </mapper>
