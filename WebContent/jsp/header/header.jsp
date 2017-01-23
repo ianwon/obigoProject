@@ -132,7 +132,6 @@
 					</a>
 						<ul class="sub">
 							<li><a href="/obigoProject/bundle">Bundle</a></li>
-							<li><a href="/obigoProject/resource">Resource</a></li>
 						</ul></li>
 					<li class="sub-menu"><a href="javascript:;"> <i class="fa fa-th"></i> <span>Api Management</span>
 					</a>

@@ -22,5 +22,4 @@
 	<resources mapping="/assets/**" location="/assets/" />
 	<resources mapping="/fonts/**" location="/fonts/" />
 
-
 </beans:beans>

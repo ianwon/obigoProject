@@ -22,7 +22,6 @@ import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
 import com.obigo.obigoproject.log.service.LogService;
 import com.obigo.obigoproject.messagecategory.service.MessageCategoryService;
 import com.obigo.obigoproject.pushmessage.service.PushMessageService;
-import com.obigo.obigoproject.resource.service.ResourceService;
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.usermessage.service.UserMessageService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
@@ -31,7 +30,6 @@ import com.obigo.obigoproject.vehicle.service.VehicleService;
 import com.obigo.obigoproject.vo.ApiVO;
 import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.LogVO;
-import com.obigo.obigoproject.vo.ResourceVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.obigo.obigoproject.vo.UsersVO;
@@ -51,8 +49,6 @@ public class MoveController {
 	MessageCategoryService messageCategoryService;
 	@Autowired
 	PushMessageService pushMessageService;
-	@Autowired
-	ResourceService resourceService;
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -188,31 +184,6 @@ public class MoveController {
 		model.addAttribute("bundleList", list);
 		model.addAttribute("bundleVersion", version);
 		return "/jsp/bundle";
-	}
-
-	/**
-	 * 헤더 RESOURCE클릭시 이동
-	 * 
-	 * @return 리소스 관리 페이지
-	 */
-	@RequestMapping("/resource")
-	public String moveResource(Model model, String bundleKey) {
-		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
-		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
-		model.addAttribute("userRequestList", userRequestList);
-
-		List<BundleVO> bundlelist = bundleService.getBundleList();
-		model.addAttribute("bundleList", bundlelist);
-		if (bundleKey == null || bundleKey == "") {
-			List<ResourceVO> resourcelist = resourceService.getResourceList();
-			model.addAttribute("resourceList", resourcelist);
-		} else {
-			List<ResourceVO> resourcelist = resourceService.getResourceListBybundleKey(bundleKey);
-			model.addAttribute("resourceList", resourcelist);
-		}
-
-		return "/jsp/resource";
-
 	}
 
 	/**
