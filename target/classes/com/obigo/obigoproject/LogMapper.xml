@@ -71,7 +71,7 @@
 		resultType="java.lang.Integer">
 	<![CDATA[
 		select count(*) from (select body, url, to_char(date_time, 'yymm') date_time from log) 
-		where body like #{body} and url like #{url} and date_time #{date}		
+		where body like #{body} and url like #{url} and date_time like #{date}		
 		]]>
 	</select>
 
