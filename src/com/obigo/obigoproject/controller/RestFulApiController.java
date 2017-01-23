@@ -273,7 +273,7 @@ public class RestFulApiController {
 
 		// Log 정보를 등록하는 과정
 		JSONObject jobj = new JSONObject();
-		jobj.put("userId", userId);
+		jobj.put("userid", userId);
 		vo.setUrl("/api/uservehicle");
 		vo.setBody(jobj.toString());
 		vo.setReturned(jsonArray.toString());
@@ -346,7 +346,7 @@ public class RestFulApiController {
 
 		// Log 정보를 등록하는 과정
 		JSONObject jobj = new JSONObject();
-		jobj.put("userId", userId);
+		jobj.put("userid", userId);
 		vo.setUrl("/api/message");
 		vo.setBody(jobj.toString());
 		vo.setReturned(jsonArray.toString());
@@ -387,7 +387,7 @@ public class RestFulApiController {
 		jsonArray.addAll(vehicleService.getVehicleList());
 
 		JSONObject jobj = new JSONObject();
-		jobj.put("userId", userId);
+		jobj.put("userid", userId);
 
 		// Log 정보를 등록하는 과정
 		vo.setUrl("/api/vehicle");
@@ -417,7 +417,7 @@ public class RestFulApiController {
 		jobj.put("date", usersVO.getDate());
 
 		JSONObject bodyJobj = new JSONObject();
-		bodyJobj.put("userId", userId);
+		bodyJobj.put("userid", userId);
 
 		// Log 정보를 등록하는 과정
 		vo.setUrl("/api/user");
