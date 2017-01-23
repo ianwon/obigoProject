@@ -1,6 +1,5 @@
 package com.obigo.obigoproject.pushmessage.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,11 +35,6 @@ public class PushMessageDaoImpl implements PushMessageDao {
 	}
 
 	@Override
-	public List<PushMessageVO> getPushMessageListByCategory(int categoryNumber) {
-		return sqlSession.selectList("obigoproject.PushMessage.selectPushMessageByCategory", categoryNumber);
-	}
-
-	@Override
 	public List<PushMessageVO> getPushMessageList(String userId) {
 		return sqlSession.selectList("obigoproject.PushMessage.selectPushMessageByUserid", userId);
 	}
@@ -55,16 +49,10 @@ public class PushMessageDaoImpl implements PushMessageDao {
 		return sqlSession.selectList("obigoproject.PushMessage.groupByCategoryName");
 	}
 
-	// categoryNumber or lcation or modelCode 를 통해 PushMessageList를 가져오는 메소드
+	// 선택한 category, location, model에 따라 Pushmessage List를 불러옴
 	@Override
-	public List<PushMessageVO> getPushMessageListBy(String by, String select) {
-		if (by.equals("categoryNumber"))
-			return sqlSession.selectList("obigoproject.PushMessage.selectPushMessageListByCategory", Integer.parseInt(select));
-		else if (by.equals("location"))
-			return sqlSession.selectList("obigoproject.PushMessage.selectPushMessageListByLocation", select);
-		else if (by.equals("modelCode"))
-			return sqlSession.selectList("obigoproject.PushMessage.selectPushMessageListByModelCode", select);
-		return null;
+	public List<PushMessageVO> getPushMessageListBy(Map<String, Object> map) {
+		return sqlSession.selectList("obigoproject.PushMessage.selectPushMessageListByAll", map);
 	}
 
 }
