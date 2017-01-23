@@ -70,21 +70,23 @@
 	<select id="selectUserMonthLogCount" parameterType="hashmap"
 		resultType="java.lang.Integer">
 	<![CDATA[
-		select count(*) from log where body like #{body} and url like #{url} and date_time like #{year}||'/'||#{month}||'/%'
+		select count(*) from (select body, url, to_char(date_time, 'yymm') date_time from log) 
+		where body like #{body} and url like #{url} and date_time #{date}		
 		]]>
 	</select>
 
 	<select id="selectMonthLogCount" parameterType="hashmap"
 		resultType="java.lang.Integer">
 		<![CDATA[
-		select count(*) from log where url like #{url} and date_time like #{year}||'/'||#{month}||'/%'
+		select count(*) from (select url, to_char(date_time, 'yymm') date_time from log)
+		where url like #{url} and date_time like #{date}
 		]]>
 	</select>
 
 	<select id="selectBundleUpdateCount" parameterType="hashmap"
 		resultType="java.lang.Integer">
 	<![CDATA[
-	select count(*) from log where url like '%bundledown' and date_time like #{year}||'/'||#{month}||'/%'
+		select count(*) from (select to_char(date_time,'yymm')date_time, url from log) where  url like '%bundledown' and date_time like #{date}
 	]]>
 	</select>
 </mapper>

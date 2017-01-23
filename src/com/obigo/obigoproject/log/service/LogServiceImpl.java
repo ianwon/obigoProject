@@ -51,15 +51,15 @@ public class LogServiceImpl implements LogService {
 	public List<Integer> getMonthLogCount(String url, String year) {
 		List<Integer> list = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
-
-		map.put("year", year);
+		String month = null;
 		map.put("url", url);
 		for (int i = 1; i <= 12; i++) {
 			if (i < 10)
-				map.put("month", "0" + i);
+				month = "0" + i;
 			else
-				map.put("month", "" + i);
+				month = "" + i;
 
+			map.put("date", year + month);
 			list.add(logDao.getMonthLogCount(map));
 		}
 		return list;
@@ -69,15 +69,16 @@ public class LogServiceImpl implements LogService {
 	public List<Integer> getUserMonthLogCount(String selectYear, String url, String userId) {
 		List<Integer> list = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
-		map.put("year", selectYear);
+		String month = null;
 		map.put("url", url);
 		map.put("body", userId);
 
 		for (int i = 1; i <= 12; i++) {
 			if (i < 10)
-				map.put("month", "0" + i);
+				month = "0" + i;
 			else
-				map.put("month", i + "");
+				month = "" + i;
+			map.put("date", selectYear + month);
 			list.add(logDao.getUserMonthLogCount(map));
 		}
 		return list;
@@ -87,17 +88,20 @@ public class LogServiceImpl implements LogService {
 		List<Integer> list = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
 		Calendar cal = Calendar.getInstance();
+		int year = new Integer(cal.get(Calendar.YEAR) - 2000);
 		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
 		int month = cal.get(Calendar.MONTH) + 1;
+		String date = "";
 		for (int i = 0; i < 8; i++) {
 			if (month == 0) {
-				map.put("year", ((int) map.get("year") - 1));
+				year = year - 1;
 				month = 12;
 			}
 			if (month < 10)
-				map.put("month", "0" + month);
+				date = year + "0" + month;
 			else
-				map.put("month", "" + month);
+				date = year + "" + month;
+			map.put("date", date);
 			list.add(logDao.getBundleUpdateCount(map));
 			month--;
 		}

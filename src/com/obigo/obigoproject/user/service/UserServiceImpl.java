@@ -116,17 +116,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Integer> getMonthUserCount() {
 		List<Integer> list = new ArrayList<>();
-		Map<String, Object> map = new HashMap<>();
+		Map<String, String> map = new HashMap<>();
 		Calendar cal = Calendar.getInstance();
-		map.put("year", cal.get(Calendar.YEAR) - 2000);
-		map.put("month", "%");
+		int year = cal.get(Calendar.YEAR) - 2000;
+		String month = "";
+		String date = "";
+		map.put("date", year + "%");
 		int total = userDao.getMonthUserCount(map);
 		for (int i = 1; i <= 12; i++) {
 			if (i < 10) {
-				map.put("month", "0" + i);
+				month = "0" + i;
 			} else {
-				map.put("month", i + "");
+				month = "" + i;
 			}
+			date = year + month;
+			map.put("date", date);
 			list.add((int) (((float) userDao.getMonthUserCount(map) / total) * 100));
 		}
 		return list;
@@ -138,18 +142,20 @@ public class UserServiceImpl implements UserService {
 		List<Integer> list = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
 		Calendar cal = Calendar.getInstance();
-		map.put("year", new Integer(cal.get(Calendar.YEAR) - 2000));
+		int year = new Integer(cal.get(Calendar.YEAR) - 2000);
 		int month = cal.get(Calendar.MONTH) + 1;
+		String date = null;
 		for (int i = 0; i < 8; i++) {
 			if (month == 0) {
-				map.put("year", ((int) map.get("year") - 1));
+				year = year - 1;
 				month = 12;
 			}
 			if (month < 10) {
-				map.put("month", "0" + month);
+				date = year + "0" + month;
 			} else {
-				map.put("month", month + "");
+				date = year + "" + month;
 			}
+			map.put("date", date);
 			list.add(userDao.getMonthUserCount(map));
 			month--;
 		}
