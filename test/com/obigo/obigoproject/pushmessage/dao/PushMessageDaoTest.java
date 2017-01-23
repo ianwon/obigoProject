@@ -56,15 +56,6 @@ public class PushMessageDaoTest {
 		Assert.assertEquals(list.get(0).getContent(), "LOL");
 	}
 
-	// 특정 카테고리의 PUSHMESSAGE를 가지고오는 메소드
-	@Test
-	public void getPushMessageListByCategory() {
-		List<PushMessageVO> list = pushMessageDao.getPushMessageListByCategory(10);
-
-		System.out.println(list.size());
-		Assert.assertEquals(list.get(0).getContent(), "LOL");
-
-	}
 	@Test
 	public void getPushMessage(){
 		PushMessageVO vo = pushMessageDao.getPushMessage();

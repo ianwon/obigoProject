@@ -67,6 +67,22 @@
 		]]>
 	</select>
 
+	<select id="selectPushMessageListByAll" parameterType="hashmap"
+		resultMap="PushMessageResultMap">
+		SELECT * FROM PUSH_MESSAGE
+		<where>
+			<if test="categoryNumber != null">
+				category_number = #{categoryNumber}
+			</if>
+			<if test="location != null">
+				and location = #{location}
+			</if>
+			<if test="modelCode != null">
+				and model_code = #{modelCode}
+			</if>
+		</where>
+	</select>
+
 	<select id="selectPushMessageByCategory" parameterType="java.lang.Integer"
 		resultMap="PushMessageResultMap">
 		<![CDATA[

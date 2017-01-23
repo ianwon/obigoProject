@@ -30,6 +30,7 @@ import com.obigo.obigoproject.vehicle.service.VehicleService;
 import com.obigo.obigoproject.vo.ApiVO;
 import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.LogVO;
+import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.obigo.obigoproject.vo.UsersVO;
@@ -207,11 +208,27 @@ public class MoveController {
 	 * 
 	 * @return 푸시메시지 관리 페이지
 	 */
-	@RequestMapping(value = "/pushmessage", method = { RequestMethod.POST, RequestMethod.GET })
-	public String movePushMessage(Model model, HttpServletRequest request) {
+	@RequestMapping(value = "/pushmessage", method = {  RequestMethod.GET})
+	public String movePushMessage( Integer categoryNumber,
+			 String location,  String modelCode, Model model) {
 		// 모든 MoveController의 주소마다 header의 User Request 알림표시 업데이트를 위해서 필요하다
 		List<UserRequestVO> userRequestList = userRequestService.getUserRequestList();
 		model.addAttribute("userRequestList", userRequestList);
+		
+		
+		
+		// 공백이 들어왔을 때 Pushmessage Mapper에서 사용하기 때문에 공백대신 null을 넣어준다
+		if(location=="")
+			location=null;
+		if(modelCode=="")
+			modelCode=null;
+		
+		// Pushmessage List를 선택한 category, location, model에 따라 불러온다 
+		Map<String, Object> map=new HashMap<>();
+		map.put("categoryNumber", categoryNumber);
+		map.put("location", location);
+		map.put("modelCode", modelCode);
+		model.addAttribute("pushMessageList", pushMessageService.getPushMessageListBy(map));
 
 		List<VehicleVO> vehicleList = vehicleService.getVehicleList();
 		Map<String, String> vehicleMap = new HashMap<>();
@@ -221,8 +238,10 @@ public class MoveController {
 		}
 
 		model.addAttribute("vehicleMap", vehicleMap);
+		
+		
 
-		if ((request.getParameter("categoryNumber") == null || request.getParameter("categoryNumber").equals("")) && (request.getParameter("location") == null || request.getParameter("location").equals(""))
+		/*if ((request.getParameter("categoryNumber") == null || request.getParameter("categoryNumber").equals("")) && (request.getParameter("location") == null || request.getParameter("location").equals(""))
 				&& (request.getParameter("modelCode") == null || request.getParameter("location").equals("")))
 			model.addAttribute("pushMessageList", pushMessageService.getPushMessageList());
 		//////// select box///////
@@ -243,7 +262,7 @@ public class MoveController {
 		} else {
 			model.addAttribute("modelCode", request.getParameter("modelCode"));
 			model.addAttribute("pushMessageList", pushMessageService.getPushMessageListBy("modelCode", request.getParameter("modelCode")));
-		}
+		}*/
 
 		model.addAttribute("messageCategoryList", messageCategoryService.getMessageCategoryList());
 		model.addAttribute("messageCategoryMap", messageCategoryService.getMessageCategoryMap());
