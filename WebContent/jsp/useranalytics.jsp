@@ -226,68 +226,56 @@
 			});
 
 			// table의 row를 클릭했을 때 해당된는 row의 User ID에 대한 Login 통계를 보여주는 함수
-			$("#myTable tbody")
-					.on(
-							"click",
-							"tr",
-							function() {
-								// 선택이 해제되었을 때 전체 User에 대한 통계를 보여줌
-								if ($(this).hasClass("selected")) {
-									$(this).removeClass("selected");
+			$("#myTable tbody").on(	"click", "tr", function() {
+					// 선택이 해제되었을 때 전체 User에 대한 통계를 보여줌
+					if ($(this).hasClass("selected")) {
+						$(this).removeClass("selected");
+						$.ajax({
+							type : "post",
+							url : "/obigoProject/countuserlogin",
+							dataType : "json",
+							async : false,
+							data : {
+								"userId" : "",
+								"selectYear" : $('#selectYear option:selected').val()
+							},
+							success : function(data) {
+								setUp(data, "");
+								
+							},
+							error : function(e) {
+								console.log(e);
+							}
+						});
+					}
+					// 선택할 때, 해당 ID에 대한 통계를 보여줌
+					else {
+						table.$("tr.selected").removeClass(
+								"selected");
+						$(this).addClass("selected");
+						var userId = $(this).find("td:eq(0)").text();
 
-									$
-											.ajax({
-												type : "post",
-												url : "/obigoProject/countuserlogin",
-												dataType : "json",
-												async : false,
-												data : {
-													"userId" : "",
-													"selectYear" : $(
-															'#selectYear option:selected')
-															.val()
-												},
-												success : function(data) {
-													setUp(data, "");
-												},
-												error : function(e) {
-													console.log(e);
-												}
-											});
-
+						// 선택한 User ID의 월별 Login Count를 얻어오는 AJAX
+						$.ajax({
+							type : "post",
+							url : "/obigoProject/countuserlogin",
+							dataType : "json",
+							async : false,
+							data : {
+								"userId" : userId,
+								"selectYear" : $('#selectYear option:selected').val()
+							},
+							success : function(data) {
+								if (userId != "No data available in table") {
+									setUp(data, userId);
 								}
-								// 선택할 때, 해당 ID에 대한 통계를 보여줌
-								else {
-									table.$("tr.selected").removeClass(
-											"selected");
-									$(this).addClass("selected");
-									var userId = $(this).find("td:eq(0)")
-											.text();
-
-									// 선택한 User ID의 월별 Login Count를 얻어오는 AJAX
-									$
-											.ajax({
-												type : "post",
-												url : "/obigoProject/countuserlogin",
-												dataType : "json",
-												async : false,
-												data : {
-													"userId" : userId,
-													"selectYear" : $(
-															'#selectYear option:selected')
-															.val()
-												},
-												success : function(data) {
-													if (userId != "No data available in table") {
-														setUp(data, userId);
-													}
-												},
-												error : function(e) {
-													console.log(e);
-												}
-											});
-								}
-							});
+							},
+							error : function(e) {
+								console.log(e);
+							}
+						});
+					}
+				});
 		}
 
 		// Text에 입력한 문자열을 포함하는 User ID의 List를 테이블로 보여준다.
