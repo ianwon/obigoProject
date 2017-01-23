@@ -46,7 +46,8 @@ td {
 												</div>
 												<div class="form-group">
 													<span class="label label-primary">CONTENT</span>
-													<textarea name="content" id="content" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly" style="font-size: 11px; text-align: left;"></textarea>
+													<textarea name="content" id="content" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly"
+														style="font-size: 11px; text-align: left;"></textarea>
 												</div>
 												<div class="form-group">
 													<span class="label label-primary">SEND DATE</span>
@@ -68,8 +69,11 @@ td {
 						<!-- -------------- Push Message Modal end -------------- -->
 						<header>
 							<div class="panel">
-								<form action="/obigoProject/pushmessage" id="frmSelect">
-									<label>Category : </label> <select id="selectcategory" name="categoryNumber" onchange="changeFrm(this)">
+								<form action="/obigoProject/pushmessage" id="frmSelect" method="get">
+									<!-- ----- Select Box(Category) start ----- -->
+									&nbsp;&nbsp;
+									<label>Category : </label>
+									<select id="selectcategory" name="categoryNumber" onchange="changeFrm(this)">
 										<option value="">Select Category</option>
 										<c:forEach var="mcl" items="${messageCategoryList}" begin="0">
 											<c:choose>
@@ -81,7 +85,13 @@ td {
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
-									</select> <label>Location : </label> <select id="selectlocation" name="location" onchange="changeFrm(this)">
+									</select>
+									<!-- ----- Select Box(Category) end ----- -->
+									
+									<!-- ----- Select Box(Location) start ----- -->
+									&nbsp;&nbsp;&nbsp;
+									<label>Location : </label>
+									<select id="selectlocation" name="location" onchange="changeFrm(this)">
 										<option value="">Select Location</option>
 										<c:forEach var="ll" items="${locationList}" begin="0">
 											<c:choose>
@@ -93,7 +103,13 @@ td {
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
-									</select> <label>Model : </label> <select id="selectmodel" name="modelCode" onchange="changeFrm(this)">
+									</select>
+									<!-- ----- Select Box(Location) end ----- -->
+									
+									<!-- ----- Select Box(Model) start ----- -->
+									&nbsp;&nbsp;&nbsp;
+									<label>Model : </label>
+									<select id="selectmodel" name="modelCode" onchange="changeFrm(this)">
 										<option value="">Select Model</option>
 										<c:forEach var="ml" items="${modelList}" begin="0">
 											<c:choose>
@@ -106,6 +122,7 @@ td {
 											</c:choose>
 										</c:forEach>
 									</select>
+									<!-- ----- Select Box(Model) end ----- -->
 									<input type="submit" hidden="hidden">
 								</form>
 							</div>
@@ -137,13 +154,13 @@ td {
 											<c:set var="cnumber" value="category${p.categoryNumber}" />
 											<c:set var="code" value="${p.modelCode}" />
 											<tr class="">
-												<td class="center" id="title${status.index}" onclick="showModal(${status.index})" style="cursor:pointer;">${p.title}</td>
-												<td class="center" onclick="showModal(${status.index})" style="cursor:pointer;">${p.uploadFile}</td>
-												<td class="center" id="content${status.index}" onclick="showModal(${status.index})" style="cursor:pointer;">${p.content}</td>
-												<td class="center" id="sendDate${status.index}" onclick="showModal(${status.index})" style="cursor:pointer;">${p.sendDate}</td>
-												<td class="center" onclick="showModal(${status.index})" style="cursor:pointer;"><c:out value="${vehicleMap[code]}" /></td>
-												<td class="center" onclick="showModal(${status.index})" style="cursor:pointer;">${p.location}</td>
-												<td class="center" id="messageCategory${status.index}" onclick="showModal(${status.index})" style="cursor:pointer;"><c:out value="${messageCategoryMap[cnumber]}" /></td>
+												<td class="center" id="title${status.index}" onclick="showModal(${status.index})" style="cursor: pointer;">${p.title}</td>
+												<td class="center" onclick="showModal(${status.index})" style="cursor: pointer;">${p.uploadFile}</td>
+												<td class="center" id="content${status.index}" onclick="showModal(${status.index})" style="cursor: pointer;">${p.content}</td>
+												<td class="center" id="sendDate${status.index}" onclick="showModal(${status.index})" style="cursor: pointer;">${p.sendDate}</td>
+												<td class="center" onclick="showModal(${status.index})" style="cursor: pointer;"><c:out value="${vehicleMap[code]}" /></td>
+												<td class="center" onclick="showModal(${status.index})" style="cursor: pointer;">${p.location}</td>
+												<td class="center" id="messageCategory${status.index}" onclick="showModal(${status.index})" style="cursor: pointer;"><c:out value="${messageCategoryMap[cnumber]}" /></td>
 												<td><a class="Delete" href="javascript:deletePushmessage(${p.messageNumber});">Delete</a></td>
 											</tr>
 										</c:forEach>
