@@ -84,14 +84,8 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 	// 특정 PUSHMESSAGE를 가지고오는 메소드
 	@Override
-	public List<PushMessageVO> getPushMessageListBy(String by, String select) {
-		return pushMessageDao.getPushMessageListBy(by, select);
-	}
-
-	// 특정 카테고리의 PUSHMESSAGE를 가지고오는 메소드
-	@Override
-	public List<PushMessageVO> getPushMessageListByCategory(int categoryNumber) {
-		return pushMessageDao.getPushMessageListByCategory(categoryNumber);
+	public List<PushMessageVO> getPushMessageListBy(Map<String, Object> map) {
+		return pushMessageDao.getPushMessageListBy(map);
 	}
 
 	// 정기적으로 통계리포트 생성 및 등록된 이메일로 발송 (pdf로 출력하기 기능)

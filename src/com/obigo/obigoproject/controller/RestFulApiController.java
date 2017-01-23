@@ -39,7 +39,6 @@ import com.obigo.obigoproject.log.service.LogService;
 import com.obigo.obigoproject.messagecategory.service.MessageCategoryService;
 import com.obigo.obigoproject.pushmessage.service.PushMessageService;
 import com.obigo.obigoproject.registrationid.service.RegistrationidService;
-import com.obigo.obigoproject.resource.service.ResourceService;
 import com.obigo.obigoproject.user.service.UserService;
 import com.obigo.obigoproject.usermessage.service.UserMessageService;
 import com.obigo.obigoproject.userrequest.service.UserRequestService;
@@ -69,8 +68,6 @@ public class RestFulApiController {
 	MessageCategoryService messageCategoryService;
 	@Autowired
 	PushMessageService pushMessageService;
-	@Autowired
-	ResourceService resourceService;
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -614,22 +611,6 @@ public class RestFulApiController {
 
 			return "false";
 		}
-	}
-
-	@RequestMapping(value = "/api/bundleversionupdate", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String getbundle() {
-		BundleVO bundleVO = bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion());
-		JSONArray jsonarray = new JSONArray();
-		jsonarray.addAll(resourceService.getResourceListBybundleKey(bundleVO.getBundleKey()));
-
-		// Log 정보를 등록하는 과정
-		vo.setUrl("/api/bundleversionupdate");
-		vo.setBody("null");
-		vo.setReturned(jsonarray.toString());
-		logService.insertLog(vo);
-
-		return jsonarray.toString();
 	}
 
 	/**

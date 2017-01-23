@@ -21,11 +21,6 @@
    </resultMap>
 
    <select id="selectAndroidUserVehicle" resultMap="AndroidUserVehicleResultMap">
-        select *
-      from
-      user_vehicle NATURAL join vehicle
-      where user_id =#{userId}
+        select * from user_vehicle NATURAL join vehicle where user_id =#{userId}
    </select>
-
-
 </mapper>

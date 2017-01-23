@@ -71,7 +71,7 @@ public class LogDaoTest {
 	@Test
 	public void getLogCountTest() {
 
-		Assert.assertEquals(3, logDao.getLogCount());
+		Assert.assertEquals(3, logDao.getLogCount(""));
 
 	}
 

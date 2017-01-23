@@ -77,14 +77,6 @@ public class PushMessageServiceTest {
 		Assert.assertEquals(3, list.size());
 	}
 
-	// 특정 카테고리의 PUSHMESSAGE를 가지고오는 메소드
-	@Test
-	public void getPushMessageListByCategory() {
-		List<PushMessageVO> list = pushMessageService.getPushMessageListByCategory(1);
-
-		Assert.assertEquals(2, list.size());
-
-	}
 
 	@Test
 	public void getPushMessage() {
