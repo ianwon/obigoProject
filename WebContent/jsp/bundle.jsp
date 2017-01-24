@@ -49,8 +49,8 @@
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Bundle Version</span>
-															<input type="text" name="bundleVersion" id="bundleversion" class="form-control" onkeyup="bundleversionCheck()" placeholder="BundleVersion" required="required">
-															<div id=bundleversioncheck></div>
+															<input type="text" name="bundleVersion" id="bundleversion" class="form-control" onblur="bundleversionCheck()" placeholder="BundleVersion" required="required">
+															<div id="bundleversioncheck"></div>
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Bundle File</span>
@@ -62,8 +62,8 @@
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">Bundle Key</span>
-															<input type="text" name="bundleKey" id="bundlekey" class="form-control" onkeyup="bundlekeyCheck()" placeholder="BundleKey" required="required">
-															<div id=bundlekeycheck></div>
+															<input type="text" name="bundleKey" id="bundlekey" class="form-control" onblur="bundlekeyCheck()" placeholder="BundleKey" required="required">
+															<div id="bundlekeycheck"></div>
 														</div>
 													</div>
 												</form>
