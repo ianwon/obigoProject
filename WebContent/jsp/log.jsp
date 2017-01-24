@@ -168,7 +168,7 @@ td {
 							</li>
 						</c:forEach>
 						<li>
-							<a href="javascript:backButton('${endPageNum}', ${param.query})">»</a>
+							<a href="javascript:backButton('${endPageNum}', '${param.query}')">»</a>
 						</li>
 					</ul>
 					<!-- -------- log table paging end -------- -->
