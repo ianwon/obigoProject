@@ -145,7 +145,7 @@
 		function passwordCheck() {
 			$.ajax({
 				type : "post",
-				url : "/obigoProject/passwordcheck",
+				url : "/obigoProject/adminpasswordcheck",
 				dataType : "json",
 				data : {
 					"userId" : $("#userId").val(),

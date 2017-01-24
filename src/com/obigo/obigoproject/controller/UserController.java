@@ -113,15 +113,13 @@ public class UserController {
 	}
 
 	/**
-	 * 유저 차량 등록 요청 수락하는 메서드 function=유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저
-	 * 요청을 DB에서 제거 결과를 해당 유저 에게 Pushmessage로 발송해야함
+	 * 유저 차량 등록 요청 수락하는 메서드 function=유저 요청 수락 버튼을 클릭 후 요청 차량을 해당 유저에 등록 하고 유저 요청을 DB에서 제거 결과를 해당 유저 에게 Pushmessage로 발송해야함
 	 * 
 	 * @return JSON : AJAX의 요청에 대한 응답으로 아무 의미 없는 data를 보내줌
 	 */
 	@RequestMapping(value = "/acceptrequest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber,
-			@RequestParam("userId") String userId, @RequestParam("flag") String flag) {
+	public String acceptRequest(@RequestParam("userRequestNumber") int userRequestNumber, @RequestParam("userId") String userId, @RequestParam("flag") String flag) {
 
 		try {
 			if (userRequestService.acceptUserRequest(userRequestNumber))
@@ -136,15 +134,13 @@ public class UserController {
 	}
 
 	/**
-	 * 유저 요청을 거절하는 메서드 function=유저 요청 거절 버튼을 클릭 후 유저 요청을 DB에서 제거 그리고 유저에게 Push
-	 * message 보내줌
+	 * 유저 요청을 거절하는 메서드 function=유저 요청 거절 버튼을 클릭 후 유저 요청을 DB에서 제거 그리고 유저에게 Push message 보내줌
 	 * 
 	 * @return JSON : AJAX의 요청에 대한 응답으로 아무 의미 없는 data를 보내줌
 	 */
 	@RequestMapping(value = "/rejectrequest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String rejectRequest(@RequestParam("userRequestNumber") int userRequestNumber,
-			@RequestParam("userId") String userId, @RequestParam("flag") String flag) {
+	public String rejectRequest(@RequestParam("userRequestNumber") int userRequestNumber, @RequestParam("userId") String userId, @RequestParam("flag") String flag) {
 		try {
 			if (userRequestService.deleteUserRequest(userRequestNumber))
 				pushmessageService.sendUserReqeustPushMessage(userId, flag);
@@ -182,6 +178,26 @@ public class UserController {
 		userId = userId.toLowerCase();
 
 		if (userService.passwordCheck(userId, password, "USER")) {
+			jobj.put("flag", true);
+		} else {
+			jobj.put("flag", false);
+		}
+
+		return jobj.toString();
+	}
+
+	/**
+	 * 유저의 ID/PW 가 일치하는지 체크하는 메서드
+	 * 
+	 * @return JSON : ID와 PW가 DB에 등록된 유저의 ID/PW 정보와 일치하는지 체크
+	 */
+	@RequestMapping(value = "/adminpasswordcheck", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String adminPasswordCheck(@RequestParam("userId") String userId, @RequestParam("password") String password) {
+		JSONObject jobj = new JSONObject();
+		userId = userId.toLowerCase();
+
+		if (userService.passwordCheck(userId, password, "ADMIN")) {
 			jobj.put("flag", true);
 		} else {
 			jobj.put("flag", false);
