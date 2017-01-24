@@ -166,7 +166,7 @@ public class UserController {
 	public String idCheck(@RequestParam("userId") String userId) {
 		userId = userId.toLowerCase();
 		JSONObject jobj = new JSONObject();
-		jobj.put("flag", userService.idCheck(userId, "ADMIN"));
+		jobj.put("flag", userService.idCheck(userId, "USER"));
 		return jobj.toString();
 	}
 
@@ -181,7 +181,7 @@ public class UserController {
 		JSONObject jobj = new JSONObject();
 		userId = userId.toLowerCase();
 
-		if (userService.passwordCheck(userId, password, "ADMIN")) {
+		if (userService.passwordCheck(userId, password, "USER")) {
 			jobj.put("flag", true);
 		} else {
 			jobj.put("flag", false);
