@@ -36,7 +36,6 @@
 					</div>
 				</section>
 
-
 				<div class="btn-group">
 					<a style="border-color: #6CCAC9; background-color: #6CCAC9;" id="Add" class="btn btn-success" data-toggle="modal" href="/obigoProject/usermanagement"> Back <i
 							class="fa fa-arrow-circle-left"></i></a>
@@ -68,7 +67,6 @@
 													<option value="${vml.modelCode}">${vml.modelName}</option>
 												</c:forEach>
 											</select>
-											<!-- 											<input type="text" name="modelCode" class="form-control" placeholder="Model Code" required="required"> -->
 										</div>
 										<div class="form-group">
 											<span class="label label-primary">Color</span>
@@ -127,6 +125,7 @@
 				<c:forEach var="v" items="${vehicleList}" varStatus="status">
 					<div class="col-lg-4" style="width: 400px; margin-top: -70px; margin-bottom: 70px;">
 						<aside class="profile-nav alt green-border">
+							<div style="text-align: right;"><a href="javascript:removeVehicle('${userVehicleList[status.index].userId}','${userVehicleList[status.index].userVehicleNumber}');"><i style="font-size: 20px;" class="fa fa-times-circle"></i></a></div>
 							<section class="panel">
 								<div class="user-heading alt green-bg">
 									<a href="#"> <img alt="Vehicle Image" src="/obigoProject/vehicleImage?modelImage=${v.modelImage}"  onerror="this.src='/obigoProject/vehicleImage?modelImage=no_car.png';" >
@@ -226,6 +225,12 @@
 			} else {
 				alert("동일한 VIN이 이미 존재합니다!!");
 				return false;
+			}
+		}
+		
+		function removeVehicle(userId, uvnumber){
+			if(confirm("정말로 삭제하시겠습니까?")){
+				location.href="/obigoProject/deleteuservehicle?userId="+userId+"&uvnumber="+uvnumber;
 			}
 		}
 	</script>

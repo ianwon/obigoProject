@@ -347,9 +347,12 @@ public class UserController {
 	 * 
 	 * @return 유저 차량 관리 페이지
 	 */
-	@RequestMapping(value = "/deleteuservehicle", method = RequestMethod.POST)
-	public String deleteUserVehicle(@RequestParam int userVehicleNumber) {
-		return null;
+	@RequestMapping("/deleteuservehicle")
+	public String deleteUserVehicle(String userId, int uvnumber) {
+		
+		userVehicleService.deleteUserVehicle(uvnumber);
+		
+		return "redirect:/userVehicle?userId="+userId;
 	}
 
 	/**
