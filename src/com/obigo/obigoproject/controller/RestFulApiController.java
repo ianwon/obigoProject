@@ -208,28 +208,6 @@ public class RestFulApiController {
 		createLog("/api/image", jobj.toString(), "/api/image/" + select + "/" + imagename);
 	}
 
-	/**
-	 * Bundle Version을 체크하는 Api parameter = "bundleVersion":번들버전
-	 * 
-	 * @return "flag" : 결과
-	 */
-	@RequestMapping(value = "/api/bundlecheck/{bundleVersion}", method = { RequestMethod.GET }, produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String bundlecheck(@PathVariable String bundleVersion) {
-		JSONObject jobj = new JSONObject();
-		if (bundleVersionService.getBundleVersion().equals(bundleVersion))
-			jobj.put("flag", true);
-		else
-			jobj.put("flag", false);
-
-		// Log 정보를 등록하는 과정
-		JSONObject bodyJobj = new JSONObject();
-		bodyJobj.put("bundleVersion", bundleVersion);
-		// Log생성
-		createLog("/api/bundlecheck", bodyJobj.toString(), jobj.toString());
-
-		return jobj.toString();
-	}
 
 	/**
 	 * 유저 차량 정보 리스트 Api parameter = "userId" : 유저아이디
