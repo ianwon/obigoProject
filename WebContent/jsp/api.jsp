@@ -247,7 +247,7 @@ textarea {
 			var apiUrlCheck = false;
 			var str_space = /\s/; // 공백체크
 	
-			if (str_space.test($("#insertApiName").val())) { //공백 체크
+			if (str_space.test($("#insertUrl").val())) { //공백 체크
 				alert("해당 항목에는 공백을 사용할수 없습니다");
 				apiNameCheck = false;
 			} else {
