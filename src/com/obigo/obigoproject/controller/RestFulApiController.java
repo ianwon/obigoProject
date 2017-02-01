@@ -208,7 +208,6 @@ public class RestFulApiController {
 		createLog("/api/image", jobj.toString(), "/api/image/" + select + "/" + imagename);
 	}
 
-
 	/**
 	 * 유저 차량 정보 리스트 Api parameter = "userId" : 유저아이디
 	 * 
@@ -361,14 +360,14 @@ public class RestFulApiController {
 	 * 
 	 * @return true/false : 입력한 ID/Password 정보가 일치하는지 여부
 	 */
-	@RequestMapping(value = "/api/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/login/{userId}/{password}", method = RequestMethod.GET)
 	@ResponseBody
-	public String login(@RequestParam String userid, @RequestParam String password) {
+	public String login(@PathVariable String userId, @PathVariable String password) {
 
 		JSONObject jobj = new JSONObject();
-		jobj.put("userid", userid);
+		jobj.put("userid", userId);
 		jobj.put("password", password);
-		if (userService.passwordCheck(userid, password, "USER") != true) {
+		if (userService.passwordCheck(userId, password, "USER") != true) {
 			// Log 정보를 등록하는 과정
 			createLog("/api/login", jobj.toString(), "false");
 
@@ -386,9 +385,9 @@ public class RestFulApiController {
 	 * 
 	 * @return true/false : 입력한 name/email 정보 일치 여부 및 email이 성공적으로 전송될 경우
 	 */
-	@RequestMapping(value = "/api/find", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/find/{name}/{email:.+}", method = RequestMethod.GET)
 	@ResponseBody
-	public String findIDPW(@RequestParam String name, @RequestParam String email) {
+	public String findIDPW(@PathVariable String name, @PathVariable String email) {
 		UsersVO userVO = null;
 
 		JSONObject jobj = new JSONObject();
@@ -502,9 +501,9 @@ public class RestFulApiController {
 	 * 
 	 * @return true/false : App과 Server에서 요구하는 Bundle Version이 동일한지 유무에 따라 true/false return
 	 */
-	@RequestMapping(value = "/api/bundleversioncheck", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/bundleversioncheck/{bundleVersion:.+}", method = RequestMethod.GET)
 	@ResponseBody
-	public String bundleVersioncheck(@RequestParam String bundleVersion) {
+	public String bundleVersioncheck(@PathVariable String bundleVersion) {
 		JSONObject jobj = new JSONObject();
 		jobj.put("bundleVersion", bundleVersion);
 
