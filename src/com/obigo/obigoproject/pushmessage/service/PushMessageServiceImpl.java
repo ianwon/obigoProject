@@ -101,11 +101,14 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 		for (String userId : userIdList) {
 			List<String> registrationidList = registrationidDao.getRegistrationidListByuserId(userId);
-			String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1); // 메시지
-																			// 고유
-			boolean SHOW_ON_IDLE = false; // 옙 활성화 상태일때 보여줄것인지
-			int LIVE_TIME = 1; // 옙 비활성화 상태일때 FCM가 메시지를 유효화하는 시간
-			int RETRY = 2; // 메시지 전송실패시 재시도 횟수
+			String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1);
+
+			// 옙 활성화 상태일때 보여줄것인지
+			boolean SHOW_ON_IDLE = false;
+			// 옙 비활성화 상태일때 FCM가 메시지를 유효화하는 시간
+			int LIVE_TIME = 1;
+			// 메시지 전송실패시 재시도 횟수
+			int RETRY = 2;
 			String simpleApiKey = "AIzaSyAugaUfy_TbAFpMsr91f4_M8cTvePi0now";
 			Sender sender = new Sender(simpleApiKey);
 			try {
