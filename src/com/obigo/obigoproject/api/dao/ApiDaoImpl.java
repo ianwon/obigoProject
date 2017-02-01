@@ -29,20 +29,20 @@ public class ApiDaoImpl implements ApiDao {
 	}
 
 	@Override
-	public int deleteApi(String apiName) {
-		return sqlSession.delete("obigoproject.Api.deleteApi", apiName);
+	public int deleteApi(String url) {
+		return sqlSession.delete("obigoproject.Api.deleteApi", url);
 	}
-	
-	//API 전체 목록을 가져오기 위한 메소드
+
+	// API 전체 목록을 가져오기 위한 메소드
 	@Override
 	public List<ApiVO> getApiList() {
 		return sqlSession.selectList("obigoproject.Api.selectApiList");
 	}
 
-	//특정 API 정보를 가져오기 위한 메소드
+	// 특정 API 정보를 가져오기 위한 메소드
 	@Override
-	public ApiVO getApi(String apiName) {
-		return sqlSession.selectOne("obigoproject.Api.selectApi", apiName);
+	public ApiVO getApi(String url) {
+		return sqlSession.selectOne("obigoproject.Api.selectApi", url);
 	}
 
 }

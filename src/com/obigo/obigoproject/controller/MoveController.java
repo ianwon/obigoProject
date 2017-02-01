@@ -30,7 +30,6 @@ import com.obigo.obigoproject.vehicle.service.VehicleService;
 import com.obigo.obigoproject.vo.ApiVO;
 import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.LogVO;
-import com.obigo.obigoproject.vo.PushMessageVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.obigo.obigoproject.vo.UsersVO;
