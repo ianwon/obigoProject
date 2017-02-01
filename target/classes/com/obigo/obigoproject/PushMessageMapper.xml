@@ -69,7 +69,7 @@
 
 	<select id="selectPushMessageListByAll" parameterType="hashmap"
 		resultMap="PushMessageResultMap">
-		SELECT * FROM PUSH_MESSAGE
+		SELECT MESSAGE_NUMBER, TITLE, CONTENT, to_char(SEND_DATE, 'yyyy/mm/dd hh24:mi:ss') SEND_DATE, UPLOAD_FILE, MODEL_CODE, LOCATION, CATEGORY_NUMBER FROM PUSH_MESSAGE
 		<where>
 			<if test="categoryNumber != null">
 				category_number = #{categoryNumber}
