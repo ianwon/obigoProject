@@ -9,8 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -32,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.androiduservehicle.service.AndroidUserVehicleService;
-import com.obigo.obigoproject.api.service.ApiService;
 import com.obigo.obigoproject.bundle.service.BundleService;
 import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
 import com.obigo.obigoproject.log.service.LogService;
@@ -45,7 +42,6 @@ import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.util.obigoUtils;
 import com.obigo.obigoproject.vehicle.service.VehicleService;
-import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.LogVO;
 import com.obigo.obigoproject.vo.RegistrationidVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
@@ -56,8 +52,6 @@ import net.sf.json.JSONObject;
 
 @Controller
 public class RestFulApiController {
-	@Autowired
-	ApiService apiService;
 	@Autowired
 	BundleService bundleService;
 	@Autowired
@@ -300,12 +294,12 @@ public class RestFulApiController {
 	public String insertRegistrationid(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
-		boolean a = registrationidService.insertRegistrationid(vo);
-
+		boolean flag = registrationidService.insertRegistrationid(vo);
+		String check = String.valueOf(flag);
 		// Log 정보를 등록하는 과정
-		createLog("/api/registrationid", data, a + "");
+		createLog("/api/registrationid", data, check);
 
-		return a + "";
+		return check;
 	}
 
 	/**

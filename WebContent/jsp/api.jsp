@@ -13,6 +13,11 @@ td {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
+
+textarea {
+	font-size: 11px;
+	text-align: left;
+}
 </style>
 </head>
 <body>
@@ -53,8 +58,16 @@ td {
 															<input type="text" name="apiName" id="insertApiName" maxlength="40" class="form-control" placeholder="API NAME" autofocus required="required">
 														</div>
 														<div class="form-group">
+															<span class="label label-primary">URL</span>
+															<input type="text" name="url" id="insertUrl" maxlength="40" class="form-control" placeholder="URL" autofocus required="required">
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">BODY</span>
+															<textarea name="body" id="insertBody" class="form-control" placeholder="BODY" rows="5" cols="45" required="required"></textarea>
+														</div>
+														<div class="form-group">
 															<span class="label label-primary">RESPONSE TO SEND</span>
-															<textarea name="responseToSend" class="form-control" placeholder="Response To Send" rows="15" cols="45" required="required"></textarea>
+															<textarea name="responseToSend" class="form-control" placeholder="RESPONSE TO SEND" rows="10" cols="45" required="required"></textarea>
 														</div>
 													</div>
 												</form>
@@ -80,12 +93,20 @@ td {
 												<form class="form-signin" id="form-editapi" action="/obigoProject/updateapi" method="POST">
 													<div class="login-wrap">
 														<div class="form-group">
+															<span class="label label-primary">URL</span>
+															<input type="text" name="url" id="editUrl" maxlength="40" class="form-control" placeholder="URL" autofocus readonly="readonly" required="required">
+														</div>
+														<div class="form-group">
 															<span class="label label-primary">API NAME</span>
-															<input type="text" name="ApiName" id="editApiName" class="form-control" placeholder="API NAME" required="required" readonly="readonly">
+															<input type="text" name="ApiName" id="editApiName" class="form-control" placeholder="API NAME" required="required" >
+														</div>
+														<div class="form-group">
+															<span class="label label-primary">BODY</span>
+															<textarea name="body" id="editBody" class="form-control" placeholder="BODY" rows="5" cols="45" required="required"></textarea>
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">RESPONSE TO SEND</span>
-															<textarea name="ResponseToSend" id="editResponseToSend" class="form-control" placeholder="Response To Send" rows="15" cols="45" required="required"></textarea>
+															<textarea name="ResponseToSend" id="editResponseToSend" class="form-control" placeholder="Response To Send" rows="10" cols="45" required="required"></textarea>
 														</div>
 													</div>
 												</form>
@@ -116,9 +137,16 @@ td {
 														<input type="text" name="apiName" id="apiName" class="form-control" readonly="readonly">
 													</div>
 													<div class="form-group">
+														<span class="label label-primary">URL</span>
+														<input type="text" name="url" id="url" maxlength="40" class="form-control" placeholder="URL" autofocus readonly="readonly">
+													</div>
+													<div class="form-group">
+														<span class="label label-primary">BODY</span>
+														<textarea name="body" id="body" class="form-control" placeholder="BODY" rows="5" cols="45" readonly="readonly" style="font-size: 11px; text-align: left;"></textarea>
+													</div>
+													<div class="form-group">
 														<span class="label label-primary">RESPONSE TO SEND</span>
-														<textarea name="Response" id="response" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly"
-															style="font-size: 11px; text-align: left;"></textarea>
+														<textarea name="Response" id="response" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly" style="font-size: 11px; text-align: left;"></textarea>
 													</div>
 												</div>
 											</form>
@@ -135,20 +163,24 @@ td {
 								<table class="table table-striped table-hover table-bordered" id="editable-sample" style="table-layout: fixed; word-break: break-all;">
 									<thead>
 										<tr>
-											<th style="width: 300px;">Api Name</th>
+											<th style="width: 150px;">Api Name</th>
+											<th style="width: 300px;">Url</th>
+											<th style="width: 300px;">Body</th>
 											<th>Response To Send</th>
-											<th style="width: 150px;">Edit</th>
-											<th style="width: 150px;">Delete</th>
+											<th style="width: 100px;">Edit</th>
+											<th style="width: 100px;">Delete</th>
 										</tr>
 									</thead>
 									<tbody>
 
 										<c:forEach var="a" items="${apiList}" begin="0" varStatus="status">
 											<tr class="">
-												<td id="api${status.index}" onclick="javascript:showModal(${status.index});" style="cursor: pointer;">${a.apiName}</td>
+												<td id="apiName${status.index}" onclick="javascript:showModal(${status.index});" style="cursor: pointer;">${a.apiName}</td>
+												<td id="url${status.index}" onclick="javascript:showModal(${status.index});" style="cursor: pointer;">${a.url}</td>
+												<td id="body${status.index}" onclick="javascript:showModal(${status.index});" style="cursor: pointer;">${a.body}</td>
 												<td id="responseToSend${status.index}" class="center" onclick="javascript:showModal(${status.index});" style="cursor: pointer;">${a.responseToSend}</td>
-												<td><a class="Edit" href="javascript:editModal('${a.apiName}','${a.responseToSend}');">Edit</a></td>
-												<td><a class="Delete" href="javascript:deleteApi(${a.apiName});">Delete</a></td>
+												<td><a class="Edit" href="javascript:editModal('${a.apiName}','${a.responseToSend}','${a.url}','${a.body}');">Edit</a></td>
+												<td><a class="Delete" href="javascript:deleteApi('${a.url}');">Delete</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -199,58 +231,61 @@ td {
 	<script type="text/javascript">
 	
 		// input type="text" 또는 textarea의 양쪽 끝 공백을 제거해주는 함수
-		$('#form-insertapi').submit(function(){
-		      $(this).find('input:text').each(function(){
-		            $(this).val($.trim($(this).val()));
-		      });
-		      
-		      $(this).find('textarea').each(function(){
-		            $(this).val($.trim($(this).val()));
-		      });
+		$('#form-insertapi').submit(function() {
+			$(this).find('input:text').each(function() {
+				$(this).val($.trim($(this).val()));
+			});
+	
+			$(this).find('textarea').each(function() {
+				$(this).val($.trim($(this).val()));
+			});
 		});
 	
 	
 		// Api Name의 존재 여부를 확인
 		function check() {
-			var apiNameCheck = false;
-			var str_space = /\s/;  // 공백체크
-			
-		    if(str_space.test($("#insertApiName").val())) { //공백 체크
-		        alert("해당 항목에는 공백을 사용할수 없습니다");
-		        apiNameCheck = false;
-		    }
-		    else{
+			var apiUrlCheck = false;
+			var str_space = /\s/; // 공백체크
+	
+			if (str_space.test($("#insertApiName").val())) { //공백 체크
+				alert("해당 항목에는 공백을 사용할수 없습니다");
+				apiNameCheck = false;
+			} else {
 				$.ajax({
 					type : "post",
-					url : "/obigoProject/apinamecheck",
+					url : "/obigoProject/urlcheck",
 					dataType : "json",
 					async : false,
 					data : {
-						"apiName" : $("#insertApiName").val()
+						"url" : $("#url").val()
 					},
 					success : function(data) {
 						if (data.flag === false) {
-							alert("존재하는 Api Name입니다.");
+							alert("존재하는 url입니다.");
 						} else {
 							alert("Api 생성에 성공하였습니다.");
-							apiNameCheck = true;
+							apiUrlCheck = true;
 						}
 					}
 				});
-		    }
-			return apiNameCheck;
+			}
+			return apiUrlCheck;
 		}
-		
+	
 		// show Modal을 띄워주기 위함 함수
 		function showModal(status) {
-			$("#apiName").val($("#api" + status).text());
+			$("#apiName").val($("#apiName" + status).text());
+			$("#url").val($("#url" + status).text());
+			$("#body").val($("#body" + status).text());
 			$("#response").val($("#responseToSend" + status).text());
 			$("#showModal").modal();
 		}
 	
 		// Edit Modal을 띄워주기 위함 함수
-		function editModal(apiName, responseToSend) {
+		function editModal(apiName, responseToSend, url, body) {
 			$("#editApiName").val(apiName);
+			$("#editUrl").val(url);
+			$("#editBody").val(body);
 			$("#editResponseToSend").val(responseToSend);
 			$("#editModal").modal();
 		}
@@ -263,7 +298,7 @@ td {
 					url : "/obigoProject/deleteapi",
 					dataType : "json",
 					data : {
-						"apiName" : data
+						"url" : data
 					},
 					success : function(data) {
 						location.reload();

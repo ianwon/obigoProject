@@ -13,20 +13,20 @@
 
 	<insert id="insertApi" parameterType="Api">
 	<![CDATA[
-		insert into api values(#{apiName},#{responseToSend})
+		insert into api values(#{apiName},#{responseToSend},#{url},#{body})
 	]]>
 	</insert>
 
 
 	<update id="updateApi" parameterType="Api">
 		<![CDATA[
-			update Api set response_to_send = #{responseToSend} where api_name=#{apiName}
+			update Api set api_name=#{apiName}, body=#{body}, response_to_send=#{responseToSend} where url=#{url}
 		]]>
 	</update>
 
 	<delete id="deleteApi" parameterType="java.lang.String">
 		<![CDATA[
-		delete from api where api_name=#{apiName}
+		delete from api where url=#{url}
 		]]>
 	</delete>
 
@@ -38,7 +38,7 @@
 	<select id="selectApi" parameterType="java.lang.String"
 		resultMap="ApiResultMap">
 		<![CDATA[
-			select * from Api where api_Name = #{apiName}
+			select * from Api where url = #{url}
 		]]>
 	</select>
 

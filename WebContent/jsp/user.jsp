@@ -172,11 +172,13 @@
 		// 가입 ID가 정규식으로 검증 및 AJAX로 이미 가입된 ID인지 여부 확인
 		function idCheck() {
 			var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
+			
+			// 정규식을 이용해서 가입 ID가 조건에 맞는지 검증하는 과정
 			if (!idReg.test($("#userId").val())) {
 				$("#idCheck").html("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
 				$("#idCheck").css("color", "red");
 			} else {
-	
+				// AJAX로 중복되는 ID가 존재하는지 확인하는 과정
 				$.ajax({
 					type : "post",
 					url : "/obigoProject/idcheck",
@@ -196,14 +198,16 @@
 				});
 			}
 		}
+		
 		// Password 정규식으로 검증 및 두번 입력한 password의 일치 여부 확인
 		function passwordCheck() {
 			var reg_pwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+			
+			// 정규식을 이용해서 가입 Password가 조건에 맞는지 검증하는 과정
 			if (!reg_pwd.test($("#password").val())) {
 				$("#passwordCheck").html("비밀번호는 영문,숫자를 혼합하여 6~20자 이내이어야 합니다.");
 				$("#passwordCheck").css("color", "red");
 			} else {
-	
 				if ($("#password") == null || $("#password2") == null) {
 					$("#passwordCheck").html("");
 				} else {

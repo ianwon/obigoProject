@@ -49,8 +49,8 @@ public class ApiController {
 	 */
 	@RequestMapping(value = "/deleteapi", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String deleteApi(@RequestParam("apiName") String apiName) {
-		apiService.deleteApi(apiName);
+	public String deleteApi(@RequestParam("url") String url) {
+		apiService.deleteApi(url);
 		JSONObject jobj = new JSONObject();
 
 		return jobj.toString();
@@ -61,16 +61,16 @@ public class ApiController {
 	 * 
 	 * @return JSONObject
 	 */
-	@RequestMapping(value = "/apinamecheck", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/urlcheck", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String apiNameCheck(@RequestParam("apiName") String apiName) {
+	public String apiNameCheck(@RequestParam("url") String url) {
 		JSONObject jobj = new JSONObject();
 
-		apiName = apiName.trim();
+		url = url.trim();
 
 		// getApi 메소드를 통해 apiName이 있으면 not null 임으로 false return
 		// null일 경우는 존재하지 않기때문에 true return
-		if (apiService.getApi(apiName) != null) {
+		if (apiService.getApi(url) != null) {
 			jobj.put("flag", false);
 		} else {
 			jobj.put("flag", true);
