@@ -138,14 +138,14 @@ td {
 								<table style="table-layout: fixed; word-break: break-all;" class="table table-striped table-hover table-bordered" id="editable-sample">
 									<thead>
 										<tr>
-											<th>Title</th>
+											<th style="width: 250px;">Title</th>
 											<th>Upload File</th>
-											<th style="width: 500px;">Content</th>
-											<th>Send Date</th>
+											<th style="width: 450px;">Content</th>
+											<th style="width: 200px;">Send Date</th>
 											<th>Model Name</th>
-											<th>Location</th>
-											<th>Category Name</th>
-											<th>Delete</th>
+											<th style="width: 100px;">Location</th>
+											<th style="width: 150px;">Category Name</th>
+											<th style="width: 100px;">Delete</th>
 										</tr>
 									</thead>
 									<tbody>
