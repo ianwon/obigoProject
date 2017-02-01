@@ -88,12 +88,6 @@ public class PushMessageServiceImpl implements PushMessageService {
 		return pushMessageDao.getPushMessageListBy(map);
 	}
 
-	// 정기적으로 통계리포트 생성 및 등록된 이메일로 발송 (pdf로 출력하기 기능)
-	@Override
-	public boolean sendEmail(List<PushMessageVO> list) {
-		return false;
-	}
-
 	// GCM 서버로 푸시 메시지 전송
 	@Override
 	public boolean sendPushMessageToGcm(PushMessageVO vo, HttpServletRequest request) throws IllegalArgumentException, IOException {
@@ -187,7 +181,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		MultipartFile messageFile = multiRequest.getFile("messageFile");
-		String saveDir = obigoUtils.path+ "pushmessage" + File.separator;
+		String saveDir = obigoUtils.path + "pushmessage" + File.separator;
 		File saveDirFile = new File(saveDir);
 
 		if (!saveDirFile.exists()) {
