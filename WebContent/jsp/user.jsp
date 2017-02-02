@@ -54,7 +54,7 @@
 														</div>
 														<div class="form-group">
 															<span class="label label-primary">USER ID</span>
-															<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onkeyup="idCheck()" required="required">
+															<input type="text" name="userId" id="userId" class="form-control" placeholder="User Id" onblur="idCheck()" onkeyup="" required="required">
 															<div id="idCheck"></div>
 														</div>
 														<div class="form-group">

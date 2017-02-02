@@ -36,9 +36,9 @@
 					Remember me
 				</label>
 				<input class="btn btn-lg btn-login btn-block" type="submit" value="Sign in">
-				<div class="registration">
-					Don't have an account yet? <a class="" href="/obigoProject/registration"> Create an account</a>
-				</div>
+<!-- 				<div class="registration"> -->
+<!-- 					Don't have an account yet? <a class="" href="/obigoProject/registration"> Create an account</a> -->
+<!-- 				</div> -->
 			</div>
 		</form>
 	</div>
@@ -145,7 +145,7 @@
 		function passwordCheck() {
 			$.ajax({
 				type : "post",
-				url : "/obigoProject/passwordcheck",
+				url : "/obigoProject/adminpasswordcheck",
 				dataType : "json",
 				data : {
 					"userId" : $("#userId").val(),

@@ -74,8 +74,7 @@ td {
 													</div>
 													<div class="form-group">
 														<span class="label label-primary">RETRUNED</span>
-														<textarea name="returned" id="returned" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly"
-															style="font-size: 11px; text-align: left;"></textarea>
+														<textarea name="returned" id="returned" class="form-control" placeholder="Response To Send" rows="15" cols="45" readonly="readonly" style="font-size: 11px; text-align: left;"></textarea>
 													</div>
 												</div>
 											</form>
@@ -91,17 +90,12 @@ td {
 							<!-- -------------- PDF 관련 Dropdown Button start -------------- -->
 							<div class="btn-group pull-right">
 								<button class="btn dropdown-toggle" data-toggle="dropdown">
-									PDF flie
-									<i class="fa fa-angle-down"></i>
+									PDF flie <i class="fa fa-angle-down"></i>
 								</button>
 								<ul class="dropdown-menu pull-right">
-									<li>
-										<a href="/obigoProject/viewpdf" target="_blank">View on PDF</a>
-									</li>
+									<li><a href="/obigoProject/viewpdf" target="_blank">View on PDF</a></li>
 									<!--                            <li><a href="/obigoProject/pdfmail">Send an Email to Admin</a></li> -->
-									<li>
-										<a href='javascript:void(0);' onclick="mailToAdmin();">Send an Email to Admin</a>
-									</li>
+									<li><a href='javascript:void(0);' onclick="mailToAdmin();">Send an Email to Admin</a></li>
 								</ul>
 							</div>
 							<!-- -------------- PDF 관련 Dropdown Button end -------------- -->
@@ -156,20 +150,14 @@ td {
 						<button type="submit">Search</button>
 					</form>
 					<!-- -------- log 검색 end -------- -->
-					
+
 					<!-- -------- log table paging start -------- -->
 					<ul class="pagination">
-						<li>
-							<a href="javascript:frontButton('${endPageNum}', '${param.query}')">«</a>
-						</li>
+						<li><a href="javascript:frontButton('${endPageNum}', '${param.query}')">«</a></li>
 						<c:forEach var="l" items="${pageList}" begin="0" varStatus="status">
-							<li id="page${status.index}" value="${l}">
-								<a href="javascript:movePage('${l}', '${param.query}')">${l}</a>
-							</li>
+							<li id="page${status.index}" value="${l}"><a href="javascript:movePage('${l}', '${param.query}')">${l}</a></li>
 						</c:forEach>
-						<li>
-							<a href="javascript:backButton('${endPageNum}', ${param.query})">»</a>
-						</li>
+						<li><a href="javascript:backButton('${endPageNum}', '${param.query}')">»</a></li>
 					</ul>
 					<!-- -------- log table paging end -------- -->
 				</div>
@@ -242,7 +230,7 @@ td {
 					else
 						alert("이메일 보내기 실패");
 				},
-				beforeSend: function() {
+				beforeSend : function() {
 					//통신을 시작할때 처리
 					$('#loading').css('position', 'absolute');
 					$('#loading').css('left', $('#target').offset().left);
@@ -250,57 +238,55 @@ td {
 					$('#loading').css('width', $('#target').css('width'));
 					$('#loading').css('height', $('#target').css('height'));
 					$('#loading').show().fadeIn('fast');
-					}
-					, complete: function() {
+				},
+				complete : function() {
 					//통신이 완료된 후 처리
 					$('#loading').fadeOut();
-					}
+				}
 			});
 	
 		}
 	
-		function movePage(page,query) {
-			if(query==null)
-			document.location.href = "/obigoProject/log?page=" + page;
+		function movePage(page, query) {
+			if (query == null)
+				document.location.href = "/obigoProject/log?page=" + page;
 			else
-			document.location.href = "/obigoProject/log?page=" + page+"&query="+query;
-				
+				document.location.href = "/obigoProject/log?page=" + page + "&query=" + query;
+	
 		}
 	
-		function frontButton(endNum,query) {
+		function frontButton(endNum, query) {
 			if (endNum > 9) {
 				var val = $("#page0").val() - 10;
 				if (val < 1)
 					val = 1;
 				$("#page0").val(val);
-				
-				for(var i=0;i<10;i++){
-					
-				document.getElementById("page"+i).innerHTML = "<a href=\"javascript:movePage(" + (val +i)+", '"+query+"')\">" +( val+i) + "</a>"
-					
+	
+				for (var i = 0; i < 10; i++) {
+	
+					document.getElementById("page" + i).innerHTML = "<a href=\"javascript:movePage(" + (val + i) + ", '" + query + "')\">" + (val + i) + "</a>"
+	
 				}
-				
+	
 			}
 		}
-		function backButton(endNum,query) {
+		function backButton(endNum, query) {
 			if (endNum > 9) {
 				var val = $("#page0").val() + 10;
 				if (val > endNum - 9) {
 					$("#page0").val(endNum - 9);
-					
-					for(var i=9;i>=0;i--){
-						
-						document.getElementById("page"+i).innerHTML = "<a href=\"javascript:movePage(" +  (endNum - i) +", '"+query+"')\">" + (endNum - i)  + "</a>"
-							
-						}
-					
+					var a = 0;
+					for (var i = 9; i >= 0; i--) {
+						document.getElementById("page" + a++).innerHTML = "<a href=\"javascript:movePage(" + (endNum - i) + ", '" + query + "')\">" + (endNum - i) + "</a>"
+					}
+	
 				} else {
 					$("#page0").val(val);
-					
-					for(var i=0;i<10;i++){
-						document.getElementById("page"+i).innerHTML = "<a href=\"javascript:movePage(" + (val +i)+", '"+query+"')\">" +( val+i) + "</a>"
+	
+					for (var i = 0; i < 10; i++) {
+						document.getElementById("page" + i).innerHTML = "<a href=\"javascript:movePage(" + (val + i) + ", '" + query + "')\">" + (val + i) + "</a>"
 					}
-					
+	
 				}
 			}
 		}
