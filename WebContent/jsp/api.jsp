@@ -163,9 +163,9 @@ textarea {
 								<table class="table table-striped table-hover table-bordered" id="editable-sample" style="table-layout: fixed; word-break: break-all;">
 									<thead>
 										<tr>
-											<th style="width: 150px;">Api Name</th>
+											<th style="width: 250px;">Api Name</th>
 											<th style="width: 300px;">Url</th>
-											<th style="width: 300px;">Body</th>
+											<th style="width: 500px;">Body</th>
 											<th>Response To Send</th>
 											<th style="width: 100px;">Edit</th>
 											<th style="width: 100px;">Delete</th>
@@ -249,7 +249,7 @@ textarea {
 	
 			if (str_space.test($("#insertUrl").val())) { //공백 체크
 				alert("해당 항목에는 공백을 사용할수 없습니다");
-				apiNameCheck = false;
+				apiUrlCheck = false;
 			} else {
 				$.ajax({
 					type : "post",
