@@ -89,7 +89,7 @@
 										<div class="form-group">
 											<label class="control-label col-md-2">File Upload</label>
 											<div class="col-md-4">
-												<input type="file" id="messageFile" class="default" name="messageFile" accept="image/gif, image/jpeg, image/png, .bmp">/>
+												<input type="file" id="messageFile" class="default" name="messageFile" accept="image/gif, image/jpeg, image/png, .bmp" />
 											</div>
 										</div>
 
