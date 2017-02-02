@@ -38,8 +38,8 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public boolean deleteApi(String apiName) {
-		int result = apiDao.deleteApi(apiName);
+	public boolean deleteApi(String url) {
+		int result = apiDao.deleteApi(url);
 		if (result == 1) {
 			return true;
 		} else {
@@ -55,8 +55,8 @@ public class ApiServiceImpl implements ApiService {
 
 	// 특정 API를 가져오는 메소드
 	@Override
-	public ApiVO getApi(String apiName) {
-		return apiDao.getApi(apiName);
+	public ApiVO getApi(String url) {
+		return apiDao.getApi(url);
 	}
 
 }

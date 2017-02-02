@@ -88,12 +88,6 @@ public class PushMessageServiceImpl implements PushMessageService {
 		return pushMessageDao.getPushMessageListBy(map);
 	}
 
-	// 정기적으로 통계리포트 생성 및 등록된 이메일로 발송 (pdf로 출력하기 기능)
-	@Override
-	public boolean sendEmail(List<PushMessageVO> list) {
-		return false;
-	}
-
 	// GCM 서버로 푸시 메시지 전송
 	@Override
 	public boolean sendPushMessageToGcm(PushMessageVO vo, HttpServletRequest request) throws IllegalArgumentException, IOException {
@@ -107,11 +101,14 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 		for (String userId : userIdList) {
 			List<String> registrationidList = registrationidDao.getRegistrationidListByuserId(userId);
-			String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1); // 메시지
-																			// 고유
-			boolean SHOW_ON_IDLE = false; // 옙 활성화 상태일때 보여줄것인지
-			int LIVE_TIME = 1; // 옙 비활성화 상태일때 FCM가 메시지를 유효화하는 시간
-			int RETRY = 2; // 메시지 전송실패시 재시도 횟수
+			String MESSAGE_ID = String.valueOf(Math.random() % 100 + 1);
+
+			// 옙 활성화 상태일때 보여줄것인지
+			boolean SHOW_ON_IDLE = false;
+			// 옙 비활성화 상태일때 FCM가 메시지를 유효화하는 시간
+			int LIVE_TIME = 1;
+			// 메시지 전송실패시 재시도 횟수
+			int RETRY = 2;
 			String simpleApiKey = "AIzaSyAugaUfy_TbAFpMsr91f4_M8cTvePi0now";
 			Sender sender = new Sender(simpleApiKey);
 			try {
@@ -187,7 +184,7 @@ public class PushMessageServiceImpl implements PushMessageService {
 
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		MultipartFile messageFile = multiRequest.getFile("messageFile");
-		String saveDir = obigoUtils.path+ "pushmessage" + File.separator;
+		String saveDir = obigoUtils.path + "pushmessage" + File.separator;
 		File saveDirFile = new File(saveDir);
 
 		if (!saveDirFile.exists()) {

@@ -388,12 +388,15 @@
 		// 통계 캡쳐 및 이메일 전송
 		function capture() {
 			if (confirm("이메일을 전송하시겠습니까?") == true) {
+				
+				// html2canvas 라이브러리 사용해서 캡처 image를 서버로 전송
 				html2canvas($("#morris"), {
 					onrendered : function(canvas) {
 						document.body.appendChild(canvas);
 
 						var img = canvas.toDataURL("image/png")
-
+						
+						// 캡처 image를 Email 전송 요청
 						$.ajax({
 							type : "post",
 							data : {

@@ -10,12 +10,12 @@ public interface ApiDao {
 
 	public int updateApi(ApiVO vo);
 
-	public int deleteApi(String apiName);
+	public int deleteApi(String url);
 
 	// 전체 API 가져오는 메소드
 	public List<ApiVO> getApiList();
 
 	// 특정 API를 가져오는 메소드
-	public ApiVO getApi(String apiName);
+	public ApiVO getApi(String url);
 
 }

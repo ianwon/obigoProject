@@ -9,8 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
 import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -32,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.androiduservehicle.service.AndroidUserVehicleService;
-import com.obigo.obigoproject.api.service.ApiService;
 import com.obigo.obigoproject.bundle.service.BundleService;
 import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
 import com.obigo.obigoproject.log.service.LogService;
@@ -45,7 +42,6 @@ import com.obigo.obigoproject.userrequest.service.UserRequestService;
 import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.util.obigoUtils;
 import com.obigo.obigoproject.vehicle.service.VehicleService;
-import com.obigo.obigoproject.vo.BundleVO;
 import com.obigo.obigoproject.vo.LogVO;
 import com.obigo.obigoproject.vo.RegistrationidVO;
 import com.obigo.obigoproject.vo.UserRequestVO;
@@ -56,8 +52,6 @@ import net.sf.json.JSONObject;
 
 @Controller
 public class RestFulApiController {
-	@Autowired
-	ApiService apiService;
 	@Autowired
 	BundleService bundleService;
 	@Autowired
@@ -209,29 +203,6 @@ public class RestFulApiController {
 	}
 
 	/**
-	 * Bundle Version을 체크하는 Api parameter = "bundleVersion":번들버전
-	 * 
-	 * @return "flag" : 결과
-	 */
-	@RequestMapping(value = "/api/bundlecheck/{bundleVersion}", method = { RequestMethod.GET }, produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String bundlecheck(@PathVariable String bundleVersion) {
-		JSONObject jobj = new JSONObject();
-		if (bundleVersionService.getBundleVersion().equals(bundleVersion))
-			jobj.put("flag", true);
-		else
-			jobj.put("flag", false);
-
-		// Log 정보를 등록하는 과정
-		JSONObject bodyJobj = new JSONObject();
-		bodyJobj.put("bundleVersion", bundleVersion);
-		// Log생성
-		createLog("/api/bundlecheck", bodyJobj.toString(), jobj.toString());
-
-		return jobj.toString();
-	}
-
-	/**
 	 * 유저 차량 정보 리스트 Api parameter = "userId" : 유저아이디
 	 * 
 	 * @return "userVehicleList":유저 차량 리스트
@@ -323,12 +294,12 @@ public class RestFulApiController {
 	public String insertRegistrationid(@RequestBody String data) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		RegistrationidVO vo = mapper.readValue(data, RegistrationidVO.class);
-		boolean a = registrationidService.insertRegistrationid(vo);
-
+		boolean flag = registrationidService.insertRegistrationid(vo);
+		String check = String.valueOf(flag);
 		// Log 정보를 등록하는 과정
-		createLog("/api/registrationid", data, a + "");
+		createLog("/api/registrationid", data, check);
 
-		return a + "";
+		return check;
 	}
 
 	/**
@@ -383,14 +354,14 @@ public class RestFulApiController {
 	 * 
 	 * @return true/false : 입력한 ID/Password 정보가 일치하는지 여부
 	 */
-	@RequestMapping(value = "/api/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/login/{userId}/{password}", method = RequestMethod.GET)
 	@ResponseBody
-	public String login(@RequestParam String userid, @RequestParam String password) {
+	public String login(@PathVariable String userId, @PathVariable String password) {
 
 		JSONObject jobj = new JSONObject();
-		jobj.put("userid", userid);
+		jobj.put("userid", userId);
 		jobj.put("password", password);
-		if (userService.passwordCheck(userid, password, "USER") != true) {
+		if (userService.passwordCheck(userId, password, "USER") != true) {
 			// Log 정보를 등록하는 과정
 			createLog("/api/login", jobj.toString(), "false");
 
@@ -408,9 +379,9 @@ public class RestFulApiController {
 	 * 
 	 * @return true/false : 입력한 name/email 정보 일치 여부 및 email이 성공적으로 전송될 경우
 	 */
-	@RequestMapping(value = "/api/find", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/find/{name}/{email:.+}", method = RequestMethod.GET)
 	@ResponseBody
-	public String findIDPW(@RequestParam String name, @RequestParam String email) {
+	public String findIDPW(@PathVariable String name, @PathVariable String email) {
 		UsersVO userVO = null;
 
 		JSONObject jobj = new JSONObject();
@@ -524,9 +495,9 @@ public class RestFulApiController {
 	 * 
 	 * @return true/false : App과 Server에서 요구하는 Bundle Version이 동일한지 유무에 따라 true/false return
 	 */
-	@RequestMapping(value = "/api/bundleversioncheck", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/bundleversioncheck/{bundleVersion:.+}", method = RequestMethod.GET)
 	@ResponseBody
-	public String bundleVersioncheck(@RequestParam String bundleVersion) {
+	public String bundleVersioncheck(@PathVariable String bundleVersion) {
 		JSONObject jobj = new JSONObject();
 		jobj.put("bundleVersion", bundleVersion);
 
