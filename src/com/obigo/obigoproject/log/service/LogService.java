@@ -30,4 +30,6 @@ public interface LogService {
 	public List<Integer> getPageList(int page,String query);
 	
 	public int getEndPageNum(String query);
+	
+	public List<LogVO> getLogList(String year, String month);
 }
