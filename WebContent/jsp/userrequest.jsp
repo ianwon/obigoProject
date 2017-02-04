@@ -30,7 +30,7 @@
 						<table class="table table-striped table-hover table-bordered" id="editable-sample">
 							<thead>
 								<tr>
-									<th>User Name</th>
+									<th>User ID</th>
 									<th>Model Name</th>
 									<th>Vin</th>
 									<th>Location</th>

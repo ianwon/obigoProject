@@ -12,6 +12,11 @@ td {
 	overflow: hidden;
 }
 
+.select_box_group {
+	margin-left: 800px;
+	width: 28em;
+}
+
 #loading {
 	border: 0;
 	display: none;
@@ -93,13 +98,42 @@ td {
 									PDF flie <i class="fa fa-angle-down"></i>
 								</button>
 								<ul class="dropdown-menu pull-right">
-									<li><a href="/obigoProject/viewpdf" target="_blank">View on PDF</a></li>
+									<li><a href="javascript:viewPdf();" target="_blank">View on PDF</a></li>
 									<!--                            <li><a href="/obigoProject/pdfmail">Send an Email to Admin</a></li> -->
 									<li><a href='javascript:void(0);' onclick="mailToAdmin();">Send an Email to Admin</a></li>
 								</ul>
 							</div>
 							<!-- -------------- PDF 관련 Dropdown Button end -------------- -->
 						</div>
+						<br>
+						<div class="btn-group pull-right">
+							<!-- ----- Select Box(Category) start ----- -->
+							&nbsp;&nbsp;&nbsp; <label>Year : </label> <select id="selectYear" name="selectYear">
+								<option value="%">Select Year</option>
+								<option value="16">2016</option>
+								<option value="17">2017</option>
+							</select>
+							<!-- ----- Select Box(Category) end ----- -->
+
+							<!-- ----- Select Box(Location) start ----- -->
+							&nbsp;&nbsp;&nbsp; <label>Month : </label> <select id="selectMonth" name="selectMonth">
+								<option value="%">Select Month</option>
+								<option value="01">01</option>
+								<option value="02">02</option>
+								<option value="03">03</option>
+								<option value="04">04</option>
+								<option value="05">05</option>
+								<option value="06">06</option>
+								<option value="07">07</option>
+								<option value="08">08</option>
+								<option value="09">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+							</select>
+							<!-- ----- Select Box(Location) end ----- -->
+						</div>
+
 						<!-- table 자동정렬해주는 javascript 파일에서 어느 항목의 table인지 구분하기 위한 hidden -->
 						<input type="hidden" id="hidden-log">
 						<div class="space15"></div>
@@ -223,7 +257,10 @@ td {
 				url : "/obigoProject/pdfmail",
 				dataType : "json",
 				async : true,
-				data : {},
+				data : {
+					"year" : $('#selectYear').val(),
+					"month" : $('#selectMonth').val()
+				},
 				success : function(data) {
 					if (data.flag == true)
 						alert("이메일 보내기 성공");
@@ -289,6 +326,10 @@ td {
 	
 				}
 			}
+		}
+		function viewPdf() {
+			var newWindow = window.open("about:blank");
+			newWindow.location.href = "/obigoProject/viewpdf?year=" + $('#selectYear').val() + "&month=" + $('#selectMonth').val();
 		}
 	</script>
 

@@ -172,4 +172,14 @@ public class LogServiceImpl implements LogService {
 		return endPageNum;
 	}
 
+	@Override
+	public List<LogVO> getLogList(String year, String month) {
+		if (year == null)
+			year = "%";
+		if (month == null)
+			month = "%";
+		String date = year + "/" + month + "%";
+		return logDao.getLogList(date);
+	}
+
 }

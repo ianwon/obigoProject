@@ -71,4 +71,9 @@ public class LogDaoImpl implements LogDao {
 		return sqlSession.selectList("obigoproject.Log.selectLogListPaging", map);
 	}
 
+	@Override
+	public List<LogVO> getLogList(String date) {
+		return sqlSession.selectList("obigoproject.Log.selectBundleListDate", date);
+	}
+
 }

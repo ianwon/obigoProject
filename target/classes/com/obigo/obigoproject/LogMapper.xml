@@ -89,4 +89,11 @@
 		select count(*) from (select to_char(date_time,'yymm')date_time, url from log) where  url like '%bundledown' and date_time like #{date}
 	]]>
 	</select>
+	
+	<select id="selectBundleListDate" parameterType="java.lang.String"
+		resultMap="LogResultMap">
+	<![CDATA[
+		select * from log where date_time like #{date}
+	]]>
+	</select>
 </mapper>

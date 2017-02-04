@@ -22,6 +22,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itextpdf.text.BaseColor;
@@ -83,7 +85,7 @@ public class MailController {
 			String path = obigoUtils.path + "pdf" + File.separator + fileName;
 
 			// PDF 만들어주는 메서드 호출 및 PDF 파일 첨부
-			if (pdfpage(path)) {
+			if (pdfpage(path, "*", "*")) {
 				MimeBodyPart attachPart = new MimeBodyPart();
 				attachPart.setDataHandler(new DataHandler(new FileDataSource(new File(path))));
 				attachPart.setFileName(fileName); // 파일명
@@ -96,9 +98,9 @@ public class MailController {
 		}
 	}
 
-	@RequestMapping(value = "/pdfmail")
+	@RequestMapping(value = "/pdfmail", method = RequestMethod.POST)
 	@ResponseBody
-	public String sendMail() {
+	public String sendMail(@RequestParam("year") String year, @RequestParam("month") String month) {
 		Calendar calendar1 = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		System.out.println("스케줄 실행 : " + dateFormat.format(calendar1.getTime()));
@@ -123,7 +125,7 @@ public class MailController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 			String fileName = formatter.format(calendar.getTime()) + "_log.pdf"; // for
 																					// log-time
-			String saveDir = obigoUtils.path+ "pdf" + File.separator;
+			String saveDir = obigoUtils.path + "pdf" + File.separator;
 			File saveDirFile = new File(saveDir);
 			String path = obigoUtils.path + "pdf" + File.separator + fileName;
 
@@ -131,7 +133,7 @@ public class MailController {
 				saveDirFile.mkdirs();
 			}
 			// PDF 만들어주는 메서드 호출 및 PDF 파일 첨부
-			if (pdfpage(path)) {
+			if (pdfpage(path, year, month)) {
 				MimeBodyPart attachPart = new MimeBodyPart();
 				// attachPart.setDataHandler(new
 				// DataHandler(attachment,"text/xml"));
@@ -155,7 +157,7 @@ public class MailController {
 	}
 
 	// PDF 파일을 생성해주는 메서드
-	public boolean pdfpage(String path) throws IOException, DocumentException {
+	public boolean pdfpage(String path, String year, String month) throws IOException, DocumentException {
 		// Document 생성
 		Document document = new Document(PageSize.B4, 10, 10, 10, 10); // 용지 및
 																		// 여백 설정
@@ -165,7 +167,7 @@ public class MailController {
 		Font fontKorean = new Font(bfKorean, 8, Font.NORMAL);
 
 		// Log리스트
-		List<LogVO> list = logService.getLogList();
+		List<LogVO> list = logService.getLogList(year, month);
 
 		//// PdfWriter 생성, 바로 다운로드 해준다. ////
 		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
@@ -248,9 +250,8 @@ public class MailController {
 		// 한글 폰트 설정
 		BaseFont bfKorean = BaseFont.createFont("HYGoThic-Medium", "UniKS-UCS2-H", BaseFont.NOT_EMBEDDED);
 		Font fontKorean = new Font(bfKorean, 10, Font.NORMAL);
-
 		// Log리스트
-		List<LogVO> list = logService.getLogList();
+		List<LogVO> list = logService.getLogList(request.getParameter("year"), request.getParameter("month"));
 
 		//// PdfWriter 생성, 바로 다운로드 해준다. ////
 		// PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path));
