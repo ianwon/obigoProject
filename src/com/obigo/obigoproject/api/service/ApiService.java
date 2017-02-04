@@ -2,7 +2,7 @@ package com.obigo.obigoproject.api.service;
 
 import java.util.List;
 
-import com.obigo.obigoproject.api.vo.ApiVO;
+import com.obigo.obigoproject.vo.ApiVO;
 
 public interface ApiService {
 

@@ -35,10 +35,10 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.obigo.obigoproject.common.util.obigoUtils;
 import com.obigo.obigoproject.log.service.LogService;
-import com.obigo.obigoproject.log.vo.LogVO;
-import com.obigo.obigoproject.user.user.service.UserService;
+import com.obigo.obigoproject.user.service.UserService;
+import com.obigo.obigoproject.util.obigoUtils;
+import com.obigo.obigoproject.vo.LogVO;
 
 import net.sf.json.JSONObject;
 

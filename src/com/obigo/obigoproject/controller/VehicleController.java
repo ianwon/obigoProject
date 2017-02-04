@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.obigo.obigoproject.common.util.obigoUtils;
+import com.obigo.obigoproject.util.obigoUtils;
 import com.obigo.obigoproject.vehicle.service.VehicleService;
-import com.obigo.obigoproject.vehicle.vo.VehicleVO;
+import com.obigo.obigoproject.vo.VehicleVO;
 
 import net.sf.json.JSONObject;
 

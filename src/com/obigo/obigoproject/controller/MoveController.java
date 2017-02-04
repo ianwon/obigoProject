@@ -17,23 +17,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.obigo.obigoproject.api.service.ApiService;
-import com.obigo.obigoproject.api.vo.ApiVO;
-import com.obigo.obigoproject.bundle.bundle.service.BundleService;
-import com.obigo.obigoproject.bundle.bundle.vo.BundleVO;
-import com.obigo.obigoproject.bundle.bundleversion.service.BundleVersionService;
+import com.obigo.obigoproject.bundle.service.BundleService;
+import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
 import com.obigo.obigoproject.log.service.LogService;
-import com.obigo.obigoproject.log.vo.LogVO;
-import com.obigo.obigoproject.message.messagecategory.service.MessageCategoryService;
-import com.obigo.obigoproject.message.pushmessage.service.PushMessageService;
-import com.obigo.obigoproject.user.user.service.UserService;
-import com.obigo.obigoproject.user.user.vo.UsersVO;
-import com.obigo.obigoproject.user.usermessage.service.UserMessageService;
-import com.obigo.obigoproject.user.userrequest.service.UserRequestService;
-import com.obigo.obigoproject.user.userrequest.vo.UserRequestVO;
-import com.obigo.obigoproject.user.uservehicle.service.UserVehicleService;
-import com.obigo.obigoproject.user.uservehicle.vo.UserVehicleVO;
+import com.obigo.obigoproject.messagecategory.service.MessageCategoryService;
+import com.obigo.obigoproject.pushmessage.service.PushMessageService;
+import com.obigo.obigoproject.user.service.UserService;
+import com.obigo.obigoproject.usermessage.service.UserMessageService;
+import com.obigo.obigoproject.userrequest.service.UserRequestService;
+import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
 import com.obigo.obigoproject.vehicle.service.VehicleService;
-import com.obigo.obigoproject.vehicle.vo.VehicleVO;
+import com.obigo.obigoproject.vo.ApiVO;
+import com.obigo.obigoproject.vo.BundleVO;
+import com.obigo.obigoproject.vo.LogVO;
+import com.obigo.obigoproject.vo.UserRequestVO;
+import com.obigo.obigoproject.vo.UserVehicleVO;
+import com.obigo.obigoproject.vo.UsersVO;
+import com.obigo.obigoproject.vo.VehicleVO;
 
 @Controller
 public class MoveController {

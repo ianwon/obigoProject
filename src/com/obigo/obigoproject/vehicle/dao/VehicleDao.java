@@ -2,7 +2,7 @@ package com.obigo.obigoproject.vehicle.dao;
 
 import java.util.List;
 
-import com.obigo.obigoproject.vehicle.vo.VehicleVO;
+import com.obigo.obigoproject.vo.VehicleVO;
 
 public interface VehicleDao {
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.api.service.ApiService;
-import com.obigo.obigoproject.api.vo.ApiVO;
+import com.obigo.obigoproject.vo.ApiVO;
 
 import net.sf.json.JSONObject;
 

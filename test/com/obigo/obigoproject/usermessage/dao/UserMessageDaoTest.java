@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.obigo.obigoproject.user.usermessage.dao.UserMessageDao;
-import com.obigo.obigoproject.user.usermessage.vo.UserMessageVO;
+import com.obigo.obigoproject.vo.UserMessageVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/spring/applicationContext.xml" })

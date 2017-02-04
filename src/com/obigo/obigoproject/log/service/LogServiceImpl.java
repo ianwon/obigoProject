@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.obigo.obigoproject.log.dao.LogDao;
-import com.obigo.obigoproject.log.vo.LogVO;
+import com.obigo.obigoproject.vo.LogVO;
 
 @Service("logService")
 public class LogServiceImpl implements LogService {

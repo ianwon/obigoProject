@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.obigo.obigoproject.api.dao.ApiDao;
-import com.obigo.obigoproject.api.vo.ApiVO;
+import com.obigo.obigoproject.vo.ApiVO;
 
 /*
  * API Dao Class를 통해 API 정보에 접근 하기위한

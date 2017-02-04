@@ -8,19 +8,19 @@
 		<setting name="callSettersOnNulls" value="true" />
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.obigo.obigoproject.user.user.vo.UsersVO" alias="Users" />
-		<typeAlias type="com.obigo.obigoproject.user.userrequest.vo.UserRequestVO" alias="UserRequest" />
-		<typeAlias type="com.obigo.obigoproject.user.uservehicle.vo.UserVehicleVO" alias="UserVehicle" />
-		<typeAlias type="com.obigo.obigoproject.vehicle.vo.VehicleVO" alias="Vehicle" />
-		<typeAlias type="com.obigo.obigoproject.bundle.bundle.vo.BundleVO" alias="Bundle" />
-		<typeAlias type="com.obigo.obigoproject.bundle.bundleversion.vo.BundleVersionVO" alias="BundleVersion" />
-		<typeAlias type="com.obigo.obigoproject.message.pushmessage.vo.PushMessageVO" alias="PushMessage" />
-		<typeAlias type="com.obigo.obigoproject.message.messagecategory.vo.MessageCategoryVO" alias="MessageCategory" />
-		<typeAlias type="com.obigo.obigoproject.log.vo.LogVO" alias="Log" />
-		<typeAlias type="com.obigo.obigoproject.api.vo.ApiVO" alias="Api" />
-		<typeAlias type="com.obigo.obigoproject.user.usermessage.vo.UserMessageVO" alias="UserMessage" />
-		<typeAlias type="com.obigo.obigoproject.androiduservehicle.vo.AndroidUserVehicleVO" alias="AndroidUserVehicle"/>
-		<typeAlias type="com.obigo.obigoproject.registrationid.vo.RegistrationidVO" alias="Registrationid"/>
+		<typeAlias type="com.obigo.obigoproject.vo.UsersVO" alias="Users" />
+		<typeAlias type="com.obigo.obigoproject.vo.UserRequestVO" alias="UserRequest" />
+		<typeAlias type="com.obigo.obigoproject.vo.UserVehicleVO" alias="UserVehicle" />
+		<typeAlias type="com.obigo.obigoproject.vo.VehicleVO" alias="Vehicle" />
+		<typeAlias type="com.obigo.obigoproject.vo.BundleVO" alias="Bundle" />
+		<typeAlias type="com.obigo.obigoproject.vo.BundleVersionVO" alias="BundleVersion" />
+		<typeAlias type="com.obigo.obigoproject.vo.PushMessageVO" alias="PushMessage" />
+		<typeAlias type="com.obigo.obigoproject.vo.MessageCategoryVO" alias="MessageCategory" />
+		<typeAlias type="com.obigo.obigoproject.vo.LogVO" alias="Log" />
+		<typeAlias type="com.obigo.obigoproject.vo.ApiVO" alias="Api" />
+		<typeAlias type="com.obigo.obigoproject.vo.UserMessageVO" alias="UserMessage" />
+		<typeAlias type="com.obigo.obigoproject.vo.AndroidUserVehicleVO" alias="AndroidUserVehicle"/>
+		<typeAlias type="com.obigo.obigoproject.vo.RegistrationidVO" alias="Registrationid"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/obigo/obigoproject/UsersMapper.xml" />

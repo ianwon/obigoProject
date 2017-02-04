@@ -3,7 +3,7 @@ package com.obigo.obigoproject.log.service;
 import java.util.List;
 import java.util.Map;
 
-import com.obigo.obigoproject.log.vo.LogVO;
+import com.obigo.obigoproject.vo.LogVO;
 
 public interface LogService {
 	public boolean insertLog(LogVO vo);

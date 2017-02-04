@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.obigo.obigoproject.api.vo.ApiVO;
+import com.obigo.obigoproject.vo.ApiVO;
 
 /*
  * API Document 를 작성하기위한 데이터를 입력, 수정, 삭제, 리스트 호출등

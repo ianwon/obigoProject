@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.obigo.obigoproject.registrationid.vo.RegistrationidVO;
+import com.obigo.obigoproject.vo.RegistrationidVO;
 
 @Repository("registrationidDao")
 public class RegistrationidDaoImpl implements RegistrationidDao {

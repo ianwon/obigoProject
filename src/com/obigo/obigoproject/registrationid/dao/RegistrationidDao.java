@@ -2,7 +2,7 @@ package com.obigo.obigoproject.registrationid.dao;
 
 import java.util.List;
 
-import com.obigo.obigoproject.registrationid.vo.RegistrationidVO;
+import com.obigo.obigoproject.vo.RegistrationidVO;
 
 public interface RegistrationidDao {
 	public int insertRegistrationid(RegistrationidVO vo);
