@@ -189,7 +189,14 @@ td {
 					<ul class="pagination">
 						<li><a href="javascript:frontButton('${endPageNum}', '${param.query}')">«</a></li>
 						<c:forEach var="l" items="${pageList}" begin="0" varStatus="status">
-							<li id="page${status.index}" value="${l}"><a href="javascript:movePage('${l}', '${param.query}')">${l}</a></li>
+							<c:choose>
+								<c:when test="${l eq param.page}">
+									<li id="page${status.index}" value="${l}"><a href="javascript:movePage('${l}', '${param.query}')" style="color: red">${l}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li id="page${status.index}" value="${l}"><a href="javascript:movePage('${l}', '${param.query}')">${l}</a></li>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 						<li><a href="javascript:backButton('${endPageNum}', '${param.query}')">»</a></li>
 					</ul>

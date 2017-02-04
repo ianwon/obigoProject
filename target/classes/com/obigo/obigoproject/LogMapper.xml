@@ -93,7 +93,7 @@
 	<select id="selectBundleListDate" parameterType="java.lang.String"
 		resultMap="LogResultMap">
 	<![CDATA[
-		select * from log where date_time like #{date}
+		select * from log where date_time like #{date} order by date_time desc
 	]]>
 	</select>
 </mapper>
