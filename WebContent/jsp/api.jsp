@@ -179,7 +179,7 @@ textarea {
 												<td id="url${status.index}" onclick="javascript:showModal(${status.index});" style="cursor: pointer;">${a.url}</td>
 												<td id="body${status.index}" onclick="javascript:showModal(${status.index});" style="cursor: pointer;">${a.body}</td>
 												<td id="responseToSend${status.index}" class="center" onclick="javascript:showModal(${status.index});" style="cursor: pointer;">${a.responseToSend}</td>
-												<td><a class="Edit" href="javascript:editModal('${a.apiName}','${a.responseToSend}','${a.url}','${a.body}');">Edit</a></td>
+												<td><a class="Edit" href="javascript:editModal('${status.index}');">Edit</a></td>
 												<td><a class="Delete" href="javascript:deleteApi('${a.url}');">Delete</a></td>
 											</tr>
 										</c:forEach>
@@ -282,11 +282,18 @@ textarea {
 		}
 	
 		// Edit Modal을 띄워주기 위함 함수
-		function editModal(apiName, responseToSend, url, body) {
-			$("#editApiName").val(apiName);
-			$("#editUrl").val(url);
-			$("#editBody").val(body);
-			$("#editResponseToSend").val(responseToSend);
+// 		function editModal(apiName, responseToSend, url, body) {
+// 			$("#editApiName").val(apiName);
+// 			$("#editUrl").val(url);
+// 			$("#editBody").val(body);
+// 			$("#editResponseToSend").val(responseToSend);
+// 			$("#editModal").modal();
+// 		}
+		function editModal(status) {
+			$("#editApiName").val($("#apiName" + status).text());
+			$("#editUrl").val($("#url" + status).text());
+			$("#editBody").val($("#body" + status).text());
+			$("#editResponseToSend").val($("#responseToSend" + status).text());
 			$("#editModal").modal();
 		}
 	
