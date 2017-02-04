@@ -2,7 +2,7 @@ package com.obigo.obigoproject.registrationid.service;
 
 import java.util.List;
 
-import com.obigo.obigoproject.vo.RegistrationidVO;
+import com.obigo.obigoproject.registrationid.vo.RegistrationidVO;
 
 public interface RegistrationidService {
 	public boolean insertRegistrationid(RegistrationidVO vo);

@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.obigo.obigoproject.vo.MessageCategoryVO;
+import com.obigo.obigoproject.message.messagecategory.service.MessageCategoryService;
+import com.obigo.obigoproject.message.messagecategory.vo.MessageCategoryVO;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

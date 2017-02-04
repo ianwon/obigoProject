@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.obigo.obigoproject.registrationid.dao.RegistrationidDao;
-import com.obigo.obigoproject.vo.RegistrationidVO;
+import com.obigo.obigoproject.registrationid.vo.RegistrationidVO;
 
 @Service("registrationidService")
 public class RegistrationidServiceImpl implements RegistrationidService {

@@ -29,14 +29,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.obigo.obigoproject.common.util.obigoUtils;
 import com.obigo.obigoproject.log.service.LogService;
-import com.obigo.obigoproject.pushmessage.service.PushMessageService;
-import com.obigo.obigoproject.user.service.UserService;
-import com.obigo.obigoproject.userrequest.service.UserRequestService;
-import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
-import com.obigo.obigoproject.util.obigoUtils;
-import com.obigo.obigoproject.vo.UserVehicleVO;
-import com.obigo.obigoproject.vo.UsersVO;
+import com.obigo.obigoproject.message.pushmessage.service.PushMessageService;
+import com.obigo.obigoproject.user.user.service.UserService;
+import com.obigo.obigoproject.user.user.vo.UsersVO;
+import com.obigo.obigoproject.user.userrequest.service.UserRequestService;
+import com.obigo.obigoproject.user.uservehicle.service.UserVehicleService;
+import com.obigo.obigoproject.user.uservehicle.vo.UserVehicleVO;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

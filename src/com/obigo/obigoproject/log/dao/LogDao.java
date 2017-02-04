@@ -3,7 +3,7 @@ package com.obigo.obigoproject.log.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.obigo.obigoproject.vo.LogVO;
+import com.obigo.obigoproject.log.vo.LogVO;
 
 public interface LogDao {
 

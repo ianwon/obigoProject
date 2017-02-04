@@ -2,7 +2,7 @@ package com.obigo.obigoproject.api.dao;
 
 import java.util.List;
 
-import com.obigo.obigoproject.vo.ApiVO;
+import com.obigo.obigoproject.api.vo.ApiVO;
 
 public interface ApiDao {
 

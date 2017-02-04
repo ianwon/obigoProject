@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.obigo.obigoproject.bundle.service.BundleService;
-import com.obigo.obigoproject.bundleversion.service.BundleVersionService;
-import com.obigo.obigoproject.vo.BundleVO;
-import com.obigo.obigoproject.vo.BundleVersionVO;
+import com.obigo.obigoproject.bundle.bundle.service.BundleService;
+import com.obigo.obigoproject.bundle.bundle.vo.BundleVO;
+import com.obigo.obigoproject.bundle.bundleversion.service.BundleVersionService;
+import com.obigo.obigoproject.bundle.bundleversion.vo.BundleVersionVO;
 
 import net.sf.json.JSONObject;
 

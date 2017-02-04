@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.obigo.obigoproject.messagecategory.service.MessageCategoryService;
-import com.obigo.obigoproject.pushmessage.service.PushMessageService;
-import com.obigo.obigoproject.usermessage.service.UserMessageService;
-import com.obigo.obigoproject.uservehicle.service.UserVehicleService;
-import com.obigo.obigoproject.vo.PushMessageVO;
-import com.obigo.obigoproject.vo.UserMessageVO;
+import com.obigo.obigoproject.message.messagecategory.service.MessageCategoryService;
+import com.obigo.obigoproject.message.pushmessage.service.PushMessageService;
+import com.obigo.obigoproject.message.pushmessage.vo.PushMessageVO;
+import com.obigo.obigoproject.user.usermessage.service.UserMessageService;
+import com.obigo.obigoproject.user.usermessage.vo.UserMessageVO;
+import com.obigo.obigoproject.user.uservehicle.service.UserVehicleService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

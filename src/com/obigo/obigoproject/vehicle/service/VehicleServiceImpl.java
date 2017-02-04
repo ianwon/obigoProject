@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.obigo.obigoproject.util.obigoUtils;
+import com.obigo.obigoproject.common.util.obigoUtils;
 import com.obigo.obigoproject.vehicle.dao.VehicleDao;
-import com.obigo.obigoproject.vo.VehicleVO;
+import com.obigo.obigoproject.vehicle.vo.VehicleVO;
 
 @Service("vehicleService")
 public class VehicleServiceImpl implements VehicleService {

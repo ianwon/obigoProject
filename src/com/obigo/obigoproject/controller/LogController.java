@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.obigo.obigoproject.log.service.LogService;
-import com.obigo.obigoproject.vo.LogVO;
+import com.obigo.obigoproject.log.vo.LogVO;
 
 import net.sf.json.JSONObject;
 

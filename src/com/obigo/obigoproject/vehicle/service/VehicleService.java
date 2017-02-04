@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.obigo.obigoproject.vo.VehicleVO;
+import com.obigo.obigoproject.vehicle.vo.VehicleVO;
 
 public interface VehicleService {
 

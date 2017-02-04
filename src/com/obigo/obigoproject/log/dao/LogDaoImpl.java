@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.obigo.obigoproject.vo.LogVO;
+import com.obigo.obigoproject.log.vo.LogVO;
 
 /*
  * Log DB에서 Log 데이터를 입력, 수정, 삭제, 리스트 호출등
