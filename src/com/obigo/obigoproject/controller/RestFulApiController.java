@@ -87,7 +87,7 @@ public class RestFulApiController {
 	 * 
 	 * @return Bundle File을 response를 통해서 전송
 	 */
-	@RequestMapping(value = "/api/bundledown", method = { RequestMethod.GET })
+	@RequestMapping(value = "/api/bundle/down", method = { RequestMethod.GET })
 	@ResponseBody
 	public void bundleDown(HttpServletResponse response) {
 		String path = obigoUtils.path + "bundle" + File.separator + bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload();
@@ -354,7 +354,7 @@ public class RestFulApiController {
 	 * 
 	 * @return true/false : 입력한 ID/Password 정보가 일치하는지 여부
 	 */
-	@RequestMapping(value = "/api/login/{userId}/{password}", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/user/login/{userId}/{password}", method = RequestMethod.GET)
 	@ResponseBody
 	public String login(@PathVariable String userId, @PathVariable String password) {
 
@@ -379,7 +379,7 @@ public class RestFulApiController {
 	 * 
 	 * @return true/false : 입력한 name/email 정보 일치 여부 및 email이 성공적으로 전송될 경우
 	 */
-	@RequestMapping(value = "/api/find/{name}/{email:.+}", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/user/find/{name}/{email:.+}", method = RequestMethod.GET)
 	@ResponseBody
 	public String findIDPW(@PathVariable String name, @PathVariable String email) {
 		UsersVO userVO = null;
@@ -404,7 +404,7 @@ public class RestFulApiController {
 	 * 
 	 * @return true/false : 비밀번호 변경 성공 실패 여부
 	 */
-	@RequestMapping(value = "/api/passwordmodify", method = RequestMethod.PUT)
+	@RequestMapping(value = "/api/user/password", method = RequestMethod.PUT)
 	@ResponseBody
 	public String updatePassword(@RequestParam String userid, @RequestParam String password, @RequestParam String newpassword) {
 		JSONObject jobj = new JSONObject();
@@ -472,7 +472,7 @@ public class RestFulApiController {
 	 * 
 	 * @return true/false : Registration ID의 삭제 성공 여부
 	 */
-	@RequestMapping(value = "/api/logout", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/api/registrationid", method = RequestMethod.DELETE)
 	public String logout(@RequestParam String registrationId) {
 		JSONObject jobj = new JSONObject();
 		jobj.put("registrationId", registrationId);
@@ -495,7 +495,7 @@ public class RestFulApiController {
 	 * 
 	 * @return true/false : App과 Server에서 요구하는 Bundle Version이 동일한지 유무에 따라 true/false return
 	 */
-	@RequestMapping(value = "/api/bundleversioncheck/{bundleVersion:.+}", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/bundle/check/{bundleVersion:.+}", method = RequestMethod.GET)
 	@ResponseBody
 	public String bundleVersioncheck(@PathVariable String bundleVersion) {
 		JSONObject jobj = new JSONObject();
