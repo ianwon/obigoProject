@@ -93,7 +93,7 @@
 	<select id="selectBundleListDate" parameterType="java.lang.String"
 		resultMap="LogResultMap">
 	<![CDATA[
-		select to_char(date_time,'yy/mm/dd') date_time, body, url, return from log where date_time like #{date} order by date_time desc
+		select * from(select to_char(date_time,'yy/mm/dd') date_time, body, url, return from log) where date_time like #{date} order by date_time desc
 	]]>
 	</select>
 </mapper>
