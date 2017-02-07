@@ -27,6 +27,7 @@ td {
 }
 </style>
 <meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="IE=11">
 <title>Log</title>
 </head>
 <body>
@@ -98,7 +99,7 @@ td {
 									PDF flie <i class="fa fa-angle-down"></i>
 								</button>
 								<ul class="dropdown-menu pull-right">
-									<li><a href="javascript:viewPdf();" target="_blank">View on PDF</a></li>
+									<li><a href="javascript:viewPdf();">View on PDF</a></li>
 									<!--                            <li><a href="/obigoProject/pdfmail">Send an Email to Admin</a></li> -->
 									<li><a href='javascript:void(0);' onclick="mailToAdmin();">Send an Email to Admin</a></li>
 								</ul>
