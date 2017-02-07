@@ -86,7 +86,7 @@
 	<select id="selectBundleUpdateCount" parameterType="hashmap"
 		resultType="java.lang.Integer">
 	<![CDATA[
-		select count(*) from (select to_char(date_time,'yymm') date_time, url from log) where  url like '%bundledown' and date_time like #{date}
+		select count(*) from (select to_char(date_time,'yymm') date_time, url from log) where  url like '%bundle/down%' and date_time like #{date}
 	]]>
 	</select>
 	

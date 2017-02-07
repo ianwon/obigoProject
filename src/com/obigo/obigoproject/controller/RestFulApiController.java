@@ -140,7 +140,7 @@ public class RestFulApiController {
 		jobj.put("bundleVersion", bundleVersionService.getBundleVersion());
 		jobj.put("bundleFile", bundleService.getBundleBybundleVersion(bundleVersionService.getBundleVersion()).getFileUpload());
 		// Log생성
-		createLog("/api/bundledown", "null", jobj.toString());
+		createLog("/api/bundle/down", "null", jobj.toString());
 	}
 
 	/**
@@ -297,7 +297,7 @@ public class RestFulApiController {
 		boolean flag = registrationidService.insertRegistrationid(vo);
 		String check = String.valueOf(flag);
 		// Log 정보를 등록하는 과정
-		createLog("/api/registrationid", data, check);
+		createLog("/api/registrationid/insert", data, check);
 
 		return check;
 	}
@@ -363,12 +363,12 @@ public class RestFulApiController {
 		jobj.put("password", password);
 		if (userService.passwordCheck(userId, password, "USER") != true) {
 			// Log 정보를 등록하는 과정
-			createLog("/api/login", jobj.toString(), "false");
+			createLog("/api/user/login", jobj.toString(), "false");
 
 			return "false";
 		} else {
 			// Log 정보를 등록하는 과정
-			createLog("/api/login", jobj.toString(), "true");
+			createLog("/api/user/login", jobj.toString(), "true");
 
 			return "true";
 		}
@@ -391,10 +391,10 @@ public class RestFulApiController {
 		List<UsersVO> list = userService.findIDPW(name, email);
 
 		if (!(list.isEmpty()) && sendMail(list)) {
-			createLog("/api/find", jobj.toString(), "true");
+			createLog("/api/user/find", jobj.toString(), "true");
 			return "true";
 		} else {
-			createLog("/api/find", jobj.toString(), "false");
+			createLog("/api/user/find", jobj.toString(), "false");
 			return "false";
 		}
 	}
@@ -413,11 +413,11 @@ public class RestFulApiController {
 		jobj.put("newpassword", newpassword);
 
 		if (userService.updatePassword(userid, password, newpassword) == true) {
-			createLog("/api/passwordmodify", jobj.toString(), "true");
+			createLog("/api/user/password", jobj.toString(), "true");
 
 			return "true";
 		} else {
-			createLog("/api/passwordmodify", jobj.toString(), "false");
+			createLog("/api/user/password", jobj.toString(), "false");
 
 			return "false";
 		}
@@ -480,12 +480,12 @@ public class RestFulApiController {
 		// Login할 때 등록된 Registration ID를 삭제 후 결과 return
 		if (registrationidService.deleteRegistrationid(registrationId) != true) {
 			// Log 정보를 등록하는 과정
-			createLog("/api/logout", jobj.toString(), "false");
+			createLog("/api/registrationid/delete", jobj.toString(), "false");
 
 			return "false";
 		} else {
 			// Log 정보를 등록하는 과정
-			createLog("/api/logout", jobj.toString(), "true");
+			createLog("/api/registrationid/delete", jobj.toString(), "true");
 			return "true";
 		}
 	}
@@ -503,12 +503,12 @@ public class RestFulApiController {
 
 		if (bundleVersion.equals(bundleVersionService.getBundleVersion())) {
 			// Log 정보를 등록하는 과정
-			createLog("/api/bundleversioncheck", jobj.toString(), "true");
+			createLog("/api/bundle/check", jobj.toString(), "true");
 
 			return "true";
 		} else {
 			// Log 정보를 등록하는 과정
-			createLog("/api/bundleversioncheck", jobj.toString(), "false");
+			createLog("/api/bundle/check", jobj.toString(), "false");
 
 			return "false";
 		}
